@@ -1,0 +1,45 @@
+.main {
+  background-color: var(--color-black);
+
+  height: 150dvh;
+  min-height: fit-content;
+}
+
+.mainSiteTitleWrapper {
+  color: var(--color-white);
+  width: 100%;
+}
+
+.pageTitle {
+  padding-top: 8rem;
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 0.3rem;
+}
+
+/* team select */
+
+.teamSelectWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 2rem auto;
+  margin-top: 6rem;
+}
+
+.teamSelectLabel {
+  margin-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.teamSelectSelect {
+  border-radius: 20px;
+  background-color: var(--color-blue-dark);
+  color: var(--color-gray-800);
+
+  text-align: center;
+}
+
+.selectedTeamText {
+  text-align: center;
+}
