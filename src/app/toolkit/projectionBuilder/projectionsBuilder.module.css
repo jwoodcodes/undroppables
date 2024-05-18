@@ -1,8 +1,8 @@
 .main {
   background-color: var(--color-black);
 
-  height: 150dvh;
-  min-height: fit-content;
+  height: fit-content;
+  min-height: 150dvh;
 }
 
 .mainSiteTitleWrapper {
@@ -23,7 +23,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 2rem auto;
+  margin: 3rem auto;
   margin-top: 6rem;
 }
 
@@ -42,4 +42,59 @@
 
 .selectedTeamText {
   text-align: center;
+  color: var(--color-red-primary);
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.lastYearsTeamDataDisplayAndSelectingTotalProjectedPlaysWrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.lastYearsTeamInfoOutsideWrapper {
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.teamProjectedPlaysFormWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 4rem auto 2rem 0;
+}
+
+.selectedTeamPreviousYearLabel {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.2rem;
+}
+
+.lastYearsTeamInfoInsideWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.lastYearsTeamInfoElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.previousYearsTotalPlaysNode {
+  font-size: 2rem;
+  color: var(--color-blue-primary);
+  margin-bottom: 0.75rem;
+}
+
+.runAndPassPercentText {
+  text-align: center;
+  color: var(--color-blue-light);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
 }
