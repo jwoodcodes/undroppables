@@ -3,8 +3,11 @@ import React from "react";
 import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.css";
 import allTeamsList from "./data/allTeamsList";
 import previousYearTeamData from "./data/previousYearTeamData";
+import axios from "axios";
+// import DataFetcher from "./data/dataFetcher";
+// import playerData from "./data/dataFetcher";
 
-export default function ConstructProjections() {
+export default function ConstructProjections(dataTest) {
   const [team, setTeam] = React.useState("");
   const [teamTotalProjectedPlays, setTeamTotalProjectedPlays] =
     React.useState();
@@ -17,6 +20,8 @@ export default function ConstructProjections() {
 
   let tempTotalPassPlays = 0;
   let tempTotalRunPlays = 0;
+
+  console.log(dataTest.dataTest.allPlayerData);
 
   return (
     <div>
@@ -40,7 +45,9 @@ export default function ConstructProjections() {
           placeholder="Select Team"
         >
           {allTeamsList.map((team) => (
-            <option value={team.teamName}>{team.teamName}</option>
+            <option key={team.teamName} value={team.teamName}>
+              {team.teamName}
+            </option>
           ))}
         </select>
       </form>
@@ -165,6 +172,8 @@ export default function ConstructProjections() {
 
                 {totalPassPlays > 400 && (
                   <div>
+                    {/* <button onClick={getData}>Fetch teams players</button> */}
+
                     <form
                       onSubmit={(event) => {
                         event.preventDefault();

@@ -3,63 +3,56 @@ import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.cs
 import Link from "next/link";
 import React from "react";
 import clientPromise from "@/lib/mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+
 import ConstructProjections from "./components/ConstructProjections";
+import { MongoClient } from "mongodb";
 
-// async function getData() {
-//   const res = await fetch(
-//     "https://data.mongodb-api.com/app/data-pqtmg/endpoint/data/v1"
-//   );
-//   // The return value is *not* serialized
-//   // You can return Date, Map, Set, etc.
-//   // const client = await clientPromise;
-//   // const db = client.db("dailydynasties");
+export default async function ProjectionsBuilder() {
+  async function fetchPlayerDataFromMongodb() {
+    const url =
+      "mongodb+srv://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
+    const client = new MongoClient(url);
 
-//   // const dynastyRankingsData = await db
-//   //   .collection("tradeAnalyzerData")
-//   //   .find({})
-//   //   .toArray();
-//   // console.log(dynastyRankingsData);
-//   //
+    // The database to use
+    const dbName = "projectionsBuilder";
+    try {
+      await client.connect();
+      console.log("Connected correctly to server");
+      const db = client.db(dbName);
 
-//   if (!res.ok) {
-//     // This will activate the closest `error.js` Error Boundary
-//     throw new Error("Failed to fetch data");
-//   }
+      // Use the collection "fantasycalcData"
+      const col = db.collection("allPlayerData");
 
-//   return res.json();
+      // Construct a document
 
-//   try {
-//     const client = await clientPromise;
-//     const db = client.db("dailydynasties");
-//     const data = await db.collection("tradeAnalyzerData").find({}).toArray();
-//     // console.log(data);
-//     res.json(data);
-//     return data.json();
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
+      // Insert a single document, wait for promise so we can read it back
+      // const p = await col.insertOne(allFantasyCalcData);
+      // Find one document
+      const myDoc = await col.findOne();
 
-export default async function ProjectionsBuilder(
-  NextApiRequest,
-  NextApiResponse
-) {
-  try {
-    const client = await clientPromise;
-    const db = client.db("dailydynasties");
-    const data = await db.collection("tradeAnalyzerData").find({}).toArray();
-    console.log(res.json(data));
-    return res.json(data);
-  } catch (e) {
-    console.error(e);
+      // console.log(myDoc);
+      // playerData = myDoc;
+
+      return myDoc;
+      // Print to the console
+
+      ////////////////////////////////////
+    } catch (err) {
+      console.log(err.stack);
+    } finally {
+      await client.close();
+    }
   }
+
+  let dataTest = await fetchPlayerDataFromMongodb();
+  // console.log(dataTest);
 
   return (
     <main className={styles.main}>
       <div className={styles.mainSiteTitleWrapper}>
         <div className={styles.pageTitle}>UN Projections Builder</div>
-        <ConstructProjections />
+
+        <ConstructProjections dataTest={dataTest} />
       </div>
     </main>
   );
