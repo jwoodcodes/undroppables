@@ -98,3 +98,18 @@
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
 }
+
+.teamsQBsWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem;
+}
+
+.selectedTeamsPlayerInput {
+  border-radius: 20px;
+  background-color: var(--color-blue-dark);
+  color: var(--color-gray-800);
+  width: 4rem;
+  /* min-width: fit-content; */
+  text-align: center;
+}

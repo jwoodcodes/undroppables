@@ -1,6 +1,6 @@
 const allTeamsList = [
   {
-    teamName: "Arizona Cardinals",
+    teamName: "ARI",
     totalPlays: 1026,
     totalPlaysRank: 17,
     secondsPerSnap: 25.7,
@@ -11,7 +11,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Atlanta Falcons",
+    teamName: "ATL",
     totalPlays: 1052,
     totalPlaysRank: 11,
     secondsPerSnap: 25.5,
@@ -22,7 +22,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Baltimore Ravens",
+    teamName: "BAL",
     totalPlays: 1035,
     totalPlaysRank: 15,
     secondsPerSnap: 27.4,
@@ -33,7 +33,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Buffalo Bills",
+    teamName: "BUF",
     totalPlays: 1091,
     totalPlaysRank: 3,
     secondsPerSnap: 27.5,
@@ -44,7 +44,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Carolina Panthers",
+    teamName: "CAR",
     totalPlays: 1031,
     totalPlaysRank: 16,
     secondsPerSnap: 26.4,
@@ -55,7 +55,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Chicago Bears",
+    teamName: "CHI",
     totalPlays: 1047,
     totalPlaysRank: 13,
     secondsPerSnap: 27.8,
@@ -66,7 +66,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Cincinnati Bengals",
+    teamName: "CIN",
     totalPlays: 998,
     totalPlaysRank: 22,
     secondsPerSnap: 28,
@@ -77,7 +77,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Cleveland Browns",
+    teamName: "CLE",
     totalPlays: 1142,
     totalPlaysRank: 1,
     secondsPerSnap: 25.7,
@@ -88,7 +88,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Dallas Cowboys",
+    teamName: "DAL",
     totalPlays: 1082,
     totalPlaysRank: 5,
     secondsPerSnap: 26.7,
@@ -99,7 +99,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Denver Broncos",
+    teamName: "DEN",
     totalPlays: 964,
     totalPlaysRank: 30,
     secondsPerSnap: 27.2,
@@ -110,7 +110,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Detroit Lions",
+    teamName: "DET",
     totalPlays: 1106,
     totalPlaysRank: 2,
     secondsPerSnap: 26.5,
@@ -121,7 +121,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Green Bay Packers",
+    teamName: "GB",
     totalPlays: 1022,
     totalPlaysRank: 20,
     secondsPerSnap: 26.7,
@@ -132,7 +132,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Houston Texans",
+    teamName: "HOU",
     totalPlays: 1036,
     totalPlaysRank: 14,
     secondsPerSnap: 25.8,
@@ -143,7 +143,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Indianapolis Colts",
+    teamName: "IND",
     totalPlays: 1053,
     totalPlaysRank: 10,
     secondsPerSnap: 25.5,
@@ -154,7 +154,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Jacksonville Jaguars",
+    teamName: "JAX",
     totalPlays: 1073,
     totalPlaysRank: 7,
     secondsPerSnap: 26.2,
@@ -165,7 +165,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Kansas City Chiefs",
+    teamName: "KC",
     totalPlays: 1052,
     totalPlaysRank: 12,
     secondsPerSnap: 26.7,
@@ -176,7 +176,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Las Vegas Raiders",
+    teamName: "LV",
     totalPlays: 970,
     totalPlaysRank: 29,
     secondsPerSnap: 26.9,
@@ -187,7 +187,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Los Angeles Chargers",
+    teamName: "LAC",
     totalPlays: 1063,
     totalPlaysRank: 8,
     secondsPerSnap: 24.7,
@@ -198,7 +198,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Los Angeles Rams",
+    teamName: "LAR",
     totalPlays: 1060,
     totalPlaysRank: 9,
     secondsPerSnap: 26.8,
@@ -209,7 +209,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Miami Dolphins",
+    teamName: "MIA",
     totalPlays: 1022,
     totalPlaysRank: 19,
     secondsPerSnap: 27.2,
@@ -220,7 +220,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Minnesota Vikings",
+    teamName: "MIN",
     totalPlays: 1024,
     totalPlaysRank: 18,
     secondsPerSnap: 25.6,
@@ -231,7 +231,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "New England Patriots",
+    teamName: "NE",
     totalPlays: 972,
     totalPlaysRank: 28,
     secondsPerSnap: 26.1,
@@ -242,7 +242,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "New Orleans Saints",
+    teamName: "NO",
     totalPlays: 1086,
     totalPlaysRank: 4,
     secondsPerSnap: 26.6,
@@ -253,7 +253,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "New York Giants",
+    teamName: "NYG",
     totalPlays: 972,
     totalPlaysRank: 27,
     secondsPerSnap: 26.2,
@@ -264,7 +264,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "New York Jets",
+    teamName: "NYJ",
     totalPlays: 989,
     totalPlaysRank: 26,
     secondsPerSnap: 25.7,
@@ -275,7 +275,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Philadelphia Eagles",
+    teamName: "PHI",
     totalPlays: 1073,
     totalPlaysRank: 6,
     secondsPerSnap: 27,
@@ -286,7 +286,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Pittsburgh Steelers",
+    teamName: "PIT",
     totalPlays: 993,
     totalPlaysRank: 24,
     secondsPerSnap: 27.3,
@@ -297,7 +297,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "San Francisco 49ers",
+    teamName: "SF",
     totalPlays: 990,
     totalPlaysRank: 25,
     secondsPerSnap: 28.9,
@@ -308,7 +308,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "No",
   },
   {
-    teamName: "Seattle Seahawks",
+    teamName: "SEA",
     totalPlays: 957,
     totalPlaysRank: 31,
     secondsPerSnap: 25.4,
@@ -319,7 +319,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Tampa Bay Buccaneers",
+    teamName: "TB",
     totalPlays: 1007,
     totalPlaysRank: 21,
     secondsPerSnap: 26.3,
@@ -330,7 +330,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Tennessee Titans",
+    teamName: "TEN",
     totalPlays: 938,
     totalPlaysRank: 32,
     secondsPerSnap: 27.5,
@@ -341,7 +341,7 @@ const allTeamsList = [
     newOffensiveCoordinator: "Yes",
   },
   {
-    teamName: "Washington Commanders",
+    teamName: "WAS",
     totalPlays: 995,
     totalPlaysRank: 23,
     secondsPerSnap: 26.4,
