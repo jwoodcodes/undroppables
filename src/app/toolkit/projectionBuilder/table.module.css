@@ -4,6 +4,7 @@
   width: 100dvw;
   /* max-height: 500px; */
   margin: 0 auto;
+
   overflow: auto;
   padding: 0 16px;
 }
@@ -18,8 +19,9 @@
 
 .caption {
   font-style: italic;
-  font-size: 90%;
+  font-size: 1.2rem;
   margin-bottom: 10px;
+  margin-top: 4rem;
 }
 
 .tableHead {

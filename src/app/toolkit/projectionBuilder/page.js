@@ -57,25 +57,3 @@ export default async function ProjectionsBuilder() {
     </main>
   );
 }
-
-// export async function getStaticProps() {
-//   try {
-//     const client = await clientPromise;
-//     const db = client.db("dailydynasties");
-
-//     const dynastyRankingsData = await db
-//       .collection("tradeAnalyzerData")
-//       .find({})
-//       .toArray();
-//     // console.log(dynastyRankingsData);
-//     //
-
-//     return {
-//       props: {
-//         dynastyRankingsData: JSON.parse(JSON.stringify(dynastyRankingsData)),
-//       },
-//     };
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }

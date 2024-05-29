@@ -5,6 +5,7 @@ import allTeamsList from "./data/allTeamsList";
 import previousYearTeamData from "./data/previousYearTeamData";
 import axios from "axios";
 import PassingTable from "./passingTable/PassingTable";
+// import QbDataEntryAndTable from "./qbDataEntryAndTable";
 // import DataFetcher from "./data/dataFetcher";
 // import playerData from "./data/dataFetcher";
 
@@ -95,6 +96,8 @@ export default function ConstructProjections(dataTest) {
                     <input
                       id="teamTotalProjectedPlays-field"
                       value={teamTotalProjectedPlays}
+                      type="number"
+                      max={1600}
                       onChange={(event) => {
                         if (
                           event.target.value > -1 &&
@@ -132,6 +135,7 @@ export default function ConstructProjections(dataTest) {
                         <input
                           id="passPercecntage-field"
                           value={passPercecntage}
+                          type="number"
                           onChange={(event) => {
                             if (
                               event.target.value > -5 &&
@@ -242,7 +246,7 @@ export default function ConstructProjections(dataTest) {
               </div>
 
               <div>
-                <div>selected teams players</div>
+                <div className={styles.qbSectionTitle}> Teams QB's</div>
                 {dataTest.dataTest.allPlayerData.map((player) => {
                   if (player.team === team) {
                     //
@@ -317,6 +321,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.gamesPlayed
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={18}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.gamesPlayed =
@@ -325,16 +331,49 @@ export default function ConstructProjections(dataTest) {
                                   qb1Data.gamesPlayed = +event.target.value;
                                 }
                                 if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.gamesPlayed =
-                                    +event.target.value;
                                   qb2Data.name = topLeveLTeam.qb2.name;
-                                  qb2Data.gamesPlayed = +event.target.value;
+                                  if (
+                                    +event.target.value +
+                                      topLeveLTeam.qb1.gamesPlayed >
+                                    18
+                                  ) {
+                                    alert(
+                                      "Total games played should not exceed 18"
+                                    );
+                                  }
+                                  if (
+                                    +event.target.value +
+                                      topLeveLTeam.qb1.gamesPlayed <=
+                                    18
+                                  ) {
+                                    topLeveLTeam.qb2.gamesPlayed =
+                                      +event.target.value;
+                                    qb2Data.gamesPlayed = +event.target.value;
+                                  }
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.gamesPlayed =
-                                    +event.target.value;
                                   qb3Data.name = topLeveLTeam.qb3.name;
-                                  qb3Data.gamesPlayed = +event.target.value;
+
+                                  if (
+                                    +event.target.value +
+                                      topLeveLTeam.qb1.gamesPlayed +
+                                      topLeveLTeam.qb2.gamesPlayed >
+                                    18
+                                  ) {
+                                    alert(
+                                      "Total games played should not exceed 18"
+                                    );
+                                  }
+                                  if (
+                                    +event.target.value +
+                                      topLeveLTeam.qb1.gamesPlayed +
+                                      topLeveLTeam.qb2.gamesPlayed <=
+                                    18
+                                  ) {
+                                    topLeveLTeam.qb3.gamesPlayed =
+                                      +event.target.value;
+                                    qb3Data.gamesPlayed = +event.target.value;
+                                  }
                                 }
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
@@ -349,10 +388,10 @@ export default function ConstructProjections(dataTest) {
                               // Do something with `name` here
                             }}
                           >
-                            <label htmlFor="games">Pass Atmp/game</label>
+                            <label htmlFor="passAttempts">Pass Atmp/game</label>
 
                             <input
-                              id="games"
+                              id="passAttempts"
                               value={
                                 topLeveLTeam.qb1.name === player.name
                                   ? topLeveLTeam.qb1.passAttemptsPerGame
@@ -361,24 +400,115 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.passAttemptsPerGame
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={50}
                               onChange={(event) => {
+                                let tempTotalTeamAttemptsPerGameForHere = +(
+                                  totalPassPlays / 18
+                                ).toFixed(1);
+
                                 if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.passAttemptsPerGame =
-                                    +event.target.value;
-                                  qb1Data.passAttemptsPerGame =
-                                    +event.target.value;
-                                  qb1Data.PassAtmpts =
+                                  let tempAttemptsForHere =
                                     +event.target.value *
                                     topLeveLTeam.qb1.gamesPlayed;
+
+                                  if (
+                                    (!qb2Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere > totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere + qb2Data.PassAtmpts >
+                                        totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb2Data.PassAtmpts +
+                                        qb3Data.PassAtmpts >
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb1.passAttemptsPerGame = 0;
+                                    alert(
+                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
+                                    );
+                                  }
+
+                                  if (
+                                    (!qb2Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere <= totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb2Data.PassAtmpts <=
+                                        totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb2Data.PassAtmpts +
+                                        qb3Data.PassAtmpts <=
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb1.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb1Data.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb1Data.PassAtmpts =
+                                      +event.target.value *
+                                      topLeveLTeam.qb1.gamesPlayed;
+                                  }
                                 }
+
                                 if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.passAttemptsPerGame =
-                                    +event.target.value;
-                                  qb2Data.passAttemptsPerGame =
-                                    +event.target.value;
-                                  qb2Data.PassAtmpts =
+                                  let tempAttemptsForHere =
                                     +event.target.value *
                                     topLeveLTeam.qb2.gamesPlayed;
+
+                                  if (
+                                    (!qb1Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere > totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere + qb1Data.PassAtmpts >
+                                        totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb1Data.PassAtmpts +
+                                        qb3Data.PassAtmpts >
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb2.passAttemptsPerGame = 0;
+                                    alert(
+                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
+                                    );
+                                  }
+
+                                  if (
+                                    (!qb1Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere <= totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      !qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb1Data.PassAtmpts <=
+                                        totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      qb3Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb1Data.PassAtmpts +
+                                        qb3Data.PassAtmpts <=
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb2.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb2Data.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb2Data.PassAtmpts =
+                                      +event.target.value *
+                                      topLeveLTeam.qb2.gamesPlayed;
+                                  }
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
                                   topLeveLTeam.qb3.passAttemptsPerGame =
@@ -388,6 +518,58 @@ export default function ConstructProjections(dataTest) {
                                   qb3Data.PassAtmpts =
                                     +event.target.value *
                                     topLeveLTeam.qb3.gamesPlayed;
+
+                                  //
+
+                                  let tempAttemptsForHere =
+                                    +event.target.value *
+                                    topLeveLTeam.qb3.gamesPlayed;
+
+                                  if (
+                                    (!qb1Data.PassAtmpts &&
+                                      !qb2Data.PassAtmpts &&
+                                      tempAttemptsForHere > totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      !qb2Data.PassAtmpts &&
+                                      tempAttemptsForHere + qb1Data.PassAtmpts >
+                                        totalPassPlays) ||
+                                    (qb1Data.PassAtmpts &&
+                                      qb2Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb1Data.PassAtmpts +
+                                        qb2Data.PassAtmpts >
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb3.passAttemptsPerGame = 0;
+                                    alert(
+                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
+                                    );
+                                  }
+
+                                  if (
+                                    (!qb2Data.PassAtmpts &&
+                                      !qb1Data.PassAtmpts &&
+                                      tempAttemptsForHere <= totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      !qb1Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb2Data.PassAtmpts <=
+                                        totalPassPlays) ||
+                                    (qb2Data.PassAtmpts &&
+                                      qb1Data.PassAtmpts &&
+                                      tempAttemptsForHere +
+                                        qb2Data.PassAtmpts +
+                                        qb1Data.PassAtmpts <=
+                                        totalPassPlays)
+                                  ) {
+                                    topLeveLTeam.qb3.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb3Data.passAttemptsPerGame =
+                                      +event.target.value;
+                                    qb3Data.PassAtmpts =
+                                      +event.target.value *
+                                      topLeveLTeam.qb3.gamesPlayed;
+                                  }
                                 }
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
@@ -414,6 +596,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.compPercent
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={80}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.compPercent =
@@ -467,6 +651,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.YPA
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={15}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.YPA = +event.target.value;
@@ -505,6 +691,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.YPC
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={19.9}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.YPC = +event.target.value;
@@ -549,6 +737,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.passingTDs
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={60}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.passingTDs =
@@ -594,6 +784,8 @@ export default function ConstructProjections(dataTest) {
                                   : topLeveLTeam.qb3.INTs
                               }
                               className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              max={40}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.INTs = +event.target.value;
@@ -639,6 +831,14 @@ export default function ConstructProjections(dataTest) {
           );
         }
       })}
+      {/* 
+      {team && teamTotalProjectedPlays > 600 && (
+        <QbDataEntryAndTable
+          dataTest={dataTest}
+          team={team}
+          teamTotalProjectedPlays={teamTotalProjectedPlays}
+        />
+      )} */}
     </div>
   );
 }

@@ -113,3 +113,9 @@
   /* min-width: fit-content; */
   text-align: center;
 }
+
+.qbSectionTitle {
+  text-align: center;
+  font-size: 1.75rem;
+  margin: 5rem auto 5rem auto;
+}
