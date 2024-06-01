@@ -46,6 +46,7 @@ export default async function ProjectionsBuilder() {
 
   let dataTest = await fetchPlayerDataFromMongodb();
   // console.log(dataTest);
+  dataTest = JSON.parse(JSON.stringify(dataTest));
 
   return (
     <main className={styles.main}>

@@ -9,6 +9,7 @@ export default function QbDataEntryAndTable({
   team,
   teamTotalProjectedPlays,
 }) {
+  console.log(dataTest);
   const [passPercecntage, setPassPercecntage] = React.useState();
   const [runPercecntage, setRunPercecntage] = React.useState();
   const [totalPassPlays, setTotalPassPlays] = React.useState();
@@ -568,6 +569,13 @@ export default function QbDataEntryAndTable({
                         }}
                       />
                     </form>
+                    {/* <div>
+                      <PassingTable
+                        qb1Data={qb1Data}
+                        qb2Data={qb2Data}
+                        qb3Data={qb3Data}
+                      />
+                    </div> */}
                   </div>
                 );
               }
@@ -577,8 +585,6 @@ export default function QbDataEntryAndTable({
             // rushing
             //
           })}
-
-          <PassingTable qb1Data={qb1Data} qb2Data={qb2Data} qb3Data={qb3Data} />
 
           {/* <button onClick={logTeam}>log team data</button> */}
         </div>
