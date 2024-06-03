@@ -6,6 +6,7 @@ import previousYearTeamData from "./data/previousYearTeamData";
 import axios from "axios";
 import PassingTable from "./passingTable/PassingTable";
 import RushingTable from "./rushingTable/RushingTable";
+import RecievingTable from "./recievingTable/RecievingTable";
 // import QbDataEntryAndTable from "./qbDataEntryAndTable";
 // import DataFetcher from "./data/dataFetcher";
 // import playerData from "./data/dataFetcher";
@@ -18,6 +19,7 @@ export default function ConstructProjections(dataTest) {
   const [runPercecntage, setRunPercecntage] = React.useState();
   const [totalPassPlays, setTotalPassPlays] = React.useState();
   const [totalRunPlays, setTotalRunPlays] = React.useState();
+  const [teamTotalTargetShare, setTeamTotalTargetShare] = React.useState();
 
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
 
@@ -32,7 +34,23 @@ export default function ConstructProjections(dataTest) {
   let rb2Data = {};
   let rb3Data = {};
 
+  let wr1Data = {};
+  let wr2Data = {};
+  let wr3Data = {};
+  let wr4Data = {};
+
+  let te1Data = {};
+  let te2Data = {};
+
+  let teamTotal = {};
+
   // console.log(dataTest.dataTest.allPlayerData);
+  // dataTest.dataTest.allPlayerData.map((team) => {
+  //   if (team.team === "IND") {
+  //     console.log(team);
+  //   }
+  // });
+
   function logTeam(teamData) {
     console.log(topLeveLTeam);
   }
@@ -880,6 +898,112 @@ export default function ConstructProjections(dataTest) {
                     }
 
                     //
+
+                    //
+
+                    if (player.position === "WR") {
+                      // console.log(player);
+                      if (!topLeveLTeam.wr1) {
+                        topLeveLTeam.wr1 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr2 &&
+                        player.name !== topLeveLTeam.wr1.name
+                      ) {
+                        topLeveLTeam.wr2 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr3 &&
+                        player.name !== topLeveLTeam.wr1.name &&
+                        player.name !== topLeveLTeam.wr2.name
+                      ) {
+                        topLeveLTeam.wr3 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr4 &&
+                        player.name !== topLeveLTeam.wr1.name &&
+                        player.name !== topLeveLTeam.wr2.name &&
+                        player.name !== topLeveLTeam.wr3.name
+                      ) {
+                        topLeveLTeam.wr4 = {};
+                      }
+                      if (!topLeveLTeam.wr1.name) {
+                        topLeveLTeam.wr1.name = player.name;
+                        wr1Data.name = player.name;
+                        // console.log(rb1Data);
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        !topLeveLTeam.wr2.name &&
+                        topLeveLTeam.wr1.name !== player.name
+                      ) {
+                        topLeveLTeam.wr2.name = player.name;
+
+                        wr2Data.name = player.name;
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        topLeveLTeam.wr2.name &&
+                        !topLeveLTeam.wr3.name &&
+                        topLeveLTeam.wr1.name !== player.name &&
+                        topLeveLTeam.wr2.name !== player.name
+                      ) {
+                        topLeveLTeam.wr3.name = player.name;
+                        wr3Data.name = player.name;
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        topLeveLTeam.wr2.name &&
+                        topLeveLTeam.wr3.name &&
+                        !topLeveLTeam.wr4.name &&
+                        topLeveLTeam.wr1.name !== player.name &&
+                        topLeveLTeam.wr2.name !== player.name &&
+                        topLeveLTeam.wr3.name !== player.name
+                      ) {
+                        topLeveLTeam.wr4.name = player.name;
+                        wr4Data.name = player.name;
+                      }
+                    }
+
+                    if (player.position === "TE") {
+                      // console.log(player);
+                      if (!topLeveLTeam.te1) {
+                        topLeveLTeam.te1 = {};
+                        topLeveLTeam.te1.name = player.name;
+                        te1Data.name = player.name;
+                      }
+
+                      if (
+                        !topLeveLTeam.te2 &&
+                        player.name !== topLeveLTeam.te1.name
+                      ) {
+                        topLeveLTeam.te2 = {};
+                        topLeveLTeam.te2.name = player.name;
+
+                        te2Data.name = player.name;
+                      }
+
+                      if (!topLeveLTeam.te1.name) {
+                        topLeveLTeam.te1.name = player.name;
+                        te1Data.name = player.name;
+                        // console.log(topLeveLTeam.te1.name);
+                      }
+
+                      if (
+                        topLeveLTeam.te1.name &&
+                        topLeveLTeam.te1.name !== player.name
+                      ) {
+                        topLeveLTeam.te2.name = player.name;
+
+                        te2Data.name = player.name;
+                      }
+                      // console.log(topLeveLTeam);
+                    }
+
+                    //
                     //
                     if (player.position === "RB" || player.position === "QB") {
                       return (
@@ -1345,20 +1469,322 @@ export default function ConstructProjections(dataTest) {
                   rb3Data={rb3Data}
                 />
 
+                <div className={styles.qbSectionTitle}> Recieving</div>
+                {dataTest.dataTest.allPlayerData.map((player) => {
+                  if (player.team === team) {
+                    if (
+                      player.position === "RB" ||
+                      player.position === "WR" ||
+                      player.position === "TE"
+                    ) {
+                      return (
+                        <div
+                          key={player.name}
+                          className={styles.teamsQBsWrapper}
+                        >
+                          {" "}
+                          <div>{player.name}</div>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+
+                              // Do something with `name` here
+                            }}
+                          >
+                            <label htmlFor="games">Games Played</label>
+
+                            <input
+                              id="games"
+                              value={
+                                topLeveLTeam.rb1.name === player.name
+                                  ? topLeveLTeam.rb1.gamesPlayed
+                                  : topLeveLTeam.rb2.name === player.name
+                                  ? topLeveLTeam.rb2.gamesPlayed
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.rb3gamesPlayed
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.gamesPlayed
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.gamesPlayed
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.gamesPlayed
+                                  : topLeveLTeam.wr4.name === player.name
+                                  ? topLeveLTeam.wr4.gamesPlayed
+                                  : topLeveLTeam.te1 &&
+                                    topLeveLTeam.te1.name === player.name
+                                  ? topLeveLTeam.te1.gamesPlayed
+                                  : topLeveLTeam.te2 &&
+                                    topLeveLTeam.te2.gamesPlayed
+                              }
+                              className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              onChange={(event) => {
+                                // RB
+
+                                if (topLeveLTeam.rb1.name === player.name) {
+                                  topLeveLTeam.rb1.gamesPlayed =
+                                    +event.target.value;
+                                  rb1Data.name = topLeveLTeam.rb1.name;
+                                  rb1Data.gamesPlayed = +event.target.value;
+                                }
+                                if (topLeveLTeam.rb2.name === player.name) {
+                                  topLeveLTeam.rb2.gamesPlayed =
+                                    +event.target.value;
+                                  rb2Data.name = topLeveLTeam.rb2.name;
+                                  rb2Data.gamesPlayed = +event.target.value;
+                                }
+                                if (topLeveLTeam.rb3.name === player.name) {
+                                  topLeveLTeam.rb3.gamesPlayed =
+                                    +event.target.value;
+                                  rb3Data.name = topLeveLTeam.rb3.name;
+                                  rb3Data.gamesPlayed = +event.target.value;
+                                }
+
+                                // WR
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.gamesPlayed =
+                                    +event.target.value;
+                                  wr1Data.name = topLeveLTeam.wr1.name;
+                                  wr1Data.gamesPlayed = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.gamesPlayed =
+                                    +event.target.value;
+                                  wr2Data.name = topLeveLTeam.wr2.name;
+                                  wr2Data.gamesPlayed = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.gamesPlayed =
+                                    +event.target.value;
+                                  wr3Data.name = topLeveLTeam.wr3.name;
+                                  wr3Data.gamesPlayed = +event.target.value;
+                                }
+
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.gamesPlayed =
+                                    +event.target.value;
+                                  wr4Data.name = topLeveLTeam.wr4.name;
+                                  wr4Data.gamesPlayed = +event.target.value;
+                                }
+
+                                // TE
+
+                                if (topLeveLTeam.te1.name === player.name) {
+                                  topLeveLTeam.te1.gamesPlayed =
+                                    +event.target.value;
+                                  te1Data.name = topLeveLTeam.te1.name;
+                                  te1Data.gamesPlayed = +event.target.value;
+                                }
+                                if (topLeveLTeam.te2) {
+                                  if (topLeveLTeam.te2.name === player.name) {
+                                    topLeveLTeam.te2.gamesPlayed =
+                                      +event.target.value;
+                                    te2Data.name = topLeveLTeam.te2.name;
+                                    te2Data.gamesPlayed = +event.target.value;
+                                  }
+                                }
+                              }}
+                            />
+                          </form>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+
+                              // Do something with `name` here
+                            }}
+                          >
+                            <label htmlFor="targetShare">Target Share %</label>
+
+                            <input
+                              id="targetShare"
+                              value={
+                                topLeveLTeam.rb1.name === player.name
+                                  ? topLeveLTeam.rb1.targetShare
+                                  : topLeveLTeam.rb2.name === player.name
+                                  ? topLeveLTeam.rb2.targetShare
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.targetShare
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.targetShare
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.targetShare
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.targetShare
+                                  : topLeveLTeam.wr4.name === player.name
+                                  ? topLeveLTeam.wr4.targetShare
+                                  : topLeveLTeam.te1 &&
+                                    topLeveLTeam.te1.name === player.name
+                                  ? topLeveLTeam.te1.targetShare
+                                  : topLeveLTeam.te2 &&
+                                    topLeveLTeam.te2.targetShare
+                              }
+                              className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              maximum={35}
+                              onChange={(event) => {
+                                //
+                                if (
+                                  +event.target.value > -1 &&
+                                  +event.target.value < 36
+                                ) {
+                                  let currentPlayerTryingToInputTargetShare =
+                                    +event.target.value;
+
+                                  // if (!rb1Data.targetShare) {
+                                  //   rb1Data.targetShare = 0;
+                                  // }
+                                  // if (!rb2Data.targetShare) {
+                                  //   rb2Data.targetShare = 0;
+                                  // }
+                                  // if (!rb3Data.targetShare) {
+                                  //   rb3Data.targetShare = 0;
+                                  // }
+                                  // // if (
+                                  // //   !wr1Data.targetShare ||
+                                  // //   wr1Data.targetShare < 1
+                                  // // ) {
+                                  // //   wr1Data.targetShare = 0;
+                                  // // }
+                                  // if (!wr2Data.targetShare) {
+                                  //   wr2Data.targetShare = 0;
+                                  // }
+                                  // if (!wr3Data.targetShare) {
+                                  //   wr3Data.targetShare = 0;
+                                  // }
+                                  // if (!wr4Data.targetShare) {
+                                  //   wr4Data.targetShare = 0;
+                                  // }
+                                  // if (!te1Data.targetShare) {
+                                  //   te1Data.targetShare = 0;
+                                  // }
+                                  // if (!te2Data.targetShare) {
+                                  //   te2Data.targetShare = 0;
+                                  // }
+
+                                  // let totalTargetShare =
+                                  //   +rb1Data.targetShare +
+                                  //   +rb2Data.targetShare +
+                                  //   +rb3Data.targetShare +
+                                  //   +wr1Data.targetShare +
+                                  //   +wr2Data.targetShare +
+                                  //   +wr3Data.targetShare +
+                                  //   +wr4Data.targetShare +
+                                  //   +te1Data.targetShare +
+                                  //   +te2Data.targetShare;
+
+                                  // // console.log(totalTargetShare);
+                                  // setTeamTotalTargetShare(totalTargetShare);
+                                  // console.log(totalTargetShare);
+
+                                  // if (totalTargetShare > 100) {
+                                  //   alert(
+                                  //     "Total team target share should not exceed 100"
+                                  //   );
+                                  // }
+
+                                  // if (
+                                  //   topLeveLTeam.rb1.targetShare +
+                                  //     topLeveLTeam.rb2.targetShare +
+                                  //     topLeveLTeam.rb3.targetShare +
+                                  //     topLeveLTeam.wr1.targetShare +
+                                  //     topLeveLTeam.wr2.targetShare +
+                                  //     topLeveLTeam.wr3.targetShare +
+                                  //     topLeveLTeam.wr4.targetShare +
+                                  //     topLeveLTeam.te1.targetShare <=
+                                  //   100
+                                  // ) {
+                                  // RB
+
+                                  if (topLeveLTeam.rb1.name === player.name) {
+                                    topLeveLTeam.rb1.targetShare =
+                                      +event.target.value;
+
+                                    rb1Data.targetShare = +event.target.value;
+                                  }
+                                  if (topLeveLTeam.rb2.name === player.name) {
+                                    topLeveLTeam.rb2.targetShare =
+                                      +event.target.value;
+
+                                    rb2Data.targetShare = +event.target.value;
+                                  }
+                                  if (topLeveLTeam.rb3.name === player.name) {
+                                    topLeveLTeam.rb3.targetShare =
+                                      +event.target.value;
+
+                                    rb3Data.targetShare = +event.target.value;
+                                  }
+
+                                  // WR
+
+                                  if (topLeveLTeam.wr1.name === player.name) {
+                                    topLeveLTeam.wr1.targetShare =
+                                      +event.target.value;
+
+                                    wr1Data.targetShare = +event.target.value;
+                                  }
+                                  if (topLeveLTeam.wr2.name === player.name) {
+                                    topLeveLTeam.wr2.targetShare =
+                                      +event.target.value;
+
+                                    wr2Data.targetShare = +event.target.value;
+                                  }
+                                  if (topLeveLTeam.wr3.name === player.name) {
+                                    topLeveLTeam.wr3.targetShare =
+                                      +event.target.value;
+
+                                    wr3Data.targetShare = +event.target.value;
+                                  }
+
+                                  if (topLeveLTeam.wr4.name === player.name) {
+                                    topLeveLTeam.wr4.targetShare =
+                                      +event.target.value;
+
+                                    wr4Data.targetShare = +event.target.value;
+                                  }
+
+                                  // TE
+
+                                  if (topLeveLTeam.te1.name === player.name) {
+                                    topLeveLTeam.te1.targetShare =
+                                      +event.target.value;
+
+                                    te1Data.targetShare = +event.target.value;
+                                  }
+                                  if (topLeveLTeam.te2) {
+                                    if (topLeveLTeam.te2.name === player.name) {
+                                      te2Data.targetShare = +event.target.value;
+                                    }
+                                  }
+                                  // }
+                                }
+                              }}
+                            />
+                          </form>
+                        </div>
+                      );
+                    }
+                  }
+                })}
+
+                <RecievingTable
+                  rb1Data={rb1Data}
+                  rb2Data={rb2Data}
+                  rb3Data={rb3Data}
+                  wr1Data={wr1Data}
+                  wr2Data={wr2Data}
+                  wr3Data={wr3Data}
+                  wr4Data={wr4Data}
+                  te1Data={te1Data}
+                  te2Data={te2Data}
+                />
+
                 {/* <button onClick={logTeam}>log team data</button> */}
               </div>
             </div>
           );
         }
       })}
-      {/* 
-      {team && teamTotalProjectedPlays > 600 && (
-        <QbDataEntryAndTable
-          dataTest={dataTest}
-          team={team}
-          teamTotalProjectedPlays={teamTotalProjectedPlays}
-        />
-      )} */}
     </div>
   );
 }
