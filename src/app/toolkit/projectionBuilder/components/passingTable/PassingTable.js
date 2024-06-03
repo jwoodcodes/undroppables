@@ -15,9 +15,6 @@ export default function PassingTable({ qb1Data, qb2Data, qb3Data }) {
 
   // console.log(Object.entries(tableData));
 
-  // console.log(tempTwo);
-  // setTableData(tempTwo);
-
   React.useEffect(() => {
     setTableData(data);
   }, [data]);
