@@ -43,8 +43,13 @@ export default function ({
 
   const columns = [
     { label: "Player Name", accessor: "name" },
-    { label: "Games", accessor: "gamesPlayed" },
+    // { label: "Games", accessor: "gamesPlayed" },
     { label: "Target Share %", accessor: "targetShare" },
+    { label: "Targets", accessor: "targets" },
+    { label: "Catch %", accessor: "catchPercentage" },
+    { label: "Receptions", accessor: "receptions" },
+    { label: "Yards", accessor: "recievingYards" },
+    { label: "TDs", accessor: "recievingTDs" },
   ];
 
   // projectedNextOffseasonDynastyValue

@@ -7,6 +7,7 @@ import axios from "axios";
 import PassingTable from "./passingTable/PassingTable";
 import RushingTable from "./rushingTable/RushingTable";
 import RecievingTable from "./recievingTable/RecievingTable";
+import TeamLevelFantasyTable from "./teamLevelFantasyTable/teamLevelFantasyTable";
 // import QbDataEntryAndTable from "./qbDataEntryAndTable";
 // import DataFetcher from "./data/dataFetcher";
 // import playerData from "./data/dataFetcher";
@@ -318,6 +319,160 @@ export default function ConstructProjections(dataTest) {
                         topLeveLTeam.qb3.name = player.name;
                         qb3Data.name = player.name;
                       }
+                    }
+                    //
+                    if (player.position === "RB") {
+                      // console.log(player);
+                      if (!topLeveLTeam.rb1) {
+                        topLeveLTeam.rb1 = {};
+                      }
+                      if (
+                        !topLeveLTeam.rb2 &&
+                        player.name !== topLeveLTeam.rb1.name
+                      ) {
+                        topLeveLTeam.rb2 = {};
+                      }
+                      if (
+                        !topLeveLTeam.rb3 &&
+                        player.name !== topLeveLTeam.rb1.name &&
+                        player.name !== topLeveLTeam.rb2.name
+                      ) {
+                        topLeveLTeam.rb3 = {};
+                      }
+                      if (!topLeveLTeam.rb1.name) {
+                        topLeveLTeam.rb1.name = player.name;
+                        rb1Data.name = player.name;
+                        // console.log(rb1Data);
+                      }
+
+                      if (
+                        topLeveLTeam.rb1.name &&
+                        !topLeveLTeam.rb2.name &&
+                        topLeveLTeam.rb1.name !== player.name
+                      ) {
+                        topLeveLTeam.rb2.name = player.name;
+
+                        rb2Data.name = player.name;
+                      }
+
+                      if (
+                        topLeveLTeam.rb1.name &&
+                        topLeveLTeam.rb2.name &&
+                        !topLeveLTeam.rb3.name &&
+                        topLeveLTeam.rb1.name !== player.name &&
+                        topLeveLTeam.rb2.name !== player.name
+                      ) {
+                        topLeveLTeam.rb3.name = player.name;
+                        rb3Data.name = player.name;
+                      }
+                    }
+
+                    //
+
+                    //
+
+                    if (player.position === "WR") {
+                      // console.log(player);
+                      if (!topLeveLTeam.wr1) {
+                        topLeveLTeam.wr1 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr2 &&
+                        player.name !== topLeveLTeam.wr1.name
+                      ) {
+                        topLeveLTeam.wr2 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr3 &&
+                        player.name !== topLeveLTeam.wr1.name &&
+                        player.name !== topLeveLTeam.wr2.name
+                      ) {
+                        topLeveLTeam.wr3 = {};
+                      }
+                      if (
+                        !topLeveLTeam.wr4 &&
+                        player.name !== topLeveLTeam.wr1.name &&
+                        player.name !== topLeveLTeam.wr2.name &&
+                        player.name !== topLeveLTeam.wr3.name
+                      ) {
+                        topLeveLTeam.wr4 = {};
+                      }
+                      if (!topLeveLTeam.wr1.name) {
+                        topLeveLTeam.wr1.name = player.name;
+                        wr1Data.name = player.name;
+                        // console.log(rb1Data);
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        !topLeveLTeam.wr2.name &&
+                        topLeveLTeam.wr1.name !== player.name
+                      ) {
+                        topLeveLTeam.wr2.name = player.name;
+
+                        wr2Data.name = player.name;
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        topLeveLTeam.wr2.name &&
+                        !topLeveLTeam.wr3.name &&
+                        topLeveLTeam.wr1.name !== player.name &&
+                        topLeveLTeam.wr2.name !== player.name
+                      ) {
+                        topLeveLTeam.wr3.name = player.name;
+                        wr3Data.name = player.name;
+                      }
+
+                      if (
+                        topLeveLTeam.wr1.name &&
+                        topLeveLTeam.wr2.name &&
+                        topLeveLTeam.wr3.name &&
+                        !topLeveLTeam.wr4.name &&
+                        topLeveLTeam.wr1.name !== player.name &&
+                        topLeveLTeam.wr2.name !== player.name &&
+                        topLeveLTeam.wr3.name !== player.name
+                      ) {
+                        topLeveLTeam.wr4.name = player.name;
+                        wr4Data.name = player.name;
+                      }
+                    }
+
+                    if (player.position === "TE") {
+                      // console.log(player);
+                      if (!topLeveLTeam.te1) {
+                        topLeveLTeam.te1 = {};
+                        topLeveLTeam.te1.name = player.name;
+                        te1Data.name = player.name;
+                      }
+
+                      if (
+                        !topLeveLTeam.te2 &&
+                        player.name !== topLeveLTeam.te1.name
+                      ) {
+                        topLeveLTeam.te2 = {};
+                        topLeveLTeam.te2.name = player.name;
+
+                        te2Data.name = player.name;
+                      }
+
+                      if (!topLeveLTeam.te1.name) {
+                        topLeveLTeam.te1.name = player.name;
+                        te1Data.name = player.name;
+                        // console.log(topLeveLTeam.te1.name);
+                      }
+
+                      if (
+                        topLeveLTeam.te1.name &&
+                        topLeveLTeam.te1.name !== player.name
+                      ) {
+                        topLeveLTeam.te2.name = player.name;
+
+                        te2Data.name = player.name;
+                      }
+                      // console.log(topLeveLTeam);
+                    }
+                    if (player.position === "QB")
                       return (
                         <div
                           key={player.name}
@@ -627,8 +782,8 @@ export default function ConstructProjections(dataTest) {
                                     +event.target.value;
                                   qb1Data.compPercent = +event.target.value;
                                   qb1Data.completions = (
-                                    (+event.target.value / 100) *
-                                    qb1Data.PassAtmpts
+                                    +(+event.target.value / 100) *
+                                    +qb1Data.PassAtmpts
                                   ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb2.name === player.name) {
@@ -636,8 +791,8 @@ export default function ConstructProjections(dataTest) {
                                     +event.target.value;
                                   qb2Data.compPercent = +event.target.value;
                                   qb2Data.completions = (
-                                    (+event.target.value / 100) *
-                                    qb2Data.PassAtmpts
+                                    +(+event.target.value / 100) *
+                                    +qb2Data.PassAtmpts
                                   ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
@@ -645,8 +800,8 @@ export default function ConstructProjections(dataTest) {
                                     +event.target.value;
                                   qb3Data.compPercent = +event.target.value;
                                   qb3Data.completions = (
-                                    (+event.target.value / 100) *
-                                    qb3Data.PassAtmpts
+                                    +(+event.target.value / 100) *
+                                    +qb3Data.PassAtmpts
                                   ).toFixed(0);
                                 }
                                 // console.log(topLeveLTeam);
@@ -720,21 +875,92 @@ export default function ConstructProjections(dataTest) {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.YPC = +event.target.value;
                                   qb1Data.YPC = +event.target.value;
-                                  qb1Data.passYrds =
-                                    +event.target.value * qb1Data.completions;
+                                  qb1Data.passYrds = +(
+                                    +event.target.value * +qb1Data.completions
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb2.name === player.name) {
                                   topLeveLTeam.qb2.YPC = +event.target.value;
                                   qb2Data.YPC = +event.target.value;
-                                  qb2Data.passYrds =
-                                    +event.target.value * qb2Data.completions;
+                                  qb2Data.passYrds = +(
+                                    +event.target.value * +qb2Data.completions
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
                                   topLeveLTeam.qb3.YPC = +event.target.value;
                                   qb3Data.YPC = +event.target.value;
-                                  qb3Data.passYrds =
-                                    +event.target.value * qb3Data.completions;
+                                  qb3Data.passYrds = +(
+                                    +event.target.value * +qb3Data.completions
+                                  ).toFixed(0);
                                 }
+                                if (
+                                  !topLeveLTeam.totalTeamProjectedPassingYards ||
+                                  topLeveLTeam.totalTeamProjectedPassingYards ===
+                                    0
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards = 0;
+                                }
+
+                                if (
+                                  qb1Data.passYrds &&
+                                  !qb2Data.passYrds &&
+                                  !qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb1Data.passYrds;
+                                }
+                                if (
+                                  !qb1Data.passYrds &&
+                                  qb2Data.passYrds &&
+                                  !qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb2Data.passYrds;
+                                }
+                                if (
+                                  !qb1Data.passYrds &&
+                                  !qb2Data.passYrds &&
+                                  qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb3Data.passYrds;
+                                }
+
+                                if (
+                                  qb1Data.passYrds &&
+                                  qb2Data.passYrds &&
+                                  !qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb1Data.passYrds + +qb2Data.passYrds;
+                                }
+                                if (
+                                  qb1Data.passYrds &&
+                                  !qb2Data.passYrds &&
+                                  qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb1Data.passYrds + +qb3Data.passYrds;
+                                }
+                                if (
+                                  !qb1Data.passYrds &&
+                                  qb2Data.passYrds &&
+                                  qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb2Data.passYrds + +qb3Data.passYrds;
+                                }
+                                if (
+                                  qb1Data.passYrds &&
+                                  qb2Data.passYrds &&
+                                  qb3Data.passYrds
+                                ) {
+                                  topLeveLTeam.totalTeamProjectedPassingYards =
+                                    +qb1Data.passYrds +
+                                    +qb2Data.passYrds +
+                                    +qb3Data.passYrds;
+                                }
+
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
                                 // console.log(topLeveLTeam.qb2);
@@ -834,7 +1060,6 @@ export default function ConstructProjections(dataTest) {
                           </form>
                         </div>
                       );
-                    }
                   }
                   // end QB/passing
                   //
@@ -851,161 +1076,28 @@ export default function ConstructProjections(dataTest) {
                 <div className={styles.qbSectionTitle}> Rushing</div>
                 {dataTest.dataTest.allPlayerData.map((player) => {
                   if (player.team === team) {
-                    if (player.position === "RB") {
-                      // console.log(player);
-                      if (!topLeveLTeam.rb1) {
-                        topLeveLTeam.rb1 = {};
-                      }
-                      if (
-                        !topLeveLTeam.rb2 &&
-                        player.name !== topLeveLTeam.rb1.name
-                      ) {
-                        topLeveLTeam.rb2 = {};
-                      }
-                      if (
-                        !topLeveLTeam.rb3 &&
-                        player.name !== topLeveLTeam.rb1.name &&
-                        player.name !== topLeveLTeam.rb2.name
-                      ) {
-                        topLeveLTeam.rb3 = {};
-                      }
-                      if (!topLeveLTeam.rb1.name) {
-                        topLeveLTeam.rb1.name = player.name;
-                        rb1Data.name = player.name;
-                        // console.log(rb1Data);
-                      }
-
-                      if (
-                        topLeveLTeam.rb1.name &&
-                        !topLeveLTeam.rb2.name &&
-                        topLeveLTeam.rb1.name !== player.name
-                      ) {
-                        topLeveLTeam.rb2.name = player.name;
-
-                        rb2Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.rb1.name &&
-                        topLeveLTeam.rb2.name &&
-                        !topLeveLTeam.rb3.name &&
-                        topLeveLTeam.rb1.name !== player.name &&
-                        topLeveLTeam.rb2.name !== player.name
-                      ) {
-                        topLeveLTeam.rb3.name = player.name;
-                        rb3Data.name = player.name;
-                      }
-                    }
-
-                    //
-
-                    //
-
-                    if (player.position === "WR") {
-                      // console.log(player);
-                      if (!topLeveLTeam.wr1) {
-                        topLeveLTeam.wr1 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr2 &&
-                        player.name !== topLeveLTeam.wr1.name
-                      ) {
-                        topLeveLTeam.wr2 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr3 &&
-                        player.name !== topLeveLTeam.wr1.name &&
-                        player.name !== topLeveLTeam.wr2.name
-                      ) {
-                        topLeveLTeam.wr3 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr4 &&
-                        player.name !== topLeveLTeam.wr1.name &&
-                        player.name !== topLeveLTeam.wr2.name &&
-                        player.name !== topLeveLTeam.wr3.name
-                      ) {
-                        topLeveLTeam.wr4 = {};
-                      }
-                      if (!topLeveLTeam.wr1.name) {
-                        topLeveLTeam.wr1.name = player.name;
-                        wr1Data.name = player.name;
-                        // console.log(rb1Data);
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        !topLeveLTeam.wr2.name &&
-                        topLeveLTeam.wr1.name !== player.name
-                      ) {
-                        topLeveLTeam.wr2.name = player.name;
-
-                        wr2Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        topLeveLTeam.wr2.name &&
-                        !topLeveLTeam.wr3.name &&
-                        topLeveLTeam.wr1.name !== player.name &&
-                        topLeveLTeam.wr2.name !== player.name
-                      ) {
-                        topLeveLTeam.wr3.name = player.name;
-                        wr3Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        topLeveLTeam.wr2.name &&
-                        topLeveLTeam.wr3.name &&
-                        !topLeveLTeam.wr4.name &&
-                        topLeveLTeam.wr1.name !== player.name &&
-                        topLeveLTeam.wr2.name !== player.name &&
-                        topLeveLTeam.wr3.name !== player.name
-                      ) {
-                        topLeveLTeam.wr4.name = player.name;
-                        wr4Data.name = player.name;
-                      }
-                    }
-
-                    if (player.position === "TE") {
-                      // console.log(player);
-                      if (!topLeveLTeam.te1) {
-                        topLeveLTeam.te1 = {};
-                        topLeveLTeam.te1.name = player.name;
-                        te1Data.name = player.name;
-                      }
-
-                      if (
-                        !topLeveLTeam.te2 &&
-                        player.name !== topLeveLTeam.te1.name
-                      ) {
-                        topLeveLTeam.te2 = {};
-                        topLeveLTeam.te2.name = player.name;
-
-                        te2Data.name = player.name;
-                      }
-
-                      if (!topLeveLTeam.te1.name) {
-                        topLeveLTeam.te1.name = player.name;
-                        te1Data.name = player.name;
-                        // console.log(topLeveLTeam.te1.name);
-                      }
-
-                      if (
-                        topLeveLTeam.te1.name &&
-                        topLeveLTeam.te1.name !== player.name
-                      ) {
-                        topLeveLTeam.te2.name = player.name;
-
-                        te2Data.name = player.name;
-                      }
-                      // console.log(topLeveLTeam);
-                    }
-
                     //
                     //
-                    if (player.position === "RB" || player.position === "QB") {
+                    if (
+                      (player.name === topLeveLTeam.qb1.name &&
+                        player.position === "QB") ||
+                      (player.name === topLeveLTeam.qb1.name &&
+                        player.position === "QB") ||
+                      (player.name === topLeveLTeam.rb1.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.rb2.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.rb3.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.wr1.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr2.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr3.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr4.name &&
+                        player.position === "WR")
+                    ) {
                       return (
                         <div
                           key={player.name}
@@ -1013,7 +1105,7 @@ export default function ConstructProjections(dataTest) {
                         >
                           {" "}
                           <div>{player.name}</div>
-                          <form
+                          {/* <form
                             onSubmit={(event) => {
                               event.preventDefault();
 
@@ -1035,7 +1127,15 @@ export default function ConstructProjections(dataTest) {
                                   ? topLeveLTeam.rb1.gamesPlayed
                                   : topLeveLTeam.rb2.name === player.name
                                   ? topLeveLTeam.rb2.gamesPlayed
-                                  : topLeveLTeam.rb3.gamesPlayed
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.gamesPlayed
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.gamesPlayed
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.gamesPlayed
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.gamesPlayed
+                                  : topLeveLTeam.wr4.gamesPlayed
                               }
                               className={styles.selectedTeamsPlayerInput}
                               type="number"
@@ -1116,7 +1216,7 @@ export default function ConstructProjections(dataTest) {
                                 // console.log(topLeveLTeam.qb2);
                               }}
                             />
-                          </form>
+                          </form> */}
                           <form
                             onSubmit={(event) => {
                               event.preventDefault();
@@ -1139,11 +1239,18 @@ export default function ConstructProjections(dataTest) {
                                   ? topLeveLTeam.rb1.rushAttempts
                                   : topLeveLTeam.rb2.name === player.name
                                   ? topLeveLTeam.rb2.rushAttempts
-                                  : topLeveLTeam.rb3.rushAttempts
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.rushAttempts
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.rushAttempts
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.rushAttempts
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.rushAttempts
+                                  : topLeveLTeam.wr4.rushAttempts
                               }
                               className={styles.selectedTeamsPlayerInput}
                               type="number"
-                              max={18}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.rushAttempts =
@@ -1310,6 +1417,33 @@ export default function ConstructProjections(dataTest) {
                                   rb3Data.rushAttempts = +event.target.value;
                                   // }
                                 }
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.rushAttempts =
+                                    +event.target.value;
+                                  wr1Data.name = topLeveLTeam.wr1.name;
+                                  wr1Data.rushAttempts = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  wr2Data.name = topLeveLTeam.wr2.name;
+                                  topLeveLTeam.wr2.rushAttempts =
+                                    +event.target.value;
+                                  wr2Data.rushAttempts = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  wr3Data.name = topLeveLTeam.wr3.name;
+
+                                  topLeveLTeam.wr3.rushAttempts =
+                                    +event.target.value;
+                                  wr3Data.rushAttempts = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  wr4Data.name = topLeveLTeam.wr4.name;
+
+                                  topLeveLTeam.wr4.rushAttempts =
+                                    +event.target.value;
+                                  wr4Data.rushAttempts = +event.target.value;
+                                }
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
                                 // console.log(topLeveLTeam.qb2);
@@ -1329,62 +1463,111 @@ export default function ConstructProjections(dataTest) {
                               id="games"
                               value={
                                 topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.YPC
+                                  ? topLeveLTeam.qb1.YPCarry
                                   : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.YPC
+                                  ? topLeveLTeam.qb2.YPCarry
                                   : topLeveLTeam.qb3.name === player.name
-                                  ? topLeveLTeam.qb3.YPC
+                                  ? topLeveLTeam.qb3.YPCarry
                                   : topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.YPC
+                                  ? topLeveLTeam.rb1.YPCarry
                                   : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.YPC
-                                  : topLeveLTeam.rb3.YPC
+                                  ? topLeveLTeam.rb2.YPCarry
+                                  : topLeveLTeam.rb3.YPCarry
                               }
                               className={styles.selectedTeamsPlayerInput}
                               type="number"
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.YPC = +event.target.value;
+                                  topLeveLTeam.qb1.YPCarry =
+                                    +event.target.value;
 
-                                  qb1Data.YPC = +event.target.value;
-                                  qb1Data.RushingYards =
-                                    +event.target.value * qb1Data.rushAttempts;
+                                  qb1Data.YPCarry = +event.target.value;
+                                  qb1Data.RushingYards = +(
+                                    +event.target.value * qb1Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.YPC = +event.target.value;
-                                  qb2Data.YPC = +event.target.value;
+                                  topLeveLTeam.qb2.YPCarry =
+                                    +event.target.value;
+                                  qb2Data.YPCarry = +event.target.value;
 
-                                  qb2Data.RushingYards =
-                                    +event.target.value * qb2Data.rushAttempts;
+                                  qb2Data.RushingYards = +(
+                                    +event.target.value * qb2Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.YPC = +event.target.value;
-                                  qb3Data.YPC = +event.target.value;
+                                  topLeveLTeam.qb3.YPCarry =
+                                    +event.target.value;
+                                  qb3Data.YPCarry = +event.target.value;
 
-                                  qb3Data.RushingYards =
-                                    +event.target.value * qb3Data.rushAttempts;
+                                  qb3Data.RushingYards = +(
+                                    +event.target.value * qb3Data.rushAttempts
+                                  ).toFixed(0);
                                 }
 
                                 if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.YPC = +event.target.value;
+                                  topLeveLTeam.rb1.YPCarry =
+                                    +event.target.value;
 
-                                  rb1Data.YPC = +event.target.value;
-                                  rb1Data.RushingYards =
-                                    +event.target.value * rb1Data.rushAttempts;
+                                  rb1Data.YPCarry = +event.target.value;
+                                  rb1Data.RushingYards = +(
+                                    +event.target.value * rb1Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.YPC = +event.target.value;
+                                  topLeveLTeam.rb2.YPCarry =
+                                    +event.target.value;
 
-                                  rb2Data.YPC = +event.target.value;
-                                  rb2Data.RushingYards =
-                                    +event.target.value * rb2Data.rushAttempts;
+                                  rb2Data.YPCarry = +event.target.value;
+                                  rb2Data.RushingYards = +(
+                                    +event.target.value * rb2Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.YPC = +event.target.value;
+                                  topLeveLTeam.rb3.YPCarry =
+                                    +event.target.value;
 
-                                  rb3Data.YPC = +event.target.value;
-                                  rb3Data.RushingYards =
-                                    +event.target.value * rb3Data.rushAttempts;
+                                  rb3Data.YPCarry = +event.target.value;
+                                  rb3Data.RushingYards = +(
+                                    +event.target.value * rb3Data.rushAttempts
+                                  ).toFixed(0);
+                                }
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.YPCarry =
+                                    +event.target.value;
+
+                                  wr1Data.YPCarry = +event.target.value;
+                                  wr1Data.RushingYards = +(
+                                    +event.target.value * wr1Data.rushAttempts
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.YPCarry =
+                                    +event.target.value;
+                                  wr2Data.YPCarry = +event.target.value;
+
+                                  wr2Data.RushingYards = +(
+                                    +event.target.value * wr2Data.rushAttempts
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.YPCarry =
+                                    +event.target.value;
+                                  wr3Data.YPCarry = +event.target.value;
+
+                                  wr3Data.RushingYards = +(
+                                    +event.target.value * wr3Data.rushAttempts
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.YPCarry =
+                                    +event.target.value;
+                                  wr4Data.YPCarry = +event.target.value;
+
+                                  w43Data.RushingYards = +(
+                                    +event.target.value * wr4Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
@@ -1414,7 +1597,15 @@ export default function ConstructProjections(dataTest) {
                                   ? topLeveLTeam.rb1.TDs
                                   : topLeveLTeam.rb2.name === player.name
                                   ? topLeveLTeam.rb2.TDs
-                                  : topLeveLTeam.rb3.TDs
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.TDs
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.TDs
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.TDs
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.TDs
+                                  : topLeveLTeam.wr4.TDs
                               }
                               className={styles.selectedTeamsPlayerInput}
                               type="number"
@@ -1448,6 +1639,47 @@ export default function ConstructProjections(dataTest) {
 
                                   rb3Data.TDs = +event.target.value;
                                 }
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.TDs = +event.target.value;
+
+                                  wr1Data.TDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.TDs = +event.target.value;
+                                  wr2Data.TDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.TDs = +event.target.value;
+                                  wr3Data.TDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.TDs = +event.target.value;
+                                  wr4Data.TDs = +event.target.value;
+                                }
+
+                                topLeveLTeam.qb1.fantasyPoints = +(
+                                  +(qb1Data.passYrds * 0.04) +
+                                  +(qb1Data.passingTDs * 6) -
+                                  +(qb1Data.INTs * 2) +
+                                  +(qb1Data.RushingYards * 0.1) +
+                                  +(qb1Data.TDs * 6)
+                                ).toFixed(1);
+                                topLeveLTeam.qb2.fantasyPoints = +(
+                                  +(qb2Data.passYrds * 0.04) +
+                                  +(qb2Data.passingTDs * 6) -
+                                  +(qb2Data.INTs * 2) +
+                                  +qb2Data.RushingYards * 0.1 +
+                                  +(qb2Data.TDs * 6)
+                                ).toFixed(1);
+                                topLeveLTeam.qb3.fantasyPoints = +(
+                                  +(qb3Data.passYrds * 0.04) +
+                                  +(qb3Data.passingTDs * 6) -
+                                  +(qb3Data.INTs * 2) +
+                                  +qb3Data.RushingYards * 0.1 +
+                                  +(qb3Data.TDs * 6)
+                                ).toFixed(1);
+
+                                // console.log(qb1Data.fantasyPoints);
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
                                 // console.log(topLeveLTeam.qb2);
@@ -1467,15 +1699,35 @@ export default function ConstructProjections(dataTest) {
                   rb1Data={rb1Data}
                   rb2Data={rb2Data}
                   rb3Data={rb3Data}
+                  wr1Data={wr1Data}
+                  wr2Data={wr2Data}
+                  wr3Data={wr3Data}
+                  wr4Data={wr4Data}
                 />
 
                 <div className={styles.qbSectionTitle}> Recieving</div>
                 {dataTest.dataTest.allPlayerData.map((player) => {
                   if (player.team === team) {
                     if (
-                      player.position === "RB" ||
-                      player.position === "WR" ||
-                      player.position === "TE"
+                      (player.name === topLeveLTeam.rb1.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.rb2.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.rb3.name &&
+                        player.position === "RB") ||
+                      (player.name === topLeveLTeam.wr1.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr2.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr3.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.wr4.name &&
+                        player.position === "WR") ||
+                      (player.name === topLeveLTeam.te1.name &&
+                        player.position === "TE") ||
+                      (topLeveLTeam.te2 &&
+                        player.name === topLeveLTeam.te2.name &&
+                        player.position === "TE")
                     ) {
                       return (
                         <div
@@ -1484,7 +1736,7 @@ export default function ConstructProjections(dataTest) {
                         >
                           {" "}
                           <div>{player.name}</div>
-                          <form
+                          {/* <form
                             onSubmit={(event) => {
                               event.preventDefault();
 
@@ -1586,7 +1838,7 @@ export default function ConstructProjections(dataTest) {
                                 }
                               }}
                             />
-                          </form>
+                          </form>{" "} */}
                           <form
                             onSubmit={(event) => {
                               event.preventDefault();
@@ -1631,133 +1883,546 @@ export default function ConstructProjections(dataTest) {
                                   let currentPlayerTryingToInputTargetShare =
                                     +event.target.value;
 
-                                  // if (!rb1Data.targetShare) {
-                                  //   rb1Data.targetShare = 0;
-                                  // }
-                                  // if (!rb2Data.targetShare) {
-                                  //   rb2Data.targetShare = 0;
-                                  // }
-                                  // if (!rb3Data.targetShare) {
-                                  //   rb3Data.targetShare = 0;
-                                  // }
-                                  // // if (
-                                  // //   !wr1Data.targetShare ||
-                                  // //   wr1Data.targetShare < 1
-                                  // // ) {
-                                  // //   wr1Data.targetShare = 0;
-                                  // // }
-                                  // if (!wr2Data.targetShare) {
-                                  //   wr2Data.targetShare = 0;
-                                  // }
-                                  // if (!wr3Data.targetShare) {
-                                  //   wr3Data.targetShare = 0;
-                                  // }
-                                  // if (!wr4Data.targetShare) {
-                                  //   wr4Data.targetShare = 0;
-                                  // }
-                                  // if (!te1Data.targetShare) {
-                                  //   te1Data.targetShare = 0;
-                                  // }
-                                  // if (!te2Data.targetShare) {
-                                  //   te2Data.targetShare = 0;
-                                  // }
-
-                                  // let totalTargetShare =
-                                  //   +rb1Data.targetShare +
-                                  //   +rb2Data.targetShare +
-                                  //   +rb3Data.targetShare +
-                                  //   +wr1Data.targetShare +
-                                  //   +wr2Data.targetShare +
-                                  //   +wr3Data.targetShare +
-                                  //   +wr4Data.targetShare +
-                                  //   +te1Data.targetShare +
-                                  //   +te2Data.targetShare;
-
-                                  // // console.log(totalTargetShare);
-                                  // setTeamTotalTargetShare(totalTargetShare);
-                                  // console.log(totalTargetShare);
-
-                                  // if (totalTargetShare > 100) {
-                                  //   alert(
-                                  //     "Total team target share should not exceed 100"
-                                  //   );
-                                  // }
-
-                                  // if (
-                                  //   topLeveLTeam.rb1.targetShare +
-                                  //     topLeveLTeam.rb2.targetShare +
-                                  //     topLeveLTeam.rb3.targetShare +
-                                  //     topLeveLTeam.wr1.targetShare +
-                                  //     topLeveLTeam.wr2.targetShare +
-                                  //     topLeveLTeam.wr3.targetShare +
-                                  //     topLeveLTeam.wr4.targetShare +
-                                  //     topLeveLTeam.te1.targetShare <=
-                                  //   100
-                                  // ) {
                                   // RB
 
                                   if (topLeveLTeam.rb1.name === player.name) {
+                                    rb1Data.name = topLeveLTeam.rb1.name;
                                     topLeveLTeam.rb1.targetShare =
                                       +event.target.value;
 
                                     rb1Data.targetShare = +event.target.value;
+                                    rb1Data.targets = +(
+                                      +totalPassPlays *
+                                      +(rb1Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
                                   if (topLeveLTeam.rb2.name === player.name) {
+                                    rb2Data.name = topLeveLTeam.rb2.name;
                                     topLeveLTeam.rb2.targetShare =
                                       +event.target.value;
 
                                     rb2Data.targetShare = +event.target.value;
+                                    rb2Data.targets = +(
+                                      +totalPassPlays *
+                                      +(rb2Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
                                   if (topLeveLTeam.rb3.name === player.name) {
+                                    rb3Data.name = topLeveLTeam.rb3.name;
                                     topLeveLTeam.rb3.targetShare =
                                       +event.target.value;
 
                                     rb3Data.targetShare = +event.target.value;
+                                    rb3Data.targets = +(
+                                      +totalPassPlays *
+                                      +(rb3Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
 
                                   // WR
 
                                   if (topLeveLTeam.wr1.name === player.name) {
+                                    wr1Data.name = topLeveLTeam.wr1.name;
                                     topLeveLTeam.wr1.targetShare =
                                       +event.target.value;
 
                                     wr1Data.targetShare = +event.target.value;
+                                    wr1Data.targets = +(
+                                      +totalPassPlays *
+                                      +(wr1Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
                                   if (topLeveLTeam.wr2.name === player.name) {
+                                    wr2Data.name = topLeveLTeam.wr2.name;
                                     topLeveLTeam.wr2.targetShare =
                                       +event.target.value;
 
                                     wr2Data.targetShare = +event.target.value;
+                                    wr2Data.targets = +(
+                                      +totalPassPlays *
+                                      +(wr2Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
                                   if (topLeveLTeam.wr3.name === player.name) {
+                                    wr3Data.name = topLeveLTeam.wr3.name;
                                     topLeveLTeam.wr3.targetShare =
                                       +event.target.value;
 
                                     wr3Data.targetShare = +event.target.value;
+                                    wr3Data.targets = +(
+                                      +totalPassPlays *
+                                      +(wr3Data.targetShare / 10)
+                                    ).toFixed(0);
                                   }
 
                                   if (topLeveLTeam.wr4.name === player.name) {
+                                    wr4Data.name = topLeveLTeam.wr4.name;
                                     topLeveLTeam.wr4.targetShare =
                                       +event.target.value;
 
                                     wr4Data.targetShare = +event.target.value;
+                                    wr4Data.targets = +(
+                                      +totalPassPlays *
+                                      +(wr4Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
 
                                   // TE
 
                                   if (topLeveLTeam.te1.name === player.name) {
+                                    te1Data.name = topLeveLTeam.te1.name;
                                     topLeveLTeam.te1.targetShare =
                                       +event.target.value;
 
                                     te1Data.targetShare = +event.target.value;
+                                    te1Data.targets = +(
+                                      +totalPassPlays *
+                                      +(te1Data.targetShare / 100)
+                                    ).toFixed(0);
                                   }
                                   if (topLeveLTeam.te2) {
                                     if (topLeveLTeam.te2.name === player.name) {
+                                      te2Data.name = topLeveLTeam.te2.name;
                                       te2Data.targetShare = +event.target.value;
+                                      te2Data.targets = +(
+                                        +totalPassPlays *
+                                        +(te2Data.targetShare / 100)
+                                      ).toFixed(0);
                                     }
                                   }
                                   // }
                                 }
+                              }}
+                            />
+                          </form>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+
+                              // Do something with `name` here
+                            }}
+                          >
+                            <label htmlFor="catchPercentage">Catch %</label>
+
+                            <input
+                              id="catchPercentage"
+                              value={
+                                topLeveLTeam.rb1.name === player.name
+                                  ? topLeveLTeam.rb1.catchPercentage
+                                  : topLeveLTeam.rb2.name === player.name
+                                  ? topLeveLTeam.rb2.catchPercentage
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.catchPercentage
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.catchPercentage
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.catchPercentage
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.catchPercentage
+                                  : topLeveLTeam.wr4.name === player.name
+                                  ? topLeveLTeam.wr4.catchPercentage
+                                  : topLeveLTeam.te1 &&
+                                    topLeveLTeam.te1.name === player.name
+                                  ? topLeveLTeam.te1.catchPercentage
+                                  : topLeveLTeam.te2 &&
+                                    topLeveLTeam.te2.name &&
+                                    topLeveLTeam.te2.catchPercentage
+                              }
+                              className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              onChange={(event) => {
+                                //
+
+                                // RB
+
+                                if (topLeveLTeam.rb1.name === player.name) {
+                                  topLeveLTeam.rb1.catchPercentage =
+                                    +event.target.value;
+
+                                  rb1Data.catchPercentage = +event.target.value;
+                                  rb1Data.receptions = +(
+                                    +rb1Data.targets *
+                                    +(rb1Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.rb2.name === player.name) {
+                                  topLeveLTeam.rb2.catchPercentage =
+                                    +event.target.value;
+
+                                  rb2Data.catchPercentage = +event.target.value;
+                                  rb2Data.receptions = +(
+                                    +rb2Data.targets *
+                                    +(rb2Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.rb3.name === player.name) {
+                                  topLeveLTeam.rb3.catchPercentage =
+                                    +event.target.value;
+
+                                  rb3Data.catchPercentage = +event.target.value;
+                                  rb3Data.receptions = +(
+                                    +rb3Data.targets *
+                                    +(rb3Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+
+                                // WR
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.catchPercentage =
+                                    +event.target.value;
+
+                                  wr1Data.catchPercentage = +event.target.value;
+                                  wr1Data.receptions = +(
+                                    +wr1Data.targets *
+                                    +(wr1Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.catchPercentage =
+                                    +event.target.value;
+
+                                  wr2Data.catchPercentage = +event.target.value;
+                                  wr2Data.receptions = +(
+                                    +wr2Data.targets *
+                                    +(wr2Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.catchPercentage =
+                                    +event.target.value;
+
+                                  wr3Data.catchPercentage = +event.target.value;
+                                  wr3Data.receptions = +(
+                                    +wr3Data.targets *
+                                    +(wr3Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.catchPercentage =
+                                    +event.target.value;
+
+                                  wr4Data.catchPercentage = +event.target.value;
+                                  wr4Data.receptions = +(
+                                    +wr4Data.targets *
+                                    +(wr4Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+
+                                // TE
+
+                                if (topLeveLTeam.te1.name === player.name) {
+                                  topLeveLTeam.te1.catchPercentage =
+                                    +event.target.value;
+
+                                  te1Data.catchPercentage = +event.target.value;
+                                  te1Data.receptions = +(
+                                    +te1Data.targets *
+                                    +(te1Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                }
+                                if (topLeveLTeam.te2) {
+                                  if (topLeveLTeam.te2.name === player.name) {
+                                    te2Data.catchPercentage =
+                                      +event.target.value;
+
+                                    te2Data.receptions = +(
+                                      +te2Data.targets *
+                                      +(te2Data.catchPercentage / 100)
+                                    ).toFixed(0);
+                                  }
+                                }
+                                // }
+                              }}
+                            />
+                          </form>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+
+                              // Do something with `name` here
+                            }}
+                          >
+                            <label htmlFor="recievingYards">Yards</label>
+
+                            <input
+                              id="recievingYards"
+                              value={
+                                topLeveLTeam.rb1.name === player.name
+                                  ? topLeveLTeam.rb1.recievingYards
+                                  : topLeveLTeam.rb2.name === player.name
+                                  ? topLeveLTeam.rb2.recievingYards
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.recievingYards
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.recievingYards
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.recievingYards
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.recievingYards
+                                  : topLeveLTeam.wr4.name === player.name
+                                  ? topLeveLTeam.wr4.recievingYards
+                                  : topLeveLTeam.te1 &&
+                                    topLeveLTeam.te1.name === player.name
+                                  ? topLeveLTeam.te1.recievingYards
+                                  : topLeveLTeam.te2 &&
+                                    topLeveLTeam.te2.recievingYards
+                              }
+                              className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              onChange={(event) => {
+                                if (!rb1Data.recievingYards) {
+                                  rb1Data.recievingYards = 0;
+                                }
+                                if (!rb2Data.recievingYards) {
+                                  rb2Data.recievingYards = 0;
+                                }
+                                if (!rb3Data.recievingYards) {
+                                  rb3Data.recievingYards = 0;
+                                }
+                                if (!wr1Data.recievingYards) {
+                                  wr1Data.recievingYards = 0;
+                                }
+                                if (!wr2Data.recievingYards) {
+                                  wr2Data.recievingYards = 0;
+                                }
+                                if (!wr3Data.recievingYards) {
+                                  wr3Data.recievingYards = 0;
+                                }
+                                if (!wr4Data.recievingYards) {
+                                  wr4Data.recievingYards = 0;
+                                }
+
+                                if (!te1Data.recievingYards) {
+                                  te1Data.recievingYards = 0;
+                                }
+                                if (!te2Data.recievingYards) {
+                                  te2Data.recievingYards = 0;
+                                }
+                                //
+
+                                // RB
+
+                                if (topLeveLTeam.rb1.name === player.name) {
+                                  topLeveLTeam.rb1.recievingYards =
+                                    +event.target.value;
+                                  let temp = +event.target.value;
+                                  rb1Data.recievingYards = +temp;
+                                }
+                                if (topLeveLTeam.rb2.name === player.name) {
+                                  topLeveLTeam.rb2.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  rb2Data.recievingYards = +temp;
+                                }
+                                if (topLeveLTeam.rb3.name === player.name) {
+                                  topLeveLTeam.rb3.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  rb3Data.recievingYards = +temp;
+                                }
+
+                                // WR
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  wr1Data.recievingYards = +temp;
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  wr2Data.recievingYards = +temp;
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  wr3Data.recievingYards = +temp;
+                                }
+
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  wr4Data.recievingYards = +temp;
+                                }
+
+                                // TE
+
+                                if (topLeveLTeam.te1.name === player.name) {
+                                  topLeveLTeam.te1.recievingYards =
+                                    +event.target.value;
+
+                                  let temp = +event.target.value;
+                                  te1Data.recievingYards = +temp;
+                                }
+                                if (topLeveLTeam.te2) {
+                                  if (topLeveLTeam.te2.name === player.name) {
+                                    topLeveLTeam.te2.recievingYards =
+                                      +event.target.value;
+                                    let temp = +event.target.value;
+                                    te2Data.recievingYards = +temp;
+                                  }
+                                }
+
+                                let teamTotalProjectedRecivingYards =
+                                  +rb1Data.recievingYards +
+                                  +rb2Data.recievingYards +
+                                  +rb3Data.recievingYards +
+                                  +wr1Data.recievingYards +
+                                  +wr2Data.recievingYards +
+                                  +wr3Data.recievingYards +
+                                  +wr4Data.recievingYards +
+                                  +te1Data.recievingYards;
+
+                                // console.log(teamTotalProjectedRecivingYards);
+
+                                if (
+                                  +teamTotalProjectedRecivingYards >
+                                  topLeveLTeam.totalTeamProjectedPassingYards
+                                ) {
+                                  alert(
+                                    `Team total projected recieving yards should not exceed projected team passing yards of ${topLeveLTeam.totalTeamProjectedPassingYards}`
+                                  );
+                                }
+
+                                // }
+                              }}
+                            />
+                          </form>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+
+                              // Do something with `name` here
+                            }}
+                          >
+                            <label htmlFor="recievingTDs">TDs</label>
+
+                            <input
+                              id="recievingTDs"
+                              value={
+                                topLeveLTeam.rb1.name === player.name
+                                  ? topLeveLTeam.rb1.recievingTDs
+                                  : topLeveLTeam.rb2.name === player.name
+                                  ? topLeveLTeam.rb2.recievingTDs
+                                  : topLeveLTeam.rb3.name === player.name
+                                  ? topLeveLTeam.recievingTDs
+                                  : topLeveLTeam.wr1.name === player.name
+                                  ? topLeveLTeam.wr1.recievingTDs
+                                  : topLeveLTeam.wr2.name === player.name
+                                  ? topLeveLTeam.wr2.recievingTDs
+                                  : topLeveLTeam.wr3.name === player.name
+                                  ? topLeveLTeam.wr3.recievingTDs
+                                  : topLeveLTeam.wr4.name === player.name
+                                  ? topLeveLTeam.wr4.recievingTDs
+                                  : topLeveLTeam.te1 &&
+                                    topLeveLTeam.te1.name === player.name
+                                  ? topLeveLTeam.te1.recievingTDs
+                                  : topLeveLTeam.te2 &&
+                                    topLeveLTeam.te2.recievingTDs
+                              }
+                              className={styles.selectedTeamsPlayerInput}
+                              type="number"
+                              onChange={(event) => {
+                                //
+
+                                // RB
+
+                                if (topLeveLTeam.rb1.name === player.name) {
+                                  topLeveLTeam.rb1.recievingTDs =
+                                    +event.target.value;
+
+                                  rb1Data.recievingTDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.rb2.name === player.name) {
+                                  topLeveLTeam.rb2.recievingTDs =
+                                    +event.target.value;
+
+                                  rb2Data.recievingTDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.rb3.name === player.name) {
+                                  topLeveLTeam.rb3.recievingTDs =
+                                    +event.target.value;
+
+                                  rb3Data.recievingTDs = +event.target.value;
+                                }
+
+                                // WR
+
+                                if (topLeveLTeam.wr1.name === player.name) {
+                                  topLeveLTeam.wr1.recievingTDs =
+                                    +event.target.value;
+
+                                  wr1Data.recievingTDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr2.name === player.name) {
+                                  topLeveLTeam.wr2.recievingTDs =
+                                    +event.target.value;
+
+                                  wr2Data.recievingTDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.wr3.name === player.name) {
+                                  topLeveLTeam.wr3.recievingTDs =
+                                    +event.target.value;
+
+                                  wr3Data.recievingTDs = +event.target.value;
+                                }
+
+                                if (topLeveLTeam.wr4.name === player.name) {
+                                  topLeveLTeam.wr4.recievingTDs =
+                                    +event.target.value;
+
+                                  wr4Data.recievingTDs = +event.target.value;
+                                }
+
+                                // TE
+
+                                if (topLeveLTeam.te1.name === player.name) {
+                                  topLeveLTeam.te1.recievingTDs =
+                                    +event.target.value;
+
+                                  te1Data.recievingTDs = +event.target.value;
+                                }
+                                if (topLeveLTeam.te2) {
+                                  if (topLeveLTeam.te2.name === player.name) {
+                                    te2Data.recievingTDs = +event.target.value;
+                                  }
+                                }
+                                // }
+                                topLeveLTeam.rb1.fantasyPoints = +(
+                                  +(rb1Data.RushingYards * 0.1) +
+                                  +(rb1Data.TDs * 6) +
+                                  +(rb1Data.receptions * 1) +
+                                  +(rb1Data.recievingYards * 0.1) +
+                                  +(rb1Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.rb2.fantasyPoints = +(
+                                  +(rb2Data.RushingYards * 0.1) +
+                                  +(rb2Data.TDs * 6) +
+                                  +(rb2Data.receptions * 1) +
+                                  +(rb2Data.recievingYards * 0.1) +
+                                  +(rb2Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.rb3.fantasyPoints = +(
+                                  +(rb3Data.RushingYards * 0.1) +
+                                  +(rb3Data.TDs * 6) +
+                                  +(rb3Data.receptions * 1) +
+                                  +(rb3Data.recievingYards * 0.1) +
+                                  +(rb3Data.recievingTDs * 6)
+                                ).toFixed(1);
                               }}
                             />
                           </form>
@@ -1768,6 +2433,21 @@ export default function ConstructProjections(dataTest) {
                 })}
 
                 <RecievingTable
+                  rb1Data={rb1Data}
+                  rb2Data={rb2Data}
+                  rb3Data={rb3Data}
+                  wr1Data={wr1Data}
+                  wr2Data={wr2Data}
+                  wr3Data={wr3Data}
+                  wr4Data={wr4Data}
+                  te1Data={te1Data}
+                  te2Data={te2Data}
+                />
+
+                <TeamLevelFantasyTable
+                  qb1Data={qb1Data}
+                  qb2Data={qb2Data}
+                  qb3Data={qb3Data}
                   rb1Data={rb1Data}
                   rb2Data={rb2Data}
                   rb3Data={rb3Data}

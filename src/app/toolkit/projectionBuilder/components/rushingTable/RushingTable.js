@@ -10,10 +10,25 @@ export default function RushingTable({
   rb1Data,
   rb2Data,
   rb3Data,
+  wr1Data,
+  wr2Data,
+  wr3Data,
+  wr4Data,
 }) {
   const [tableData, setTableData] = React.useState([]);
 
-  let dataArray = [qb1Data, qb2Data, qb3Data, rb1Data, rb2Data, rb3Data];
+  let dataArray = [
+    qb1Data,
+    qb2Data,
+    qb3Data,
+    rb1Data,
+    rb2Data,
+    rb3Data,
+    wr1Data,
+    wr2Data,
+    wr3Data,
+    wr4Data,
+  ];
 
   let data = dataArray.flat();
   //   console.log(data);
@@ -30,9 +45,9 @@ export default function RushingTable({
 
   const columns = [
     { label: "Player Name", accessor: "name" },
-    { label: "Games", accessor: "gamesPlayed" },
+    // { label: "Games", accessor: "gamesPlayed" },
     { label: "Rush Attempts", accessor: "rushAttempts" },
-    { label: "Yards per carry", accessor: "YPC" },
+    { label: "Yards per carry", accessor: "YPCarry" },
     { label: "Rushing Yards", accessor: "RushingYards" },
     { label: "TDs", accessor: "TDs" },
   ];
