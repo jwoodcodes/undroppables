@@ -11,17 +11,20 @@ export default function PassingTableBody({ tableData, columns }) {
         tableData.map((data) => {
           num = num + 1;
           // console.log(data);
+          if (data) {
+            return (
+              <tr key={`${data.name}-${num}`}>
+                {columns.map(({ accessor }) => {
+                  // console.log(data, accessor);
 
-          return (
-            <tr key={`${data.id}-${num}`}>
-              {columns.map(({ accessor }) => {
-                //   console.log(data.myOverallRank);
-
-                const tData = data[accessor] ? data[accessor] : "——";
-                return <td key={accessor}>{tData}</td>;
-              })}
-            </tr>
-          );
+                  if (data) {
+                    const tData = data[accessor] ? data[accessor] : "——";
+                    return <td key={accessor}>{tData}</td>;
+                  }
+                })}
+              </tr>
+            );
+          }
         })}
     </tbody>
   );
