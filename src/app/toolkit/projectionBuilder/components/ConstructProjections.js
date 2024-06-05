@@ -25,10 +25,19 @@ export default function ConstructProjections(dataTest) {
 
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
 
-  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  // const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  //   const storedValue = window.localStorage.getItem("usersAllTeamsList");
+  //   return JSON.parse(storedValue) || allTeamsList;
+  // });
+
+  const [usersAllTeamsList, setUsersAllTeamsList] =
+    React.useState(allTeamsList);
+
+  React.useEffect(() => {
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
-    return JSON.parse(storedValue) || allTeamsList;
-  });
+
+    setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
+  }, []);
 
   // console.log(usersAllTeamsList);
 
@@ -314,7 +323,7 @@ export default function ConstructProjections(dataTest) {
         className={styles.teamSelectWrapper}
       >
         <label htmlFor="team-select" className={styles.teamSelectLabel}>
-          Select team to start projections for:
+          Select team to start projections:
         </label>
 
         <select
@@ -345,7 +354,7 @@ export default function ConstructProjections(dataTest) {
       {usersAllTeamsList.map((topLeveLTeam) => {
         if (team === topLeveLTeam.teamName) {
           return (
-            <div>
+            <div key={topLeveLTeam.teamName}>
               <div
                 className={
                   styles.lastYearsTeamDataDisplayAndSelectingTotalProjectedPlaysWrapper
@@ -359,6 +368,7 @@ export default function ConstructProjections(dataTest) {
                       // Do something with `teamTotalProjectedPlays` here
                     }}
                     className={styles.teamProjectedPlaysFormWrapper}
+                    key={`${topLeveLTeam.teamName}-form` || "form"}
                   >
                     <label
                       htmlFor="teamTotalProjectedPlays-field"
@@ -546,7 +556,7 @@ export default function ConstructProjections(dataTest) {
               </div>
 
               <div>
-                <div className={styles.qbSectionTitle}> Teams QB's</div>
+                <div className={styles.qbSectionTitle}> Teams QBs</div>
                 {dataTest.dataTest.allPlayerData.map((player) => {
                   if (player.team === team) {
                     //
@@ -1319,7 +1329,7 @@ export default function ConstructProjections(dataTest) {
                               // Do something with `name` here
                             }}
                           >
-                            <label htmlFor="passingTDs">Passing TD's</label>
+                            <label htmlFor="passingTDs">Passing TDs</label>
 
                             <input
                               id="passingTDs"

@@ -6,40 +6,40 @@ import UsersProjectionsTable from "./UsersProjectionsTable";
 import Spinner from "../components/Spinner";
 import Link from "next/link";
 
-export default function usersProjections() {
-  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
-    if (typeof window === "undefined") {
-      return <Spinner />;
-    }
-
-    const storedValue = window.localStorage.getItem("usersAllTeamsList");
-    return JSON.parse(storedValue) || allTeamsList;
-  });
+export default function UsersProjections() {
   const [positionToShow, setPositionToShow] = React.useState("QB");
   const [tableData, setTableData] = React.useState([]);
+  // const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  //   if (typeof window === "undefined") {
+  //     return <Spinner />;
+  //   } else {
+  //     const storedValue = window.localStorage.getItem("usersAllTeamsList");
+  //     return JSON.parse(storedValue) || allTeamsList;
+  //   }
+  // });
 
-  // React.useEffect(() => {
-  //   window.localStorage.setItem(
-  //     "usersAllTeamsList",
-  //     JSON.stringify(usersAllTeamsList)
-  //   );
-  // }, [usersAllTeamsList]);
+  const [usersAllTeamsList, setUsersAllTeamsList] =
+    React.useState(allTeamsList);
 
-  // console.log(usersAllTeamsList);
+  React.useEffect(() => {
+    const storedValue = window.localStorage.getItem("usersAllTeamsList");
 
-  function flex(event) {
+    setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
+  }, []);
+
+  function Flex(event) {
     setPositionToShow("FLEX");
   }
-  function qb(event) {
+  function Qb(event) {
     setPositionToShow("QB");
   }
-  function rb(event) {
+  function Rb(event) {
     setPositionToShow("RB");
   }
-  function wr(event) {
+  function Wr(event) {
     setPositionToShow("WR");
   }
-  function te(event) {
+  function Te(event) {
     setPositionToShow("TE");
   }
 
@@ -200,19 +200,19 @@ export default function usersProjections() {
             </Link>
           </div>
           <div className={styles.btnsWrapper}>
-            <button className={styles.posBtn} onClick={qb}>
+            <button className={styles.posBtn} onClick={Qb}>
               QB
             </button>
-            <button className={styles.posBtn} onClick={rb}>
+            <button className={styles.posBtn} onClick={Rb}>
               RB
             </button>
-            <button className={styles.posBtn} onClick={wr}>
+            <button className={styles.posBtn} onClick={Wr}>
               WR
             </button>
-            <button className={styles.posBtn} onClick={te}>
+            <button className={styles.posBtn} onClick={Te}>
               TE
             </button>
-            <button className={styles.posBtn} onClick={flex}>
+            <button className={styles.posBtn} onClick={Flex}>
               FLEX
             </button>
           </div>

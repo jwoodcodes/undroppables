@@ -3,7 +3,7 @@ import React from "react";
 import PassingTableBody from "../passingTable/PassingTableBody";
 import PassingTableHead from "../passingTable/PassingTableHead";
 
-export default function ({
+export default function RecievingTable({
   rb1Data,
   rb2Data,
   rb3Data,
