@@ -25,10 +25,19 @@ export default function ConstructProjections(dataTest) {
 
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
 
-  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  // const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  //   const storedValue = window.localStorage.getItem("usersAllTeamsList");
+  //   return JSON.parse(storedValue) || allTeamsList;
+  // });
+
+  const [usersAllTeamsList, setUsersAllTeamsList] =
+    React.useState(allTeamsList);
+
+  React.useEffect(() => {
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
-    return JSON.parse(storedValue) || allTeamsList;
-  });
+
+    setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
+  }, []);
 
   // console.log(usersAllTeamsList);
 
