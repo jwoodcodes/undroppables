@@ -10,11 +10,9 @@ export default function UsersProjections() {
   const [positionToShow, setPositionToShow] = React.useState("QB");
   const [tableData, setTableData] = React.useState([]);
   const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
-    if (typeof window === "undefined") {
-      return [];
-    }
-
-    if (typeof window !== "undefined") {
+    if (typeof window === undefined) {
+      return <Spinner />;
+    } else {
       const storedValue = window.localStorage.getItem("usersAllTeamsList");
       return JSON.parse(storedValue) || allTeamsList;
     }
