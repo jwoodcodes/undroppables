@@ -314,7 +314,7 @@ export default function ConstructProjections(dataTest) {
         className={styles.teamSelectWrapper}
       >
         <label htmlFor="team-select" className={styles.teamSelectLabel}>
-          Select team to start projections for:
+          Select team to start projections:
         </label>
 
         <select
