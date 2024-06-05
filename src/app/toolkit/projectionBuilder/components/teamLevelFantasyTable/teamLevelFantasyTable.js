@@ -75,6 +75,52 @@ export default function TeamLevelFantasyTable({
     +(rb3Data.recievingTDs * 6)
   ).toFixed(1);
 
+  wr1Data.fantasyPoints = +(
+    +(wr1Data.RushingYards * 0.1) +
+    +(wr1Data.TDs * 6) +
+    +(wr1Data.receptions * 1) +
+    +(wr1Data.recievingYards * 0.1) +
+    +(wr1Data.recievingTDs * 6)
+  ).toFixed(1);
+
+  wr2Data.fantasyPoints = +(
+    +(wr2Data.RushingYards * 0.1) +
+    +(wr2Data.TDs * 6) +
+    +(wr2Data.receptions * 1) +
+    +(wr2Data.recievingYards * 0.1) +
+    +(wr2Data.recievingTDs * 6)
+  ).toFixed(1);
+
+  wr3Data.fantasyPoints = +(
+    +(wr3Data.RushingYards * 0.1) +
+    +(wr3Data.TDs * 6) +
+    +(wr3Data.receptions * 1) +
+    +(wr3Data.recievingYards * 0.1) +
+    +(wr3Data.recievingTDs * 6)
+  ).toFixed(1);
+
+  wr4Data.fantasyPoints = +(
+    +(wr4Data.RushingYards * 0.1) +
+    +(wr4Data.TDs * 6) +
+    +(wr4Data.receptions * 1) +
+    +(wr4Data.recievingYards * 0.1) +
+    +(wr4Data.recievingTDs * 6)
+  ).toFixed(1);
+
+  te1Data.fantasyPoints = +(
+    +(te1Data.receptions * 1) +
+    +(te1Data.recievingYards * 0.1) +
+    +(te1Data.recievingTDs * 6)
+  ).toFixed(1);
+
+  if (te2Data) {
+    te2Data.fantasyPoints = +(
+      +(te2Data.receptions * 1) +
+      +(te2Data.recievingYards * 0.1) +
+      +(te2Data.recievingTDs * 6)
+    ).toFixed(1);
+  }
+
   // console.log(
   //   +(rb1Data.RushingYards * 0.1),
   //   +(rb1Data.TDs * 6),

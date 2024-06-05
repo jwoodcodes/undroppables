@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.css";
+import Link from "next/link";
 import allTeamsList from "./data/allTeamsList";
 import previousYearTeamData from "./data/previousYearTeamData";
 import axios from "axios";
@@ -23,6 +24,246 @@ export default function ConstructProjections(dataTest) {
   const [teamTotalTargetShare, setTeamTotalTargetShare] = React.useState();
 
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
+
+  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+    const storedValue = window.localStorage.getItem("usersAllTeamsList");
+    return JSON.parse(storedValue) || allTeamsList;
+  });
+
+  // console.log(usersAllTeamsList);
+
+  function saveUsersProjectionData(data, team) {
+    // console.log(data);
+    usersAllTeamsList[team] = data;
+    console.log(usersAllTeamsList);
+    setUsersAllTeamsList(usersAllTeamsList);
+
+    // console.log("ran here");
+    window.localStorage.setItem(
+      "usersAllTeamsList",
+      JSON.stringify(usersAllTeamsList)
+    );
+  }
+
+  function clearUsersQBsProjectionData(data, team) {
+    // console.log(data);
+    data.qb1 = {};
+    data.qb2 = {};
+    data.qb3 = {};
+    usersAllTeamsList[team] = data;
+    setUsersAllTeamsList(usersAllTeamsList);
+
+    window.localStorage.setItem(
+      "usersAllTeamsList",
+      JSON.stringify(usersAllTeamsList)
+    );
+    window.location.reload();
+  }
+
+  function clearUsersRushingProjectionData(data, team) {
+    console.log(data);
+    data.qb1 = {
+      name: data.qb1.name,
+      INTs: data.qb1.INTs,
+      PassAtmpts: data.qb1.PassAtmpts,
+      passingTDs: data.qb1.passingTDs,
+      YPA: data.qb1.YPA,
+      YPC: data.qb1.YPC,
+      compPercent: data.qb1.compPercent,
+      completions: data.qb1.completions,
+      gamesPlayed: data.qb1.gamesPlayed,
+      passAttemptsPerGame: data.qb1.passAttemptsPerGame,
+      passYrds: data.qb1.passYrds,
+    };
+    data.qb2 = {
+      name: data.qb2.name,
+      INTs: data.qb2.INTs,
+      PassAtmpts: data.qb2.PassAtmpts,
+      passingTDs: data.qb2.passingTDs,
+      YPA: data.qb2.YPA,
+      YPC: data.qb2.YPC,
+      compPercent: data.qb2.compPercent,
+      completions: data.qb2.completions,
+      gamesPlayed: data.qb2.gamesPlayed,
+      passAttemptsPerGame: data.qb2.passAttemptsPerGame,
+      passYrds: data.qb2.passYrds,
+    };
+    data.qb3 = {
+      name: data.qb3.name,
+      INTs: data.qb3.INTs,
+      PassAtmpts: data.qb3.PassAtmpts,
+      passingTDs: data.qb3.passingTDs,
+      YPA: data.qb3.YPA,
+      YPC: data.qb3.YPC,
+      compPercent: data.qb3.compPercent,
+      completions: data.qb3.completions,
+      gamesPlayed: data.qb3.gamesPlayed,
+      passAttemptsPerGame: data.qb3.passAttemptsPerGame,
+      passYrds: data.qb3.passYrds,
+    };
+    data.rb1 = {
+      name: data.rb1.name,
+      targetShare: data.rb1.targetShare,
+      targets: data.rb1.targets,
+      catchPercentage: data.rb1.catchPercentage,
+      receptions: data.rb1.receptions,
+      recievingYards: data.rb1.recievingYards,
+      recievingTDs: data.rb1.recievingTDs,
+    };
+    data.rb2 = {
+      name: data.rb2.name,
+      targetShare: data.rb2.targetShare,
+      targets: data.rb2.targets,
+      catchPercentage: data.rb2.catchPercentage,
+      receptions: data.rb2.receptions,
+      recievingYards: data.rb2.recievingYards,
+      recievingTDs: data.rb2.recievingTDs,
+    };
+    data.rb3 = {
+      name: data.rb3.name,
+      targetShare: data.rb3.targetShare,
+      targets: data.rb3.targets,
+      catchPercentage: data.rb3.catchPercentage,
+      receptions: data.rb3.receptions,
+      recievingYards: data.rb3.recievingYards,
+      recievingTDs: data.rb3.recievingTDs,
+    };
+
+    data.wr1 = {
+      name: data.wr1.name,
+      targetShare: data.wr1.targetShare,
+      targets: data.wr1.targets,
+      catchPercentage: data.wr1.catchPercentage,
+      receptions: data.wr1.receptions,
+      recievingYards: data.wr1.recievingYards,
+      recievingTDs: data.wr1.recievingTDs,
+    };
+    data.wr2 = {
+      name: data.wr2.name,
+      targetShare: data.wr2.targetShare,
+      targets: data.wr2.targets,
+      catchPercentage: data.wr2.catchPercentage,
+      receptions: data.wr2.receptions,
+      recievingYards: data.wr2.recievingYards,
+      recievingTDs: data.wr2.recievingTDs,
+    };
+    data.wr3 = {
+      name: data.wr3.name,
+      targetShare: data.wr3.targetShare,
+      targets: data.wr3.targets,
+      catchPercentage: data.wr3.catchPercentage,
+      receptions: data.wr3.receptions,
+      recievingYards: data.wr3.recievingYards,
+      recievingTDs: data.wr3.recievingTDs,
+    };
+    data.wr4 = {
+      name: data.wr4.name,
+      targetShare: data.wr4.targetShare,
+      targets: data.wr4.targets,
+      catchPercentage: data.wr4.catchPercentage,
+      receptions: data.wr4.receptions,
+      recievingYards: data.wr4.recievingYards,
+      recievingTDs: data.wr4.recievingTDs,
+    };
+    data.te1 = {
+      name: data.te1.name,
+      targetShare: data.te1.targetShare,
+      targets: data.te1.targets,
+      catchPercentage: data.te1.catchPercentage,
+      receptions: data.te1.receptions,
+      recievingYards: data.te1.recievingYards,
+      recievingTDs: data.te1.recievingTDs,
+    };
+    data.te2 = {
+      name: data.te2.name,
+      targetShare: data.te2.targetShare,
+      targets: data.te2.targets,
+      catchPercentage: data.te2.catchPercentage,
+      receptions: data.te2.receptions,
+      recievingYards: data.te2.recievingYards,
+      recievingTDs: data.te2.recievingTDs,
+    };
+    usersAllTeamsList[team] = data;
+    setUsersAllTeamsList(usersAllTeamsList);
+
+    window.localStorage.setItem(
+      "usersAllTeamsList",
+      JSON.stringify(usersAllTeamsList)
+    );
+    window.location.reload();
+  }
+
+  function clearUsersRecievingProjectionData(data, team) {
+    // console.log(data);
+    data.rb1 = {
+      name: data.rb1.name,
+      RushingYards: data.rb1.RushingYards,
+      TDs: data.rb1.TDs,
+      YPCarry: data.rb1.YPCarry,
+      rushAttempts: data.rb1.rushAttempts,
+    };
+    data.rb2 = {
+      name: data.rb2.name,
+      RushingYards: data.rb2.RushingYards,
+      TDs: data.rb2.TDs,
+      YPCarry: data.rb2.YPCarry,
+      rushAttempts: data.rb2.rushAttempts,
+    };
+    data.rb3 = {
+      name: data.rb3.name,
+      RushingYards: data.rb3.RushingYards,
+      TDs: data.rb3.TDs,
+      YPCarry: data.rb3.YPCarry,
+      rushAttempts: data.rb3.rushAttempts,
+    };
+
+    data.wr1 = {
+      name: data.wr1.name,
+      RushingYards: data.wr1.RushingYards,
+      TDs: data.wr1.TDs,
+      YPCarry: data.wr1.YPCarry,
+      rushAttempts: data.wr1.rushAttempts,
+    };
+    data.wr2 = {
+      name: data.wr2.name,
+      RushingYards: data.wr2.RushingYards,
+      TDs: data.wr2.TDs,
+      YPCarry: data.wr2.YPCarry,
+      rushAttempts: data.wr2.rushAttempts,
+    };
+    data.wr3 = {
+      name: data.wr3.name,
+      RushingYards: data.wr3.RushingYards,
+      TDs: data.wr3.TDs,
+      YPCarry: data.wr3.YPCarry,
+      rushAttempts: data.wr3.rushAttempts,
+    };
+    data.wr4 = {
+      name: data.wr4.name,
+      RushingYards: data.wr4.RushingYards,
+      TDs: data.wr4.TDs,
+      YPCarry: data.wr4.YPCarry,
+      rushAttempts: data.wr4.rushAttempts,
+    };
+    data.te1 = {};
+    data.te2 = {};
+    usersAllTeamsList[team] = data;
+    setUsersAllTeamsList(usersAllTeamsList);
+
+    window.localStorage.setItem(
+      "usersAllTeamsList",
+      JSON.stringify(usersAllTeamsList)
+    );
+    window.location.reload();
+  }
+
+  // React.useEffect(() => {
+  //   console.log("ran here");
+  //   window.localStorage.setItem(
+  //     "usersAllTeamsList",
+  //     JSON.stringify(usersAllTeamsList)
+  //   );
+  // }, [usersAllTeamsList]);
 
   let tempTotalPassPlays = 0;
   let tempTotalRunPlays = 0;
@@ -58,6 +299,14 @@ export default function ConstructProjections(dataTest) {
 
   return (
     <div>
+      <div className={styles.linkWrapper}>
+        <Link
+          href={"/toolkit/projectionBuilder/usersProjections"}
+          className={styles.projectionsLink}
+        >
+          view all your projections &rarr;
+        </Link>
+      </div>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -93,7 +342,7 @@ export default function ConstructProjections(dataTest) {
         {team}
       </p>
 
-      {allTeamsList.map((topLeveLTeam) => {
+      {usersAllTeamsList.map((topLeveLTeam) => {
         if (team === topLeveLTeam.teamName) {
           return (
             <div>
@@ -119,7 +368,7 @@ export default function ConstructProjections(dataTest) {
                     </label>
                     <input
                       id="teamTotalProjectedPlays-field"
-                      value={teamTotalProjectedPlays}
+                      value={topLeveLTeam.teamTotalProjectedPlays}
                       type="number"
                       max={1600}
                       onChange={(event) => {
@@ -128,6 +377,18 @@ export default function ConstructProjections(dataTest) {
                           event.target.value < 1600
                         ) {
                           setTeamTotalProjectedPlays(event.target.value);
+                          if (!topLeveLTeam.teamTotalProjectedPlays) {
+                            topLeveLTeam.teamTotalProjectedPlays =
+                              +event.target.value;
+                          }
+                          if (
+                            topLeveLTeam.teamTotalProjectedPlays &&
+                            +event.target.value !==
+                              topLeveLTeam.teamTotalProjectedPlays
+                          ) {
+                            topLeveLTeam.teamTotalProjectedPlays =
+                              +event.target.value;
+                          }
                         }
                       }}
                       className={styles.teamSelectSelect}
@@ -137,10 +398,11 @@ export default function ConstructProjections(dataTest) {
                   <p className={styles.selectedTeamText}>
                     <strong>Total team plays:</strong>
                     {"    "}{" "}
-                    {teamTotalProjectedPlays || "Enter total plays number"}
+                    {topLeveLTeam.teamTotalProjectedPlays ||
+                      "Enter total plays number"}
                   </p>
 
-                  {teamTotalProjectedPlays > 900 && (
+                  {topLeveLTeam.teamTotalProjectedPlays > 700 && (
                     <div>
                       <form
                         onSubmit={(event) => {
@@ -158,17 +420,20 @@ export default function ConstructProjections(dataTest) {
                         </label>
                         <input
                           id="passPercecntage-field"
-                          value={passPercecntage}
+                          value={topLeveLTeam.teamPassPercentage}
                           type="number"
                           onChange={(event) => {
                             if (
-                              event.target.value > -5 &&
+                              // event.target.value > -5 &&
                               event.target.value < 100
                             ) {
                               setPassPercecntage(event.target.value);
+                              topLeveLTeam.teamPassPercentage =
+                                +event.target.value;
                               let runPercent = 100 - event.target.value;
                               // console.log(passPercecntage);
                               setRunPercecntage(runPercent);
+                              topLeveLTeam.teamRunPercentage = runPercent;
 
                               // let decimalPassPercent = +passPercecntage / 10;
 
@@ -181,12 +446,20 @@ export default function ConstructProjections(dataTest) {
                                   (event.target.value / 100)
                                 ).toFixed(0)
                               );
+                              topLeveLTeam.totalPassPlays = +(
+                                teamTotalProjectedPlays *
+                                (event.target.value / 100)
+                              ).toFixed(0);
                               setTotalRunPlays(
                                 +(
                                   teamTotalProjectedPlays *
                                   ((100 - event.target.value) / 100)
                                 ).toFixed(0)
                               );
+                              topLeveLTeam.totalRunPlays = +(
+                                teamTotalProjectedPlays *
+                                ((100 - +event.target.value) / 100)
+                              ).toFixed(0);
                             }
                           }}
                           className={styles.teamSelectSelect}
@@ -196,26 +469,29 @@ export default function ConstructProjections(dataTest) {
                       <p className={styles.runAndPassPercentText}>
                         <strong>Projected pass percentage:</strong>
                         {"    "}{" "}
-                        {passPercecntage || "Enter Value between 0 and 100"}
+                        {topLeveLTeam.teamPassPercentage ||
+                          "Enter Value between 0 and 100"}
                       </p>
                       <p className={styles.runAndPassPercentText}>
                         <strong>Projected run percentage:</strong>
                         {"    "}{" "}
-                        {runPercecntage || "Enter projected pass percentage"}
+                        {topLeveLTeam.teamRunPercentage ||
+                          "Enter projected pass percentage"}
                       </p>
 
-                      {totalPassPlays > 400 && totalPassPlays < 800 && (
+                      {topLeveLTeam.totalPassPlays && (
                         <div>
                           <p className={styles.runAndPassPercentText}>
                             <strong>Total pass plays:</strong>
                             {"    "}{" "}
-                            {totalPassPlays ||
+                            {topLeveLTeam.totalPassPlays ||
                               "Enter projected pass percentage"}
                           </p>
                           <p className={styles.runAndPassPercentText}>
                             <strong>Total run plays:</strong>
                             {"    "}{" "}
-                            {totalRunPlays || "Enter projected pass percentage"}
+                            {topLeveLTeam.totalRunPlays ||
+                              "Enter projected pass percentage"}
                           </p>
                         </div>
                       )}
@@ -500,7 +776,6 @@ export default function ConstructProjections(dataTest) {
                               }
                               className={styles.selectedTeamsPlayerInput}
                               type="number"
-                              max={18}
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.gamesPlayed =
@@ -589,6 +864,7 @@ export default function ConstructProjections(dataTest) {
                                   let tempAttemptsForHere =
                                     +event.target.value *
                                     topLeveLTeam.qb1.gamesPlayed;
+                                  // console.log(tempAttemptsForHere);
 
                                   if (
                                     (!qb2Data.PassAtmpts &&
@@ -609,32 +885,48 @@ export default function ConstructProjections(dataTest) {
                                     alert(
                                       `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
                                     );
-                                  }
-
-                                  if (
-                                    (!qb2Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere <= totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb2Data.PassAtmpts <=
-                                        totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb2Data.PassAtmpts +
-                                        qb3Data.PassAtmpts <=
-                                        totalPassPlays)
-                                  ) {
+                                  } else {
+                                    console.log("ran heeeere");
                                     topLeveLTeam.qb1.passAttemptsPerGame =
                                       +event.target.value;
                                     qb1Data.passAttemptsPerGame =
                                       +event.target.value;
+                                    topLeveLTeam.qb1.PassAtmpts =
+                                      +event.target.value *
+                                      +topLeveLTeam.qb1.gamesPlayed;
                                     qb1Data.PassAtmpts =
                                       +event.target.value *
                                       topLeveLTeam.qb1.gamesPlayed;
                                   }
+
+                                  //   if (
+                                  //     (!qb2Data.PassAtmpts &&
+                                  //       !qb3Data.PassAtmpts &&
+                                  //       tempAttemptsForHere <= totalPassPlays) ||
+                                  //     (qb2Data.PassAtmpts &&
+                                  //       !qb3Data.PassAtmpts &&
+                                  //       tempAttemptsForHere +
+                                  //         qb2Data.PassAtmpts <=
+                                  //         totalPassPlays) ||
+                                  //     (qb2Data.PassAtmpts &&
+                                  //       qb3Data.PassAtmpts &&
+                                  //       tempAttemptsForHere +
+                                  //         qb2Data.PassAtmpts +
+                                  //         qb3Data.PassAtmpts <=
+                                  //         totalPassPlays)
+                                  //   ) {
+                                  //     console.log(+event.target.value);
+                                  //     topLeveLTeam.qb1.passAttemptsPerGame =
+                                  //       +event.target.value;
+                                  //     qb1Data.passAttemptsPerGame =
+                                  //       +event.target.value;
+                                  //     topLeveLTeam.qb1.PassAtmpts =
+                                  //       +event.target.value *
+                                  //       +topLeveLTeam.qb1.gamesPlayed;
+                                  //     qb1Data.PassAtmpts =
+                                  //       +event.target.value *
+                                  //       topLeveLTeam.qb1.gamesPlayed;
+                                  //   }
                                 }
 
                                 if (topLeveLTeam.qb2.name === player.name) {
@@ -661,38 +953,53 @@ export default function ConstructProjections(dataTest) {
                                     alert(
                                       `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
                                     );
-                                  }
-
-                                  if (
-                                    (!qb1Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere <= totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb1Data.PassAtmpts <=
-                                        totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb1Data.PassAtmpts +
-                                        qb3Data.PassAtmpts <=
-                                        totalPassPlays)
-                                  ) {
+                                  } else {
                                     topLeveLTeam.qb2.passAttemptsPerGame =
                                       +event.target.value;
                                     qb2Data.passAttemptsPerGame =
                                       +event.target.value;
+                                    topLeveLTeam.qb2.PassAtmpts =
+                                      +event.target.value *
+                                      +topLeveLTeam.qb2.gamesPlayed;
                                     qb2Data.PassAtmpts =
                                       +event.target.value *
                                       topLeveLTeam.qb2.gamesPlayed;
                                   }
+
+                                  // if (
+                                  //   (!qb1Data.PassAtmpts &&
+                                  //     !qb3Data.PassAtmpts &&
+                                  //     tempAttemptsForHere <= totalPassPlays) ||
+                                  //   (qb1Data.PassAtmpts &&
+                                  //     !qb3Data.PassAtmpts &&
+                                  //     tempAttemptsForHere +
+                                  //       qb1Data.PassAtmpts <=
+                                  //       totalPassPlays) ||
+                                  //   (qb1Data.PassAtmpts &&
+                                  //     qb3Data.PassAtmpts &&
+                                  //     tempAttemptsForHere +
+                                  //       qb1Data.PassAtmpts +
+                                  //       qb3Data.PassAtmpts <=
+                                  //       totalPassPlays)
+                                  // ) {
+                                  //   topLeveLTeam.qb2.passAttemptsPerGame =
+                                  //     +event.target.value;
+                                  //   qb2Data.passAttemptsPerGame =
+                                  //     +event.target.value;
+                                  //   topLeveLTeam.qb2.PassAtmpts =
+                                  //     +event.target.value *
+                                  //     +topLeveLTeam.qb2.gamesPlayed;
+                                  //   qb2Data.PassAtmpts =
+                                  //     +event.target.value *
+                                  //     topLeveLTeam.qb2.gamesPlayed;
+                                  // }
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
                                   topLeveLTeam.qb3.passAttemptsPerGame =
                                     +event.target.value;
                                   qb3Data.passAttemptsPerGame =
                                     +event.target.value;
+
                                   qb3Data.PassAtmpts =
                                     +event.target.value *
                                     topLeveLTeam.qb3.gamesPlayed;
@@ -722,32 +1029,48 @@ export default function ConstructProjections(dataTest) {
                                     alert(
                                       `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
                                     );
-                                  }
-
-                                  if (
-                                    (!qb2Data.PassAtmpts &&
-                                      !qb1Data.PassAtmpts &&
-                                      tempAttemptsForHere <= totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      !qb1Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb2Data.PassAtmpts <=
-                                        totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      qb1Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb2Data.PassAtmpts +
-                                        qb1Data.PassAtmpts <=
-                                        totalPassPlays)
-                                  ) {
+                                  } else {
                                     topLeveLTeam.qb3.passAttemptsPerGame =
                                       +event.target.value;
                                     qb3Data.passAttemptsPerGame =
                                       +event.target.value;
+                                    topLeveLTeam.qb3.PassAtmpts =
+                                      +event.target.value *
+                                      +topLeveLTeam.qb3.gamesPlayed;
+
                                     qb3Data.PassAtmpts =
                                       +event.target.value *
-                                      topLeveLTeam.qb3.gamesPlayed;
+                                      +topLeveLTeam.qb3.gamesPlayed;
                                   }
+
+                                  // if (
+                                  //   (!qb2Data.PassAtmpts &&
+                                  //     !qb1Data.PassAtmpts &&
+                                  //     tempAttemptsForHere <= totalPassPlays) ||
+                                  //   (qb2Data.PassAtmpts &&
+                                  //     !qb1Data.PassAtmpts &&
+                                  //     tempAttemptsForHere +
+                                  //       qb2Data.PassAtmpts <=
+                                  //       totalPassPlays) ||
+                                  //   (qb2Data.PassAtmpts &&
+                                  //     qb1Data.PassAtmpts &&
+                                  //     tempAttemptsForHere +
+                                  //       qb2Data.PassAtmpts +
+                                  //       qb1Data.PassAtmpts <=
+                                  //       totalPassPlays)
+                                  // ) {
+                                  //   topLeveLTeam.qb3.passAttemptsPerGame =
+                                  //     +event.target.value;
+                                  //   qb3Data.passAttemptsPerGame =
+                                  //     +event.target.value;
+                                  //   topLeveLTeam.qb3.PassAtmpts =
+                                  //     +event.target.value *
+                                  //     +topLeveLTeam.qb3.gamesPlayed;
+
+                                  //   qb3Data.PassAtmpts =
+                                  //     +event.target.value *
+                                  //     +topLeveLTeam.qb3.gamesPlayed;
+                                  // }
                                 }
                                 // console.log(topLeveLTeam);
                                 // console.log(topLeveLTeam.qb1);
@@ -781,6 +1104,10 @@ export default function ConstructProjections(dataTest) {
                                   topLeveLTeam.qb1.compPercent =
                                     +event.target.value;
                                   qb1Data.compPercent = +event.target.value;
+                                  topLeveLTeam.qb1.completions = (
+                                    +(+event.target.value / 100) *
+                                    +qb1Data.PassAtmpts
+                                  ).toFixed(0);
                                   qb1Data.completions = (
                                     +(+event.target.value / 100) *
                                     +qb1Data.PassAtmpts
@@ -790,6 +1117,10 @@ export default function ConstructProjections(dataTest) {
                                   topLeveLTeam.qb2.compPercent =
                                     +event.target.value;
                                   qb2Data.compPercent = +event.target.value;
+                                  topLeveLTeam.qb2.completions = (
+                                    +(+event.target.value / 100) *
+                                    +qb2Data.PassAtmpts
+                                  ).toFixed(0);
                                   qb2Data.completions = (
                                     +(+event.target.value / 100) *
                                     +qb2Data.PassAtmpts
@@ -799,6 +1130,10 @@ export default function ConstructProjections(dataTest) {
                                   topLeveLTeam.qb3.compPercent =
                                     +event.target.value;
                                   qb3Data.compPercent = +event.target.value;
+                                  topLeveLTeam.qb3.completions = (
+                                    +(+event.target.value / 100) *
+                                    +qb3Data.PassAtmpts
+                                  ).toFixed(0);
                                   qb3Data.completions = (
                                     +(+event.target.value / 100) *
                                     +qb3Data.PassAtmpts
@@ -874,7 +1209,11 @@ export default function ConstructProjections(dataTest) {
                               onChange={(event) => {
                                 if (topLeveLTeam.qb1.name === player.name) {
                                   topLeveLTeam.qb1.YPC = +event.target.value;
+
                                   qb1Data.YPC = +event.target.value;
+                                  topLeveLTeam.qb1.passYrds = +(
+                                    +event.target.value * +qb1Data.completions
+                                  ).toFixed(0);
                                   qb1Data.passYrds = +(
                                     +event.target.value * +qb1Data.completions
                                   ).toFixed(0);
@@ -882,6 +1221,9 @@ export default function ConstructProjections(dataTest) {
                                 if (topLeveLTeam.qb2.name === player.name) {
                                   topLeveLTeam.qb2.YPC = +event.target.value;
                                   qb2Data.YPC = +event.target.value;
+                                  topLeveLTeam.qb2.passYrds = +(
+                                    +event.target.value * +qb2Data.completions
+                                  ).toFixed(0);
                                   qb2Data.passYrds = +(
                                     +event.target.value * +qb2Data.completions
                                   ).toFixed(0);
@@ -889,6 +1231,9 @@ export default function ConstructProjections(dataTest) {
                                 if (topLeveLTeam.qb3.name === player.name) {
                                   topLeveLTeam.qb3.YPC = +event.target.value;
                                   qb3Data.YPC = +event.target.value;
+                                  topLeveLTeam.qb3.passYrds = +(
+                                    +event.target.value * +qb3Data.completions
+                                  ).toFixed(0);
                                   qb3Data.passYrds = +(
                                     +event.target.value * +qb3Data.completions
                                   ).toFixed(0);
@@ -1067,10 +1412,40 @@ export default function ConstructProjections(dataTest) {
                   //
                 })}
 
+                <div className={styles.saveAndClearBTNsWrapper}>
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        saveUsersProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Save QB Projections
+                    </button>
+                  </div>
+
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        clearUsersQBsProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Clear Saved QB Projections
+                    </button>
+                  </div>
+                </div>
+
                 <PassingTable
-                  qb1Data={qb1Data}
-                  qb2Data={qb2Data}
-                  qb3Data={qb3Data}
+                  qb1Data={topLeveLTeam.qb1}
+                  qb2Data={topLeveLTeam.qb2}
+                  qb3Data={topLeveLTeam.qb3}
                 />
 
                 <div className={styles.qbSectionTitle}> Rushing</div>
@@ -1081,7 +1456,7 @@ export default function ConstructProjections(dataTest) {
                     if (
                       (player.name === topLeveLTeam.qb1.name &&
                         player.position === "QB") ||
-                      (player.name === topLeveLTeam.qb1.name &&
+                      (player.name === topLeveLTeam.qb2.name &&
                         player.position === "QB") ||
                       (player.name === topLeveLTeam.rb1.name &&
                         player.position === "RB") ||
@@ -1100,7 +1475,7 @@ export default function ConstructProjections(dataTest) {
                     ) {
                       return (
                         <div
-                          key={player.name}
+                          key={`${player.name}-${player.position}`}
                           className={styles.teamsQBsWrapper}
                         >
                           {" "}
@@ -1485,6 +1860,9 @@ export default function ConstructProjections(dataTest) {
                                   qb1Data.RushingYards = +(
                                     +event.target.value * qb1Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.qb1.RushingYards = +(
+                                    +event.target.value * qb1Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb2.name === player.name) {
                                   topLeveLTeam.qb2.YPCarry =
@@ -1494,6 +1872,9 @@ export default function ConstructProjections(dataTest) {
                                   qb2Data.RushingYards = +(
                                     +event.target.value * qb2Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.qb2.RushingYards = +(
+                                    +event.target.value * qb2Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.qb3.name === player.name) {
                                   topLeveLTeam.qb3.YPCarry =
@@ -1501,6 +1882,9 @@ export default function ConstructProjections(dataTest) {
                                   qb3Data.YPCarry = +event.target.value;
 
                                   qb3Data.RushingYards = +(
+                                    +event.target.value * qb3Data.rushAttempts
+                                  ).toFixed(0);
+                                  topLeveLTeam.qb3.RushingYards = +(
                                     +event.target.value * qb3Data.rushAttempts
                                   ).toFixed(0);
                                 }
@@ -1513,6 +1897,9 @@ export default function ConstructProjections(dataTest) {
                                   rb1Data.RushingYards = +(
                                     +event.target.value * rb1Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.rb1.RushingYards = +(
+                                    +event.target.value * rb1Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb2.name === player.name) {
                                   topLeveLTeam.rb2.YPCarry =
@@ -1522,6 +1909,9 @@ export default function ConstructProjections(dataTest) {
                                   rb2Data.RushingYards = +(
                                     +event.target.value * rb2Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.rb2.RushingYards = +(
+                                    +event.target.value * rb2Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb3.name === player.name) {
                                   topLeveLTeam.rb3.YPCarry =
@@ -1529,6 +1919,9 @@ export default function ConstructProjections(dataTest) {
 
                                   rb3Data.YPCarry = +event.target.value;
                                   rb3Data.RushingYards = +(
+                                    +event.target.value * rb3Data.rushAttempts
+                                  ).toFixed(0);
+                                  topLeveLTeam.rb3.RushingYards = +(
                                     +event.target.value * rb3Data.rushAttempts
                                   ).toFixed(0);
                                 }
@@ -1541,6 +1934,9 @@ export default function ConstructProjections(dataTest) {
                                   wr1Data.RushingYards = +(
                                     +event.target.value * wr1Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.wr1.RushingYards = +(
+                                    +event.target.value * wr1Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.wr2.name === player.name) {
                                   topLeveLTeam.wr2.YPCarry =
@@ -1548,6 +1944,9 @@ export default function ConstructProjections(dataTest) {
                                   wr2Data.YPCarry = +event.target.value;
 
                                   wr2Data.RushingYards = +(
+                                    +event.target.value * wr2Data.rushAttempts
+                                  ).toFixed(0);
+                                  topLeveLTeam.wr2.RushingYards = +(
                                     +event.target.value * wr2Data.rushAttempts
                                   ).toFixed(0);
                                 }
@@ -1559,13 +1958,19 @@ export default function ConstructProjections(dataTest) {
                                   wr3Data.RushingYards = +(
                                     +event.target.value * wr3Data.rushAttempts
                                   ).toFixed(0);
+                                  topLeveLTeam.wr3.RushingYards = +(
+                                    +event.target.value * wr3Data.rushAttempts
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.wr4.name === player.name) {
                                   topLeveLTeam.wr4.YPCarry =
                                     +event.target.value;
                                   wr4Data.YPCarry = +event.target.value;
 
-                                  w43Data.RushingYards = +(
+                                  wr4Data.RushingYards = +(
+                                    +event.target.value * wr4Data.rushAttempts
+                                  ).toFixed(0);
+                                  topLeveLTeam.wr4.RushingYards = +(
                                     +event.target.value * wr4Data.rushAttempts
                                   ).toFixed(0);
                                 }
@@ -1692,17 +2097,47 @@ export default function ConstructProjections(dataTest) {
                   }
                 })}
 
+                <div className={styles.saveAndClearBTNsWrapper}>
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        saveUsersProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Save Rushing Projections
+                    </button>
+                  </div>
+
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        clearUsersRushingProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Clear Saved Rushing Projections
+                    </button>
+                  </div>
+                </div>
+
                 <RushingTable
-                  qb1Data={qb1Data}
-                  qb2Data={qb2Data}
-                  qb3Data={qb3Data}
-                  rb1Data={rb1Data}
-                  rb2Data={rb2Data}
-                  rb3Data={rb3Data}
-                  wr1Data={wr1Data}
-                  wr2Data={wr2Data}
-                  wr3Data={wr3Data}
-                  wr4Data={wr4Data}
+                  qb1Data={topLeveLTeam.qb1}
+                  qb2Data={topLeveLTeam.qb2}
+                  qb3Data={topLeveLTeam.qb3}
+                  rb1Data={topLeveLTeam.rb1}
+                  rb2Data={topLeveLTeam.rb2}
+                  rb3Data={topLeveLTeam.rb3}
+                  wr1Data={topLeveLTeam.wr1}
+                  wr2Data={topLeveLTeam.wr2}
+                  wr3Data={topLeveLTeam.wr3}
+                  wr4Data={topLeveLTeam.wr4}
                 />
 
                 <div className={styles.qbSectionTitle}> Recieving</div>
@@ -1731,7 +2166,7 @@ export default function ConstructProjections(dataTest) {
                     ) {
                       return (
                         <div
-                          key={player.name}
+                          key={`${player.name}-${player.myValue}}`}
                           className={styles.teamsQBsWrapper}
                         >
                           {" "}
@@ -1892,8 +2327,12 @@ export default function ConstructProjections(dataTest) {
 
                                     rb1Data.targetShare = +event.target.value;
                                     rb1Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
                                       +(rb1Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.rb1.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(+topLeveLTeam.rb1.targetShare / 100)
                                     ).toFixed(0);
                                   }
                                   if (topLeveLTeam.rb2.name === player.name) {
@@ -1903,7 +2342,11 @@ export default function ConstructProjections(dataTest) {
 
                                     rb2Data.targetShare = +event.target.value;
                                     rb2Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(rb2Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.rb2.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(rb2Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1914,7 +2357,11 @@ export default function ConstructProjections(dataTest) {
 
                                     rb3Data.targetShare = +event.target.value;
                                     rb3Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(rb3Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.rb3.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(rb3Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1928,7 +2375,11 @@ export default function ConstructProjections(dataTest) {
 
                                     wr1Data.targetShare = +event.target.value;
                                     wr1Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(wr1Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.wr1.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(wr1Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1939,7 +2390,11 @@ export default function ConstructProjections(dataTest) {
 
                                     wr2Data.targetShare = +event.target.value;
                                     wr2Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(wr2Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.wr2.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(wr2Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1950,8 +2405,12 @@ export default function ConstructProjections(dataTest) {
 
                                     wr3Data.targetShare = +event.target.value;
                                     wr3Data.targets = +(
-                                      +totalPassPlays *
-                                      +(wr3Data.targetShare / 10)
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(wr3Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.wr3.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(wr3Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
 
@@ -1962,7 +2421,11 @@ export default function ConstructProjections(dataTest) {
 
                                     wr4Data.targetShare = +event.target.value;
                                     wr4Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(wr4Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.wr4.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(wr4Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1976,7 +2439,11 @@ export default function ConstructProjections(dataTest) {
 
                                     te1Data.targetShare = +event.target.value;
                                     te1Data.targets = +(
-                                      +totalPassPlays *
+                                      +topLeveLTeam.totalPassPlays *
+                                      +(te1Data.targetShare / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.te1.targets = +(
+                                      +topLeveLTeam.totalPassPlays *
                                       +(te1Data.targetShare / 100)
                                     ).toFixed(0);
                                   }
@@ -1985,7 +2452,11 @@ export default function ConstructProjections(dataTest) {
                                       te2Data.name = topLeveLTeam.te2.name;
                                       te2Data.targetShare = +event.target.value;
                                       te2Data.targets = +(
-                                        +totalPassPlays *
+                                        +topLeveLTeam.totalPassPlays *
+                                        +(te2Data.targetShare / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.te2.targets = +(
+                                        +topLeveLTeam.totalPassPlays *
                                         +(te2Data.targetShare / 100)
                                       ).toFixed(0);
                                     }
@@ -2044,6 +2515,10 @@ export default function ConstructProjections(dataTest) {
                                     +rb1Data.targets *
                                     +(rb1Data.catchPercentage / 100)
                                   ).toFixed(0);
+                                  topLeveLTeam.rb1.receptions = +(
+                                    +rb1Data.targets *
+                                    +(rb1Data.catchPercentage / 100)
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb2.name === player.name) {
                                   topLeveLTeam.rb2.catchPercentage =
@@ -2054,6 +2529,10 @@ export default function ConstructProjections(dataTest) {
                                     +rb2Data.targets *
                                     +(rb2Data.catchPercentage / 100)
                                   ).toFixed(0);
+                                  topLeveLTeam.rb2.receptions = +(
+                                    +rb2Data.targets *
+                                    +(rb2Data.catchPercentage / 100)
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.rb3.name === player.name) {
                                   topLeveLTeam.rb3.catchPercentage =
@@ -2061,6 +2540,10 @@ export default function ConstructProjections(dataTest) {
 
                                   rb3Data.catchPercentage = +event.target.value;
                                   rb3Data.receptions = +(
+                                    +rb3Data.targets *
+                                    +(rb3Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                  topLeveLTeam.rb3.receptions = +(
                                     +rb3Data.targets *
                                     +(rb3Data.catchPercentage / 100)
                                   ).toFixed(0);
@@ -2077,6 +2560,10 @@ export default function ConstructProjections(dataTest) {
                                     +wr1Data.targets *
                                     +(wr1Data.catchPercentage / 100)
                                   ).toFixed(0);
+                                  topLeveLTeam.wr1.receptions = +(
+                                    +wr1Data.targets *
+                                    +(wr1Data.catchPercentage / 100)
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.wr2.name === player.name) {
                                   topLeveLTeam.wr2.catchPercentage =
@@ -2084,6 +2571,10 @@ export default function ConstructProjections(dataTest) {
 
                                   wr2Data.catchPercentage = +event.target.value;
                                   wr2Data.receptions = +(
+                                    +wr2Data.targets *
+                                    +(wr2Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                  topLeveLTeam.wr2.receptions = +(
                                     +wr2Data.targets *
                                     +(wr2Data.catchPercentage / 100)
                                   ).toFixed(0);
@@ -2097,6 +2588,10 @@ export default function ConstructProjections(dataTest) {
                                     +wr3Data.targets *
                                     +(wr3Data.catchPercentage / 100)
                                   ).toFixed(0);
+                                  topLeveLTeam.wr3.receptions = +(
+                                    +wr3Data.targets *
+                                    +(wr3Data.catchPercentage / 100)
+                                  ).toFixed(0);
                                 }
 
                                 if (topLeveLTeam.wr4.name === player.name) {
@@ -2105,6 +2600,10 @@ export default function ConstructProjections(dataTest) {
 
                                   wr4Data.catchPercentage = +event.target.value;
                                   wr4Data.receptions = +(
+                                    +wr4Data.targets *
+                                    +(wr4Data.catchPercentage / 100)
+                                  ).toFixed(0);
+                                  topLeveLTeam.wr4.receptions = +(
                                     +wr4Data.targets *
                                     +(wr4Data.catchPercentage / 100)
                                   ).toFixed(0);
@@ -2121,6 +2620,10 @@ export default function ConstructProjections(dataTest) {
                                     +te1Data.targets *
                                     +(te1Data.catchPercentage / 100)
                                   ).toFixed(0);
+                                  topLeveLTeam.te1.receptions = +(
+                                    +te1Data.targets *
+                                    +(te1Data.catchPercentage / 100)
+                                  ).toFixed(0);
                                 }
                                 if (topLeveLTeam.te2) {
                                   if (topLeveLTeam.te2.name === player.name) {
@@ -2128,6 +2631,10 @@ export default function ConstructProjections(dataTest) {
                                       +event.target.value;
 
                                     te2Data.receptions = +(
+                                      +te2Data.targets *
+                                      +(te2Data.catchPercentage / 100)
+                                    ).toFixed(0);
+                                    topLeveLTeam.te2.receptions = +(
                                       +te2Data.targets *
                                       +(te2Data.catchPercentage / 100)
                                     ).toFixed(0);
@@ -2423,6 +2930,52 @@ export default function ConstructProjections(dataTest) {
                                   +(rb3Data.recievingYards * 0.1) +
                                   +(rb3Data.recievingTDs * 6)
                                 ).toFixed(1);
+
+                                topLeveLTeam.wr1.fantasyPoints = +(
+                                  +(wr1Data.RushingYards * 0.1) +
+                                  +(wr1Data.TDs * 6) +
+                                  +(wr1Data.receptions * 1) +
+                                  +(wr1Data.recievingYards * 0.1) +
+                                  +(wr1Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.wr1.fantasyPoints = +(
+                                  +(wr2Data.RushingYards * 0.1) +
+                                  +(wr2Data.TDs * 6) +
+                                  +(wr2Data.receptions * 1) +
+                                  +(wr2Data.recievingYards * 0.1) +
+                                  +(wr2Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.wr1.fantasyPoints = +(
+                                  +(wr3Data.RushingYards * 0.1) +
+                                  +(wr3Data.TDs * 6) +
+                                  +(wr3Data.receptions * 1) +
+                                  +(wr3Data.recievingYards * 0.1) +
+                                  +(wr3Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.wr1.fantasyPoints = +(
+                                  +(wr4Data.RushingYards * 0.1) +
+                                  +(wr4Data.TDs * 6) +
+                                  +(wr4Data.receptions * 1) +
+                                  +(wr4Data.recievingYards * 0.1) +
+                                  +(wr4Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                topLeveLTeam.te1.fantasyPoints = +(
+                                  +(te1Data.receptions * 1) +
+                                  +(te1Data.recievingYards * 0.1) +
+                                  +(te1Data.recievingTDs * 6)
+                                ).toFixed(1);
+
+                                if (te2Data) {
+                                  topLeveLTeam.te2.fantasyPoints = +(
+                                    +(te2Data.receptions * 1) +
+                                    +(te2Data.recievingYards * 0.1) +
+                                    +(te2Data.recievingTDs * 6)
+                                  ).toFixed(1);
+                                }
                               }}
                             />
                           </form>
@@ -2432,31 +2985,61 @@ export default function ConstructProjections(dataTest) {
                   }
                 })}
 
+                <div className={styles.saveAndClearBTNsWrapper}>
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        saveUsersProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Save Recieving Projections
+                    </button>
+                  </div>
+
+                  <div className={styles.saveBTNWrapper}>
+                    <button
+                      onClick={() =>
+                        clearUsersRecievingProjectionData(
+                          topLeveLTeam,
+                          topLeveLTeam.teamName
+                        )
+                      }
+                      className={styles.saveBTNs}
+                    >
+                      Clear Saved Recieving Projections
+                    </button>
+                  </div>
+                </div>
+
                 <RecievingTable
-                  rb1Data={rb1Data}
-                  rb2Data={rb2Data}
-                  rb3Data={rb3Data}
-                  wr1Data={wr1Data}
-                  wr2Data={wr2Data}
-                  wr3Data={wr3Data}
-                  wr4Data={wr4Data}
-                  te1Data={te1Data}
-                  te2Data={te2Data}
+                  rb1Data={topLeveLTeam.rb1}
+                  rb2Data={topLeveLTeam.rb2}
+                  rb3Data={topLeveLTeam.rb3}
+                  wr1Data={topLeveLTeam.wr1}
+                  wr2Data={topLeveLTeam.wr2}
+                  wr3Data={topLeveLTeam.wr3}
+                  wr4Data={topLeveLTeam.wr4}
+                  te1Data={topLeveLTeam.te1}
+                  te2Data={topLeveLTeam.te2}
                 />
 
                 <TeamLevelFantasyTable
-                  qb1Data={qb1Data}
-                  qb2Data={qb2Data}
-                  qb3Data={qb3Data}
-                  rb1Data={rb1Data}
-                  rb2Data={rb2Data}
-                  rb3Data={rb3Data}
-                  wr1Data={wr1Data}
-                  wr2Data={wr2Data}
-                  wr3Data={wr3Data}
-                  wr4Data={wr4Data}
-                  te1Data={te1Data}
-                  te2Data={te2Data}
+                  qb1Data={topLeveLTeam.qb1}
+                  qb2Data={topLeveLTeam.qb2}
+                  qb3Data={topLeveLTeam.qb3}
+                  rb1Data={topLeveLTeam.rb1}
+                  rb2Data={topLeveLTeam.rb2}
+                  rb3Data={topLeveLTeam.rb3}
+                  wr1Data={topLeveLTeam.wr1}
+                  wr2Data={topLeveLTeam.wr2}
+                  wr3Data={topLeveLTeam.wr3}
+                  wr4Data={topLeveLTeam.wr4}
+                  te1Data={topLeveLTeam.te1}
+                  te2Data={topLeveLTeam.te2}
                 />
 
                 {/* <button onClick={logTeam}>log team data</button> */}
