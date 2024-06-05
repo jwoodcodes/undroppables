@@ -11,21 +11,14 @@ export default function UsersProjections() {
   const [tableData, setTableData] = React.useState([]);
   const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
     if (typeof window === "undefined") {
-      return;
+      return [];
     }
 
-    const storedValue = window.localStorage.getItem("usersAllTeamsList");
-    return JSON.parse(storedValue) || allTeamsList;
+    if (typeof window !== "undefined") {
+      const storedValue = window.localStorage.getItem("usersAllTeamsList");
+      return JSON.parse(storedValue) || allTeamsList;
+    }
   });
-
-  // React.useEffect(() => {
-  //   window.localStorage.setItem(
-  //     "usersAllTeamsList",
-  //     JSON.stringify(usersAllTeamsList)
-  //   );
-  // }, [usersAllTeamsList]);
-
-  // console.log(usersAllTeamsList);
 
   function Flex(event) {
     setPositionToShow("FLEX");
