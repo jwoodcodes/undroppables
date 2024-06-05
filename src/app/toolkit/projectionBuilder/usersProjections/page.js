@@ -9,14 +9,23 @@ import Link from "next/link";
 export default function UsersProjections() {
   const [positionToShow, setPositionToShow] = React.useState("QB");
   const [tableData, setTableData] = React.useState([]);
-  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
-    if (typeof window === undefined) {
-      return <Spinner />;
-    } else {
-      const storedValue = window.localStorage.getItem("usersAllTeamsList");
-      return JSON.parse(storedValue) || allTeamsList;
-    }
-  });
+  // const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
+  //   if (typeof window === "undefined") {
+  //     return <Spinner />;
+  //   } else {
+  //     const storedValue = window.localStorage.getItem("usersAllTeamsList");
+  //     return JSON.parse(storedValue) || allTeamsList;
+  //   }
+  // });
+
+  const [usersAllTeamsList, setUsersAllTeamsList] =
+    React.useState(allTeamsList);
+
+  React.useEffect(() => {
+    const storedValue = window.localStorage.getItem("usersAllTeamsList");
+
+    setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
+  }, []);
 
   function Flex(event) {
     setPositionToShow("FLEX");
