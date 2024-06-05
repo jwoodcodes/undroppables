@@ -546,7 +546,7 @@ export default function ConstructProjections(dataTest) {
               </div>
 
               <div>
-                <div className={styles.qbSectionTitle}> Teams QB's</div>
+                <div className={styles.qbSectionTitle}> Teams QBs</div>
                 {dataTest.dataTest.allPlayerData.map((player) => {
                   if (player.team === team) {
                     //
@@ -1319,7 +1319,7 @@ export default function ConstructProjections(dataTest) {
                               // Do something with `name` here
                             }}
                           >
-                            <label htmlFor="passingTDs">Passing TD's</label>
+                            <label htmlFor="passingTDs">Passing TDs</label>
 
                             <input
                               id="passingTDs"
