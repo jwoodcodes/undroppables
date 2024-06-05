@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function usersProjections() {
   const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
     if (typeof window === "undefined") {
-      return <Spinner />;
+      return;
     }
 
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
@@ -27,19 +27,19 @@ export default function usersProjections() {
 
   // console.log(usersAllTeamsList);
 
-  function flex(event) {
+  function Flex(event) {
     setPositionToShow("FLEX");
   }
-  function qb(event) {
+  function Qb(event) {
     setPositionToShow("QB");
   }
-  function rb(event) {
+  function Rb(event) {
     setPositionToShow("RB");
   }
-  function wr(event) {
+  function Wr(event) {
     setPositionToShow("WR");
   }
-  function te(event) {
+  function Te(event) {
     setPositionToShow("TE");
   }
 
@@ -200,19 +200,19 @@ export default function usersProjections() {
             </Link>
           </div>
           <div className={styles.btnsWrapper}>
-            <button className={styles.posBtn} onClick={qb}>
+            <button className={styles.posBtn} onClick={Qb}>
               QB
             </button>
-            <button className={styles.posBtn} onClick={rb}>
+            <button className={styles.posBtn} onClick={Rb}>
               RB
             </button>
-            <button className={styles.posBtn} onClick={wr}>
+            <button className={styles.posBtn} onClick={Wr}>
               WR
             </button>
-            <button className={styles.posBtn} onClick={te}>
+            <button className={styles.posBtn} onClick={Te}>
               TE
             </button>
-            <button className={styles.posBtn} onClick={flex}>
+            <button className={styles.posBtn} onClick={Flex}>
               FLEX
             </button>
           </div>
