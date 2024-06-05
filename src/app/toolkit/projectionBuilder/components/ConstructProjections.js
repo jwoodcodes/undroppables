@@ -345,7 +345,7 @@ export default function ConstructProjections(dataTest) {
       {usersAllTeamsList.map((topLeveLTeam) => {
         if (team === topLeveLTeam.teamName) {
           return (
-            <div>
+            <div key={topLeveLTeam.teamName}>
               <div
                 className={
                   styles.lastYearsTeamDataDisplayAndSelectingTotalProjectedPlaysWrapper
@@ -359,6 +359,7 @@ export default function ConstructProjections(dataTest) {
                       // Do something with `teamTotalProjectedPlays` here
                     }}
                     className={styles.teamProjectedPlaysFormWrapper}
+                    key={`${topLeveLTeam.teamName}-form` || "form"}
                   >
                     <label
                       htmlFor="teamTotalProjectedPlays-field"

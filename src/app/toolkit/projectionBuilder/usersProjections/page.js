@@ -6,7 +6,9 @@ import UsersProjectionsTable from "./UsersProjectionsTable";
 import Spinner from "../components/Spinner";
 import Link from "next/link";
 
-export default function usersProjections() {
+export default function UsersProjections() {
+  const [positionToShow, setPositionToShow] = React.useState("QB");
+  const [tableData, setTableData] = React.useState([]);
   const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
     if (typeof window === "undefined") {
       return;
@@ -15,8 +17,6 @@ export default function usersProjections() {
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
     return JSON.parse(storedValue) || allTeamsList;
   });
-  const [positionToShow, setPositionToShow] = React.useState("QB");
-  const [tableData, setTableData] = React.useState([]);
 
   // React.useEffect(() => {
   //   window.localStorage.setItem(
