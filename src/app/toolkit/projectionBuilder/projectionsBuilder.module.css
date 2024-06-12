@@ -56,6 +56,13 @@
   margin-top: 6rem;
 }
 
+.playerSelectWrapper {
+  display: flex;
+  justify-content: center;
+
+  margin: 3rem;
+}
+
 .teamSelectLabel {
   margin-right: 1rem;
   font-size: 1.25rem;
@@ -65,7 +72,7 @@
   border-radius: 20px;
   background-color: var(--color-blue-dark);
   color: var(--color-gray-800);
-
+  margin: 0 0.5rem;
   text-align: center;
 }
 
@@ -128,10 +135,42 @@
   margin-bottom: 0.75rem;
 }
 
+.sectionWrapper {
+  display: flex;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  justify-content: space-evenly;
+}
+
+.selectTeamsQBsWrapper {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: -1rem;
+  margin-bottom: -1rem;
+}
+
+.playerNameLabel {
+  font-size: 1.5rem;
+  color: var(--color-red-primary);
+  margin-bottom: 0.5rem;
+}
+
+.selectPlayersToProjectLabel {
+  text-align: center;
+  margin-top: 7rem;
+  margin-bottom: 1rem;
+  color: var(--color-red-primary);
+  font-size: 1.55rem;
+  letter-spacing: 0.1rem;
+}
+
 .teamsQBsWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
-  margin: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .selectedTeamsPlayerInput {
@@ -139,6 +178,7 @@
   background-color: var(--color-blue-dark);
   color: var(--color-gray-800);
   width: 4rem;
+
   /* min-width: fit-content; */
   text-align: center;
 }
