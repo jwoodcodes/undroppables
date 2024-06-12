@@ -13,7 +13,7 @@ import TeamLevelFantasyTable from "./teamLevelFantasyTable/teamLevelFantasyTable
 // import DataFetcher from "./data/dataFetcher";
 // import playerData from "./data/dataFetcher";
 
-export default function ConstructProjections(dataTest) {
+export default function ConstructProjections({ dataTest, sleeperData }) {
   const [team, setTeam] = React.useState("");
   const [teamTotalProjectedPlays, setTeamTotalProjectedPlays] =
     React.useState();
@@ -21,6 +21,32 @@ export default function ConstructProjections(dataTest) {
   const [runPercecntage, setRunPercecntage] = React.useState();
   const [totalPassPlays, setTotalPassPlays] = React.useState();
   const [totalRunPlays, setTotalRunPlays] = React.useState();
+
+  const [teamQB1, setTeamQB1] = React.useState();
+  const [teamQB2, setTeamQB2] = React.useState();
+  const [teamQB3, setTeamQB3] = React.useState();
+
+  const [isTeamQB3, setIsTeamQB3] = React.useState(false);
+
+  const [showRBs, setShowRBs] = React.useState(false);
+
+  const [teamRB1, setTeamRB1] = React.useState();
+  const [teamRB2, setTeamRB2] = React.useState();
+  const [teamRB3, setTeamRB3] = React.useState();
+
+  const [teamWR1, setTeamWR1] = React.useState();
+  const [teamWR2, setTeamWR2] = React.useState();
+  const [teamWR3, setTeamWR3] = React.useState();
+  const [teamWR4, setTeamWR4] = React.useState();
+
+  const [teamTE1, setTeamTE1] = React.useState();
+  const [teamTE2, setTeamTE2] = React.useState();
+
+  const [
+    selectedTeamsUserSelectedPlayersToProjectArray,
+    setSelectedTeamsUserSelectedPlayersToProjectArray,
+  ] = React.useState([]);
+
   const [teamTotalTargetShare, setTeamTotalTargetShare] = React.useState();
 
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
@@ -30,6 +56,26 @@ export default function ConstructProjections(dataTest) {
   //   return JSON.parse(storedValue) || allTeamsList;
   // });
 
+  // console.log(sleeperData.JustSleeperNamesTeamsAndPostionsArray);
+  const sleeperDataArray = sleeperData.JustSleeperNamesTeamsAndPostionsArray;
+  let tempDataTest = dataTest.allPlayerData;
+
+  sleeperDataArray.map((sleeperPlayer) => {
+    // console.log(sleeperPlayer.name);
+    tempDataTest.map((dataTestPlayer) => {
+      if (sleeperPlayer.name === dataTestPlayer.name) {
+        if (sleeperPlayer.team === null) {
+          // console.log(
+          //   dataTestPlayer.name,
+          //   sleeperPlayer.team,
+          //   dataTestPlayer.team
+          // );
+          sleeperPlayer.team = dataTestPlayer.team;
+        }
+      }
+    });
+  });
+
   const [usersAllTeamsList, setUsersAllTeamsList] =
     React.useState(allTeamsList);
 
@@ -38,6 +84,15 @@ export default function ConstructProjections(dataTest) {
 
     setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
   }, []);
+
+  React.useEffect(() => {
+    console.log("ran");
+    !showRBs && teamQB3
+      ? setShowRBs(true)
+      : !showRBs && teamQB2 && !isTeamQB3
+      ? setShowRBs(true)
+      : console.log("ran here", showRBs, teamQB2, isTeamQB3);
+  }, [teamQB2, teamQB3]);
 
   // console.log(usersAllTeamsList);
 
@@ -56,9 +111,9 @@ export default function ConstructProjections(dataTest) {
 
   function clearUsersQBsProjectionData(data, team) {
     // console.log(data);
-    data.qb1 = {};
-    data.qb2 = {};
-    data.qb3 = {};
+    data.qb1 = { name: data.qb1.name };
+    data.qb2 = { name: data.qb2.name };
+    data.qb3 = { name: data.qb2.name };
     usersAllTeamsList[team] = data;
     setUsersAllTeamsList(usersAllTeamsList);
 
@@ -254,8 +309,8 @@ export default function ConstructProjections(dataTest) {
       YPCarry: data.wr4.YPCarry,
       rushAttempts: data.wr4.rushAttempts,
     };
-    data.te1 = {};
-    data.te2 = {};
+    data.te1 = { name: data.te1.name };
+    data.te2 = { name: data.te1.name };
     usersAllTeamsList[team] = data;
     setUsersAllTeamsList(usersAllTeamsList);
 
@@ -295,16 +350,9 @@ export default function ConstructProjections(dataTest) {
 
   let teamTotal = {};
 
-  // console.log(dataTest.dataTest.allPlayerData);
-  // dataTest.dataTest.allPlayerData.map((team) => {
-  //   if (team.team === "IND") {
-  //     console.log(team);
-  //   }
-  // });
-
-  function logTeam(teamData) {
-    console.log(topLeveLTeam);
-  }
+  // function logTeam(teamData) {
+  //   console.log(topLeveLTeam);
+  // }
 
   return (
     <div>
@@ -353,6 +401,7 @@ export default function ConstructProjections(dataTest) {
 
       {usersAllTeamsList.map((topLeveLTeam) => {
         if (team === topLeveLTeam.teamName) {
+          // console.log(topLeveLTeam);
           return (
             <div key={topLeveLTeam.teamName}>
               <div
@@ -555,873 +604,1607 @@ export default function ConstructProjections(dataTest) {
                 </div>
               </div>
 
-              <div>
-                <div className={styles.qbSectionTitle}> Teams QBs</div>
-                {dataTest.dataTest.allPlayerData.map((player) => {
-                  if (player.team === team) {
-                    //
-                    // QB/passing
-                    //
-                    if (player.position === "QB") {
-                      // console.log(player);
-                      if (!topLeveLTeam.qb1) {
-                        topLeveLTeam.qb1 = {};
-                      }
-                      if (
-                        !topLeveLTeam.qb2 &&
-                        player.name !== topLeveLTeam.qb1.name
-                      ) {
-                        topLeveLTeam.qb2 = {};
-                      }
-                      if (
-                        !topLeveLTeam.qb3 &&
-                        player.name !== topLeveLTeam.qb1.name &&
-                        player.name !== topLeveLTeam.qb2.name
-                      ) {
-                        topLeveLTeam.qb3 = {};
-                      }
-                      if (!topLeveLTeam.qb1.name) {
-                        topLeveLTeam.qb1.name = player.name;
-                        qb1Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.qb1.name &&
-                        !topLeveLTeam.qb2.name &&
-                        topLeveLTeam.qb1.name !== player.name
-                      ) {
-                        topLeveLTeam.qb2.name = player.name;
-
-                        qb2Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.qb1.name &&
-                        topLeveLTeam.qb2.name &&
-                        !topLeveLTeam.qb3.name &&
-                        topLeveLTeam.qb1.name !== player.name &&
-                        topLeveLTeam.qb2.name !== player.name
-                      ) {
-                        topLeveLTeam.qb3.name = player.name;
-                        qb3Data.name = player.name;
-                      }
+              {sleeperDataArray.map((player) => {
+                if (player.team === team) {
+                  // console.log(player);
+                  //
+                  // QB/passing
+                  //
+                  if (player.position === "QB") {
+                    // console.log(player);
+                    if (!topLeveLTeam.qb1) {
+                      topLeveLTeam.qb1 = {};
                     }
-                    //
-                    if (player.position === "RB") {
-                      // console.log(player);
-                      if (!topLeveLTeam.rb1) {
-                        topLeveLTeam.rb1 = {};
-                      }
-                      if (
-                        !topLeveLTeam.rb2 &&
-                        player.name !== topLeveLTeam.rb1.name
-                      ) {
-                        topLeveLTeam.rb2 = {};
-                      }
-                      if (
-                        !topLeveLTeam.rb3 &&
-                        player.name !== topLeveLTeam.rb1.name &&
-                        player.name !== topLeveLTeam.rb2.name
-                      ) {
-                        topLeveLTeam.rb3 = {};
-                      }
-                      if (!topLeveLTeam.rb1.name) {
-                        topLeveLTeam.rb1.name = player.name;
-                        rb1Data.name = player.name;
-                        // console.log(rb1Data);
-                      }
-
-                      if (
-                        topLeveLTeam.rb1.name &&
-                        !topLeveLTeam.rb2.name &&
-                        topLeveLTeam.rb1.name !== player.name
-                      ) {
-                        topLeveLTeam.rb2.name = player.name;
-
-                        rb2Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.rb1.name &&
-                        topLeveLTeam.rb2.name &&
-                        !topLeveLTeam.rb3.name &&
-                        topLeveLTeam.rb1.name !== player.name &&
-                        topLeveLTeam.rb2.name !== player.name
-                      ) {
-                        topLeveLTeam.rb3.name = player.name;
-                        rb3Data.name = player.name;
-                      }
+                    if (
+                      !topLeveLTeam.qb2 &&
+                      player.name !== topLeveLTeam.qb1.name
+                    ) {
+                      topLeveLTeam.qb2 = {};
+                    }
+                    if (
+                      !topLeveLTeam.qb3 &&
+                      player.name !== topLeveLTeam.qb1.name &&
+                      player.name !== topLeveLTeam.qb2.name &&
+                      topLeveLTeam.qb1.name !== topLeveLTeam.qb2.name
+                    ) {
+                      topLeveLTeam.qb3 = {};
+                    }
+                    if (!topLeveLTeam.qb1.name) {
+                      topLeveLTeam.qb1.name = player.name;
+                      qb1Data.name = player.name;
                     }
 
-                    //
+                    if (
+                      topLeveLTeam.qb1.name &&
+                      !topLeveLTeam.qb2.name &&
+                      topLeveLTeam.qb1.name !== player.name
+                    ) {
+                      topLeveLTeam.qb2.name = player.name;
 
-                    //
-
-                    if (player.position === "WR") {
-                      // console.log(player);
-                      if (!topLeveLTeam.wr1) {
-                        topLeveLTeam.wr1 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr2 &&
-                        player.name !== topLeveLTeam.wr1.name
-                      ) {
-                        topLeveLTeam.wr2 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr3 &&
-                        player.name !== topLeveLTeam.wr1.name &&
-                        player.name !== topLeveLTeam.wr2.name
-                      ) {
-                        topLeveLTeam.wr3 = {};
-                      }
-                      if (
-                        !topLeveLTeam.wr4 &&
-                        player.name !== topLeveLTeam.wr1.name &&
-                        player.name !== topLeveLTeam.wr2.name &&
-                        player.name !== topLeveLTeam.wr3.name
-                      ) {
-                        topLeveLTeam.wr4 = {};
-                      }
-                      if (!topLeveLTeam.wr1.name) {
-                        topLeveLTeam.wr1.name = player.name;
-                        wr1Data.name = player.name;
-                        // console.log(rb1Data);
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        !topLeveLTeam.wr2.name &&
-                        topLeveLTeam.wr1.name !== player.name
-                      ) {
-                        topLeveLTeam.wr2.name = player.name;
-
-                        wr2Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        topLeveLTeam.wr2.name &&
-                        !topLeveLTeam.wr3.name &&
-                        topLeveLTeam.wr1.name !== player.name &&
-                        topLeveLTeam.wr2.name !== player.name
-                      ) {
-                        topLeveLTeam.wr3.name = player.name;
-                        wr3Data.name = player.name;
-                      }
-
-                      if (
-                        topLeveLTeam.wr1.name &&
-                        topLeveLTeam.wr2.name &&
-                        topLeveLTeam.wr3.name &&
-                        !topLeveLTeam.wr4.name &&
-                        topLeveLTeam.wr1.name !== player.name &&
-                        topLeveLTeam.wr2.name !== player.name &&
-                        topLeveLTeam.wr3.name !== player.name
-                      ) {
-                        topLeveLTeam.wr4.name = player.name;
-                        wr4Data.name = player.name;
-                      }
+                      qb2Data.name = player.name;
                     }
 
-                    if (player.position === "TE") {
-                      // console.log(player);
-                      if (!topLeveLTeam.te1) {
-                        topLeveLTeam.te1 = {};
-                        topLeveLTeam.te1.name = player.name;
-                        te1Data.name = player.name;
-                      }
-
-                      if (
-                        !topLeveLTeam.te2 &&
-                        player.name !== topLeveLTeam.te1.name
-                      ) {
-                        topLeveLTeam.te2 = {};
-                        topLeveLTeam.te2.name = player.name;
-
-                        te2Data.name = player.name;
-                      }
-
-                      if (!topLeveLTeam.te1.name) {
-                        topLeveLTeam.te1.name = player.name;
-                        te1Data.name = player.name;
-                        // console.log(topLeveLTeam.te1.name);
-                      }
-
-                      if (
-                        topLeveLTeam.te1.name &&
-                        topLeveLTeam.te1.name !== player.name
-                      ) {
-                        topLeveLTeam.te2.name = player.name;
-
-                        te2Data.name = player.name;
-                      }
-                      // console.log(topLeveLTeam);
+                    if (
+                      topLeveLTeam.qb1.name &&
+                      topLeveLTeam.qb2.name &&
+                      !topLeveLTeam.qb3.name &&
+                      topLeveLTeam.qb1.name !== player.name &&
+                      topLeveLTeam.qb2.name !== player.name &&
+                      topLeveLTeam.qb1.name !== topLeveLTeam.qb2.name
+                    ) {
+                      topLeveLTeam.qb3.name = player.name;
+                      qb3Data.name = player.name;
+                      setIsTeamQB3(true);
                     }
-                    if (player.position === "QB")
-                      return (
-                        <div
-                          key={player.name}
-                          className={styles.teamsQBsWrapper}
-                        >
-                          {" "}
-                          <div>{player.name}</div>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="games">Games Played</label>
-
-                            <input
-                              id="games"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.gamesPlayed
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.gamesPlayed
-                                  : topLeveLTeam.qb3.gamesPlayed
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.gamesPlayed =
-                                    +event.target.value;
-                                  qb1Data.name = topLeveLTeam.qb1.name;
-                                  qb1Data.gamesPlayed = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  qb2Data.name = topLeveLTeam.qb2.name;
-                                  if (
-                                    +event.target.value +
-                                      topLeveLTeam.qb1.gamesPlayed >
-                                    18
-                                  ) {
-                                    alert(
-                                      "Total games played should not exceed 18"
-                                    );
-                                  }
-                                  if (
-                                    +event.target.value +
-                                      topLeveLTeam.qb1.gamesPlayed <=
-                                    18
-                                  ) {
-                                    topLeveLTeam.qb2.gamesPlayed =
-                                      +event.target.value;
-                                    qb2Data.gamesPlayed = +event.target.value;
-                                  }
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  qb3Data.name = topLeveLTeam.qb3.name;
-
-                                  if (
-                                    +event.target.value +
-                                      topLeveLTeam.qb1.gamesPlayed +
-                                      topLeveLTeam.qb2.gamesPlayed >
-                                    18
-                                  ) {
-                                    alert(
-                                      "Total games played should not exceed 18"
-                                    );
-                                  }
-                                  if (
-                                    +event.target.value +
-                                      topLeveLTeam.qb1.gamesPlayed +
-                                      topLeveLTeam.qb2.gamesPlayed <=
-                                    18
-                                  ) {
-                                    topLeveLTeam.qb3.gamesPlayed =
-                                      +event.target.value;
-                                    qb3Data.gamesPlayed = +event.target.value;
-                                  }
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="passAttempts">Pass Atmp/game</label>
-
-                            <input
-                              id="passAttempts"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.passAttemptsPerGame
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.passAttemptsPerGame
-                                  : topLeveLTeam.qb3.passAttemptsPerGame
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={50}
-                              onChange={(event) => {
-                                let tempTotalTeamAttemptsPerGameForHere = +(
-                                  totalPassPlays / 18
-                                ).toFixed(1);
-
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  let tempAttemptsForHere =
-                                    +event.target.value *
-                                    topLeveLTeam.qb1.gamesPlayed;
-                                  // console.log(tempAttemptsForHere);
-
-                                  if (
-                                    (!qb2Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere > totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere + qb2Data.PassAtmpts >
-                                        totalPassPlays) ||
-                                    (qb2Data.PassAtmpts &&
-                                      qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb2Data.PassAtmpts +
-                                        qb3Data.PassAtmpts >
-                                        totalPassPlays)
-                                  ) {
-                                    topLeveLTeam.qb1.passAttemptsPerGame = 0;
-                                    alert(
-                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
-                                    );
-                                  } else {
-                                    console.log("ran heeeere");
-                                    topLeveLTeam.qb1.passAttemptsPerGame =
-                                      +event.target.value;
-                                    qb1Data.passAttemptsPerGame =
-                                      +event.target.value;
-                                    topLeveLTeam.qb1.PassAtmpts =
-                                      +event.target.value *
-                                      +topLeveLTeam.qb1.gamesPlayed;
-                                    qb1Data.PassAtmpts =
-                                      +event.target.value *
-                                      topLeveLTeam.qb1.gamesPlayed;
-                                  }
-
-                                  //   if (
-                                  //     (!qb2Data.PassAtmpts &&
-                                  //       !qb3Data.PassAtmpts &&
-                                  //       tempAttemptsForHere <= totalPassPlays) ||
-                                  //     (qb2Data.PassAtmpts &&
-                                  //       !qb3Data.PassAtmpts &&
-                                  //       tempAttemptsForHere +
-                                  //         qb2Data.PassAtmpts <=
-                                  //         totalPassPlays) ||
-                                  //     (qb2Data.PassAtmpts &&
-                                  //       qb3Data.PassAtmpts &&
-                                  //       tempAttemptsForHere +
-                                  //         qb2Data.PassAtmpts +
-                                  //         qb3Data.PassAtmpts <=
-                                  //         totalPassPlays)
-                                  //   ) {
-                                  //     console.log(+event.target.value);
-                                  //     topLeveLTeam.qb1.passAttemptsPerGame =
-                                  //       +event.target.value;
-                                  //     qb1Data.passAttemptsPerGame =
-                                  //       +event.target.value;
-                                  //     topLeveLTeam.qb1.PassAtmpts =
-                                  //       +event.target.value *
-                                  //       +topLeveLTeam.qb1.gamesPlayed;
-                                  //     qb1Data.PassAtmpts =
-                                  //       +event.target.value *
-                                  //       topLeveLTeam.qb1.gamesPlayed;
-                                  //   }
-                                }
-
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  let tempAttemptsForHere =
-                                    +event.target.value *
-                                    topLeveLTeam.qb2.gamesPlayed;
-
-                                  if (
-                                    (!qb1Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere > totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      !qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere + qb1Data.PassAtmpts >
-                                        totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      qb3Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb1Data.PassAtmpts +
-                                        qb3Data.PassAtmpts >
-                                        totalPassPlays)
-                                  ) {
-                                    topLeveLTeam.qb2.passAttemptsPerGame = 0;
-                                    alert(
-                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
-                                    );
-                                  } else {
-                                    topLeveLTeam.qb2.passAttemptsPerGame =
-                                      +event.target.value;
-                                    qb2Data.passAttemptsPerGame =
-                                      +event.target.value;
-                                    topLeveLTeam.qb2.PassAtmpts =
-                                      +event.target.value *
-                                      +topLeveLTeam.qb2.gamesPlayed;
-                                    qb2Data.PassAtmpts =
-                                      +event.target.value *
-                                      topLeveLTeam.qb2.gamesPlayed;
-                                  }
-
-                                  // if (
-                                  //   (!qb1Data.PassAtmpts &&
-                                  //     !qb3Data.PassAtmpts &&
-                                  //     tempAttemptsForHere <= totalPassPlays) ||
-                                  //   (qb1Data.PassAtmpts &&
-                                  //     !qb3Data.PassAtmpts &&
-                                  //     tempAttemptsForHere +
-                                  //       qb1Data.PassAtmpts <=
-                                  //       totalPassPlays) ||
-                                  //   (qb1Data.PassAtmpts &&
-                                  //     qb3Data.PassAtmpts &&
-                                  //     tempAttemptsForHere +
-                                  //       qb1Data.PassAtmpts +
-                                  //       qb3Data.PassAtmpts <=
-                                  //       totalPassPlays)
-                                  // ) {
-                                  //   topLeveLTeam.qb2.passAttemptsPerGame =
-                                  //     +event.target.value;
-                                  //   qb2Data.passAttemptsPerGame =
-                                  //     +event.target.value;
-                                  //   topLeveLTeam.qb2.PassAtmpts =
-                                  //     +event.target.value *
-                                  //     +topLeveLTeam.qb2.gamesPlayed;
-                                  //   qb2Data.PassAtmpts =
-                                  //     +event.target.value *
-                                  //     topLeveLTeam.qb2.gamesPlayed;
-                                  // }
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.passAttemptsPerGame =
-                                    +event.target.value;
-                                  qb3Data.passAttemptsPerGame =
-                                    +event.target.value;
-
-                                  qb3Data.PassAtmpts =
-                                    +event.target.value *
-                                    topLeveLTeam.qb3.gamesPlayed;
-
-                                  //
-
-                                  let tempAttemptsForHere =
-                                    +event.target.value *
-                                    topLeveLTeam.qb3.gamesPlayed;
-
-                                  if (
-                                    (!qb1Data.PassAtmpts &&
-                                      !qb2Data.PassAtmpts &&
-                                      tempAttemptsForHere > totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      !qb2Data.PassAtmpts &&
-                                      tempAttemptsForHere + qb1Data.PassAtmpts >
-                                        totalPassPlays) ||
-                                    (qb1Data.PassAtmpts &&
-                                      qb2Data.PassAtmpts &&
-                                      tempAttemptsForHere +
-                                        qb1Data.PassAtmpts +
-                                        qb2Data.PassAtmpts >
-                                        totalPassPlays)
-                                  ) {
-                                    topLeveLTeam.qb3.passAttemptsPerGame = 0;
-                                    alert(
-                                      `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
-                                    );
-                                  } else {
-                                    topLeveLTeam.qb3.passAttemptsPerGame =
-                                      +event.target.value;
-                                    qb3Data.passAttemptsPerGame =
-                                      +event.target.value;
-                                    topLeveLTeam.qb3.PassAtmpts =
-                                      +event.target.value *
-                                      +topLeveLTeam.qb3.gamesPlayed;
-
-                                    qb3Data.PassAtmpts =
-                                      +event.target.value *
-                                      +topLeveLTeam.qb3.gamesPlayed;
-                                  }
-
-                                  // if (
-                                  //   (!qb2Data.PassAtmpts &&
-                                  //     !qb1Data.PassAtmpts &&
-                                  //     tempAttemptsForHere <= totalPassPlays) ||
-                                  //   (qb2Data.PassAtmpts &&
-                                  //     !qb1Data.PassAtmpts &&
-                                  //     tempAttemptsForHere +
-                                  //       qb2Data.PassAtmpts <=
-                                  //       totalPassPlays) ||
-                                  //   (qb2Data.PassAtmpts &&
-                                  //     qb1Data.PassAtmpts &&
-                                  //     tempAttemptsForHere +
-                                  //       qb2Data.PassAtmpts +
-                                  //       qb1Data.PassAtmpts <=
-                                  //       totalPassPlays)
-                                  // ) {
-                                  //   topLeveLTeam.qb3.passAttemptsPerGame =
-                                  //     +event.target.value;
-                                  //   qb3Data.passAttemptsPerGame =
-                                  //     +event.target.value;
-                                  //   topLeveLTeam.qb3.PassAtmpts =
-                                  //     +event.target.value *
-                                  //     +topLeveLTeam.qb3.gamesPlayed;
-
-                                  //   qb3Data.PassAtmpts =
-                                  //     +event.target.value *
-                                  //     +topLeveLTeam.qb3.gamesPlayed;
-                                  // }
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="compPercent">Completion %</label>
-
-                            <input
-                              id="compPercent"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.compPercent
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.compPercent
-                                  : topLeveLTeam.qb3.compPercent
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={80}
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.compPercent =
-                                    +event.target.value;
-                                  qb1Data.compPercent = +event.target.value;
-                                  topLeveLTeam.qb1.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb1Data.PassAtmpts
-                                  ).toFixed(0);
-                                  qb1Data.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb1Data.PassAtmpts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.compPercent =
-                                    +event.target.value;
-                                  qb2Data.compPercent = +event.target.value;
-                                  topLeveLTeam.qb2.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb2Data.PassAtmpts
-                                  ).toFixed(0);
-                                  qb2Data.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb2Data.PassAtmpts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.compPercent =
-                                    +event.target.value;
-                                  qb3Data.compPercent = +event.target.value;
-                                  topLeveLTeam.qb3.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb3Data.PassAtmpts
-                                  ).toFixed(0);
-                                  qb3Data.completions = (
-                                    +(+event.target.value / 100) *
-                                    +qb3Data.PassAtmpts
-                                  ).toFixed(0);
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="YPA">Yards/Attempt</label>
-
-                            <input
-                              id="YPA"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.YPA
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.YPA
-                                  : topLeveLTeam.qb3.YPA
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={15}
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.YPA = +event.target.value;
-                                  qb1Data.YPA = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.YPA = +event.target.value;
-                                  qb2Data.YPA = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.YPA = +event.target.value;
-                                  qb3Data.YPA = +event.target.value;
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="YPC">Yards/Comp</label>
-
-                            <input
-                              id="YPC"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.YPC
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.YPC
-                                  : topLeveLTeam.qb3.YPC
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={19.9}
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.YPC = +event.target.value;
-
-                                  qb1Data.YPC = +event.target.value;
-                                  topLeveLTeam.qb1.passYrds = +(
-                                    +event.target.value * +qb1Data.completions
-                                  ).toFixed(0);
-                                  qb1Data.passYrds = +(
-                                    +event.target.value * +qb1Data.completions
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.YPC = +event.target.value;
-                                  qb2Data.YPC = +event.target.value;
-                                  topLeveLTeam.qb2.passYrds = +(
-                                    +event.target.value * +qb2Data.completions
-                                  ).toFixed(0);
-                                  qb2Data.passYrds = +(
-                                    +event.target.value * +qb2Data.completions
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.YPC = +event.target.value;
-                                  qb3Data.YPC = +event.target.value;
-                                  topLeveLTeam.qb3.passYrds = +(
-                                    +event.target.value * +qb3Data.completions
-                                  ).toFixed(0);
-                                  qb3Data.passYrds = +(
-                                    +event.target.value * +qb3Data.completions
-                                  ).toFixed(0);
-                                }
-                                if (
-                                  !topLeveLTeam.totalTeamProjectedPassingYards ||
-                                  topLeveLTeam.totalTeamProjectedPassingYards ===
-                                    0
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards = 0;
-                                }
-
-                                if (
-                                  qb1Data.passYrds &&
-                                  !qb2Data.passYrds &&
-                                  !qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb1Data.passYrds;
-                                }
-                                if (
-                                  !qb1Data.passYrds &&
-                                  qb2Data.passYrds &&
-                                  !qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb2Data.passYrds;
-                                }
-                                if (
-                                  !qb1Data.passYrds &&
-                                  !qb2Data.passYrds &&
-                                  qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb3Data.passYrds;
-                                }
-
-                                if (
-                                  qb1Data.passYrds &&
-                                  qb2Data.passYrds &&
-                                  !qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb1Data.passYrds + +qb2Data.passYrds;
-                                }
-                                if (
-                                  qb1Data.passYrds &&
-                                  !qb2Data.passYrds &&
-                                  qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb1Data.passYrds + +qb3Data.passYrds;
-                                }
-                                if (
-                                  !qb1Data.passYrds &&
-                                  qb2Data.passYrds &&
-                                  qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb2Data.passYrds + +qb3Data.passYrds;
-                                }
-                                if (
-                                  qb1Data.passYrds &&
-                                  qb2Data.passYrds &&
-                                  qb3Data.passYrds
-                                ) {
-                                  topLeveLTeam.totalTeamProjectedPassingYards =
-                                    +qb1Data.passYrds +
-                                    +qb2Data.passYrds +
-                                    +qb3Data.passYrds;
-                                }
-
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="passingTDs">Passing TDs</label>
-
-                            <input
-                              id="passingTDs"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.passingTDs
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.passingTDs
-                                  : topLeveLTeam.qb3.passingTDs
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={60}
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.passingTDs =
-                                    +event.target.value;
-                                  qb1Data.passingTDs = +event.target.value;
-                                  // console.log(qb1Data);
-
-                                  allQBDataArray.push(qb1Data);
-                                  setAllQBDataArray(allQBDataArray);
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.passingTDs =
-                                    +event.target.value;
-                                  qb2Data.passingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.passingTDs =
-                                    +event.target.value;
-                                  qb3Data.passingTDs = +event.target.value;
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb2);
-                                // console.log(allQBDataArray);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="INTs">INTs</label>
-
-                            <input
-                              id="INTs"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.INTs
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.INTs
-                                  : topLeveLTeam.qb3.INTs
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              max={40}
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.INTs = +event.target.value;
-                                  qb1Data.INTs = +event.target.value;
-                                  // console.log(qb1Data);
-
-                                  allQBDataArray.push(qb1Data);
-                                  setAllQBDataArray(allQBDataArray);
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.INTs = +event.target.value;
-                                  qb2Data.INTs = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.INTs = +event.target.value;
-                                  qb3Data.INTs = +event.target.value;
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb2);
-                                // console.log(allQBDataArray);
-                              }}
-                            />
-                          </form>
-                        </div>
-                      );
                   }
-                  // end QB/passing
-                  //
-                  // rushing
-                  //
-                })}
+                  // //
+                  if (player.position === "RB") {
+                    // console.log(player);
+                    if (!topLeveLTeam.rb1) {
+                      topLeveLTeam.rb1 = {};
+                    }
+                    if (
+                      !topLeveLTeam.rb2 &&
+                      player.name !== topLeveLTeam.rb1.name
+                    ) {
+                      topLeveLTeam.rb2 = {};
+                    }
+                    if (
+                      !topLeveLTeam.rb3 &&
+                      player.name !== topLeveLTeam.rb1.name &&
+                      player.name !== topLeveLTeam.rb2.name &&
+                      topLeveLTeam.rb1.name !== topLeveLTeam.rb2.name
+                    ) {
+                      topLeveLTeam.rb3 = {};
+                    }
+                    if (!topLeveLTeam.rb1.name) {
+                      topLeveLTeam.rb1.name = player.name;
+                      rb1Data.name = player.name;
+                      // console.log(rb1Data);
+                    }
 
+                    if (
+                      topLeveLTeam.rb1.name &&
+                      !topLeveLTeam.rb2.name &&
+                      topLeveLTeam.rb1.name !== player.name
+                    ) {
+                      topLeveLTeam.rb2.name = player.name;
+
+                      rb2Data.name = player.name;
+                    }
+
+                    if (
+                      topLeveLTeam.rb1.name &&
+                      topLeveLTeam.rb2.name &&
+                      !topLeveLTeam.rb3.name &&
+                      topLeveLTeam.rb1.name !== player.name &&
+                      topLeveLTeam.rb2.name !== player.name &&
+                      topLeveLTeam.rb1.name !== topLeveLTeam.rb2.name
+                    ) {
+                      topLeveLTeam.rb3.name = player.name;
+                      rb3Data.name = player.name;
+                    }
+                  }
+
+                  //
+
+                  if (player.position === "WR") {
+                    // console.log(player);
+                    if (!topLeveLTeam.wr1) {
+                      topLeveLTeam.wr1 = {};
+                      topLeveLTeam.wr1.name = player.name;
+                      wr1Data.name = player.name;
+                    }
+                    if (
+                      !topLeveLTeam.wr2 &&
+                      player.name !== topLeveLTeam.wr1.name
+                    ) {
+                      topLeveLTeam.wr2 = {};
+                      topLeveLTeam.wr2.name = player.name;
+
+                      wr2Data.name = player.name;
+                    }
+                    if (
+                      !topLeveLTeam.wr3 &&
+                      player.name !== topLeveLTeam.wr1.name &&
+                      player.name !== topLeveLTeam.wr2.name &&
+                      topLeveLTeam.wr1.name !== topLeveLTeam.wr2.name
+                    ) {
+                      topLeveLTeam.wr3 = {};
+                      topLeveLTeam.wr3.name = player.name;
+                      wr3Data.name = player.name;
+                    }
+                    if (
+                      !topLeveLTeam.wr4 &&
+                      player.name !== topLeveLTeam.wr1.name &&
+                      player.name !== topLeveLTeam.wr2.name &&
+                      topLeveLTeam.wr3.name &&
+                      player.name !== topLeveLTeam.wr3.name &&
+                      topLeveLTeam.wr1.name !== topLeveLTeam.wr2.name &&
+                      topLeveLTeam.wr1.name !== topLeveLTeam.wr3.name &&
+                      topLeveLTeam.wr2.name !== topLeveLTeam.wr3.name
+                    ) {
+                      topLeveLTeam.wr4 = {};
+                      topLeveLTeam.wr4.name = player.name;
+                      wr4Data.name = player.name;
+                    }
+                    // if (!topLeveLTeam.wr1.name) {
+                    //   topLeveLTeam.wr1.name = player.name;
+                    //   wr1Data.name = player.name;
+                    //   // console.log(rb1Data);
+                    // }
+
+                    // if (
+                    //   topLeveLTeam.wr1.name &&
+                    //   !topLeveLTeam.wr2.name &&
+                    //   topLeveLTeam.wr1.name !== player.name
+                    // ) {
+                    //   topLeveLTeam.wr2.name = player.name;
+
+                    //   wr2Data.name = player.name;
+                    // }
+
+                    // if (
+                    //   topLeveLTeam.wr1.name &&
+                    //   topLeveLTeam.wr2.name &&
+                    //   !topLeveLTeam.wr3.name &&
+                    //   topLeveLTeam.wr1.name !== player.name &&
+                    //   topLeveLTeam.wr2.name !== player.name &&
+                    //   topLeveLTeam.wr1.name !== topLeveLTeam.wr2.name
+                    // ) {
+                    //   topLeveLTeam.wr3.name = player.name;
+                    //   wr3Data.name = player.name;
+                    // }
+
+                    // if (
+                    //   topLeveLTeam.wr1.name &&
+                    //   topLeveLTeam.wr2.name &&
+                    //   topLeveLTeam.wr3.name &&
+                    //   !topLeveLTeam.wr4.name &&
+                    //   topLeveLTeam.wr1.name !== player.name &&
+                    //   topLeveLTeam.wr2.name !== player.name &&
+                    //   topLeveLTeam.wr3.name !== player.name &&
+                    //   topLeveLTeam.wr1.name !== topLeveLTeam.wr2.name &&
+                    //   topLeveLTeam.wr1.name !== topLeveLTea3.name &&
+                    //   topLeveLTeam.wr2.name !== topLeveLTeam.wr3.name
+                    // ) {
+                    //   topLeveLTeam.wr4.name = player.name;
+                    //   wr4Data.name = player.name;
+                    // }
+                  }
+
+                  if (player.position === "TE") {
+                    // console.log(player);
+                    if (!topLeveLTeam.te1) {
+                      topLeveLTeam.te1 = {};
+                      topLeveLTeam.te1.name = player.name;
+                      te1Data.name = player.name;
+                    }
+
+                    if (
+                      !topLeveLTeam.te2 &&
+                      player.name !== topLeveLTeam.te1.name
+                    ) {
+                      topLeveLTeam.te2 = {};
+                      topLeveLTeam.te2.name = player.name;
+
+                      te2Data.name = player.name;
+                    }
+
+                    if (!topLeveLTeam.te1.name) {
+                      topLeveLTeam.te1.name = player.name;
+                      te1Data.name = player.name;
+                      // console.log(topLeveLTeam.te1.name);
+                    }
+
+                    if (
+                      topLeveLTeam.te1.name &&
+                      topLeveLTeam.te1.name !== player.name
+                    ) {
+                      topLeveLTeam.te2.name = player.name;
+
+                      te2Data.name = player.name;
+                    }
+                    // console.log(topLeveLTeam);
+                  }
+                }
+              })}
+
+              <div>
+                <div className={styles.selectPlayersToProjectLabel}>
+                  Select players from team to project
+                </div>
+                <div className={styles.selectTeamsQBsWrapper}>
+                  <form
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                    }}
+                    className={styles.playerSelectWrapper}
+                  >
+                    <label
+                      htmlFor="player-select"
+                      className={styles.teamSelectLabel}
+                    >
+                      QB1:
+                    </label>
+                    <select
+                      id="player-select"
+                      value={teamQB1}
+                      onChange={(event) => {
+                        topLeveLTeam.qb1 = {};
+                        topLeveLTeam.qb1.name = event.target.value;
+                        setTeamQB1(topLeveLTeam.qb1.name);
+                        setSelectedTeamsUserSelectedPlayersToProjectArray([
+                          topLeveLTeam.qb1.name,
+                        ]);
+                        // console.log(
+                        //   topLeveLTeam.qb1.name,
+                        //   topLeveLTeam.qb2.name,
+                        //   topLeveLTeam.qb3.name
+                        // );
+                      }}
+                      className={styles.teamSelectSelect}
+                      placeholder="Select Team"
+                    >
+                      <option>Select a QB</option>
+                      {sleeperDataArray.map((player) => {
+                        if (player.team === team) {
+                          if (
+                            player.position === "QB"
+                            // ||
+                            // (player.position === "RB") |
+                            //   (player.position === "WR") ||
+                            // player.position === "TE"
+                          ) {
+                            return (
+                              <option key={player.name} value={player.name}>
+                                {player.name}: {player.position}
+                              </option>
+                            );
+                          }
+                        }
+                      })}
+                    </select>
+                  </form>
+
+                  {teamQB1 && (
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                      }}
+                      className={styles.playerSelectWrapper}
+                    >
+                      <label
+                        htmlFor="player-select"
+                        className={styles.teamSelectLabel}
+                      >
+                        QB2:
+                      </label>
+                      <select
+                        id="player-select"
+                        value={teamQB2}
+                        onChange={(event) => {
+                          topLeveLTeam.qb2 = {};
+                          topLeveLTeam.qb2.name = event.target.value;
+                          setTeamQB2(topLeveLTeam.qb2.name);
+                          setSelectedTeamsUserSelectedPlayersToProjectArray([
+                            topLeveLTeam.qb1.name,
+                            topLeveLTeam.qb2.name,
+                          ]);
+                        }}
+                        className={styles.teamSelectSelect}
+                        placeholder="Select Team"
+                      >
+                        <option>Select a QB</option>
+                        {sleeperDataArray.map((player) => {
+                          if (player.team === team) {
+                            if (
+                              player.position === "QB"
+                              // ||
+                              // (player.position === "RB") |
+                              //   (player.position === "WR") ||
+                              // player.position === "TE"
+                            ) {
+                              return (
+                                <option key={player.name} value={player.name}>
+                                  {player.name}: {player.position}
+                                </option>
+                              );
+                            }
+                          }
+                        })}
+                      </select>
+                    </form>
+                  )}
+
+                  {teamQB1 && teamQB2 && topLeveLTeam.qb3.name && (
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                      }}
+                      className={styles.playerSelectWrapper}
+                    >
+                      <label
+                        htmlFor="player-select"
+                        className={styles.teamSelectLabel}
+                      >
+                        QB3:
+                      </label>
+                      <select
+                        id="player-select"
+                        value={teamQB3}
+                        onChange={(event) => {
+                          topLeveLTeam.qb3 = {};
+                          topLeveLTeam.qb3.name = event.target.value;
+                          setTeamQB3(topLeveLTeam.qb3.name);
+                          setSelectedTeamsUserSelectedPlayersToProjectArray([
+                            topLeveLTeam.qb1.name,
+                            topLeveLTeam.qb2.name,
+                            topLeveLTeam.qb3.name,
+                          ]);
+                        }}
+                        className={styles.teamSelectSelect}
+                        placeholder="Select Team"
+                      >
+                        <option>Select a QB</option>
+                        {sleeperDataArray.map((player) => {
+                          if (player.team === team) {
+                            if (
+                              player.position === "QB"
+                              // ||
+                              // (player.position === "RB") |
+                              //   (player.position === "WR") ||
+                              // player.position === "TE"
+                            ) {
+                              return (
+                                <option key={player.name} value={player.name}>
+                                  {player.name}: {player.position}
+                                </option>
+                              );
+                            }
+                          }
+                        })}
+                      </select>
+                    </form>
+                  )}
+                </div>
+
+                {showRBs && (
+                  <div className={styles.selectTeamsQBsWrapper}>
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                      }}
+                      className={styles.playerSelectWrapper}
+                    >
+                      <label
+                        htmlFor="player-select"
+                        className={styles.teamSelectLabel}
+                      >
+                        RB1:
+                      </label>
+                      <select
+                        id="player-select"
+                        value={teamRB1}
+                        onChange={(event) => {
+                          topLeveLTeam.rb1 = {};
+                          topLeveLTeam.rb1.name = event.target.value;
+                          setTeamRB1(topLeveLTeam.rb1.name);
+                          setSelectedTeamsUserSelectedPlayersToProjectArray([
+                            topLeveLTeam.qb1.name,
+                            topLeveLTeam.qb2.name,
+                            topLeveLTeam.qb3.name,
+                            topLeveLTeam.rb1.name,
+                          ]);
+                        }}
+                        className={styles.teamSelectSelect}
+                        placeholder="Select Team"
+                      >
+                        <option>Select a RB</option>
+                        {sleeperDataArray.map((player) => {
+                          if (player.team === team) {
+                            if (
+                              player.position === "RB"
+                              // ||
+                              // (player.position === "RB") |
+                              //   (player.position === "WR") ||
+                              // player.position === "TE"
+                            ) {
+                              return (
+                                <option key={player.name} value={player.name}>
+                                  {player.name}: {player.position}
+                                </option>
+                              );
+                            }
+                          }
+                        })}
+                      </select>
+                    </form>
+
+                    {showRBs && teamRB1 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          RB2:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamRB2}
+                          onChange={(event) => {
+                            topLeveLTeam.rb2 = {};
+                            topLeveLTeam.rb2.name = event.target.value;
+                            setTeamRB2(topLeveLTeam.rb2.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a RB</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "RB"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+
+                    {showRBs && teamRB2 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          RB3:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamRB3}
+                          onChange={(event) => {
+                            topLeveLTeam.rb3 = {};
+                            topLeveLTeam.rb3.name = event.target.value;
+                            setTeamRB3(topLeveLTeam.rb3.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                              topLeveLTeam.rb3.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a RB</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "RB"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+                  </div>
+                )}
+
+                {teamRB3 && (
+                  <div className={styles.selectTeamsQBsWrapper}>
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                      }}
+                      className={styles.playerSelectWrapper}
+                    >
+                      <label
+                        htmlFor="player-select"
+                        className={styles.teamSelectLabel}
+                      >
+                        WR1:
+                      </label>
+                      <select
+                        id="player-select"
+                        value={teamWR1}
+                        onChange={(event) => {
+                          topLeveLTeam.wr1 = {};
+                          topLeveLTeam.wr1.name = event.target.value;
+                          setTeamWR1(topLeveLTeam.wr1.name);
+                          setSelectedTeamsUserSelectedPlayersToProjectArray([
+                            topLeveLTeam.qb1.name,
+                            topLeveLTeam.qb2.name,
+                            topLeveLTeam.qb3.name,
+                            topLeveLTeam.rb1.name,
+                            topLeveLTeam.rb2.name,
+                            topLeveLTeam.rb3.name,
+                            topLeveLTeam.wr1.name,
+                          ]);
+                        }}
+                        className={styles.teamSelectSelect}
+                        placeholder="Select Team"
+                      >
+                        <option>Select a WR</option>
+                        {sleeperDataArray.map((player) => {
+                          if (player.team === team) {
+                            if (
+                              player.position === "WR"
+                              // ||
+                              // (player.position === "RB") |
+                              //   (player.position === "WR") ||
+                              // player.position === "TE"
+                            ) {
+                              return (
+                                <option key={player.name} value={player.name}>
+                                  {player.name}: {player.position}
+                                </option>
+                              );
+                            }
+                          }
+                        })}
+                      </select>
+                    </form>
+
+                    {teamWR1 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          WR2:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamWR2}
+                          onChange={(event) => {
+                            topLeveLTeam.wr2 = {};
+                            topLeveLTeam.wr2.name = event.target.value;
+                            setTeamWR2(topLeveLTeam.wr2.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                              topLeveLTeam.rb3.name,
+                              topLeveLTeam.wr1.name,
+                              topLeveLTeam.wr2.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a WR</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "WR"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+                    {teamWR2 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          WR3:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamWR3}
+                          onChange={(event) => {
+                            topLeveLTeam.wr3 = {};
+                            topLeveLTeam.wr3.name = event.target.value;
+                            setTeamWR3(topLeveLTeam.wr3.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                              topLeveLTeam.rb3.name,
+                              topLeveLTeam.wr1.name,
+                              topLeveLTeam.wr2.name,
+                              topLeveLTeam.wr3.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a WR</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "WR"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+                    {teamWR3 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          WR4:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamWR4}
+                          onChange={(event) => {
+                            topLeveLTeam.wr4 = {};
+                            topLeveLTeam.wr4.name = event.target.value;
+                            setTeamWR4(topLeveLTeam.wr4.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                              topLeveLTeam.rb3.name,
+                              topLeveLTeam.wr1.name,
+                              topLeveLTeam.wr2.name,
+                              topLeveLTeam.wr3.name,
+                              topLeveLTeam.wr4.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a WR</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "WR"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+                  </div>
+                )}
+                {teamWR4 && (
+                  <div className={styles.selectTeamsQBsWrapper}>
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                      }}
+                      className={styles.playerSelectWrapper}
+                    >
+                      <label
+                        htmlFor="player-select"
+                        className={styles.teamSelectLabel}
+                      >
+                        TE1:
+                      </label>
+                      <select
+                        id="player-select"
+                        value={teamTE1}
+                        onChange={(event) => {
+                          topLeveLTeam.te1 = {};
+                          topLeveLTeam.te1.name = event.target.value;
+                          setTeamTE1(topLeveLTeam.te1.name);
+                          setSelectedTeamsUserSelectedPlayersToProjectArray([
+                            topLeveLTeam.qb1.name,
+                            topLeveLTeam.qb2.name,
+                            topLeveLTeam.qb3.name,
+                            topLeveLTeam.rb1.name,
+                            topLeveLTeam.rb2.name,
+                            topLeveLTeam.rb3.name,
+                            topLeveLTeam.wr1.name,
+                            topLeveLTeam.wr2.name,
+                            topLeveLTeam.wr3.name,
+                            topLeveLTeam.wr4.name,
+                            topLeveLTeam.te1.name,
+                          ]);
+                        }}
+                        className={styles.teamSelectSelect}
+                        placeholder="Select Team"
+                      >
+                        <option>Select a TE</option>
+                        {sleeperDataArray.map((player) => {
+                          if (player.team === team) {
+                            if (
+                              player.position === "TE"
+                              // ||
+                              // (player.position === "RB") |
+                              //   (player.position === "WR") ||
+                              // player.position === "TE"
+                            ) {
+                              return (
+                                <option key={player.name} value={player.name}>
+                                  {player.name}: {player.position}
+                                </option>
+                              );
+                            }
+                          }
+                        })}
+                      </select>
+                    </form>
+
+                    {teamTE1 && (
+                      <form
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                        }}
+                        className={styles.playerSelectWrapper}
+                      >
+                        <label
+                          htmlFor="player-select"
+                          className={styles.teamSelectLabel}
+                        >
+                          TE2:
+                        </label>
+                        <select
+                          id="player-select"
+                          value={teamTE2}
+                          onChange={(event) => {
+                            topLeveLTeam.te2 = {};
+                            topLeveLTeam.te2.name = event.target.value;
+                            setTeamTE2(topLeveLTeam.te2.name);
+                            setSelectedTeamsUserSelectedPlayersToProjectArray([
+                              topLeveLTeam.qb1.name,
+                              topLeveLTeam.qb2.name,
+                              topLeveLTeam.qb3.name,
+                              topLeveLTeam.rb1.name,
+                              topLeveLTeam.rb2.name,
+                              topLeveLTeam.rb3.name,
+                              topLeveLTeam.wr1.name,
+                              topLeveLTeam.wr2.name,
+                              topLeveLTeam.wr3.name,
+                              topLeveLTeam.wr4.name,
+                              topLeveLTeam.te1.name,
+                              topLeveLTeam.te2.name,
+                            ]);
+                          }}
+                          className={styles.teamSelectSelect}
+                          placeholder="Select Team"
+                        >
+                          <option>Select a TE</option>
+                          {sleeperDataArray.map((player) => {
+                            if (player.team === team) {
+                              if (
+                                player.position === "TE"
+                                // ||
+                                // (player.position === "RB") |
+                                //   (player.position === "WR") ||
+                                // player.position === "TE"
+                              ) {
+                                return (
+                                  <option key={player.name} value={player.name}>
+                                    {player.name}: {player.position}
+                                  </option>
+                                );
+                              }
+                            }
+                          })}
+                        </select>
+                      </form>
+                    )}
+                  </div>
+                )}
+
+                <div className={styles.qbSectionTitle}> Teams QBs</div>
+                {selectedTeamsUserSelectedPlayersToProjectArray && (
+                  <div className={styles.sectionWrapper}>
+                    {selectedTeamsUserSelectedPlayersToProjectArray.map(
+                      (player) => {
+                        // console.log(
+                        //   selectedTeamsUserSelectedPlayersToProjectArray
+                        // );
+                        // console.log(player, teamQB1);
+                        if (
+                          player === teamQB1 ||
+                          player === teamQB2 ||
+                          player === teamQB3
+                        ) {
+                          return (
+                            <div
+                              key={player}
+                              className={styles.teamsQBsWrapper}
+                            >
+                              {" "}
+                              <div className={styles.playerNameLabel}>
+                                {player}
+                              </div>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="games">Games Played</label>
+
+                                <input
+                                  id="games"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.gamesPlayed
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.gamesPlayed
+                                      : topLeveLTeam.qb3.gamesPlayed
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.gamesPlayed =
+                                        +event.target.value;
+                                      qb1Data.name = topLeveLTeam.qb1.name;
+                                      qb1Data.gamesPlayed = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      qb2Data.name = topLeveLTeam.qb2.name;
+                                      if (
+                                        +event.target.value +
+                                          topLeveLTeam.qb1.gamesPlayed >
+                                        18
+                                      ) {
+                                        alert(
+                                          "Total games played should not exceed 18"
+                                        );
+                                      }
+                                      if (
+                                        +event.target.value +
+                                          topLeveLTeam.qb1.gamesPlayed <=
+                                        18
+                                      ) {
+                                        topLeveLTeam.qb2.gamesPlayed =
+                                          +event.target.value;
+                                        qb2Data.gamesPlayed =
+                                          +event.target.value;
+                                      }
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      qb3Data.name = topLeveLTeam.qb3.name;
+
+                                      if (
+                                        +event.target.value +
+                                          topLeveLTeam.qb1.gamesPlayed +
+                                          topLeveLTeam.qb2.gamesPlayed >
+                                        18
+                                      ) {
+                                        alert(
+                                          "Total games played should not exceed 18"
+                                        );
+                                      }
+                                      if (
+                                        +event.target.value +
+                                          topLeveLTeam.qb1.gamesPlayed +
+                                          topLeveLTeam.qb2.gamesPlayed <=
+                                        18
+                                      ) {
+                                        topLeveLTeam.qb3.gamesPlayed =
+                                          +event.target.value;
+                                        qb3Data.gamesPlayed =
+                                          +event.target.value;
+                                      }
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="passAttempts">
+                                  Pass Atmp/game
+                                </label>
+
+                                <input
+                                  id="passAttempts"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.passAttemptsPerGame
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.passAttemptsPerGame
+                                      : topLeveLTeam.qb3.passAttemptsPerGame
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={50}
+                                  onChange={(event) => {
+                                    let tempTotalTeamAttemptsPerGameForHere = +(
+                                      totalPassPlays / 18
+                                    ).toFixed(1);
+
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      let tempAttemptsForHere =
+                                        +event.target.value *
+                                        topLeveLTeam.qb1.gamesPlayed;
+                                      // console.log(tempAttemptsForHere);
+
+                                      if (
+                                        (!qb2Data.PassAtmpts &&
+                                          !qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere >
+                                            totalPassPlays) ||
+                                        (qb2Data.PassAtmpts &&
+                                          !qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb2Data.PassAtmpts >
+                                            totalPassPlays) ||
+                                        (qb2Data.PassAtmpts &&
+                                          qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb2Data.PassAtmpts +
+                                            qb3Data.PassAtmpts >
+                                            totalPassPlays)
+                                      ) {
+                                        topLeveLTeam.qb1.passAttemptsPerGame = 0;
+                                        alert(
+                                          `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
+                                        );
+                                      } else {
+                                        console.log("ran heeeere");
+                                        topLeveLTeam.qb1.passAttemptsPerGame =
+                                          +event.target.value;
+                                        qb1Data.passAttemptsPerGame =
+                                          +event.target.value;
+                                        topLeveLTeam.qb1.PassAtmpts =
+                                          +event.target.value *
+                                          +topLeveLTeam.qb1.gamesPlayed;
+                                        qb1Data.PassAtmpts =
+                                          +event.target.value *
+                                          topLeveLTeam.qb1.gamesPlayed;
+                                      }
+
+                                      //   if (
+                                      //     (!qb2Data.PassAtmpts &&
+                                      //       !qb3Data.PassAtmpts &&
+                                      //       tempAttemptsForHere <= totalPassPlays) ||
+                                      //     (qb2Data.PassAtmpts &&
+                                      //       !qb3Data.PassAtmpts &&
+                                      //       tempAttemptsForHere +
+                                      //         qb2Data.PassAtmpts <=
+                                      //         totalPassPlays) ||
+                                      //     (qb2Data.PassAtmpts &&
+                                      //       qb3Data.PassAtmpts &&
+                                      //       tempAttemptsForHere +
+                                      //         qb2Data.PassAtmpts +
+                                      //         qb3Data.PassAtmpts <=
+                                      //         totalPassPlays)
+                                      //   ) {
+                                      //     console.log(+event.target.value);
+                                      //     topLeveLTeam.qb1.passAttemptsPerGame =
+                                      //       +event.target.value;
+                                      //     qb1Data.passAttemptsPerGame =
+                                      //       +event.target.value;
+                                      //     topLeveLTeam.qb1.PassAtmpts =
+                                      //       +event.target.value *
+                                      //       +topLeveLTeam.qb1.gamesPlayed;
+                                      //     qb1Data.PassAtmpts =
+                                      //       +event.target.value *
+                                      //       topLeveLTeam.qb1.gamesPlayed;
+                                      //   }
+                                    }
+
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      let tempAttemptsForHere =
+                                        +event.target.value *
+                                        topLeveLTeam.qb2.gamesPlayed;
+
+                                      if (
+                                        (!qb1Data.PassAtmpts &&
+                                          !qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere >
+                                            totalPassPlays) ||
+                                        (qb1Data.PassAtmpts &&
+                                          !qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb1Data.PassAtmpts >
+                                            totalPassPlays) ||
+                                        (qb1Data.PassAtmpts &&
+                                          qb3Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb1Data.PassAtmpts +
+                                            qb3Data.PassAtmpts >
+                                            totalPassPlays)
+                                      ) {
+                                        topLeveLTeam.qb2.passAttemptsPerGame = 0;
+                                        alert(
+                                          `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
+                                        );
+                                      } else {
+                                        topLeveLTeam.qb2.passAttemptsPerGame =
+                                          +event.target.value;
+                                        qb2Data.passAttemptsPerGame =
+                                          +event.target.value;
+                                        topLeveLTeam.qb2.PassAtmpts =
+                                          +event.target.value *
+                                          +topLeveLTeam.qb2.gamesPlayed;
+                                        qb2Data.PassAtmpts =
+                                          +event.target.value *
+                                          topLeveLTeam.qb2.gamesPlayed;
+                                      }
+
+                                      // if (
+                                      //   (!qb1Data.PassAtmpts &&
+                                      //     !qb3Data.PassAtmpts &&
+                                      //     tempAttemptsForHere <= totalPassPlays) ||
+                                      //   (qb1Data.PassAtmpts &&
+                                      //     !qb3Data.PassAtmpts &&
+                                      //     tempAttemptsForHere +
+                                      //       qb1Data.PassAtmpts <=
+                                      //       totalPassPlays) ||
+                                      //   (qb1Data.PassAtmpts &&
+                                      //     qb3Data.PassAtmpts &&
+                                      //     tempAttemptsForHere +
+                                      //       qb1Data.PassAtmpts +
+                                      //       qb3Data.PassAtmpts <=
+                                      //       totalPassPlays)
+                                      // ) {
+                                      //   topLeveLTeam.qb2.passAttemptsPerGame =
+                                      //     +event.target.value;
+                                      //   qb2Data.passAttemptsPerGame =
+                                      //     +event.target.value;
+                                      //   topLeveLTeam.qb2.PassAtmpts =
+                                      //     +event.target.value *
+                                      //     +topLeveLTeam.qb2.gamesPlayed;
+                                      //   qb2Data.PassAtmpts =
+                                      //     +event.target.value *
+                                      //     topLeveLTeam.qb2.gamesPlayed;
+                                      // }
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.passAttemptsPerGame =
+                                        +event.target.value;
+                                      qb3Data.passAttemptsPerGame =
+                                        +event.target.value;
+
+                                      qb3Data.PassAtmpts =
+                                        +event.target.value *
+                                        topLeveLTeam.qb3.gamesPlayed;
+
+                                      //
+
+                                      let tempAttemptsForHere =
+                                        +event.target.value *
+                                        topLeveLTeam.qb3.gamesPlayed;
+
+                                      if (
+                                        (!qb1Data.PassAtmpts &&
+                                          !qb2Data.PassAtmpts &&
+                                          tempAttemptsForHere >
+                                            totalPassPlays) ||
+                                        (qb1Data.PassAtmpts &&
+                                          !qb2Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb1Data.PassAtmpts >
+                                            totalPassPlays) ||
+                                        (qb1Data.PassAtmpts &&
+                                          qb2Data.PassAtmpts &&
+                                          tempAttemptsForHere +
+                                            qb1Data.PassAtmpts +
+                                            qb2Data.PassAtmpts >
+                                            totalPassPlays)
+                                      ) {
+                                        topLeveLTeam.qb3.passAttemptsPerGame = 0;
+                                        alert(
+                                          `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays} `
+                                        );
+                                      } else {
+                                        topLeveLTeam.qb3.passAttemptsPerGame =
+                                          +event.target.value;
+                                        qb3Data.passAttemptsPerGame =
+                                          +event.target.value;
+                                        topLeveLTeam.qb3.PassAtmpts =
+                                          +event.target.value *
+                                          +topLeveLTeam.qb3.gamesPlayed;
+
+                                        qb3Data.PassAtmpts =
+                                          +event.target.value *
+                                          +topLeveLTeam.qb3.gamesPlayed;
+                                      }
+
+                                      // if (
+                                      //   (!qb2Data.PassAtmpts &&
+                                      //     !qb1Data.PassAtmpts &&
+                                      //     tempAttemptsForHere <= totalPassPlays) ||
+                                      //   (qb2Data.PassAtmpts &&
+                                      //     !qb1Data.PassAtmpts &&
+                                      //     tempAttemptsForHere +
+                                      //       qb2Data.PassAtmpts <=
+                                      //       totalPassPlays) ||
+                                      //   (qb2Data.PassAtmpts &&
+                                      //     qb1Data.PassAtmpts &&
+                                      //     tempAttemptsForHere +
+                                      //       qb2Data.PassAtmpts +
+                                      //       qb1Data.PassAtmpts <=
+                                      //       totalPassPlays)
+                                      // ) {
+                                      //   topLeveLTeam.qb3.passAttemptsPerGame =
+                                      //     +event.target.value;
+                                      //   qb3Data.passAttemptsPerGame =
+                                      //     +event.target.value;
+                                      //   topLeveLTeam.qb3.PassAtmpts =
+                                      //     +event.target.value *
+                                      //     +topLeveLTeam.qb3.gamesPlayed;
+
+                                      //   qb3Data.PassAtmpts =
+                                      //     +event.target.value *
+                                      //     +topLeveLTeam.qb3.gamesPlayed;
+                                      // }
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="compPercent">
+                                  Completion %
+                                </label>
+
+                                <input
+                                  id="compPercent"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.compPercent
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.compPercent
+                                      : topLeveLTeam.qb3.compPercent
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={80}
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.compPercent =
+                                        +event.target.value;
+                                      qb1Data.compPercent = +event.target.value;
+                                      topLeveLTeam.qb1.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb1Data.PassAtmpts
+                                      ).toFixed(0);
+                                      qb1Data.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb1Data.PassAtmpts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.compPercent =
+                                        +event.target.value;
+                                      qb2Data.compPercent = +event.target.value;
+                                      topLeveLTeam.qb2.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb2Data.PassAtmpts
+                                      ).toFixed(0);
+                                      qb2Data.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb2Data.PassAtmpts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.compPercent =
+                                        +event.target.value;
+                                      qb3Data.compPercent = +event.target.value;
+                                      topLeveLTeam.qb3.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb3Data.PassAtmpts
+                                      ).toFixed(0);
+                                      qb3Data.completions = (
+                                        +(+event.target.value / 100) *
+                                        +qb3Data.PassAtmpts
+                                      ).toFixed(0);
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="YPA">Yards/Attempt</label>
+
+                                <input
+                                  id="YPA"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.YPA
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.YPA
+                                      : topLeveLTeam.qb3.YPA
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={15}
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.YPA =
+                                        +event.target.value;
+                                      qb1Data.YPA = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.YPA =
+                                        +event.target.value;
+                                      qb2Data.YPA = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.YPA =
+                                        +event.target.value;
+                                      qb3Data.YPA = +event.target.value;
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="YPC">Yards/Comp</label>
+
+                                <input
+                                  id="YPC"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.YPC
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.YPC
+                                      : topLeveLTeam.qb3.YPC
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={19.9}
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.YPC =
+                                        +event.target.value;
+
+                                      qb1Data.YPC = +event.target.value;
+                                      topLeveLTeam.qb1.passYrds = +(
+                                        +event.target.value *
+                                        +qb1Data.completions
+                                      ).toFixed(0);
+                                      qb1Data.passYrds = +(
+                                        +event.target.value *
+                                        +qb1Data.completions
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.YPC =
+                                        +event.target.value;
+                                      qb2Data.YPC = +event.target.value;
+                                      topLeveLTeam.qb2.passYrds = +(
+                                        +event.target.value *
+                                        +qb2Data.completions
+                                      ).toFixed(0);
+                                      qb2Data.passYrds = +(
+                                        +event.target.value *
+                                        +qb2Data.completions
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.YPC =
+                                        +event.target.value;
+                                      qb3Data.YPC = +event.target.value;
+                                      topLeveLTeam.qb3.passYrds = +(
+                                        +event.target.value *
+                                        +qb3Data.completions
+                                      ).toFixed(0);
+                                      qb3Data.passYrds = +(
+                                        +event.target.value *
+                                        +qb3Data.completions
+                                      ).toFixed(0);
+                                    }
+                                    if (
+                                      !topLeveLTeam.totalTeamProjectedPassingYards ||
+                                      topLeveLTeam.totalTeamProjectedPassingYards ===
+                                        0
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards = 0;
+                                    }
+
+                                    if (
+                                      qb1Data.passYrds &&
+                                      !qb2Data.passYrds &&
+                                      !qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb1Data.passYrds;
+                                    }
+                                    if (
+                                      !qb1Data.passYrds &&
+                                      qb2Data.passYrds &&
+                                      !qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb2Data.passYrds;
+                                    }
+                                    if (
+                                      !qb1Data.passYrds &&
+                                      !qb2Data.passYrds &&
+                                      qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb3Data.passYrds;
+                                    }
+
+                                    if (
+                                      qb1Data.passYrds &&
+                                      qb2Data.passYrds &&
+                                      !qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb1Data.passYrds + +qb2Data.passYrds;
+                                    }
+                                    if (
+                                      qb1Data.passYrds &&
+                                      !qb2Data.passYrds &&
+                                      qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb1Data.passYrds + +qb3Data.passYrds;
+                                    }
+                                    if (
+                                      !qb1Data.passYrds &&
+                                      qb2Data.passYrds &&
+                                      qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb2Data.passYrds + +qb3Data.passYrds;
+                                    }
+                                    if (
+                                      qb1Data.passYrds &&
+                                      qb2Data.passYrds &&
+                                      qb3Data.passYrds
+                                    ) {
+                                      topLeveLTeam.totalTeamProjectedPassingYards =
+                                        +qb1Data.passYrds +
+                                        +qb2Data.passYrds +
+                                        +qb3Data.passYrds;
+                                    }
+
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="passingTDs">Passing TDs</label>
+
+                                <input
+                                  id="passingTDs"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.passingTDs
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.passingTDs
+                                      : topLeveLTeam.qb3.passingTDs
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={60}
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.passingTDs =
+                                        +event.target.value;
+                                      qb1Data.passingTDs = +event.target.value;
+                                      // console.log(qb1Data);
+
+                                      allQBDataArray.push(qb1Data);
+                                      setAllQBDataArray(allQBDataArray);
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.passingTDs =
+                                        +event.target.value;
+                                      qb2Data.passingTDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.passingTDs =
+                                        +event.target.value;
+                                      qb3Data.passingTDs = +event.target.value;
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb2);
+                                    // console.log(allQBDataArray);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="INTs">INTs</label>
+
+                                <input
+                                  id="INTs"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.INTs
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.INTs
+                                      : topLeveLTeam.qb3.INTs
+                                  }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  max={40}
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.INTs =
+                                        +event.target.value;
+                                      qb1Data.INTs = +event.target.value;
+                                      // console.log(qb1Data);
+
+                                      allQBDataArray.push(qb1Data);
+                                      setAllQBDataArray(allQBDataArray);
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.INTs =
+                                        +event.target.value;
+                                      qb2Data.INTs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.INTs =
+                                        +event.target.value;
+                                      qb3Data.INTs = +event.target.value;
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb2);
+                                    // console.log(allQBDataArray);
+                                  }}
+                                />
+                              </form>
+                            </div>
+                          );
+                        }
+
+                        // end QB/passing
+                        //
+                        // rushing
+                        //
+                      }
+                    )}
+                  </div>
+                )}
                 <div className={styles.saveAndClearBTNsWrapper}>
                   <div className={styles.saveBTNWrapper}>
                     <button
@@ -1451,46 +2234,41 @@ export default function ConstructProjections(dataTest) {
                     </button>
                   </div>
                 </div>
-
                 <PassingTable
                   qb1Data={topLeveLTeam.qb1}
                   qb2Data={topLeveLTeam.qb2}
                   qb3Data={topLeveLTeam.qb3}
                 />
-
                 <div className={styles.qbSectionTitle}> Rushing</div>
-                {dataTest.dataTest.allPlayerData.map((player) => {
-                  if (player.team === team) {
-                    //
-                    //
-                    if (
-                      (player.name === topLeveLTeam.qb1.name &&
-                        player.position === "QB") ||
-                      (player.name === topLeveLTeam.qb2.name &&
-                        player.position === "QB") ||
-                      (player.name === topLeveLTeam.rb1.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.rb2.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.rb3.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.wr1.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr2.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr3.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr4.name &&
-                        player.position === "WR")
-                    ) {
-                      return (
-                        <div
-                          key={`${player.name}-${player.position}`}
-                          className={styles.teamsQBsWrapper}
-                        >
-                          {" "}
-                          <div>{player.name}</div>
-                          {/* <form
+                {selectedTeamsUserSelectedPlayersToProjectArray && (
+                  <div className={styles.sectionWrapper}>
+                    {selectedTeamsUserSelectedPlayersToProjectArray.map(
+                      (player) => {
+                        // if (player.team === team) {
+                        //
+                        //
+                        if (
+                          player === teamQB1 ||
+                          player === teamQB2 ||
+                          player === teamQB3 ||
+                          player === teamRB1 ||
+                          player === teamRB2 ||
+                          player === teamRB3 ||
+                          player === teamWR1 ||
+                          player === teamWR2 ||
+                          player === teamWR3 ||
+                          player === teamWR4
+                        ) {
+                          return (
+                            <div
+                              key={`${player}-${player.position}`}
+                              className={styles.teamsQBsWrapper}
+                            >
+                              {" "}
+                              <div className={styles.playerNameLabel}>
+                                {player}
+                              </div>
+                              {/* <form
                             onSubmit={(event) => {
                               event.preventDefault();
 
@@ -1602,511 +2380,555 @@ export default function ConstructProjections(dataTest) {
                               }}
                             />
                           </form> */}
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="rushAttempts">Rush Attemtps</label>
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="rushAttempts">
+                                  Rush Attemtps
+                                </label>
 
-                            <input
-                              id="rushAttempts"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.rushAttempts
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.rushAttempts
-                                  : topLeveLTeam.qb3.name === player.name
-                                  ? topLeveLTeam.qb3.rushAttempts
-                                  : topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.rushAttempts
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.rushAttempts
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.rushAttempts
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.rushAttempts
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.rushAttempts
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.rushAttempts
-                                  : topLeveLTeam.wr4.rushAttempts
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.rushAttempts =
-                                    +event.target.value;
-                                  qb1Data.name = topLeveLTeam.qb1.name;
-                                  qb1Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  qb2Data.name = topLeveLTeam.qb2.name;
-                                  topLeveLTeam.qb2.rushAttempts =
-                                    +event.target.value;
-                                  qb2Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  qb3Data.name = topLeveLTeam.qb3.name;
-
-                                  topLeveLTeam.qb3.rushAttempts =
-                                    +event.target.value;
-                                  qb3Data.rushAttempts = +event.target.value;
-                                }
-
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  if (
-                                    rb1Data.rushAttempts > totalRunPlays ||
-                                    rb2Data.rushAttempts > totalRunPlays ||
-                                    rb3Data.rushAttempts > totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays
-                                  ) {
-                                    topLeveLTeam.rb1.rushAttempts = 0;
-                                    alert(
-                                      `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
-                                    );
+                                <input
+                                  id="rushAttempts"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.rushAttempts
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.rushAttempts
+                                      : topLeveLTeam.qb3.name === player
+                                      ? topLeveLTeam.qb3.rushAttempts
+                                      : topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.rushAttempts
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.rushAttempts
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.rushAttempts
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.rushAttempts
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.rushAttempts
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.rushAttempts
+                                      : topLeveLTeam.wr4.rushAttempts
                                   }
-                                  // if (
-                                  //   rb1Data.rushAttempts <= totalRunPlays &&
-                                  //   rb2Data.rushAttempts <= totalRunPlays &&
-                                  //   rb3Data.rushAttempts <= totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays
-                                  // ) {
-                                  topLeveLTeam.rb1.rushAttempts =
-                                    +event.target.value;
-                                  rb1Data.name = topLeveLTeam.rb1.name;
-                                  rb1Data.rushAttempts = +event.target.value;
-                                  // }
-                                }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.rushAttempts =
+                                        +event.target.value;
+                                      qb1Data.name = topLeveLTeam.qb1.name;
+                                      qb1Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      qb2Data.name = topLeveLTeam.qb2.name;
+                                      topLeveLTeam.qb2.rushAttempts =
+                                        +event.target.value;
+                                      qb2Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      qb3Data.name = topLeveLTeam.qb3.name;
 
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  if (
-                                    rb1Data.rushAttempts > totalRunPlays ||
-                                    rb2Data.rushAttempts > totalRunPlays ||
-                                    rb3Data.rushAttempts > totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays
-                                  ) {
-                                    topLeveLTeam.rb2.rushAttempts = 0;
-                                    alert(
-                                      `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
-                                    );
+                                      topLeveLTeam.qb3.rushAttempts =
+                                        +event.target.value;
+                                      qb3Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      if (
+                                        rb1Data.rushAttempts > totalRunPlays ||
+                                        rb2Data.rushAttempts > totalRunPlays ||
+                                        rb3Data.rushAttempts > totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays
+                                      ) {
+                                        topLeveLTeam.rb1.rushAttempts = 0;
+                                        alert(
+                                          `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
+                                        );
+                                      }
+                                      // if (
+                                      //   rb1Data.rushAttempts <= totalRunPlays &&
+                                      //   rb2Data.rushAttempts <= totalRunPlays &&
+                                      //   rb3Data.rushAttempts <= totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays
+                                      // ) {
+                                      topLeveLTeam.rb1.rushAttempts =
+                                        +event.target.value;
+                                      rb1Data.name = topLeveLTeam.rb1.name;
+                                      rb1Data.rushAttempts =
+                                        +event.target.value;
+                                      // }
+                                    }
+
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      if (
+                                        rb1Data.rushAttempts > totalRunPlays ||
+                                        rb2Data.rushAttempts > totalRunPlays ||
+                                        rb3Data.rushAttempts > totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays
+                                      ) {
+                                        topLeveLTeam.rb2.rushAttempts = 0;
+                                        alert(
+                                          `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
+                                        );
+                                      }
+                                      // if (
+                                      //   rb1Data.rushAttempts <= totalRunPlays &&
+                                      //   rb2Data.rushAttempts <= totalRunPlays &&
+                                      //   rb3Data.rushAttempts <= totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays
+                                      // ) {
+                                      // }
+                                      topLeveLTeam.rb2.rushAttempts =
+                                        +event.target.value;
+                                      rb2Data.name = topLeveLTeam.rb2.name;
+                                      rb2Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      if (
+                                        rb1Data.rushAttempts > totalRunPlays ||
+                                        rb2Data.rushAttempts > totalRunPlays ||
+                                        rb3Data.rushAttempts > totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb1Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays ||
+                                        rb2Data.rushAttempts +
+                                          rb3Data.rushAttempts >
+                                          totalRunPlays
+                                      ) {
+                                        topLeveLTeam.rb3.rushAttempts = 0;
+                                        alert(
+                                          `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
+                                        );
+                                      }
+                                      // if (
+                                      //   rb1Data.rushAttempts <= totalRunPlays &&
+                                      //   rb2Data.rushAttempts <= totalRunPlays &&
+                                      //   rb3Data.rushAttempts <= totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb1Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays &&
+                                      //   rb2Data.rushAttempts +
+                                      //     rb3Data.rushAttempts <=
+                                      //     totalRunPlays
+                                      // ) {
+                                      topLeveLTeam.rb3.rushAttempts =
+                                        +event.target.value;
+                                      rb3Data.name = topLeveLTeam.rb3.name;
+                                      rb3Data.rushAttempts =
+                                        +event.target.value;
+                                      // }
+                                    }
+
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.rushAttempts =
+                                        +event.target.value;
+                                      wr1Data.name = topLeveLTeam.wr1.name;
+                                      wr1Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      wr2Data.name = topLeveLTeam.wr2.name;
+                                      topLeveLTeam.wr2.rushAttempts =
+                                        +event.target.value;
+                                      wr2Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      wr3Data.name = topLeveLTeam.wr3.name;
+
+                                      topLeveLTeam.wr3.rushAttempts =
+                                        +event.target.value;
+                                      wr3Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      wr4Data.name = topLeveLTeam.wr4.name;
+
+                                      topLeveLTeam.wr4.rushAttempts =
+                                        +event.target.value;
+                                      wr4Data.rushAttempts =
+                                        +event.target.value;
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="games">Yards Per Carry</label>
+
+                                <input
+                                  id="games"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.YPCarry
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.YPCarry
+                                      : topLeveLTeam.qb3.name === player
+                                      ? topLeveLTeam.qb3.YPCarry
+                                      : topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.YPCarry
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.YPCarry
+                                      : topLeveLTeam.rb3.YPCarry
                                   }
-                                  // if (
-                                  //   rb1Data.rushAttempts <= totalRunPlays &&
-                                  //   rb2Data.rushAttempts <= totalRunPlays &&
-                                  //   rb3Data.rushAttempts <= totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays
-                                  // ) {
-                                  // }
-                                  topLeveLTeam.rb2.rushAttempts =
-                                    +event.target.value;
-                                  rb2Data.name = topLeveLTeam.rb2.name;
-                                  rb2Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  if (
-                                    rb1Data.rushAttempts > totalRunPlays ||
-                                    rb2Data.rushAttempts > totalRunPlays ||
-                                    rb3Data.rushAttempts > totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb1Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays ||
-                                    rb2Data.rushAttempts +
-                                      rb3Data.rushAttempts >
-                                      totalRunPlays
-                                  ) {
-                                    topLeveLTeam.rb3.rushAttempts = 0;
-                                    alert(
-                                      `Total RB Rush Attempts should not exceed projected team pass attempts of ${totalRunPlays} `
-                                    );
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.YPCarry =
+                                        +event.target.value;
+
+                                      qb1Data.YPCarry = +event.target.value;
+                                      qb1Data.RushingYards = +(
+                                        +event.target.value *
+                                        qb1Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.qb1.RushingYards = +(
+                                        +event.target.value *
+                                        qb1Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.YPCarry =
+                                        +event.target.value;
+                                      qb2Data.YPCarry = +event.target.value;
+
+                                      qb2Data.RushingYards = +(
+                                        +event.target.value *
+                                        qb2Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.qb2.RushingYards = +(
+                                        +event.target.value *
+                                        qb2Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.YPCarry =
+                                        +event.target.value;
+                                      qb3Data.YPCarry = +event.target.value;
+
+                                      qb3Data.RushingYards = +(
+                                        +event.target.value *
+                                        qb3Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.qb3.RushingYards = +(
+                                        +event.target.value *
+                                        qb3Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      topLeveLTeam.rb1.YPCarry =
+                                        +event.target.value;
+
+                                      rb1Data.YPCarry = +event.target.value;
+                                      rb1Data.RushingYards = +(
+                                        +event.target.value *
+                                        rb1Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.rb1.RushingYards = +(
+                                        +event.target.value *
+                                        rb1Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      topLeveLTeam.rb2.YPCarry =
+                                        +event.target.value;
+
+                                      rb2Data.YPCarry = +event.target.value;
+                                      rb2Data.RushingYards = +(
+                                        +event.target.value *
+                                        rb2Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.rb2.RushingYards = +(
+                                        +event.target.value *
+                                        rb2Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      topLeveLTeam.rb3.YPCarry =
+                                        +event.target.value;
+
+                                      rb3Data.YPCarry = +event.target.value;
+                                      rb3Data.RushingYards = +(
+                                        +event.target.value *
+                                        rb3Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.rb3.RushingYards = +(
+                                        +event.target.value *
+                                        rb3Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.YPCarry =
+                                        +event.target.value;
+
+                                      wr1Data.YPCarry = +event.target.value;
+                                      wr1Data.RushingYards = +(
+                                        +event.target.value *
+                                        wr1Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr1.RushingYards = +(
+                                        +event.target.value *
+                                        wr1Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      topLeveLTeam.wr2.YPCarry =
+                                        +event.target.value;
+                                      wr2Data.YPCarry = +event.target.value;
+
+                                      wr2Data.RushingYards = +(
+                                        +event.target.value *
+                                        wr2Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr2.RushingYards = +(
+                                        +event.target.value *
+                                        wr2Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      topLeveLTeam.wr3.YPCarry =
+                                        +event.target.value;
+                                      wr3Data.YPCarry = +event.target.value;
+
+                                      wr3Data.RushingYards = +(
+                                        +event.target.value *
+                                        wr3Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr3.RushingYards = +(
+                                        +event.target.value *
+                                        wr3Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      topLeveLTeam.wr4.YPCarry =
+                                        +event.target.value;
+                                      wr4Data.YPCarry = +event.target.value;
+
+                                      wr4Data.RushingYards = +(
+                                        +event.target.value *
+                                        wr4Data.rushAttempts
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr4.RushingYards = +(
+                                        +event.target.value *
+                                        wr4Data.rushAttempts
+                                      ).toFixed(0);
+                                    }
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="touchdowns">TDs</label>
+
+                                <input
+                                  id="touchdowns"
+                                  value={
+                                    topLeveLTeam.qb1.name === player
+                                      ? topLeveLTeam.qb1.TDs
+                                      : topLeveLTeam.qb2.name === player
+                                      ? topLeveLTeam.qb2.TDs
+                                      : topLeveLTeam.qb3.name === player
+                                      ? topLeveLTeam.qb3.TDs
+                                      : topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.TDs
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.TDs
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.TDs
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.TDs
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.TDs
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.TDs
+                                      : topLeveLTeam.wr4.TDs
                                   }
-                                  // if (
-                                  //   rb1Data.rushAttempts <= totalRunPlays &&
-                                  //   rb2Data.rushAttempts <= totalRunPlays &&
-                                  //   rb3Data.rushAttempts <= totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb1Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays &&
-                                  //   rb2Data.rushAttempts +
-                                  //     rb3Data.rushAttempts <=
-                                  //     totalRunPlays
-                                  // ) {
-                                  topLeveLTeam.rb3.rushAttempts =
-                                    +event.target.value;
-                                  rb3Data.name = topLeveLTeam.rb3.name;
-                                  rb3Data.rushAttempts = +event.target.value;
-                                  // }
-                                }
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    if (topLeveLTeam.qb1.name === player) {
+                                      topLeveLTeam.qb1.TDs =
+                                        +event.target.value;
 
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.rushAttempts =
-                                    +event.target.value;
-                                  wr1Data.name = topLeveLTeam.wr1.name;
-                                  wr1Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  wr2Data.name = topLeveLTeam.wr2.name;
-                                  topLeveLTeam.wr2.rushAttempts =
-                                    +event.target.value;
-                                  wr2Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  wr3Data.name = topLeveLTeam.wr3.name;
+                                      qb1Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb2.name === player) {
+                                      topLeveLTeam.qb2.TDs =
+                                        +event.target.value;
+                                      qb2Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.qb3.name === player) {
+                                      topLeveLTeam.qb3.TDs =
+                                        +event.target.value;
+                                      qb3Data.TDs = +event.target.value;
+                                    }
 
-                                  topLeveLTeam.wr3.rushAttempts =
-                                    +event.target.value;
-                                  wr3Data.rushAttempts = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  wr4Data.name = topLeveLTeam.wr4.name;
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      topLeveLTeam.rb1.TDs =
+                                        +event.target.value;
 
-                                  topLeveLTeam.wr4.rushAttempts =
-                                    +event.target.value;
-                                  wr4Data.rushAttempts = +event.target.value;
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                                      rb1Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      topLeveLTeam.rb2.TDs =
+                                        +event.target.value;
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="games">Yards Per Carry</label>
+                                      rb2Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      topLeveLTeam.rb3.TDs =
+                                        +event.target.value;
 
-                            <input
-                              id="games"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.YPCarry
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.YPCarry
-                                  : topLeveLTeam.qb3.name === player.name
-                                  ? topLeveLTeam.qb3.YPCarry
-                                  : topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.YPCarry
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.YPCarry
-                                  : topLeveLTeam.rb3.YPCarry
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.YPCarry =
-                                    +event.target.value;
+                                      rb3Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.TDs =
+                                        +event.target.value;
 
-                                  qb1Data.YPCarry = +event.target.value;
-                                  qb1Data.RushingYards = +(
-                                    +event.target.value * qb1Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.qb1.RushingYards = +(
-                                    +event.target.value * qb1Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.YPCarry =
-                                    +event.target.value;
-                                  qb2Data.YPCarry = +event.target.value;
+                                      wr1Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      topLeveLTeam.wr2.TDs =
+                                        +event.target.value;
+                                      wr2Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      topLeveLTeam.wr3.TDs =
+                                        +event.target.value;
+                                      wr3Data.TDs = +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      topLeveLTeam.wr4.TDs =
+                                        +event.target.value;
+                                      wr4Data.TDs = +event.target.value;
+                                    }
 
-                                  qb2Data.RushingYards = +(
-                                    +event.target.value * qb2Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.qb2.RushingYards = +(
-                                    +event.target.value * qb2Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.YPCarry =
-                                    +event.target.value;
-                                  qb3Data.YPCarry = +event.target.value;
+                                    topLeveLTeam.qb1.fantasyPoints = +(
+                                      +(qb1Data.passYrds * 0.04) +
+                                      +(qb1Data.passingTDs * 6) -
+                                      +(qb1Data.INTs * 2) +
+                                      +(qb1Data.RushingYards * 0.1) +
+                                      +(qb1Data.TDs * 6)
+                                    ).toFixed(1);
+                                    topLeveLTeam.qb2.fantasyPoints = +(
+                                      +(qb2Data.passYrds * 0.04) +
+                                      +(qb2Data.passingTDs * 6) -
+                                      +(qb2Data.INTs * 2) +
+                                      +qb2Data.RushingYards * 0.1 +
+                                      +(qb2Data.TDs * 6)
+                                    ).toFixed(1);
+                                    topLeveLTeam.qb3.fantasyPoints = +(
+                                      +(qb3Data.passYrds * 0.04) +
+                                      +(qb3Data.passingTDs * 6) -
+                                      +(qb3Data.INTs * 2) +
+                                      +qb3Data.RushingYards * 0.1 +
+                                      +(qb3Data.TDs * 6)
+                                    ).toFixed(1);
 
-                                  qb3Data.RushingYards = +(
-                                    +event.target.value * qb3Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.qb3.RushingYards = +(
-                                    +event.target.value * qb3Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.YPCarry =
-                                    +event.target.value;
-
-                                  rb1Data.YPCarry = +event.target.value;
-                                  rb1Data.RushingYards = +(
-                                    +event.target.value * rb1Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb1.RushingYards = +(
-                                    +event.target.value * rb1Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.YPCarry =
-                                    +event.target.value;
-
-                                  rb2Data.YPCarry = +event.target.value;
-                                  rb2Data.RushingYards = +(
-                                    +event.target.value * rb2Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb2.RushingYards = +(
-                                    +event.target.value * rb2Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.YPCarry =
-                                    +event.target.value;
-
-                                  rb3Data.YPCarry = +event.target.value;
-                                  rb3Data.RushingYards = +(
-                                    +event.target.value * rb3Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb3.RushingYards = +(
-                                    +event.target.value * rb3Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.YPCarry =
-                                    +event.target.value;
-
-                                  wr1Data.YPCarry = +event.target.value;
-                                  wr1Data.RushingYards = +(
-                                    +event.target.value * wr1Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr1.RushingYards = +(
-                                    +event.target.value * wr1Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  topLeveLTeam.wr2.YPCarry =
-                                    +event.target.value;
-                                  wr2Data.YPCarry = +event.target.value;
-
-                                  wr2Data.RushingYards = +(
-                                    +event.target.value * wr2Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr2.RushingYards = +(
-                                    +event.target.value * wr2Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  topLeveLTeam.wr3.YPCarry =
-                                    +event.target.value;
-                                  wr3Data.YPCarry = +event.target.value;
-
-                                  wr3Data.RushingYards = +(
-                                    +event.target.value * wr3Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr3.RushingYards = +(
-                                    +event.target.value * wr3Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  topLeveLTeam.wr4.YPCarry =
-                                    +event.target.value;
-                                  wr4Data.YPCarry = +event.target.value;
-
-                                  wr4Data.RushingYards = +(
-                                    +event.target.value * wr4Data.rushAttempts
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr4.RushingYards = +(
-                                    +event.target.value * wr4Data.rushAttempts
-                                  ).toFixed(0);
-                                }
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
-
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="touchdowns">TDs</label>
-
-                            <input
-                              id="touchdowns"
-                              value={
-                                topLeveLTeam.qb1.name === player.name
-                                  ? topLeveLTeam.qb1.TDs
-                                  : topLeveLTeam.qb2.name === player.name
-                                  ? topLeveLTeam.qb2.TDs
-                                  : topLeveLTeam.qb3.name === player.name
-                                  ? topLeveLTeam.qb3.TDs
-                                  : topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.TDs
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.TDs
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.TDs
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.TDs
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.TDs
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.TDs
-                                  : topLeveLTeam.wr4.TDs
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                if (topLeveLTeam.qb1.name === player.name) {
-                                  topLeveLTeam.qb1.TDs = +event.target.value;
-
-                                  qb1Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb2.name === player.name) {
-                                  topLeveLTeam.qb2.TDs = +event.target.value;
-                                  qb2Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.qb3.name === player.name) {
-                                  topLeveLTeam.qb3.TDs = +event.target.value;
-                                  qb3Data.TDs = +event.target.value;
-                                }
-
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.TDs = +event.target.value;
-
-                                  rb1Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.TDs = +event.target.value;
-
-                                  rb2Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.TDs = +event.target.value;
-
-                                  rb3Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.TDs = +event.target.value;
-
-                                  wr1Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  topLeveLTeam.wr2.TDs = +event.target.value;
-                                  wr2Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  topLeveLTeam.wr3.TDs = +event.target.value;
-                                  wr3Data.TDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  topLeveLTeam.wr4.TDs = +event.target.value;
-                                  wr4Data.TDs = +event.target.value;
-                                }
-
-                                topLeveLTeam.qb1.fantasyPoints = +(
-                                  +(qb1Data.passYrds * 0.04) +
-                                  +(qb1Data.passingTDs * 6) -
-                                  +(qb1Data.INTs * 2) +
-                                  +(qb1Data.RushingYards * 0.1) +
-                                  +(qb1Data.TDs * 6)
-                                ).toFixed(1);
-                                topLeveLTeam.qb2.fantasyPoints = +(
-                                  +(qb2Data.passYrds * 0.04) +
-                                  +(qb2Data.passingTDs * 6) -
-                                  +(qb2Data.INTs * 2) +
-                                  +qb2Data.RushingYards * 0.1 +
-                                  +(qb2Data.TDs * 6)
-                                ).toFixed(1);
-                                topLeveLTeam.qb3.fantasyPoints = +(
-                                  +(qb3Data.passYrds * 0.04) +
-                                  +(qb3Data.passingTDs * 6) -
-                                  +(qb3Data.INTs * 2) +
-                                  +qb3Data.RushingYards * 0.1 +
-                                  +(qb3Data.TDs * 6)
-                                ).toFixed(1);
-
-                                // console.log(qb1Data.fantasyPoints);
-                                // console.log(topLeveLTeam);
-                                // console.log(topLeveLTeam.qb1);
-                                // console.log(topLeveLTeam.qb2);
-                              }}
-                            />
-                          </form>
-                        </div>
-                      );
-                    }
-                  }
-                })}
-
+                                    // console.log(qb1Data.fantasyPoints);
+                                    // console.log(topLeveLTeam);
+                                    // console.log(topLeveLTeam.qb1);
+                                    // console.log(topLeveLTeam.qb2);
+                                  }}
+                                />
+                              </form>
+                            </div>
+                          );
+                        }
+                        // }
+                      }
+                    )}
+                  </div>
+                )}
                 <div className={styles.saveAndClearBTNsWrapper}>
                   <div className={styles.saveBTNWrapper}>
                     <button
@@ -2136,7 +2958,6 @@ export default function ConstructProjections(dataTest) {
                     </button>
                   </div>
                 </div>
-
                 <RushingTable
                   qb1Data={topLeveLTeam.qb1}
                   qb2Data={topLeveLTeam.qb2}
@@ -2149,39 +2970,34 @@ export default function ConstructProjections(dataTest) {
                   wr3Data={topLeveLTeam.wr3}
                   wr4Data={topLeveLTeam.wr4}
                 />
-
                 <div className={styles.qbSectionTitle}> Recieving</div>
-                {dataTest.dataTest.allPlayerData.map((player) => {
-                  if (player.team === team) {
-                    if (
-                      (player.name === topLeveLTeam.rb1.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.rb2.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.rb3.name &&
-                        player.position === "RB") ||
-                      (player.name === topLeveLTeam.wr1.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr2.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr3.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.wr4.name &&
-                        player.position === "WR") ||
-                      (player.name === topLeveLTeam.te1.name &&
-                        player.position === "TE") ||
-                      (topLeveLTeam.te2 &&
-                        player.name === topLeveLTeam.te2.name &&
-                        player.position === "TE")
-                    ) {
-                      return (
-                        <div
-                          key={`${player.name}-${player.myValue}}`}
-                          className={styles.teamsQBsWrapper}
-                        >
-                          {" "}
-                          <div>{player.name}</div>
-                          {/* <form
+                {selectedTeamsUserSelectedPlayersToProjectArray && (
+                  <div className={styles.sectionWrapper}>
+                    {/* {dataTest.allPlayerData.map((player) => { */}
+                    {selectedTeamsUserSelectedPlayersToProjectArray.map(
+                      (player) => {
+                        // if (player.team === team) {
+                        if (
+                          player === teamRB1 ||
+                          player === teamRB2 ||
+                          player === teamRB3 ||
+                          player === teamWR1 ||
+                          player === teamWR2 ||
+                          player === teamWR3 ||
+                          player === teamWR4 ||
+                          player === teamTE1 ||
+                          player === teamTE2
+                        ) {
+                          return (
+                            <div
+                              key={`${player}-${player.myValue}}`}
+                              className={styles.teamsQBsWrapper}
+                            >
+                              {" "}
+                              <div className={styles.playerNameLabel}>
+                                {player}
+                              </div>
+                              {/* <form
                             onSubmit={(event) => {
                               event.preventDefault();
 
@@ -2284,717 +3100,740 @@ export default function ConstructProjections(dataTest) {
                               }}
                             />
                           </form>{" "} */}
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="targetShare">Target Share %</label>
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="targetShare">
+                                  Target Share %
+                                </label>
 
-                            <input
-                              id="targetShare"
-                              value={
-                                topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.targetShare
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.targetShare
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.targetShare
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.targetShare
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.targetShare
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.targetShare
-                                  : topLeveLTeam.wr4.name === player.name
-                                  ? topLeveLTeam.wr4.targetShare
-                                  : topLeveLTeam.te1 &&
-                                    topLeveLTeam.te1.name === player.name
-                                  ? topLeveLTeam.te1.targetShare
-                                  : topLeveLTeam.te2 &&
-                                    topLeveLTeam.te2.targetShare
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              maximum={35}
-                              onChange={(event) => {
-                                //
-                                if (
-                                  +event.target.value > -1 &&
-                                  +event.target.value < 36
-                                ) {
-                                  let currentPlayerTryingToInputTargetShare =
-                                    +event.target.value;
-
-                                  // RB
-
-                                  if (topLeveLTeam.rb1.name === player.name) {
-                                    rb1Data.name = topLeveLTeam.rb1.name;
-                                    topLeveLTeam.rb1.targetShare =
-                                      +event.target.value;
-
-                                    rb1Data.targetShare = +event.target.value;
-                                    rb1Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(rb1Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.rb1.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(+topLeveLTeam.rb1.targetShare / 100)
-                                    ).toFixed(0);
+                                <input
+                                  id="targetShare"
+                                  value={
+                                    topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.targetShare
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.targetShare
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.targetShare
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.targetShare
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.targetShare
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.targetShare
+                                      : topLeveLTeam.wr4.name === player
+                                      ? topLeveLTeam.wr4.targetShare
+                                      : topLeveLTeam.te1 &&
+                                        topLeveLTeam.te1.name === player
+                                      ? topLeveLTeam.te1.targetShare
+                                      : topLeveLTeam.te2.targetShare
                                   }
-                                  if (topLeveLTeam.rb2.name === player.name) {
-                                    rb2Data.name = topLeveLTeam.rb2.name;
-                                    topLeveLTeam.rb2.targetShare =
-                                      +event.target.value;
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  maximum={35}
+                                  onChange={(event) => {
+                                    //
+                                    if (
+                                      +event.target.value > -1 &&
+                                      +event.target.value < 36
+                                    ) {
+                                      let currentPlayerTryingToInputTargetShare =
+                                        +event.target.value;
 
-                                    rb2Data.targetShare = +event.target.value;
-                                    rb2Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(rb2Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.rb2.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(rb2Data.targetShare / 100)
-                                    ).toFixed(0);
+                                      // RB
+
+                                      if (topLeveLTeam.rb1.name === player) {
+                                        rb1Data.name = topLeveLTeam.rb1.name;
+                                        topLeveLTeam.rb1.targetShare =
+                                          +event.target.value;
+
+                                        rb1Data.targetShare =
+                                          +event.target.value;
+                                        rb1Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(rb1Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.rb1.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(+topLeveLTeam.rb1.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+                                      if (topLeveLTeam.rb2.name === player) {
+                                        rb2Data.name = topLeveLTeam.rb2.name;
+                                        topLeveLTeam.rb2.targetShare =
+                                          +event.target.value;
+
+                                        rb2Data.targetShare =
+                                          +event.target.value;
+                                        rb2Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(rb2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.rb2.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(rb2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+                                      if (topLeveLTeam.rb3.name === player) {
+                                        rb3Data.name = topLeveLTeam.rb3.name;
+                                        topLeveLTeam.rb3.targetShare =
+                                          +event.target.value;
+
+                                        rb3Data.targetShare =
+                                          +event.target.value;
+                                        rb3Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(rb3Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.rb3.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(rb3Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+
+                                      // WR
+
+                                      if (topLeveLTeam.wr1.name === player) {
+                                        wr1Data.name = topLeveLTeam.wr1.name;
+                                        topLeveLTeam.wr1.targetShare =
+                                          +event.target.value;
+
+                                        wr1Data.targetShare =
+                                          +event.target.value;
+                                        wr1Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr1Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.wr1.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr1Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+                                      if (topLeveLTeam.wr2.name === player) {
+                                        wr2Data.name = topLeveLTeam.wr2.name;
+                                        topLeveLTeam.wr2.targetShare =
+                                          +event.target.value;
+
+                                        wr2Data.targetShare =
+                                          +event.target.value;
+                                        wr2Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.wr2.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+                                      if (topLeveLTeam.wr3.name === player) {
+                                        wr3Data.name = topLeveLTeam.wr3.name;
+                                        topLeveLTeam.wr3.targetShare =
+                                          +event.target.value;
+
+                                        wr3Data.targetShare =
+                                          +event.target.value;
+                                        wr3Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr3Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.wr3.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr3Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+
+                                      if (topLeveLTeam.wr4.name === player) {
+                                        wr4Data.name = topLeveLTeam.wr4.name;
+                                        topLeveLTeam.wr4.targetShare =
+                                          +event.target.value;
+
+                                        wr4Data.targetShare =
+                                          +event.target.value;
+                                        wr4Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr4Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.wr4.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(wr4Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+
+                                      // TE
+
+                                      if (topLeveLTeam.te1.name === player) {
+                                        te1Data.name = topLeveLTeam.te1.name;
+                                        topLeveLTeam.te1.targetShare =
+                                          +event.target.value;
+
+                                        te1Data.targetShare =
+                                          +event.target.value;
+                                        te1Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(te1Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.te1.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(te1Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+
+                                      if (
+                                        topLeveLTeam.te2.name === player.name
+                                      ) {
+                                        te2Data.name = topLeveLTeam.te2.name;
+                                        te2Data.targetShare =
+                                          +event.target.value;
+                                        te2Data.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(te2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.te2.targets = +(
+                                          +topLeveLTeam.totalPassPlays *
+                                          +(te2Data.targetShare / 100)
+                                        ).toFixed(0);
+                                      }
+
+                                      // }
+                                    }
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="catchPercentage">Catch %</label>
+
+                                <input
+                                  id="catchPercentage"
+                                  value={
+                                    topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.catchPercentage
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.catchPercentage
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.catchPercentage
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.catchPercentage
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.catchPercentage
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.catchPercentage
+                                      : topLeveLTeam.wr4.name === player
+                                      ? topLeveLTeam.wr4.catchPercentage
+                                      : topLeveLTeam.te1 &&
+                                        topLeveLTeam.te1.name === player
+                                      ? topLeveLTeam.te1.catchPercentage
+                                      : topLeveLTeam.te2.catchPercentage
                                   }
-                                  if (topLeveLTeam.rb3.name === player.name) {
-                                    rb3Data.name = topLeveLTeam.rb3.name;
-                                    topLeveLTeam.rb3.targetShare =
-                                      +event.target.value;
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    //
 
-                                    rb3Data.targetShare = +event.target.value;
-                                    rb3Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(rb3Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.rb3.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(rb3Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
+                                    // RB
 
-                                  // WR
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      topLeveLTeam.rb1.catchPercentage =
+                                        +event.target.value;
 
-                                  if (topLeveLTeam.wr1.name === player.name) {
-                                    wr1Data.name = topLeveLTeam.wr1.name;
-                                    topLeveLTeam.wr1.targetShare =
-                                      +event.target.value;
-
-                                    wr1Data.targetShare = +event.target.value;
-                                    wr1Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr1Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.wr1.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr1Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
-                                  if (topLeveLTeam.wr2.name === player.name) {
-                                    wr2Data.name = topLeveLTeam.wr2.name;
-                                    topLeveLTeam.wr2.targetShare =
-                                      +event.target.value;
-
-                                    wr2Data.targetShare = +event.target.value;
-                                    wr2Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr2Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.wr2.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr2Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
-                                  if (topLeveLTeam.wr3.name === player.name) {
-                                    wr3Data.name = topLeveLTeam.wr3.name;
-                                    topLeveLTeam.wr3.targetShare =
-                                      +event.target.value;
-
-                                    wr3Data.targetShare = +event.target.value;
-                                    wr3Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr3Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.wr3.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr3Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
-
-                                  if (topLeveLTeam.wr4.name === player.name) {
-                                    wr4Data.name = topLeveLTeam.wr4.name;
-                                    topLeveLTeam.wr4.targetShare =
-                                      +event.target.value;
-
-                                    wr4Data.targetShare = +event.target.value;
-                                    wr4Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr4Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.wr4.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(wr4Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
-
-                                  // TE
-
-                                  if (topLeveLTeam.te1.name === player.name) {
-                                    te1Data.name = topLeveLTeam.te1.name;
-                                    topLeveLTeam.te1.targetShare =
-                                      +event.target.value;
-
-                                    te1Data.targetShare = +event.target.value;
-                                    te1Data.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(te1Data.targetShare / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.te1.targets = +(
-                                      +topLeveLTeam.totalPassPlays *
-                                      +(te1Data.targetShare / 100)
-                                    ).toFixed(0);
-                                  }
-                                  if (topLeveLTeam.te2) {
-                                    if (topLeveLTeam.te2.name === player.name) {
-                                      te2Data.name = topLeveLTeam.te2.name;
-                                      te2Data.targetShare = +event.target.value;
-                                      te2Data.targets = +(
-                                        +topLeveLTeam.totalPassPlays *
-                                        +(te2Data.targetShare / 100)
+                                      rb1Data.catchPercentage =
+                                        +event.target.value;
+                                      rb1Data.receptions = +(
+                                        +rb1Data.targets *
+                                        +(rb1Data.catchPercentage / 100)
                                       ).toFixed(0);
-                                      topLeveLTeam.te2.targets = +(
-                                        +topLeveLTeam.totalPassPlays *
-                                        +(te2Data.targetShare / 100)
+                                      topLeveLTeam.rb1.receptions = +(
+                                        +rb1Data.targets *
+                                        +(rb1Data.catchPercentage / 100)
                                       ).toFixed(0);
                                     }
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      topLeveLTeam.rb2.catchPercentage =
+                                        +event.target.value;
+
+                                      rb2Data.catchPercentage =
+                                        +event.target.value;
+                                      rb2Data.receptions = +(
+                                        +rb2Data.targets *
+                                        +(rb2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.rb2.receptions = +(
+                                        +rb2Data.targets *
+                                        +(rb2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      topLeveLTeam.rb3.catchPercentage =
+                                        +event.target.value;
+
+                                      rb3Data.catchPercentage =
+                                        +event.target.value;
+                                      rb3Data.receptions = +(
+                                        +rb3Data.targets *
+                                        +(rb3Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.rb3.receptions = +(
+                                        +rb3Data.targets *
+                                        +(rb3Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+
+                                    // WR
+
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.catchPercentage =
+                                        +event.target.value;
+
+                                      wr1Data.catchPercentage =
+                                        +event.target.value;
+                                      wr1Data.receptions = +(
+                                        +wr1Data.targets *
+                                        +(wr1Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr1.receptions = +(
+                                        +wr1Data.targets *
+                                        +(wr1Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      topLeveLTeam.wr2.catchPercentage =
+                                        +event.target.value;
+
+                                      wr2Data.catchPercentage =
+                                        +event.target.value;
+                                      wr2Data.receptions = +(
+                                        +wr2Data.targets *
+                                        +(wr2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr2.receptions = +(
+                                        +wr2Data.targets *
+                                        +(wr2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      topLeveLTeam.wr3.catchPercentage =
+                                        +event.target.value;
+
+                                      wr3Data.catchPercentage =
+                                        +event.target.value;
+                                      wr3Data.receptions = +(
+                                        +wr3Data.targets *
+                                        +(wr3Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr3.receptions = +(
+                                        +wr3Data.targets *
+                                        +(wr3Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      topLeveLTeam.wr4.catchPercentage =
+                                        +event.target.value;
+
+                                      wr4Data.catchPercentage =
+                                        +event.target.value;
+                                      wr4Data.receptions = +(
+                                        +wr4Data.targets *
+                                        +(wr4Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.wr4.receptions = +(
+                                        +wr4Data.targets *
+                                        +(wr4Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+
+                                    // TE
+
+                                    if (topLeveLTeam.te1.name === player) {
+                                      topLeveLTeam.te1.catchPercentage =
+                                        +event.target.value;
+
+                                      te1Data.catchPercentage =
+                                        +event.target.value;
+                                      te1Data.receptions = +(
+                                        +te1Data.targets *
+                                        +(te1Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.te1.receptions = +(
+                                        +te1Data.targets *
+                                        +(te1Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+
+                                    if (topLeveLTeam.te2.name === player) {
+                                      te2Data.catchPercentage =
+                                        +event.target.value;
+
+                                      te2Data.receptions = +(
+                                        +te2Data.targets *
+                                        +(te2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                      topLeveLTeam.te2.receptions = +(
+                                        +te2Data.targets *
+                                        +(te2Data.catchPercentage / 100)
+                                      ).toFixed(0);
+                                    }
+
+                                    // }
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="recievingYards">Yards</label>
+
+                                <input
+                                  id="recievingYards"
+                                  value={
+                                    topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.recievingYards
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.recievingYards
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.recievingYards
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.recievingYards
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.recievingYards
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.recievingYards
+                                      : topLeveLTeam.wr4.name === player
+                                      ? topLeveLTeam.wr4.recievingYards
+                                      : topLeveLTeam.te1 &&
+                                        topLeveLTeam.te1.name === player
+                                      ? topLeveLTeam.te1.recievingYards
+                                      : topLeveLTeam.te2.recievingYards
                                   }
-                                  // }
-                                }
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    if (!rb1Data.recievingYards) {
+                                      rb1Data.recievingYards = 0;
+                                    }
+                                    if (!rb2Data.recievingYards) {
+                                      rb2Data.recievingYards = 0;
+                                    }
+                                    if (!rb3Data.recievingYards) {
+                                      rb3Data.recievingYards = 0;
+                                    }
+                                    if (!wr1Data.recievingYards) {
+                                      wr1Data.recievingYards = 0;
+                                    }
+                                    if (!wr2Data.recievingYards) {
+                                      wr2Data.recievingYards = 0;
+                                    }
+                                    if (!wr3Data.recievingYards) {
+                                      wr3Data.recievingYards = 0;
+                                    }
+                                    if (!wr4Data.recievingYards) {
+                                      wr4Data.recievingYards = 0;
+                                    }
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="catchPercentage">Catch %</label>
+                                    if (!te1Data.recievingYards) {
+                                      te1Data.recievingYards = 0;
+                                    }
+                                    if (!te2Data.recievingYards) {
+                                      te2Data.recievingYards = 0;
+                                    }
+                                    //
 
-                            <input
-                              id="catchPercentage"
-                              value={
-                                topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.catchPercentage
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.catchPercentage
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.catchPercentage
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.catchPercentage
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.catchPercentage
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.catchPercentage
-                                  : topLeveLTeam.wr4.name === player.name
-                                  ? topLeveLTeam.wr4.catchPercentage
-                                  : topLeveLTeam.te1 &&
-                                    topLeveLTeam.te1.name === player.name
-                                  ? topLeveLTeam.te1.catchPercentage
-                                  : topLeveLTeam.te2 &&
-                                    topLeveLTeam.te2.name &&
-                                    topLeveLTeam.te2.catchPercentage
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                //
+                                    // RB
 
-                                // RB
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      topLeveLTeam.rb1.recievingYards =
+                                        +event.target.value;
+                                      let temp = +event.target.value;
+                                      rb1Data.recievingYards = +temp;
+                                    }
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      topLeveLTeam.rb2.recievingYards =
+                                        +event.target.value;
 
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.catchPercentage =
-                                    +event.target.value;
+                                      let temp = +event.target.value;
+                                      rb2Data.recievingYards = +temp;
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      topLeveLTeam.rb3.recievingYards =
+                                        +event.target.value;
 
-                                  rb1Data.catchPercentage = +event.target.value;
-                                  rb1Data.receptions = +(
-                                    +rb1Data.targets *
-                                    +(rb1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb1.receptions = +(
-                                    +rb1Data.targets *
-                                    +(rb1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.catchPercentage =
-                                    +event.target.value;
+                                      let temp = +event.target.value;
+                                      rb3Data.recievingYards = +temp;
+                                    }
 
-                                  rb2Data.catchPercentage = +event.target.value;
-                                  rb2Data.receptions = +(
-                                    +rb2Data.targets *
-                                    +(rb2Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb2.receptions = +(
-                                    +rb2Data.targets *
-                                    +(rb2Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.catchPercentage =
-                                    +event.target.value;
+                                    // WR
 
-                                  rb3Data.catchPercentage = +event.target.value;
-                                  rb3Data.receptions = +(
-                                    +rb3Data.targets *
-                                    +(rb3Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.rb3.receptions = +(
-                                    +rb3Data.targets *
-                                    +(rb3Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.recievingYards =
+                                        +event.target.value;
 
-                                // WR
+                                      let temp = +event.target.value;
+                                      wr1Data.recievingYards = +temp;
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      topLeveLTeam.wr2.recievingYards =
+                                        +event.target.value;
 
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.catchPercentage =
-                                    +event.target.value;
+                                      let temp = +event.target.value;
+                                      wr2Data.recievingYards = +temp;
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      topLeveLTeam.wr3.recievingYards =
+                                        +event.target.value;
 
-                                  wr1Data.catchPercentage = +event.target.value;
-                                  wr1Data.receptions = +(
-                                    +wr1Data.targets *
-                                    +(wr1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr1.receptions = +(
-                                    +wr1Data.targets *
-                                    +(wr1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  topLeveLTeam.wr2.catchPercentage =
-                                    +event.target.value;
+                                      let temp = +event.target.value;
+                                      wr3Data.recievingYards = +temp;
+                                    }
 
-                                  wr2Data.catchPercentage = +event.target.value;
-                                  wr2Data.receptions = +(
-                                    +wr2Data.targets *
-                                    +(wr2Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr2.receptions = +(
-                                    +wr2Data.targets *
-                                    +(wr2Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  topLeveLTeam.wr3.catchPercentage =
-                                    +event.target.value;
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      topLeveLTeam.wr4.recievingYards =
+                                        +event.target.value;
 
-                                  wr3Data.catchPercentage = +event.target.value;
-                                  wr3Data.receptions = +(
-                                    +wr3Data.targets *
-                                    +(wr3Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr3.receptions = +(
-                                    +wr3Data.targets *
-                                    +(wr3Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
+                                      let temp = +event.target.value;
+                                      wr4Data.recievingYards = +temp;
+                                    }
 
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  topLeveLTeam.wr4.catchPercentage =
-                                    +event.target.value;
+                                    // TE
 
-                                  wr4Data.catchPercentage = +event.target.value;
-                                  wr4Data.receptions = +(
-                                    +wr4Data.targets *
-                                    +(wr4Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.wr4.receptions = +(
-                                    +wr4Data.targets *
-                                    +(wr4Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
+                                    if (topLeveLTeam.te1.name === player) {
+                                      topLeveLTeam.te1.recievingYards =
+                                        +event.target.value;
 
-                                // TE
+                                      let temp = +event.target.value;
+                                      te1Data.recievingYards = +temp;
+                                    }
 
-                                if (topLeveLTeam.te1.name === player.name) {
-                                  topLeveLTeam.te1.catchPercentage =
-                                    +event.target.value;
+                                    if (topLeveLTeam.te2.name === player) {
+                                      topLeveLTeam.te2.recievingYards =
+                                        +event.target.value;
+                                      let temp = +event.target.value;
+                                      te2Data.recievingYards = +temp;
+                                    }
 
-                                  te1Data.catchPercentage = +event.target.value;
-                                  te1Data.receptions = +(
-                                    +te1Data.targets *
-                                    +(te1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                  topLeveLTeam.te1.receptions = +(
-                                    +te1Data.targets *
-                                    +(te1Data.catchPercentage / 100)
-                                  ).toFixed(0);
-                                }
-                                if (topLeveLTeam.te2) {
-                                  if (topLeveLTeam.te2.name === player.name) {
-                                    te2Data.catchPercentage =
-                                      +event.target.value;
+                                    let teamTotalProjectedRecivingYards =
+                                      +rb1Data.recievingYards +
+                                      +rb2Data.recievingYards +
+                                      +rb3Data.recievingYards +
+                                      +wr1Data.recievingYards +
+                                      +wr2Data.recievingYards +
+                                      +wr3Data.recievingYards +
+                                      +wr4Data.recievingYards +
+                                      +te1Data.recievingYards;
 
-                                    te2Data.receptions = +(
-                                      +te2Data.targets *
-                                      +(te2Data.catchPercentage / 100)
-                                    ).toFixed(0);
-                                    topLeveLTeam.te2.receptions = +(
-                                      +te2Data.targets *
-                                      +(te2Data.catchPercentage / 100)
-                                    ).toFixed(0);
+                                    // console.log(teamTotalProjectedRecivingYards);
+
+                                    if (
+                                      +teamTotalProjectedRecivingYards >
+                                      topLeveLTeam.totalTeamProjectedPassingYards
+                                    ) {
+                                      alert(
+                                        `Team total projected recieving yards should not exceed projected team passing yards of ${topLeveLTeam.totalTeamProjectedPassingYards}`
+                                      );
+                                    }
+
+                                    // }
+                                  }}
+                                />
+                              </form>
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault();
+
+                                  // Do something with `name` here
+                                }}
+                              >
+                                <label htmlFor="recievingTDs">TDs</label>
+
+                                <input
+                                  id="recievingTDs"
+                                  value={
+                                    topLeveLTeam.rb1.name === player
+                                      ? topLeveLTeam.rb1.recievingTDs
+                                      : topLeveLTeam.rb2.name === player
+                                      ? topLeveLTeam.rb2.recievingTDs
+                                      : topLeveLTeam.rb3.name === player
+                                      ? topLeveLTeam.recievingTDs
+                                      : topLeveLTeam.wr1.name === player
+                                      ? topLeveLTeam.wr1.recievingTDs
+                                      : topLeveLTeam.wr2.name === player
+                                      ? topLeveLTeam.wr2.recievingTDs
+                                      : topLeveLTeam.wr3.name === player
+                                      ? topLeveLTeam.wr3.recievingTDs
+                                      : topLeveLTeam.wr4.name === player
+                                      ? topLeveLTeam.wr4.recievingTDs
+                                      : topLeveLTeam.te1 &&
+                                        topLeveLTeam.te1.name === player
+                                      ? topLeveLTeam.te1.recievingTDs
+                                      : topLeveLTeam.te2.recievingTDs
                                   }
-                                }
-                                // }
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                                  className={styles.selectedTeamsPlayerInput}
+                                  type="number"
+                                  onChange={(event) => {
+                                    //
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="recievingYards">Yards</label>
+                                    // RB
 
-                            <input
-                              id="recievingYards"
-                              value={
-                                topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.recievingYards
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.recievingYards
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.recievingYards
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.recievingYards
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.recievingYards
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.recievingYards
-                                  : topLeveLTeam.wr4.name === player.name
-                                  ? topLeveLTeam.wr4.recievingYards
-                                  : topLeveLTeam.te1 &&
-                                    topLeveLTeam.te1.name === player.name
-                                  ? topLeveLTeam.te1.recievingYards
-                                  : topLeveLTeam.te2 &&
-                                    topLeveLTeam.te2.recievingYards
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                if (!rb1Data.recievingYards) {
-                                  rb1Data.recievingYards = 0;
-                                }
-                                if (!rb2Data.recievingYards) {
-                                  rb2Data.recievingYards = 0;
-                                }
-                                if (!rb3Data.recievingYards) {
-                                  rb3Data.recievingYards = 0;
-                                }
-                                if (!wr1Data.recievingYards) {
-                                  wr1Data.recievingYards = 0;
-                                }
-                                if (!wr2Data.recievingYards) {
-                                  wr2Data.recievingYards = 0;
-                                }
-                                if (!wr3Data.recievingYards) {
-                                  wr3Data.recievingYards = 0;
-                                }
-                                if (!wr4Data.recievingYards) {
-                                  wr4Data.recievingYards = 0;
-                                }
+                                    if (topLeveLTeam.rb1.name === player) {
+                                      topLeveLTeam.rb1.recievingTDs =
+                                        +event.target.value;
 
-                                if (!te1Data.recievingYards) {
-                                  te1Data.recievingYards = 0;
-                                }
-                                if (!te2Data.recievingYards) {
-                                  te2Data.recievingYards = 0;
-                                }
-                                //
+                                      rb1Data.recievingTDs =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.rb2.name === player) {
+                                      topLeveLTeam.rb2.recievingTDs =
+                                        +event.target.value;
 
-                                // RB
+                                      rb2Data.recievingTDs =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.rb3.name === player) {
+                                      topLeveLTeam.rb3.recievingTDs =
+                                        +event.target.value;
 
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.recievingYards =
-                                    +event.target.value;
-                                  let temp = +event.target.value;
-                                  rb1Data.recievingYards = +temp;
-                                }
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.recievingYards =
-                                    +event.target.value;
+                                      rb3Data.recievingTDs =
+                                        +event.target.value;
+                                    }
 
-                                  let temp = +event.target.value;
-                                  rb2Data.recievingYards = +temp;
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.recievingYards =
-                                    +event.target.value;
+                                    // WR
 
-                                  let temp = +event.target.value;
-                                  rb3Data.recievingYards = +temp;
-                                }
+                                    if (topLeveLTeam.wr1.name === player) {
+                                      topLeveLTeam.wr1.recievingTDs =
+                                        +event.target.value;
 
-                                // WR
+                                      wr1Data.recievingTDs =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr2.name === player) {
+                                      topLeveLTeam.wr2.recievingTDs =
+                                        +event.target.value;
 
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.recievingYards =
-                                    +event.target.value;
+                                      wr2Data.recievingTDs =
+                                        +event.target.value;
+                                    }
+                                    if (topLeveLTeam.wr3.name === player) {
+                                      topLeveLTeam.wr3.recievingTDs =
+                                        +event.target.value;
 
-                                  let temp = +event.target.value;
-                                  wr1Data.recievingYards = +temp;
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  topLeveLTeam.wr2.recievingYards =
-                                    +event.target.value;
+                                      wr3Data.recievingTDs =
+                                        +event.target.value;
+                                    }
 
-                                  let temp = +event.target.value;
-                                  wr2Data.recievingYards = +temp;
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  topLeveLTeam.wr3.recievingYards =
-                                    +event.target.value;
+                                    if (topLeveLTeam.wr4.name === player) {
+                                      topLeveLTeam.wr4.recievingTDs =
+                                        +event.target.value;
 
-                                  let temp = +event.target.value;
-                                  wr3Data.recievingYards = +temp;
-                                }
+                                      wr4Data.recievingTDs =
+                                        +event.target.value;
+                                    }
 
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  topLeveLTeam.wr4.recievingYards =
-                                    +event.target.value;
+                                    // TE
 
-                                  let temp = +event.target.value;
-                                  wr4Data.recievingYards = +temp;
-                                }
+                                    if (topLeveLTeam.te1.name === player) {
+                                      topLeveLTeam.te1.recievingTDs =
+                                        +event.target.value;
 
-                                // TE
+                                      te1Data.recievingTDs =
+                                        +event.target.value;
+                                    }
 
-                                if (topLeveLTeam.te1.name === player.name) {
-                                  topLeveLTeam.te1.recievingYards =
-                                    +event.target.value;
+                                    if (topLeveLTeam.te2.name === player) {
+                                      te2Data.recievingTDs =
+                                        +event.target.value;
+                                    }
 
-                                  let temp = +event.target.value;
-                                  te1Data.recievingYards = +temp;
-                                }
-                                if (topLeveLTeam.te2) {
-                                  if (topLeveLTeam.te2.name === player.name) {
-                                    topLeveLTeam.te2.recievingYards =
-                                      +event.target.value;
-                                    let temp = +event.target.value;
-                                    te2Data.recievingYards = +temp;
-                                  }
-                                }
+                                    // }
+                                    topLeveLTeam.rb1.fantasyPoints = +(
+                                      +(rb1Data.RushingYards * 0.1) +
+                                      +(rb1Data.TDs * 6) +
+                                      +(rb1Data.receptions * 1) +
+                                      +(rb1Data.recievingYards * 0.1) +
+                                      +(rb1Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                let teamTotalProjectedRecivingYards =
-                                  +rb1Data.recievingYards +
-                                  +rb2Data.recievingYards +
-                                  +rb3Data.recievingYards +
-                                  +wr1Data.recievingYards +
-                                  +wr2Data.recievingYards +
-                                  +wr3Data.recievingYards +
-                                  +wr4Data.recievingYards +
-                                  +te1Data.recievingYards;
+                                    topLeveLTeam.rb2.fantasyPoints = +(
+                                      +(rb2Data.RushingYards * 0.1) +
+                                      +(rb2Data.TDs * 6) +
+                                      +(rb2Data.receptions * 1) +
+                                      +(rb2Data.recievingYards * 0.1) +
+                                      +(rb2Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                // console.log(teamTotalProjectedRecivingYards);
+                                    topLeveLTeam.rb3.fantasyPoints = +(
+                                      +(rb3Data.RushingYards * 0.1) +
+                                      +(rb3Data.TDs * 6) +
+                                      +(rb3Data.receptions * 1) +
+                                      +(rb3Data.recievingYards * 0.1) +
+                                      +(rb3Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                if (
-                                  +teamTotalProjectedRecivingYards >
-                                  topLeveLTeam.totalTeamProjectedPassingYards
-                                ) {
-                                  alert(
-                                    `Team total projected recieving yards should not exceed projected team passing yards of ${topLeveLTeam.totalTeamProjectedPassingYards}`
-                                  );
-                                }
+                                    topLeveLTeam.wr1.fantasyPoints = +(
+                                      +(wr1Data.RushingYards * 0.1) +
+                                      +(wr1Data.TDs * 6) +
+                                      +(wr1Data.receptions * 1) +
+                                      +(wr1Data.recievingYards * 0.1) +
+                                      +(wr1Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                // }
-                              }}
-                            />
-                          </form>
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault();
+                                    topLeveLTeam.wr1.fantasyPoints = +(
+                                      +(wr2Data.RushingYards * 0.1) +
+                                      +(wr2Data.TDs * 6) +
+                                      +(wr2Data.receptions * 1) +
+                                      +(wr2Data.recievingYards * 0.1) +
+                                      +(wr2Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                              // Do something with `name` here
-                            }}
-                          >
-                            <label htmlFor="recievingTDs">TDs</label>
+                                    topLeveLTeam.wr1.fantasyPoints = +(
+                                      +(wr3Data.RushingYards * 0.1) +
+                                      +(wr3Data.TDs * 6) +
+                                      +(wr3Data.receptions * 1) +
+                                      +(wr3Data.recievingYards * 0.1) +
+                                      +(wr3Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                            <input
-                              id="recievingTDs"
-                              value={
-                                topLeveLTeam.rb1.name === player.name
-                                  ? topLeveLTeam.rb1.recievingTDs
-                                  : topLeveLTeam.rb2.name === player.name
-                                  ? topLeveLTeam.rb2.recievingTDs
-                                  : topLeveLTeam.rb3.name === player.name
-                                  ? topLeveLTeam.recievingTDs
-                                  : topLeveLTeam.wr1.name === player.name
-                                  ? topLeveLTeam.wr1.recievingTDs
-                                  : topLeveLTeam.wr2.name === player.name
-                                  ? topLeveLTeam.wr2.recievingTDs
-                                  : topLeveLTeam.wr3.name === player.name
-                                  ? topLeveLTeam.wr3.recievingTDs
-                                  : topLeveLTeam.wr4.name === player.name
-                                  ? topLeveLTeam.wr4.recievingTDs
-                                  : topLeveLTeam.te1 &&
-                                    topLeveLTeam.te1.name === player.name
-                                  ? topLeveLTeam.te1.recievingTDs
-                                  : topLeveLTeam.te2 &&
-                                    topLeveLTeam.te2.recievingTDs
-                              }
-                              className={styles.selectedTeamsPlayerInput}
-                              type="number"
-                              onChange={(event) => {
-                                //
+                                    topLeveLTeam.wr1.fantasyPoints = +(
+                                      +(wr4Data.RushingYards * 0.1) +
+                                      +(wr4Data.TDs * 6) +
+                                      +(wr4Data.receptions * 1) +
+                                      +(wr4Data.recievingYards * 0.1) +
+                                      +(wr4Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                // RB
+                                    topLeveLTeam.te1.fantasyPoints = +(
+                                      +(te1Data.receptions * 1) +
+                                      +(te1Data.recievingYards * 0.1) +
+                                      +(te1Data.recievingTDs * 6)
+                                    ).toFixed(1);
 
-                                if (topLeveLTeam.rb1.name === player.name) {
-                                  topLeveLTeam.rb1.recievingTDs =
-                                    +event.target.value;
-
-                                  rb1Data.recievingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.rb2.name === player.name) {
-                                  topLeveLTeam.rb2.recievingTDs =
-                                    +event.target.value;
-
-                                  rb2Data.recievingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.rb3.name === player.name) {
-                                  topLeveLTeam.rb3.recievingTDs =
-                                    +event.target.value;
-
-                                  rb3Data.recievingTDs = +event.target.value;
-                                }
-
-                                // WR
-
-                                if (topLeveLTeam.wr1.name === player.name) {
-                                  topLeveLTeam.wr1.recievingTDs =
-                                    +event.target.value;
-
-                                  wr1Data.recievingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr2.name === player.name) {
-                                  topLeveLTeam.wr2.recievingTDs =
-                                    +event.target.value;
-
-                                  wr2Data.recievingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.wr3.name === player.name) {
-                                  topLeveLTeam.wr3.recievingTDs =
-                                    +event.target.value;
-
-                                  wr3Data.recievingTDs = +event.target.value;
-                                }
-
-                                if (topLeveLTeam.wr4.name === player.name) {
-                                  topLeveLTeam.wr4.recievingTDs =
-                                    +event.target.value;
-
-                                  wr4Data.recievingTDs = +event.target.value;
-                                }
-
-                                // TE
-
-                                if (topLeveLTeam.te1.name === player.name) {
-                                  topLeveLTeam.te1.recievingTDs =
-                                    +event.target.value;
-
-                                  te1Data.recievingTDs = +event.target.value;
-                                }
-                                if (topLeveLTeam.te2) {
-                                  if (topLeveLTeam.te2.name === player.name) {
-                                    te2Data.recievingTDs = +event.target.value;
-                                  }
-                                }
-                                // }
-                                topLeveLTeam.rb1.fantasyPoints = +(
-                                  +(rb1Data.RushingYards * 0.1) +
-                                  +(rb1Data.TDs * 6) +
-                                  +(rb1Data.receptions * 1) +
-                                  +(rb1Data.recievingYards * 0.1) +
-                                  +(rb1Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.rb2.fantasyPoints = +(
-                                  +(rb2Data.RushingYards * 0.1) +
-                                  +(rb2Data.TDs * 6) +
-                                  +(rb2Data.receptions * 1) +
-                                  +(rb2Data.recievingYards * 0.1) +
-                                  +(rb2Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.rb3.fantasyPoints = +(
-                                  +(rb3Data.RushingYards * 0.1) +
-                                  +(rb3Data.TDs * 6) +
-                                  +(rb3Data.receptions * 1) +
-                                  +(rb3Data.recievingYards * 0.1) +
-                                  +(rb3Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.wr1.fantasyPoints = +(
-                                  +(wr1Data.RushingYards * 0.1) +
-                                  +(wr1Data.TDs * 6) +
-                                  +(wr1Data.receptions * 1) +
-                                  +(wr1Data.recievingYards * 0.1) +
-                                  +(wr1Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.wr1.fantasyPoints = +(
-                                  +(wr2Data.RushingYards * 0.1) +
-                                  +(wr2Data.TDs * 6) +
-                                  +(wr2Data.receptions * 1) +
-                                  +(wr2Data.recievingYards * 0.1) +
-                                  +(wr2Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.wr1.fantasyPoints = +(
-                                  +(wr3Data.RushingYards * 0.1) +
-                                  +(wr3Data.TDs * 6) +
-                                  +(wr3Data.receptions * 1) +
-                                  +(wr3Data.recievingYards * 0.1) +
-                                  +(wr3Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.wr1.fantasyPoints = +(
-                                  +(wr4Data.RushingYards * 0.1) +
-                                  +(wr4Data.TDs * 6) +
-                                  +(wr4Data.receptions * 1) +
-                                  +(wr4Data.recievingYards * 0.1) +
-                                  +(wr4Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                topLeveLTeam.te1.fantasyPoints = +(
-                                  +(te1Data.receptions * 1) +
-                                  +(te1Data.recievingYards * 0.1) +
-                                  +(te1Data.recievingTDs * 6)
-                                ).toFixed(1);
-
-                                if (te2Data) {
-                                  topLeveLTeam.te2.fantasyPoints = +(
-                                    +(te2Data.receptions * 1) +
-                                    +(te2Data.recievingYards * 0.1) +
-                                    +(te2Data.recievingTDs * 6)
-                                  ).toFixed(1);
-                                }
-                              }}
-                            />
-                          </form>
-                        </div>
-                      );
-                    }
-                  }
-                })}
-
+                                    topLeveLTeam.te2.fantasyPoints = +(
+                                      +(te2Data.receptions * 1) +
+                                      +(te2Data.recievingYards * 0.1) +
+                                      +(te2Data.recievingTDs * 6)
+                                    ).toFixed(1);
+                                  }}
+                                />
+                              </form>
+                            </div>
+                          );
+                        }
+                      }
+                    )}
+                  </div>
+                )}
                 <div className={styles.saveAndClearBTNsWrapper}>
                   <div className={styles.saveBTNWrapper}>
                     <button
@@ -3024,7 +3863,6 @@ export default function ConstructProjections(dataTest) {
                     </button>
                   </div>
                 </div>
-
                 <RecievingTable
                   rb1Data={topLeveLTeam.rb1}
                   rb2Data={topLeveLTeam.rb2}
@@ -3036,7 +3874,6 @@ export default function ConstructProjections(dataTest) {
                   te1Data={topLeveLTeam.te1}
                   te2Data={topLeveLTeam.te2}
                 />
-
                 <TeamLevelFantasyTable
                   qb1Data={topLeveLTeam.qb1}
                   qb2Data={topLeveLTeam.qb2}
@@ -3051,7 +3888,6 @@ export default function ConstructProjections(dataTest) {
                   te1Data={topLeveLTeam.te1}
                   te2Data={topLeveLTeam.te2}
                 />
-
                 {/* <button onClick={logTeam}>log team data</button> */}
               </div>
             </div>
