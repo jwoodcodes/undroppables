@@ -137,9 +137,11 @@
 
 .sectionWrapper {
   display: flex;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: space-evenly;
+  max-width: 90%;
 }
 
 .selectTeamsQBsWrapper {
@@ -155,6 +157,7 @@
   font-size: 1.5rem;
   color: var(--color-red-primary);
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .selectPlayersToProjectLabel {
@@ -170,6 +173,42 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: space-evenly;
+  margin-bottom: 0.5rem;
+  max-width: 75%;
+}
+
+.howMuchIsLeftToDistributeBarWrapper {
+  display: flex;
+  justify-content: center;
+  color: var(--color-blue-primary);
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.amountsLeftToDistributeLabel {
+  color: var(--color-red-primary);
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.howMuchIsLeftIndividualSectionsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.playerInputForm {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
   margin-bottom: 0.5rem;
 }
 
@@ -177,7 +216,8 @@
   border-radius: 20px;
   background-color: var(--color-blue-dark);
   color: var(--color-gray-800);
-  width: 4rem;
+  width: 5rem;
+  margin-left: 1rem;
 
   /* min-width: fit-content; */
   text-align: center;
@@ -185,8 +225,9 @@
 
 .qbSectionTitle {
   text-align: center;
-  font-size: 1.75rem;
-  margin: 5rem auto 5rem auto;
+  font-size: 3.35rem;
+  letter-spacing: 0.3rem;
+  margin: 6rem auto 5rem auto;
 }
 
 .saveBTNWrapper {
