@@ -74,7 +74,16 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
 
   const [teamTotalTargetShare, setTeamTotalTargetShare] = React.useState();
 
+  const [teamTotalPassingYards, setTeamTotalPassingYards] = React.useState("");
+
   const [allQBDataArray, setAllQBDataArray] = React.useState([]);
+
+  const [isTotalProjectedOverLimit, setIsTotalProjectedOverLimit] =
+    React.useState(false);
+  const [
+    isTotalProjectedRushAttemptsOverLimit,
+    setIsTotalProjectedRushAttemptsOverLimit,
+  ] = React.useState(false);
 
   // Passing stats state variables
 
@@ -126,7 +135,16 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
   const [wr3RushAttempts, setwr3RushAttempts] = React.useState();
   const [wr4RushAttempts, setwr4RushAttempts] = React.useState();
 
-  const [teamTotalPassingYards, setTeamTotalPassingYards] = React.useState("");
+  const [qb1YardsPerCarry, setQb1YardsPerCarry] = React.useState();
+  const [qb2YardsPerCarry, setQb2YardsPerCarry] = React.useState();
+  const [qb3YardsPerCarry, setQb3YardsPerCarry] = React.useState();
+  const [rb1YardsPerCarry, setRb1YardsPerCarry] = React.useState();
+  const [rb2YardsPerCarry, setRb2YardsPerCarry] = React.useState();
+  const [rb3YardsPerCarry, setRb3YardsPerCarry] = React.useState();
+  const [wr1YardsPerCarry, setWr1YardsPerCarry] = React.useState();
+  const [wr2YardsPerCarry, setWr2YardsPerCarry] = React.useState();
+  const [wr3YardsPerCarry, setWr3YardsPerCarry] = React.useState();
+  const [wr4YardsPerCarry, setWr4YardsPerCarry] = React.useState();
 
   // const [usersAllTeamsList, setUsersAllTeamsList] = React.useState(() => {
   //   const storedValue = window.localStorage.getItem("usersAllTeamsList");
@@ -178,6 +196,16 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
         totalProjectedRBRushAttempts -
         totalProjectedWRRushAttempts
     );
+    setIsTotalProjectedRushAttemptsOverLimit(false);
+    if (
+      totalRunPlays -
+        totalProjectedQBRushAttempts -
+        totalProjectedRBRushAttempts -
+        totalProjectedWRRushAttempts <
+      0
+    ) {
+      setIsTotalProjectedRushAttemptsOverLimit(true);
+    }
   }, [
     totalProjectedQBRushAttempts,
     totalProjectedRBRushAttempts,
@@ -1669,7 +1697,14 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                     className={styles.howMuchIsLeftIndividualSectionsWrapper}
                   >
                     <div>Team Pass Attempt %</div>
-                    <div>{totalPercentOfPassAttemptsLeftToDistribute}</div>
+                    {isTotalProjectedOverLimit ? (
+                      <div className={styles.limitExceeded}>
+                        {totalPercentOfPassAttemptsLeftToDistribute}
+                        <div>Limit Exceeded!</div>
+                      </div>
+                    ) : (
+                      <div>{totalPercentOfPassAttemptsLeftToDistribute}</div>
+                    )}
                   </div>
                 </div>
                 {selectedTeamsUserSelectedPlayersToProjectArray && (
@@ -1733,6 +1768,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                           topLeveLTeam.qb1.gamesPlayed >
                                         18
                                       ) {
+                                        setQb2GamesPlayed("");
                                         alert(
                                           "Total games played should not exceed 18"
                                         );
@@ -1758,6 +1794,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                           topLeveLTeam.qb2.gamesPlayed >
                                         18
                                       ) {
+                                        setQb3GamesPlayed("");
                                         alert(
                                           "Total games played should not exceed 18"
                                         );
@@ -1853,6 +1890,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                           +qb2PercentOfTeamPassAttempts +
                                           +qb3PercentOfTeamPassAttempts;
                                       }
+                                      setIsTotalProjectedOverLimit(false);
 
                                       // console.log(
                                       //   totalProjectedPercentOfTeamPassAttempts
@@ -1865,12 +1903,15 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         topLeveLTeam.qb1.percentOfTotalTeamPassAttempts = 0;
 
                                         qb1Data.PassAtmpts = 0;
-                                        setQb1PercentOfTeamPassAttempts("");
 
-                                        alert(
-                                          // `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
-                                          `Total percent of team pass attempts should not exceed 100`
-                                        );
+                                        setIsTotalProjectedOverLimit(true);
+
+                                        // setQb1PercentOfTeamPassAttempts("");
+
+                                        // alert(
+                                        //   // `Total Pass Attempts should not exceed projected team pass attempts of ${totalPassPlays}`
+                                        //   `Total percent of team pass attempts should not exceed 100`
+                                        // );
                                       }
                                     }
 
@@ -1921,6 +1962,8 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                           +qb3PercentOfTeamPassAttempts;
                                       }
 
+                                      setIsTotalProjectedOverLimit(false);
+
                                       // console.log(
                                       //   totalProjectedPercentOfTeamPassAttempts
                                       // );
@@ -1932,11 +1975,13 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         topLeveLTeam.qb2.percentOfTotalTeamPassAttempts = 0;
                                         qb2Data.PassAtmpts = 0;
 
-                                        setQb2PercentOfTeamPassAttempts("");
+                                        setIsTotalProjectedOverLimit(true);
 
-                                        alert(
-                                          `Total percent of team pass attempts should not exceed 100`
-                                        );
+                                        // setQb2PercentOfTeamPassAttempts("");
+
+                                        // alert(
+                                        //   `Total percent of team pass attempts should not exceed 100`
+                                        // );
                                       }
                                     }
                                     if (topLeveLTeam.qb3.name === player) {
@@ -1991,34 +2036,26 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                           +qb2PercentOfTeamPassAttempts;
                                       }
 
+                                      setIsTotalProjectedOverLimit(false);
+
                                       if (
                                         totalProjectedPercentOfTeamPassAttempts >
                                         100
                                       ) {
                                         topLeveLTeam.qb3.percentOfTotalTeamPassAttempts = 0;
 
-                                        setQb3PercentOfTeamPassAttempts("");
-                                        alert(
-                                          `Total percent of team pass attempts should not exceed 100`
-                                        );
-                                      }
+                                        setIsTotalProjectedOverLimit(true);
 
-                                      // console.log(
-                                      //   totalPercentOfPassAttemptsLeftToDistribute,
-                                      //   totalProjectedPercentOfTeamPassAttempts
-                                      // );
+                                        // setQb3PercentOfTeamPassAttempts("");
+                                        // alert(
+                                        //   `Total percent of team pass attempts should not exceed 100`
+                                        // );
+                                      }
                                     }
                                     setTotalPercentOfPassAttemptsLeftToDistribute(
                                       100 -
                                         totalProjectedPercentOfTeamPassAttempts
                                     );
-
-                                    // console.log(
-                                    //   totalProjectedPercentOfTeamPassAttempts,
-                                    //   qb1PercentOfTeamPassAttempts,
-                                    //   qb2PercentOfTeamPassAttempts,
-                                    //   qb3PercentOfTeamPassAttempts
-                                    // );
                                   }}
                                 />
                               </form>
@@ -2524,7 +2561,14 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                     className={styles.howMuchIsLeftIndividualSectionsWrapper}
                   >
                     <div>Team Rush Attempts</div>
-                    <div>{totalTeamRushingAttemptsToDistribute}</div>
+                    {isTotalProjectedRushAttemptsOverLimit ? (
+                      <div className={styles.limitExceeded}>
+                        {totalTeamRushingAttemptsToDistribute}
+                        <div>Limit Exceeded!</div>
+                      </div>
+                    ) : (
+                      <div>{totalTeamRushingAttemptsToDistribute}</div>
+                    )}
                   </div>
                 </div>
                 {selectedTeamsUserSelectedPlayersToProjectArray && (
@@ -3194,16 +3238,24 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                   id="games"
                                   value={
                                     topLeveLTeam.qb1.name === player
-                                      ? topLeveLTeam.qb1.YPCarry
+                                      ? qb1YardsPerCarry
                                       : topLeveLTeam.qb2.name === player
-                                      ? topLeveLTeam.qb2.YPCarry
+                                      ? qb2YardsPerCarry
                                       : topLeveLTeam.qb3.name === player
-                                      ? topLeveLTeam.qb3.YPCarry
+                                      ? qb3YardsPerCarry
                                       : topLeveLTeam.rb1.name === player
-                                      ? topLeveLTeam.rb1.YPCarry
+                                      ? rb1YardsPerCarry
                                       : topLeveLTeam.rb2.name === player
-                                      ? topLeveLTeam.rb2.YPCarry
-                                      : topLeveLTeam.rb3.YPCarry
+                                      ? rb2YardsPerCarry
+                                      : topLeveLTeam.rb3.name === player
+                                      ? rb3YardsPerCarry
+                                      : topLeveLTeam.wr1.name === player
+                                      ? wr1YardsPerCarry
+                                      : topLeveLTeam.wr2.name === player
+                                      ? wr2YardsPerCarry
+                                      : topLeveLTeam.wr3.name === player
+                                      ? wr3YardsPerCarry
+                                      : wr4YardsPerCarry
                                   }
                                   className={styles.selectedTeamsPlayerInput}
                                   type="number"
@@ -3213,41 +3265,36 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value;
 
                                       qb1Data.YPCarry = +event.target.value;
+                                      setQb1YardsPerCarry(+event.target.value);
                                       qb1Data.RushingYards = +(
-                                        +event.target.value *
-                                        qb1Data.rushAttempts
+                                        +event.target.value * qb1RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.qb1.RushingYards = +(
-                                        +event.target.value *
-                                        qb1Data.rushAttempts
+                                        +event.target.value * qb1RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.qb2.name === player) {
                                       topLeveLTeam.qb2.YPCarry =
                                         +event.target.value;
                                       qb2Data.YPCarry = +event.target.value;
-
+                                      setQb2YardsPerCarry(+event.target.value);
                                       qb2Data.RushingYards = +(
-                                        +event.target.value *
-                                        qb2Data.rushAttempts
+                                        +event.target.value * qb2RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.qb2.RushingYards = +(
-                                        +event.target.value *
-                                        qb2Data.rushAttempts
+                                        +event.target.value * qb2RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.qb3.name === player) {
                                       topLeveLTeam.qb3.YPCarry =
                                         +event.target.value;
                                       qb3Data.YPCarry = +event.target.value;
-
+                                      setQb3YardsPerCarry(+event.target.value);
                                       qb3Data.RushingYards = +(
-                                        +event.target.value *
-                                        qb3Data.rushAttempts
+                                        +event.target.value * qb3RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.qb3.RushingYards = +(
-                                        +event.target.value *
-                                        qb3Data.rushAttempts
+                                        +event.target.value * qb3RushAttempts
                                       ).toFixed(0);
                                     }
 
@@ -3256,13 +3303,12 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value;
 
                                       rb1Data.YPCarry = +event.target.value;
+                                      setRb1YardsPerCarry(+event.target.value);
                                       rb1Data.RushingYards = +(
-                                        +event.target.value *
-                                        rb1Data.rushAttempts
+                                        +event.target.value * rb1RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.rb1.RushingYards = +(
-                                        +event.target.value *
-                                        rb1Data.rushAttempts
+                                        +event.target.value * rb1RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.rb2.name === player) {
@@ -3270,13 +3316,12 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value;
 
                                       rb2Data.YPCarry = +event.target.value;
+                                      setRb2YardsPerCarry(+event.target.value);
                                       rb2Data.RushingYards = +(
-                                        +event.target.value *
-                                        rb2Data.rushAttempts
+                                        +event.target.value * rb2RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.rb2.RushingYards = +(
-                                        +event.target.value *
-                                        rb2Data.rushAttempts
+                                        +event.target.value * rb2RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.rb3.name === player) {
@@ -3284,13 +3329,12 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value;
 
                                       rb3Data.YPCarry = +event.target.value;
+                                      setRb3YardsPerCarry(+event.target.value);
                                       rb3Data.RushingYards = +(
-                                        +event.target.value *
-                                        rb3Data.rushAttempts
+                                        +event.target.value * rb3RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.rb3.RushingYards = +(
-                                        +event.target.value *
-                                        rb3Data.rushAttempts
+                                        +event.target.value * rb3rushAttempts
                                       ).toFixed(0);
                                     }
 
@@ -3299,55 +3343,48 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value;
 
                                       wr1Data.YPCarry = +event.target.value;
+                                      setWr1YardsPerCarry(+event.target.value);
                                       wr1Data.RushingYards = +(
-                                        +event.target.value *
-                                        wr1Data.rushAttempts
+                                        +event.target.value * wr1RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.wr1.RushingYards = +(
-                                        +event.target.value *
-                                        wr1Data.rushAttempts
+                                        +event.target.value * wr1RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.wr2.name === player) {
                                       topLeveLTeam.wr2.YPCarry =
                                         +event.target.value;
                                       wr2Data.YPCarry = +event.target.value;
-
+                                      setWr2YardsPerCarry(+event.target.value);
                                       wr2Data.RushingYards = +(
-                                        +event.target.value *
-                                        wr2Data.rushAttempts
+                                        +event.target.value * wr2RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.wr2.RushingYards = +(
-                                        +event.target.value *
-                                        wr2Data.rushAttempts
+                                        +event.target.value * wr2RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.wr3.name === player) {
                                       topLeveLTeam.wr3.YPCarry =
                                         +event.target.value;
                                       wr3Data.YPCarry = +event.target.value;
-
+                                      setWr3YardsPerCarry(+event.target.value);
                                       wr3Data.RushingYards = +(
-                                        +event.target.value *
-                                        wr3Data.rushAttempts
+                                        +event.target.value * wr3RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.wr3.RushingYards = +(
-                                        +event.target.value *
-                                        wr3Data.rushAttempts
+                                        +event.target.value * wr3RushAttempts
                                       ).toFixed(0);
                                     }
                                     if (topLeveLTeam.wr4.name === player) {
                                       topLeveLTeam.wr4.YPCarry =
                                         +event.target.value;
                                       wr4Data.YPCarry = +event.target.value;
-
+                                      setWr4YardsPerCarry(+event.target.value);
                                       wr4Data.RushingYards = +(
-                                        +event.target.value *
-                                        wr4Data.rushAttempts
+                                        +event.target.value * wr4RushAttempts
                                       ).toFixed(0);
                                       topLeveLTeam.wr4.RushingYards = +(
-                                        +event.target.value *
-                                        wr4Data.rushAttempts
+                                        +event.target.value * wr4RushAttempts
                                       ).toFixed(0);
                                     }
                                     // console.log(topLeveLTeam);

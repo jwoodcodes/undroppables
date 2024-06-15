@@ -106,4 +106,5 @@ html {
   --color-purple-dark: #1a237e;
 
   --color-red-primary: oklch(57.12% 0.212 23.29);
+  --color-red-warning: oklch(57.15% 0.227 17.47);
 }
