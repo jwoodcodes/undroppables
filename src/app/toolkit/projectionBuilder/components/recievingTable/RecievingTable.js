@@ -48,6 +48,8 @@ export default function RecievingTable({
     { label: "Targets", accessor: "targets" },
     { label: "Catch %", accessor: "catchPercentage" },
     { label: "Receptions", accessor: "receptions" },
+    { label: "YPR", accessor: "YPR" },
+
     { label: "Yards", accessor: "recievingYards" },
     { label: "TDs", accessor: "recievingTDs" },
   ];
