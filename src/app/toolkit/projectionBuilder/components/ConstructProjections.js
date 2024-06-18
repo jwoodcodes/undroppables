@@ -54,6 +54,8 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
     setTotalPercentOfPassAttemptsLeftToDistribute,
   ] = React.useState(100);
 
+  const [teamTotalCompletions, setTeamTotalCompletions] = React.useState(0);
+
   const [
     totalTeamRushingAttemptsToDistribute,
     setTotalTeamRushingAttemptsToDistribute,
@@ -84,6 +86,11 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
     isTotalProjectedRushAttemptsOverLimit,
     setIsTotalProjectedRushAttemptsOverLimit,
   ] = React.useState(false);
+
+  const [totalProjectedReceptions, setTotalProjectedReceptions] =
+    React.useState();
+
+  const [totalRecievingYards, setTotalRecievingYards] = React.useState(0);
 
   // Passing stats state variables
 
@@ -189,15 +196,15 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
   const [te1CatchPercentage, setTe1CatchPercentage] = React.useState("");
   const [te2CatchPercentage, setTe2CatchPercentage] = React.useState("");
 
-  const [rb1Receptions, setRb1Receptions] = React.useState("");
-  const [rb2Receptions, setRb2Receptions] = React.useState("");
-  const [rb3Receptions, setRb3Receptions] = React.useState("");
-  const [wr1Receptions, setWr1Receptions] = React.useState("");
-  const [wr2Receptions, setWr2Receptions] = React.useState("");
-  const [wr3Receptions, setWr3Receptions] = React.useState("");
-  const [wr4Receptions, setWr4Receptions] = React.useState("");
-  const [te1Receptions, setTe1Receptions] = React.useState("");
-  const [te2Receptions, setTe2Receptions] = React.useState("");
+  const [rb1Receptions, setRb1Receptions] = React.useState();
+  const [rb2Receptions, setRb2Receptions] = React.useState();
+  const [rb3Receptions, setRb3Receptions] = React.useState();
+  const [wr1Receptions, setWr1Receptions] = React.useState();
+  const [wr2Receptions, setWr2Receptions] = React.useState();
+  const [wr3Receptions, setWr3Receptions] = React.useState();
+  const [wr4Receptions, setWr4Receptions] = React.useState();
+  const [te1Receptions, setTe1Receptions] = React.useState();
+  const [te2Receptions, setTe2Receptions] = React.useState();
 
   const [rb1RecievingYards, setRb1RecievingYards] = React.useState("");
   const [rb2RecievingYards, setRb2RecievingYards] = React.useState("");
@@ -272,6 +279,8 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
       : console.log("ran here", showRBs, teamQB2, isTeamQB3);
   }, [teamQB2, teamQB3]);
 
+  //
+
   React.useEffect(() => {
     setTotalTeamRushingAttemptsToDistribute(
       totalRunPlays -
@@ -293,6 +302,178 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
     totalProjectedQBRushAttempts,
     totalProjectedRBRushAttempts,
     totalProjectedWRRushAttempts,
+  ]);
+
+  //
+
+  React.useEffect(() => {
+    setTeamTotalTargetShare(
+      +rb1TargetShare +
+        +rb2TargetShare +
+        +rb3TargetShare +
+        +wr1TargetShare +
+        +wr2TargetShare +
+        +wr3TargetShare +
+        +wr4TargetShare +
+        +te1TargetShare +
+        +te2TargetShare
+    );
+  }, [
+    rb1TargetShare,
+    rb2TargetShare,
+    rb3TargetShare,
+    wr1TargetShare,
+    wr2TargetShare,
+    wr3TargetShare,
+    wr4TargetShare,
+    te1TargetShare,
+    te2TargetShare,
+  ]);
+
+  //
+
+  React.useEffect(() => {
+    let temprb1Receptions = rb1Receptions;
+    let temprb2Receptions = rb2Receptions;
+    let temprb3Receptions = rb3Receptions;
+
+    let tempwr1Receptions = wr1Receptions;
+    let tempwr2Receptions = wr2Receptions;
+    let tempwr3Receptions = wr3Receptions;
+    let tempwr4Receptions = wr4Receptions;
+    let tempte1Receptions = te1Receptions;
+    let tempte2Receptions = te2Receptions;
+
+    if (!rb1Receptions) {
+      temprb1Receptions = 0;
+    }
+    if (!rb2Receptions) {
+      temprb2Receptions = 0;
+    }
+    if (!rb3Receptions) {
+      temprb3Receptions = 0;
+    }
+    if (!wr1Receptions) {
+      tempwr1Receptions = 0;
+    }
+    if (!wr2Receptions) {
+      tempwr2Receptions = 0;
+    }
+    if (!wr3Receptions) {
+      tempwr3Receptions = 0;
+    }
+    if (!wr4Receptions) {
+      tempwr4Receptions = 0;
+    }
+    if (!te1Receptions) {
+      tempte1Receptions = 0;
+    }
+    if (!te2Receptions) {
+      tempte2Receptions = 0;
+    }
+
+    setTotalProjectedReceptions(
+      temprb1Receptions +
+        temprb2Receptions +
+        temprb3Receptions +
+        tempwr1Receptions +
+        tempwr2Receptions +
+        tempwr3Receptions +
+        tempwr4Receptions +
+        tempte1Receptions +
+        tempte2Receptions
+    );
+  }, [
+    rb1Receptions,
+    rb2Receptions,
+    rb3Receptions,
+    wr1Receptions,
+    wr2Receptions,
+    wr3Receptions,
+    wr4Receptions,
+    te1Receptions,
+    te2Receptions,
+  ]);
+
+  React.useEffect(() => {
+    let tempqb1Completions = qb1Completions;
+    let tempqb2Completions = qb2Completions;
+    let tempqb3Completions = qb3Completions;
+
+    if (!qb1Completions) {
+      tempqb1Completions = 0;
+    }
+    if (!qb2Completions) {
+      tempqb2Completions = 0;
+    }
+    if (!qb3Completions) {
+      tempqb3Completions = 0;
+    }
+
+    setTeamTotalCompletions(qb1Completions + qb2Completions + qb3Completions);
+  }, [qb1Completions, qb2Completions, qb3Completions]);
+
+  React.useEffect(() => {
+    let temprb1RecievingYards = rb1RecievingYards;
+    let temprb2RecievingYards = rb2RecievingYards;
+    let temprb3RecievingYards = rb3RecievingYards;
+
+    let tempwr1RecievingYards = wr1RecievingYards;
+    let tempwr2RecievingYards = wr2RecievingYards;
+    let tempwr3RecievingYards = wr3RecievingYards;
+    let tempwr4RecievingYards = wr4RecievingYards;
+    let tempte1RecievingYards = te1RecievingYards;
+    let tempte2RecievingYards = te2RecievingYards;
+
+    if (!rb1RecievingYards) {
+      temprb1RecievingYards = 0;
+    }
+    if (!rb2RecievingYards) {
+      temprb2RecievingYards = 0;
+    }
+    if (!rb3RecievingYards) {
+      temprb3RecievingYards = 0;
+    }
+    if (!wr1RecievingYards) {
+      tempwr1RecievingYards = 0;
+    }
+    if (!wr2RecievingYards) {
+      tempwr2RecievingYards = 0;
+    }
+    if (!wr3RecievingYards) {
+      tempwr3RecievingYards = 0;
+    }
+    if (!wr4RecievingYards) {
+      tempwr4RecievingYards = 0;
+    }
+    if (!te1RecievingYards) {
+      tempte1RecievingYards = 0;
+    }
+    if (!te2RecievingYards) {
+      tempte2RecievingYards = 0;
+    }
+
+    setTotalRecievingYards(
+      temprb1RecievingYards +
+        temprb2RecievingYards +
+        temprb3RecievingYards +
+        tempwr1RecievingYards +
+        tempwr2RecievingYards +
+        tempwr3RecievingYards +
+        tempwr4RecievingYards +
+        tempte1RecievingYards +
+        tempte2RecievingYards
+    );
+  }, [
+    rb1RecievingYards,
+    rb2RecievingYards,
+    rb3RecievingYards,
+    wr1RecievingYards,
+    wr2RecievingYards,
+    wr3RecievingYards,
+    wr4RecievingYards,
+    te1RecievingYards,
+    te2RecievingYards,
   ]);
 
   // console.log(usersAllTeamsList);
@@ -1076,15 +1257,15 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                       te1Data.name = player.name;
                     }
 
-                    if (
-                      !topLeveLTeam.te2 &&
-                      player.name !== topLeveLTeam.te1.name
-                    ) {
-                      topLeveLTeam.te2 = {};
-                      topLeveLTeam.te2.name = player.name;
+                    // if (
+                    //   !topLeveLTeam.te2 &&
+                    //   player.name !== topLeveLTeam.te1.name
+                    // ) {
+                    //   topLeveLTeam.te2 = {};
+                    //   topLeveLTeam.te2.name = player.name;
 
-                      te2Data.name = player.name;
-                    }
+                    //   te2Data.name = player.name;
+                    // }
 
                     // console.log(topLeveLTeam);
                   }
@@ -2179,17 +2360,18 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       if (+event.target.value === 0) {
                                         setQb1CompPercent("");
                                       }
-                                      topLeveLTeam.qb1.completions = (
+                                      topLeveLTeam.qb1.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb1PassAttempts
                                       ).toFixed(0);
-                                      qb1Data.completions = (
+                                      qb1Data.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb1PassAttempts
                                       ).toFixed(0);
                                       setQb1Completions(
                                         topLeveLTeam.qb1.completions
                                       );
+
                                       // console.log(typeof qb1Data.completions);
                                     }
                                     if (topLeveLTeam.qb2.name === player) {
@@ -2200,11 +2382,11 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       if (+event.target.value === 0) {
                                         setQb2CompPercent("");
                                       }
-                                      topLeveLTeam.qb2.completions = (
+                                      topLeveLTeam.qb2.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb2PassAttempts
                                       ).toFixed(0);
-                                      qb2Data.completions = (
+                                      qb2Data.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb2PassAttempts
                                       ).toFixed(0);
@@ -2220,11 +2402,11 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       if (+event.target.value === 0) {
                                         setQb3CompPercent("");
                                       }
-                                      topLeveLTeam.qb3.completions = (
+                                      topLeveLTeam.qb3.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb3PassAttempts
                                       ).toFixed(0);
-                                      qb3Data.completions = (
+                                      qb3Data.completions = +(
                                         +(+event.target.value / 100) *
                                         +qb3PassAttempts
                                       ).toFixed(0);
@@ -2274,10 +2456,11 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         +event.target.value / qb1Completions
                                       ).toFixed(1);
 
-                                      console.log(
-                                        +event.target.value,
-                                        qb1Completions
-                                      );
+                                      // console.log(
+                                      //   +event.target.value,
+                                      //   qb1Completions,
+                                      //   typeof qb1Completions
+                                      // );
 
                                       let temp1YPC =
                                         +event.target.value / qb1Completions;
@@ -3783,6 +3966,46 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                   wr4Data={topLeveLTeam.wr4}
                 />
                 <div className={styles.qbSectionTitle}> Recieving</div>
+                <div className={styles.amountsLeftToDistributeLabel}>
+                  Amounts Left to Distribute
+                </div>
+                <div className={styles.howMuchIsLeftToDistributeBarWrapper}>
+                  <div
+                    className={styles.howMuchIsLeftIndividualSectionsWrapper}
+                  >
+                    <div>Target share</div>
+                    {teamTotalTargetShare > 100 ? (
+                      <div className={styles.limitExceeded}>
+                        {100 - teamTotalTargetShare}
+                        <div>Limit Exceeded!</div>
+                      </div>
+                    ) : (
+                      <div>{100 - teamTotalTargetShare}</div>
+                    )}
+
+                    <div>Receptions</div>
+                    {+teamTotalCompletions - +totalProjectedReceptions < 0 ? (
+                      <div className={styles.limitExceeded}>
+                        {+teamTotalCompletions - +totalProjectedReceptions}
+                        <div>Limit Exceeded!</div>
+                      </div>
+                    ) : (
+                      <div>
+                        {+teamTotalCompletions - +totalProjectedReceptions}
+                      </div>
+                    )}
+
+                    <div>Recieving Yards</div>
+                    {+teamTotalPassingYards - +totalRecievingYards < 0 ? (
+                      <div className={styles.limitExceeded}>
+                        {+teamTotalPassingYards - +totalRecievingYards}
+                        <div>Limit Exceeded!</div>
+                      </div>
+                    ) : (
+                      <div>{+teamTotalPassingYards - +totalRecievingYards}</div>
+                    )}
+                  </div>
+                </div>
                 {selectedTeamsUserSelectedPlayersToProjectArray && (
                   <div className={styles.sectionWrapper}>
                     {/* {dataTest.allPlayerData.map((player) => { */}
@@ -4136,25 +4359,29 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         ).toFixed(0);
                                       }
 
-                                      if (
-                                        topLeveLTeam.te2.name === player.name
-                                      ) {
-                                        te2Data.name = topLeveLTeam.te2.name;
-                                        te2Data.targetShare =
-                                          +event.target.value;
-                                        setTe2TargetShare(+event.target.value);
-                                        if (+event.target.value === 0) {
-                                          setTe2TargetShare("");
+                                      if (topLeveLTeam.te2) {
+                                        if (
+                                          topLeveLTeam.te2.name === player.name
+                                        ) {
+                                          te2Data.name = topLeveLTeam.te2.name;
+                                          te2Data.targetShare =
+                                            +event.target.value;
+                                          setTe2TargetShare(
+                                            +event.target.value
+                                          );
+                                          if (+event.target.value === 0) {
+                                            setTe2TargetShare("");
+                                          }
+                                          te2Data.targets = +(
+                                            topLeveLTeam.totalPassPlays *
+                                            +(te2Data.targetShare / 100)
+                                          ).toFixed(0);
+                                          setTe2Targets(te2Data.targets);
+                                          topLeveLTeam.te2.targets = +(
+                                            topLeveLTeam.totalPassPlays *
+                                            +(te2Data.targetShare / 100)
+                                          ).toFixed(0);
                                         }
-                                        te2Data.targets = +(
-                                          topLeveLTeam.totalPassPlays *
-                                          +(te2Data.targetShare / 100)
-                                        ).toFixed(0);
-                                        setTe2Targets(te2Data.targets);
-                                        topLeveLTeam.te2.targets = +(
-                                          topLeveLTeam.totalPassPlays *
-                                          +(te2Data.targetShare / 100)
-                                        ).toFixed(0);
                                       }
 
                                       // }
@@ -4463,10 +4690,10 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         te2Targets *
                                         +(te2Data.catchPercentage / 100)
                                       ).toFixed(0);
-                                      setTe1Receptions(
+                                      setTe2Receptions(
                                         +(
-                                          te1Targets *
-                                          (te1Data.catchPercentage / 100)
+                                          te2Targets *
+                                          (te2Data.catchPercentage / 100)
                                         ).toFixed(0)
                                       );
                                     }
@@ -4819,7 +5046,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       rb1Data.recievingTDs =
                                         +event.target.value;
 
-                                      setrb1RecievingTDs(+event.target.value);
+                                      setRb1RecievingTDs(+event.target.value);
                                       if (+event.target.value === 0) {
                                         setRb1RecievingTDs("");
                                       }
@@ -4831,7 +5058,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       rb2Data.recievingTDs =
                                         +event.target.value;
 
-                                      setrb2RecievingTDs(+event.target.value);
+                                      setRb2RecievingTDs(+event.target.value);
                                       if (+event.target.value === 0) {
                                         setRb2RecievingTDs("");
                                       }
@@ -4843,7 +5070,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       rb3Data.recievingTDs =
                                         +event.target.value;
 
-                                      setrb3RecievingTDs(+event.target.value);
+                                      setRb3RecievingTDs(+event.target.value);
                                       if (+event.target.value === 0) {
                                         setRb3RecievingTDs("");
                                       }
