@@ -113,11 +113,13 @@ export default function TeamLevelFantasyTable({
     +(te1Data.recievingTDs * 6)
   ).toFixed(1);
 
-  te2Data.fantasyPoints = +(
-    +(te2Data.receptions * 1) +
-    +(te2Data.recievingYards * 0.1) +
-    +(te2Data.recievingTDs * 6)
-  ).toFixed(1);
+  if (te2Data) {
+    te2Data.fantasyPoints = +(
+      +(te2Data.receptions * 1) +
+      +(te2Data.recievingYards * 0.1) +
+      +(te2Data.recievingTDs * 6)
+    ).toFixed(1);
+  }
 
   // console.log(
   //   +(rb1Data.RushingYards * 0.1),
