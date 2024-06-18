@@ -4359,7 +4359,7 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                         ).toFixed(0);
                                       }
 
-                                      if (topLeveLTeam.te2) {
+                                      if (teamTE2) {
                                         if (
                                           topLeveLTeam.te2.name === player.name
                                         ) {
@@ -4671,31 +4671,33 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       );
                                     }
 
-                                    if (topLeveLTeam.te2.name === player) {
-                                      te2Data.catchPercentage =
-                                        +event.target.value;
+                                    if (teamTE2) {
+                                      if (topLeveLTeam.te2.name === player) {
+                                        te2Data.catchPercentage =
+                                          +event.target.value;
 
-                                      setTe2CatchPercentage(
-                                        +event.target.value
-                                      );
-                                      if (+event.target.value === 0) {
-                                        setTe2CatchPercentage("");
-                                      }
+                                        setTe2CatchPercentage(
+                                          +event.target.value
+                                        );
+                                        if (+event.target.value === 0) {
+                                          setTe2CatchPercentage("");
+                                        }
 
-                                      te2Data.receptions = +(
-                                        te2Targets *
-                                        +(te2Data.catchPercentage / 100)
-                                      ).toFixed(0);
-                                      topLeveLTeam.te2.receptions = +(
-                                        te2Targets *
-                                        +(te2Data.catchPercentage / 100)
-                                      ).toFixed(0);
-                                      setTe2Receptions(
-                                        +(
+                                        te2Data.receptions = +(
                                           te2Targets *
-                                          (te2Data.catchPercentage / 100)
-                                        ).toFixed(0)
-                                      );
+                                          +(te2Data.catchPercentage / 100)
+                                        ).toFixed(0);
+                                        topLeveLTeam.te2.receptions = +(
+                                          te2Targets *
+                                          +(te2Data.catchPercentage / 100)
+                                        ).toFixed(0);
+                                        setTe2Receptions(
+                                          +(
+                                            te2Targets *
+                                            (te2Data.catchPercentage / 100)
+                                          ).toFixed(0)
+                                        );
+                                      }
                                     }
 
                                     // }
@@ -4953,27 +4955,32 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
 
                                       setTe1RecievingYards(Math.round(temp, 1));
                                     }
-                                    te2Data.YPR = +event.target.value;
-                                    if (topLeveLTeam.te2.name === player) {
-                                      topLeveLTeam.te2.YPR =
-                                        +event.target.value;
-                                      setTe2YPR(+event.target.value);
-                                      if (+event.target.value === 0) {
-                                        setTe2YPR("");
+
+                                    if (teamTE2) {
+                                      te2Data.YPR = +event.target.value;
+                                      if (topLeveLTeam.te2.name === player) {
+                                        topLeveLTeam.te2.YPR =
+                                          +event.target.value;
+                                        setTe2YPR(+event.target.value);
+                                        if (+event.target.value === 0) {
+                                          setTe2YPR("");
+                                        }
+
+                                        let temp =
+                                          +event.target.value * te2Receptions;
+
+                                        te2Data.recievingYards = Math.round(
+                                          temp,
+                                          1
+                                        );
+
+                                        topLeveLTeam.te2.recievingYards =
+                                          Math.round(temp, 1);
+
+                                        setTe2RecievingYards(
+                                          Math.round(temp, 1)
+                                        );
                                       }
-
-                                      let temp =
-                                        +event.target.value * te2Receptions;
-
-                                      te2Data.recievingYards = Math.round(
-                                        temp,
-                                        1
-                                      );
-
-                                      topLeveLTeam.te2.recievingYards =
-                                        Math.round(temp, 1);
-
-                                      setTe2RecievingYards(Math.round(temp, 1));
                                     }
 
                                     let teamTotalProjectedRecivingYards =
@@ -4986,6 +4993,18 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       +wr4Data.recievingYards +
                                       +te1Data.recievingYards;
 
+                                    if (teamTE2) {
+                                      teamTotalProjectedRecivingYards =
+                                        +rb1Data.recievingYards +
+                                        +rb2Data.recievingYards +
+                                        +rb3Data.recievingYards +
+                                        +wr1Data.recievingYards +
+                                        +wr2Data.recievingYards +
+                                        +wr3Data.recievingYards +
+                                        +wr4Data.recievingYards +
+                                        +te1Data.recievingYards +
+                                        +te2Data.recievingYards;
+                                    }
                                     // console.log(teamTotalProjectedRecivingYards);
 
                                     if (
@@ -5142,13 +5161,15 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       }
                                     }
 
-                                    if (topLeveLTeam.te2.name === player) {
-                                      te2Data.recievingTDs =
-                                        +event.target.value;
+                                    if (teamTE2) {
+                                      if (topLeveLTeam.te2.name === player) {
+                                        te2Data.recievingTDs =
+                                          +event.target.value;
 
-                                      setTe2RecievingTDs(+event.target.value);
-                                      if (+event.target.value === 0) {
-                                        setTe2RecievingTDs("");
+                                        setTe2RecievingTDs(+event.target.value);
+                                        if (+event.target.value === 0) {
+                                          setTe2RecievingTDs("");
+                                        }
                                       }
                                     }
 
@@ -5215,11 +5236,13 @@ export default function ConstructProjections({ dataTest, sleeperData }) {
                                       +(te1Data.recievingTDs * 6)
                                     ).toFixed(1);
 
-                                    topLeveLTeam.te2.fantasyPoints = +(
-                                      +(te2Data.receptions * 1) +
-                                      +(te2Data.recievingYards * 0.1) +
-                                      +(te2Data.recievingTDs * 6)
-                                    ).toFixed(1);
+                                    if (teamTE2) {
+                                      topLeveLTeam.te2.fantasyPoints = +(
+                                        +(te2Data.receptions * 1) +
+                                        +(te2Data.recievingYards * 0.1) +
+                                        +(te2Data.recievingTDs * 6)
+                                      ).toFixed(1);
+                                    }
                                   }}
                                 />
                               </form>

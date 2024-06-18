@@ -141,8 +141,24 @@ export default function TeamLevelFantasyTable({
     wr3Data,
     wr4Data,
     te1Data,
-    te2Data,
   ];
+
+  if (te2Data) {
+    dataArray = [
+      qb1Data,
+      qb2Data,
+      qb3Data,
+      rb1Data,
+      rb2Data,
+      rb3Data,
+      wr1Data,
+      wr2Data,
+      wr3Data,
+      wr4Data,
+      te1Data,
+      te2Data,
+    ];
+  }
 
   let data = dataArray.flat();
   //   console.log(data);

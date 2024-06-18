@@ -25,8 +25,21 @@ export default function RecievingTable({
     wr3Data,
     wr4Data,
     te1Data,
-    te2Data,
   ];
+
+  if (te2Data) {
+    dataArray = [
+      rb1Data,
+      rb2Data,
+      rb3Data,
+      wr1Data,
+      wr2Data,
+      wr3Data,
+      wr4Data,
+      te1Data,
+      te2Data,
+    ];
+  }
 
   let data = dataArray.flat();
   //   console.log(data);
