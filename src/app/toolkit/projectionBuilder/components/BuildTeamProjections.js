@@ -44,7 +44,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
 
   //
   //
-  ////////// Getting and formatting initial data and mapping data to team on team select ////////////////////
+  ////////// Getting & formatting initial data and mapping data to team on team select ////////////////////
   //
   //
   const sleeperDataArray = sleeperData.JustSleeperNamesTeamsAndPostionsArray;
