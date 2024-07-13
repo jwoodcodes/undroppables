@@ -1815,7 +1815,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
         userSelectedPlayersToProjectArray &&
         isUsersSelectedPlayerArrayReady &&
         isPlayerRushAttemtpsSectionVisible && (
-          <AgPassingTable usersAllTeamsList={usersAllTeamsList} team={team} />
+          <AgTeamTable usersAllTeamsList={usersAllTeamsList} team={team} />
         )}
     </div> // end main outside div
   ); // end main return

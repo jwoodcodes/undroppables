@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { allTeamsList } from "../components/data/allTeamsList";
+import allTeamsList from "../components/data/allTeamsList";
 import styles from "./usersProjectionsPage.module.css";
 
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
