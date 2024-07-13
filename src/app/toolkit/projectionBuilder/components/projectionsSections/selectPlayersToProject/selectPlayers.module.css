@@ -1,0 +1,90 @@
+.mainWrapper {
+  max-width: 90%;
+  margin: 2rem auto;
+  padding-top: 2rem;
+}
+
+.sectionTitle {
+  color: var(--color-blue-light);
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  margin-bottom: 3rem;
+  margin-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+.resetBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.resetBtn {
+  border-radius: 20px;
+  background-color: var(--color-red-warning);
+  color: var(--color-white);
+  font-size: 1.35rem;
+  letter-spacing: 0.1rem;
+  padding: 0.5rem 1.5rem;
+  margin: 0.75rem auto;
+}
+
+.positionLabel {
+  color: var(--color-red-primary);
+  font-size: 2.25rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  margin: 1.75rem 0;
+  margin-top: 3rem;
+}
+
+.positionWrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.playerBtns {
+  border-radius: 20px;
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
+  font-size: 1.35rem;
+  letter-spacing: 0.1rem;
+  padding: 0.5rem 1.5rem;
+  margin: 0.75rem;
+}
+
+.spanx {
+  margin-left: 0.25rem;
+  color: var(--color-red-warning);
+}
+
+.submitBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+
+  padding-bottom: 1rem;
+}
+
+.submitBtn {
+  border-radius: 20px;
+  background-color: var(--color-green-primary);
+  color: var(--color-white);
+  font-size: 2rem;
+  letter-spacing: 0.25rem;
+  padding: 0.5rem 2.85rem;
+  margin: 0 auto 0.75rem auto;
+}
+
+.howToMoveToNextSectionText {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+}

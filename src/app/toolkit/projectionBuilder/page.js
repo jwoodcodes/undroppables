@@ -6,11 +6,14 @@ import clientPromise from "@/lib/mongodb";
 
 import ConstructProjections from "./components/ConstructProjections";
 import { MongoClient } from "mongodb";
+import BuildTeamProjections from "./components/BuildTeamProjections";
 
-export default async function ProjectionsBuilder() {
+async function ProjectionsBuilder() {
   async function fetchPlayerDataFromMongodb() {
     const url =
       "mongodb+srv://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
+    // const url =
+    //   "mongodb://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
     const client = new MongoClient(url);
 
     // The database to use
@@ -47,7 +50,9 @@ export default async function ProjectionsBuilder() {
   let dataTest = await fetchPlayerDataFromMongodb();
   // console.log(dataTest);
   // React.useEffect(() => {
+
   dataTest = JSON.parse(JSON.stringify(dataTest));
+
   // }, []);
 
   //
@@ -91,18 +96,22 @@ export default async function ProjectionsBuilder() {
   let sleeperData = await fetchSleeperDataFromMongodb();
   // console.log(dataTest);
   // React.useEffect(() => {
-  sleeperData = JSON.parse(JSON.stringify(sleeperData));
 
- 
- 
+  sleeperData = JSON.parse(JSON.stringify(sleeperData));
 
   return (
     <main className={styles.main}>
       <div className={styles.mainSiteTitleWrapper}>
         <div className={styles.pageTitle}>UN Projections Builder</div>
 
-        <ConstructProjections dataTest={dataTest} sleeperData={sleeperData} />
+        {/* <ConstructProjections dataTest={dataTest} sleeperData={sleeperData} /> */}
+
+        <BuildTeamProjections dataTest={dataTest} sleeperData={sleeperData} />
       </div>
     </main>
   );
 }
+
+const PureProjectionsBuilder = React.memo(ProjectionsBuilder);
+
+export default PureProjectionsBuilder;

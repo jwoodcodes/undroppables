@@ -1,0 +1,113 @@
+.SectionLabel {
+  color: var(--color-red-primary);
+  font-size: 2.25rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  margin: 4rem 0;
+  margin-top: 7rem;
+}
+
+.lastYearsTeamDataDisplayAndSelectingTotalProjectedPlaysWrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.teamProjectedPlaysFormWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 4rem auto 2rem 0;
+}
+
+.teamSelectLabel {
+  margin-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.teamSelectSelect {
+  border-radius: 20px;
+  background-color: var(--color-blue-dark);
+  color: var(--color-gray-800);
+  margin: 0 0.5rem;
+  text-align: center;
+}
+
+.selectedTeamText {
+  text-align: center;
+  color: var(--color-red-primary);
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.runAndPassPercentText {
+  text-align: center;
+  color: var(--color-blue-light);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.lastYearsTeamInfoOutsideWrapper {
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.selectedTeamPreviousYearLabel {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.2rem;
+}
+
+.lastYearsTeamInfoInsideWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.lastYearsTeamInfoElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.previousYearsTotalPlaysNode {
+  font-size: 2rem;
+  color: var(--color-blue-primary);
+  margin-bottom: 0.75rem;
+}
+
+.lastYearsTeamInfoElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+
+  padding-bottom: 1rem;
+}
+
+.submitBtn {
+  border-radius: 20px;
+  background-color: var(--color-green-primary);
+  color: var(--color-white);
+  font-size: 2rem;
+  letter-spacing: 0.25rem;
+  padding: 0.5rem 2.85rem;
+  margin: 0 auto 0.75rem auto;
+}
+
+.howToMoveToNextSectionText {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+}

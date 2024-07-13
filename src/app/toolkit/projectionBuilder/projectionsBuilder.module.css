@@ -257,3 +257,21 @@
   width: fit-content;
   padding: 0.5rem 2rem;
 }
+
+.sectionDividerWrapper {
+  background-color: var(--color-black);
+}
+
+.sectionDivider {
+  background: linear-gradient(
+    to right,
+    var(--color-blue-primary),
+    var(--color-purple-light),
+    var(--color-green-primary)
+  );
+  height: 1rem;
+  width: 100%;
+  clip-path: polygon(50% 100%, 0 77%, 100% 78%);
+
+  /* clip-path: polygon(50% 100%, 0 86%, 100% 86%); */
+}

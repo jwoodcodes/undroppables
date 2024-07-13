@@ -3,21 +3,26 @@ import React from "react";
 import PassingTableBody from "./PassingTableBody";
 import PassingTableHead from "./PassingTableHead";
 
-export default function PassingTable({ qb1Data, qb2Data, qb3Data }) {
+export default function PassingTable({ usersAllTeamsList, team }) {
   const [tableData, setTableData] = React.useState([]);
 
-  let dataArray = [qb1Data, qb2Data];
-  if (qb3Data) {
-    dataArray = [qb1Data, qb2Data, qb3Data];
-  }
-  let data = dataArray.flat();
-  // console.log(data);
+  usersAllTeamsList.map((teamObject) => {
+    if (teamObject.teamName === team) {
+      console.log(teamObject);
+    }
+  });
+
+  setTableData(teamObject.usersSelectedPlayers);
+
+  let dataArray = tableData;
+
+  // console.log(tableData);
 
   // console.log(Object.entries(tableData));
 
-  React.useEffect(() => {
-    setTableData(data);
-  }, [data]);
+  // React.useEffect(() => {
+  //   setTableData(usersAllTeamsList);
+  // }, [usersAllTeamsList, team]);
 
   const columns = [
     { label: "Player Name", accessor: "name" },
