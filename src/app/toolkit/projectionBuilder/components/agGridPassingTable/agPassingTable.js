@@ -54,7 +54,7 @@ export default function AgPassingTable({ usersAllTeamsList, team }) {
       }
     });
 
-    console.log(newTempPlayerArray);
+    // console.log(newTempPlayerArray);
     setRowData(newTempPlayerArray);
 
     // newTempPlayerArray.map((teamObject) => {
@@ -68,7 +68,7 @@ export default function AgPassingTable({ usersAllTeamsList, team }) {
 
   //   console.log(rowData);
   rowData.map((row) => {
-    console.log(row.data);
+    // console.log(row.data);
     row.name = row.data.name;
     row.position = row.data.position;
     row.passAttempts = row.data.passAttempts;

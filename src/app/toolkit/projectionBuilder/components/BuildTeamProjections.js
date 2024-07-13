@@ -1811,9 +1811,12 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
         </>
       )}
 
-      {team && (
-        <AgPassingTable usersAllTeamsList={usersAllTeamsList} team={team} />
-      )}
+      {team &&
+        userSelectedPlayersToProjectArray &&
+        isUsersSelectedPlayerArrayReady &&
+        isPlayerRushAttemtpsSectionVisible && (
+          <AgPassingTable usersAllTeamsList={usersAllTeamsList} team={team} />
+        )}
     </div> // end main outside div
   ); // end main return
 }
