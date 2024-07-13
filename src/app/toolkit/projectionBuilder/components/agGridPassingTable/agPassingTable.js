@@ -143,7 +143,7 @@ export default function AgPassingTable({ usersAllTeamsList, team }) {
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 100,
+      maxWidth: 101,
     },
     {
       field: "tdRate",

@@ -17,7 +17,7 @@ import CatchPercentage from "./projectionsSections/catchPercentage/CatchPercenta
 import YardsPerReceptionAndRecYards from "./projectionsSections/yardsPerRec/YardsPerRecAndRecYards";
 import RecTDs from "./projectionsSections/recTDs/RecTDs";
 import PassAttempts from "./projectionsSections/passAttempts/PassAttempts";
-import QbCompletions from "./projectionsSections/qbCompletions/QbCompletions";
+import QbCompletions from "./projectionsSections/QbCompletions/QbCompletions";
 import PassingYards from "./projectionsSections/passingYards/PassingYards";
 import PassTDs from "./projectionsSections/passTDs/PassTDs";
 import INTs from "./projectionsSections/INTs/INTs";
