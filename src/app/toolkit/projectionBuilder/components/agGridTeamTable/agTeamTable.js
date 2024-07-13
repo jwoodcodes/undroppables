@@ -1,22 +1,12 @@
 "use client";
 import React from "react";
-import { allTeamsList } from "../components/data/allTeamsList";
-import styles from "./usersProjectionsPage.module.css";
 
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import { Content } from "next/font/google";
 
-export default function AgAllProjectionsTable() {
-  const [usersAllTeamsList, setUsersAllTeamsList] = React.useState([]);
-
-  React.useEffect(() => {
-    const storedValue = window.localStorage.getItem("usersAllTeamsList");
-
-    setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
-  }, []);
-
+export default function AgTeamTable({ usersAllTeamsList, team }) {
   const [rowData, setRowData] = React.useState([]);
 
   React.useEffect(() => {}, []);
@@ -24,8 +14,8 @@ export default function AgAllProjectionsTable() {
   React.useEffect(() => {
     let newTempPlayerArray = [];
     usersAllTeamsList.map((teamObject) => {
-      // console.log(teamObject);
-      if (teamObject.usersSelectedPlayers) {
+      if (teamObject.teamName === team) {
+        // console.log(teamObject);
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "QB") {
             player.data.pprPoints = +(
@@ -50,16 +40,14 @@ export default function AgAllProjectionsTable() {
               +(player.data.recTDs * 6)
             ).toFixed(1);
 
-            if (player.data.halfPPR) {
-              newTempPlayerArray.push(player);
-            }
+            newTempPlayerArray.push(player);
           }
         });
       }
     });
     usersAllTeamsList.map((teamObject) => {
-      // console.log(teamObject);
-      if (teamObject.usersSelectedPlayers) {
+      if (teamObject.teamName === team) {
+        // console.log(teamObject);
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "RB") {
             player.data.pprPoints = +(
@@ -84,16 +72,14 @@ export default function AgAllProjectionsTable() {
               +(player.data.recTDs * 6)
             ).toFixed(1);
 
-            if (player.data.halfPPR) {
-              newTempPlayerArray.push(player);
-            }
+            newTempPlayerArray.push(player);
           }
         });
       }
     });
     usersAllTeamsList.map((teamObject) => {
-      // console.log(teamObject);
-      if (teamObject.usersSelectedPlayers) {
+      if (teamObject.teamName === team) {
+        // console.log(teamObject);
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "WR") {
             player.data.pprPoints = +(
@@ -118,16 +104,14 @@ export default function AgAllProjectionsTable() {
               +(player.data.recTDs * 6)
             ).toFixed(1);
 
-            if (player.data.halfPPR) {
-              newTempPlayerArray.push(player);
-            }
+            newTempPlayerArray.push(player);
           }
         });
       }
     });
     usersAllTeamsList.map((teamObject) => {
-      // console.log(teamObject);
-      if (teamObject.usersSelectedPlayers) {
+      if (teamObject.teamName === team) {
+        // console.log(teamObject);
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "TE") {
             player.data.pprPoints = +(
@@ -152,9 +136,7 @@ export default function AgAllProjectionsTable() {
               +(player.data.recTDs * 6)
             ).toFixed(1);
 
-            if (player.data.halfPPR) {
-              newTempPlayerArray.push(player);
-            }
+            newTempPlayerArray.push(player);
           }
         });
       }
@@ -170,7 +152,7 @@ export default function AgAllProjectionsTable() {
     //     setRowData(newTempPlayerArray);
     //   }
     // });
-  }, [usersAllTeamsList]);
+  }, [usersAllTeamsList, team]);
 
   //   console.log(rowData);
   rowData.map((row) => {
@@ -409,8 +391,7 @@ export default function AgAllProjectionsTable() {
   };
 
   return (
-    <div className={styles.allTeamsTablePageWrapper}>
-      <div className={styles.pageTitle}>All Teams Projections</div>
+    <div>
       <div
         className="ag-theme-quartz-dark" // applying the grid theme
         style={{ height: 1000 }}

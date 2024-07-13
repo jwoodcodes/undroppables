@@ -64,6 +64,7 @@ export default function YardsPerReceptionAndRecYards({
         player.data.yardsPerReception === ""
       ) {
         player.data.yardsPerReception = 0;
+        player.data.recievingYards = 0;
       }
       let temp = player.data.yardsPerReception * player.data.receptions;
       tempTotalProjectedTeamRecievingYards += temp;
@@ -102,8 +103,14 @@ export default function YardsPerReceptionAndRecYards({
         curTotalProjectedTeamRecievingYards;
       if (team === topLeveLTeam.teamName) {
         topLeveLTeam.usersSelectedPlayers.map((player) => {
-          if (!player.data.yardsPerReception) {
+          if (
+            !player.data.yardsPerReception ||
+            player.data.yardsPerReception === "" ||
+            player.data.yardsPerReception === 0 ||
+            player.data.position === "QB"
+          ) {
             player.data.yardsPerReception = 0;
+            player.data.recievingYards = 0;
           }
         });
         // console.log(topLeveLTeam.usersSelectedPlayers);

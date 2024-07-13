@@ -61,6 +61,7 @@ export default function YardsPerCarry({
       //   if (player.data.yardsPerCarry) {
       if (!player.data.yardsPerCarry || player.data.yardsPerCarry === "") {
         player.data.yardsPerCarry = 0;
+        player.data.rushYards = 0;
       }
       let temp = player.data.yardsPerCarry * player.data.rushAttempts;
       tempTotalProjectedTeamRushingYards += temp;
@@ -83,6 +84,7 @@ export default function YardsPerCarry({
     userSelectedPlayersToProjectArray.map((player) => {
       if (!player.data.yardsPerCarry) {
         player.data.yardsPerCarry = 0;
+        player.data.rushYards = 0;
       }
       // console.log(player);
     });
@@ -97,8 +99,20 @@ export default function YardsPerCarry({
         topLeveLTeam.totalProjectedRushingYards =
           curTotalProjectedTeamRushingYards;
         topLeveLTeam.usersSelectedPlayers.map((player) => {
-          if (!player.data.yardsPerCarry) {
+          if (
+            !player.data.yardsPerCarry ||
+            player.data.yardsPerCarry === 0 ||
+            player.data.yardsPerCarry === ""
+          ) {
             player.data.yardsPerCarry = 0;
+            player.data.rushYards = 0;
+          }
+          if (
+            !player.data.rushYards ||
+            player.data.rushYards === 0 ||
+            player.data.rushYards === ""
+          ) {
+            player.data.rushYards = 0;
           }
         });
         // console.log(topLeveLTeam.usersSelectedPlayers);
@@ -215,6 +229,13 @@ export default function YardsPerCarry({
 
                               topPlayer.data.rushYards =
                                 +event.target.value * player.data.rushAttempts;
+                            }
+
+                            if (
+                              player.data.yardsPerCarry === 0 ||
+                              !player.data.yardsPerCarry
+                            ) {
+                              topPlayer.data.rushYards = 0;
                             }
                           }}
                         />

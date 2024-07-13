@@ -99,10 +99,18 @@ export default function Targets({
     usersAllTeamsList.map((topLeveLTeam) => {
       if (team === topLeveLTeam.teamName) {
         topLeveLTeam.usersSelectedPlayers.map((player) => {
-          if (!player.data.targets) {
+          if (
+            !player.data.targets ||
+            player.data.targets === "" ||
+            player.data.targets === 0
+          ) {
             player.data.targets = 0;
           }
-          if (player.data.position === "QB") {
+          if (
+            player.data.position === "QB" ||
+            player.data.targets === "" ||
+            player.data.targets === 0
+          ) {
             player.data.targets = 0;
             player.data.targetShare = 0;
           }

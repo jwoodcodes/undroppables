@@ -103,10 +103,18 @@ export default function INTs({
     usersAllTeamsList.map((topLeveLTeam) => {
       if (team === topLeveLTeam.teamName) {
         topLeveLTeam.usersSelectedPlayers.map((player) => {
-          if (!player.data.ints) {
+          if (
+            !player.data.ints ||
+            player.data.ints === "" ||
+            player.data.ints === 0
+          ) {
             player.data.ints = 0;
           }
-          if (!player.data.intRate) {
+          if (
+            !player.data.ints ||
+            player.data.ints === "" ||
+            player.data.ints === 0
+          ) {
             player.data.intRate = 0;
           }
         });

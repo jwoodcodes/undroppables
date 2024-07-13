@@ -22,7 +22,7 @@ import PassingYards from "./projectionsSections/passingYards/PassingYards";
 import PassTDs from "./projectionsSections/passTDs/PassTDs";
 import INTs from "./projectionsSections/INTs/INTs";
 
-import AgPassingTable from "./agGridPassingTable/agPassingTable";
+import AgTeamTable from "./agGridTeamTable/AgTeamTable";
 
 import PassingTable from "./passingTable/PassingTable";
 import RushingTable from "./rushingTable/RushingTable";
