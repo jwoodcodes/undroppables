@@ -9,6 +9,7 @@ import PassingTable from "./passingTable/PassingTable";
 import RushingTable from "./rushingTable/RushingTable";
 import RecievingTable from "./recievingTable/RecievingTable";
 import TeamLevelFantasyTable from "./teamLevelFantasyTable/teamLevelFantasyTable";
+
 // import QbDataEntryAndTable from "./qbDataEntryAndTable";
 // import DataFetcher from "./data/dataFetcher";
 // import playerData from "./data/dataFetcher";
