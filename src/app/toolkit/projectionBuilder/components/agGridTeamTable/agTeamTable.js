@@ -6,7 +6,11 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import { Content } from "next/font/google";
 
-export default function AgTeamTable({ usersAllTeamsList, team }) {
+export default function AgTeamTable({
+  usersAllTeamsList,
+  team,
+  isIntsSubmitted,
+}) {
   const [rowData, setRowData] = React.useState([]);
 
   React.useEffect(() => {}, []);
@@ -51,9 +55,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "RB") {
             player.data.pprPoints = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 1) +
@@ -62,9 +63,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
             ).toFixed(1);
 
             player.data.halfPPR = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 0.5) +
@@ -83,9 +81,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "WR") {
             player.data.pprPoints = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 1) +
@@ -94,9 +89,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
             ).toFixed(1);
 
             player.data.halfPPR = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 0.5) +
@@ -115,9 +107,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
         teamObject.usersSelectedPlayers.map((player) => {
           if (player.data.position === "TE") {
             player.data.pprPoints = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 1) +
@@ -126,9 +115,6 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
             ).toFixed(1);
 
             player.data.halfPPR = +(
-              +(player.data.passingYards * 0.04) +
-              +(player.data.passTDs * 6) -
-              +(player.data.ints * 2) +
               +(player.data.rushYards * 0.1) +
               +(player.data.rushTDs * 6) +
               +(player.data.receptions * 0.5) +
@@ -152,7 +138,7 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
     //     setRowData(newTempPlayerArray);
     //   }
     // });
-  }, [usersAllTeamsList, team]);
+  }, [usersAllTeamsList, team, isIntsSubmitted]);
 
   //   console.log(rowData);
   rowData.map((row) => {
@@ -198,7 +184,7 @@ export default function AgTeamTable({ usersAllTeamsList, team }) {
       floatingFilter: true,
       flex: 1,
       pinned: "left",
-      maxWidth: 100,
+      maxWidth: 70,
     },
     {
       field: "passAttempts",

@@ -122,6 +122,8 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
     React.useState(0);
   const [totalProjectedTeamPassingYards, setTotalProjectedTeamPassingYards] =
     React.useState(0);
+  const [totalTeamProjectedPassingTDs, setTotalTeamProjectedPassingTDs] =
+    React.useState(0);
 
   const [
     isPlayerRushAttemtpsSectionVisible,
@@ -152,6 +154,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
   const [isINTSectionVisable, setIsINTSectionVisible] = React.useState(false);
   const [isPassingYardsSectionVisible, setIsPassingYardsSectionVisible] =
     React.useState(false);
+  const [isIntsSubmitted, setIsIntsSubmitted] = React.useState(false);
   ///
   ////
   /////
@@ -1700,6 +1703,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
               setUserSelectedPlayersToProjectArray
             }
             setIsPassAttemptsSectionVisible={setIsPassAttemptsSectionVisible}
+            setTotalTeamProjectedPassingTDs={setTotalTeamProjectedPassingTDs}
           />
           <div className={styles.sectionDividerWrapper}>
             <div className={styles.sectionDivider}></div>
@@ -1783,6 +1787,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
             }
             setIsINTSectionVisible={setIsINTSectionVisible}
             teamTotalReceptions={teamTotalReceptions}
+            totalTeamProjectedPassingTDs={totalTeamProjectedPassingTDs}
           />
           <div className={styles.sectionDividerWrapper}>
             <div className={styles.sectionDivider}></div>
@@ -1802,7 +1807,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
             setUserSelectedPlayersToProjectArray={
               setUserSelectedPlayersToProjectArray
             }
-            setIsINTSectionVisible={setIsINTSectionVisible}
+            setIsIntsSubmitted={setIsIntsSubmitted}
             teamTotalReceptions={teamTotalReceptions}
           />
           <div className={styles.sectionDividerWrapper}>
@@ -1815,7 +1820,11 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
         userSelectedPlayersToProjectArray &&
         isUsersSelectedPlayerArrayReady &&
         isPlayerRushAttemtpsSectionVisible && (
-          <AgTeamTable usersAllTeamsList={usersAllTeamsList} team={team} />
+          <AgTeamTable
+            usersAllTeamsList={usersAllTeamsList}
+            team={team}
+            isIntsSubmitted={isIntsSubmitted}
+          />
         )}
     </div> // end main outside div
   ); // end main return

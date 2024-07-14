@@ -12,6 +12,7 @@ export default function PassTDs({
   setUserSelectedPlayersToProjectArray,
   setIsINTSectionVisible,
   teamTotalReceptions,
+  totalTeamProjectedPassingTDs,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -23,7 +24,7 @@ export default function PassTDs({
   const [curTotalProjectedRushAttempts, setCurTotalProjectedRushAttempts] =
     React.useState(0);
   const [totalPassTDsLeftToDistribute, setTotalPassTDsLeftToDistribute] =
-    React.useState(teamTotalReceptions);
+    React.useState(totalTeamProjectedPassingTDs);
   const [isTotalProjectedOverLimit, setIsTotalProjectedOverLimit] =
     React.useState(false);
 
@@ -78,6 +79,10 @@ export default function PassTDs({
       //   console.log(teamTotalReceptions);
       setCurTotalProjectedPassTDs(tempTotalProjectedPassTDs);
 
+      setTotalPassTDsLeftToDistribute(
+        totalTeamProjectedPassingTDs - tempTotalProjectedPassTDs
+      );
+
       //   setTotalCompletionsLeftToDistribute(
       //     teamTotalReceptions - tempTotalProjectedPassTDs
       //   );
@@ -124,7 +129,20 @@ export default function PassTDs({
   return (
     <div>
       <p className={styles.SectionLabel}>Project Pass TDs & Pass TD rate</p>
-
+      <div className={styles.howMuchIsLeftToDistributeBarWrapper}>
+        <div className={styles.howMuchIsLeftIndividualSectionsWrapper}>
+          <div>Remaning TDs to distribute</div>
+          {/* <div>{totalTargetsLeftToDistribute}</div> */}
+          {isTotalProjectedOverLimit || totalPassTDsLeftToDistribute < 0 ? (
+            <div className={styles.limitExceeded}>
+              {totalPassTDsLeftToDistribute}
+              <div>Limit Exceeded!</div>
+            </div>
+          ) : (
+            <div>{totalPassTDsLeftToDistribute}</div>
+          )}
+        </div>
+      </div>
       <div className={styles.wholeSectionWrapper}>
         {usersAllTeamsList.map((topLeveLTeam) => {
           if (team === topLeveLTeam.teamName) {

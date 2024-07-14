@@ -12,6 +12,7 @@ export default function INTs({
   setUserSelectedPlayersToProjectArray,
   setIsINTSectionVisible,
   teamTotalReceptions,
+  setIsIntsSubmitted,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -85,7 +86,8 @@ export default function INTs({
 
   function submitQBINTs() {
     // console.log(topLevelTeam);
-    setIsINTSectionVisible(true);
+
+    setIsIntsSubmitted(true);
 
     userSelectedPlayersToProjectArray.map((player) => {
       if (!player.data.ints) {

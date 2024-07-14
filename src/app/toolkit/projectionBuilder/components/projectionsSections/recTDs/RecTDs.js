@@ -11,11 +11,16 @@ export default function RecTDs({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsPassAttemptsSectionVisible,
+  setTotalTeamProjectedPassingTDs,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
   const [curPlayerBeingProjected, setCurPlayerBeingProjected] =
     React.useState("");
+  const [
+    curTotalProjectedTeamRecievingTDs,
+    setCurTotalProjectedTeamRecievingTDs,
+  ] = React.useState(0);
 
   React.useEffect(() => {
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
@@ -41,9 +46,25 @@ export default function RecTDs({
     }
   }, [team]);
 
-  //   React.useEffect(() => {
+  React.useEffect(() => {
+    let tempTotalProjectedTeamRecTDs = 0;
+    userSelectedPlayersToProjectArray.map((player) => {
+      //   console.log(player.data.rushAttempts, player.data.yardsPerReception);
+      if (player.data.recTDs) {
+        let temp = player.data.recTDs;
+        tempTotalProjectedTeamRecTDs += temp;
+        //   }
+        setCurTotalProjectedTeamRecievingTDs(tempTotalProjectedTeamRecTDs);
+        setTotalTeamProjectedPassingTDs(tempTotalProjectedTeamRecTDs);
 
-  //   }, [curValue, curValue2, userSelectedPlayersToProjectArray]);
+        //   setTotalRushAttemptsLeftToDistribute(
+        //     totalRunPlays - tempTotalProjectedRushAttempts
+        //   );
+      }
+    });
+
+    // console.log(curTotalProjectedRushAttempts);
+  }, [curValue, curValue2, userSelectedPlayersToProjectArray]);
 
   function submitRecTDs() {
     // console.log(topLevelTeam);
@@ -81,10 +102,11 @@ export default function RecTDs({
   return (
     <div>
       <p className={styles.SectionLabel}>Project player recieving TDs</p>
-      {/* <div className={styles.howMuchIsLeftToDistributeBarWrapper}>
+      <div className={styles.howMuchIsLeftToDistributeBarWrapper}>
         <div className={styles.howMuchIsLeftIndividualSectionsWrapper}>
-          <div>Total run plays left to distribute</div>
-          {isTotalProjectedOverLimit ||
+          <div>Total projected team recieving/passing TDs</div>
+          <div>{curTotalProjectedTeamRecievingTDs}</div>
+          {/* {isTotalProjectedOverLimit ||
           totalRushAttemptsLeftToDistribute < 0 ? (
             <div className={styles.limitExceeded}>
               {totalRushAttemptsLeftToDistribute}
@@ -92,9 +114,9 @@ export default function RecTDs({
             </div>
           ) : (
             <div>{totalRushAttemptsLeftToDistribute}</div>
-          )}
+          )} */}
         </div>
-      </div> */}
+      </div>
 
       {usersAllTeamsList.map((topLeveLTeam) => {
         if (team === topLeveLTeam.teamName) {
