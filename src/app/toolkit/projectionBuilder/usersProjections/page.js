@@ -159,7 +159,7 @@ export default function AgAllProjectionsTable() {
     // console.log(row.data);
     row.name = row.data.name;
     row.Pos = row.data.position;
-    row.Attempts = row.data.passAttempts;
+    row.Atmpts = row.data.passAttempts;
     row["comp %"] = row.data.completionPercentage;
     row.comps = row.data.completions;
     row.passYrds = row.data.passingYards;
@@ -171,15 +171,15 @@ export default function AgAllProjectionsTable() {
     row["Ru Atmpts"] = row.data.rushAttempts;
     row.YPC = row.data.yardsPerCarry;
     row["Ru Yrds"] = row.data.rushYards;
-    row.rushTDs = row.data.rushTDs;
-    row.targetShare = row.data.targetShare;
+    row["Ru TDs"] = row.data.rushTDs;
+    row["Target %"] = row.data.targetShare;
     row.targets = row.data.targets;
     row["Catch %"] = row.data.catchPercentage;
     row.Recs = row.data.receptions;
     row.YPR = row.data.yardsPerReception;
     row["Rec Yrds"] = row.data.recievingYards;
     row.recTDs = row.data.recTDs;
-    row["half PPR"] = row.data.halfPPR;
+    row["1/2 PPR"] = row.data.halfPPR;
     row.PPR = row.data.pprPoints;
   });
 
@@ -201,12 +201,12 @@ export default function AgAllProjectionsTable() {
       maxWidth: 70,
     },
     {
-      field: "Attempts",
+      field: "Atmpts",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 100,
+      maxWidth: 800,
     },
     {
       field: "comp %",
@@ -222,7 +222,7 @@ export default function AgAllProjectionsTable() {
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 90,
+      maxWidth: 80,
     },
     {
       field: "passYrds",
@@ -297,20 +297,20 @@ export default function AgAllProjectionsTable() {
       maxWidth: 80,
     },
     {
-      field: "rushTDs",
+      field: "Ru TDs",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+
+      maxWidth: 90,
+    },
+    {
+      field: "Target %",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
       maxWidth: 100,
-    },
-    {
-      field: "targetShare",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-
-      maxWidth: 120,
     },
     {
       field: "targets",
@@ -361,12 +361,12 @@ export default function AgAllProjectionsTable() {
       maxWidth: 100,
     },
     {
-      field: "half PPR",
+      field: "1/2 PPR",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 120,
+      maxWidth: 90,
     },
     {
       field: "PPR",
