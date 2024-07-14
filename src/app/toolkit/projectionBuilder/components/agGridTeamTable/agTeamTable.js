@@ -234,14 +234,14 @@ export default function AgTeamTable({
 
       maxWidth: 101,
     },
-    {
-      field: "tdRate",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
+    // {
+    //   field: "tdRate",
+    //   filter: true,
+    //   floatingFilter: true,
+    //   flex: 1,
 
-      maxWidth: 100,
-    },
+    //   maxWidth: 100,
+    // },
     {
       field: "ints",
       filter: true,
@@ -250,14 +250,14 @@ export default function AgTeamTable({
 
       maxWidth: 80,
     },
-    {
-      field: "intRate",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
+    // {
+    //   field: "intRate",
+    //   filter: true,
+    //   floatingFilter: true,
+    //   flex: 1,
 
-      maxWidth: 90,
-    },
+    //   maxWidth: 90,
+    // },
     {
       field: "rushAttempts",
       filter: true,
