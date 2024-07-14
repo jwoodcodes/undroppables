@@ -144,29 +144,29 @@ export default function AgTeamTable({
   rowData.map((row) => {
     // console.log(row.data);
     row.name = row.data.name;
-    row.position = row.data.position;
-    row.passAttempts = row.data.passAttempts;
+    row.Pos = row.data.position;
+    row.Attempts = row.data.passAttempts;
     row["comp %"] = row.data.completionPercentage;
     row.comps = row.data.completions;
-    row.passYards = row.data.passingYards;
-    row.YPC = row.data.yardsPerCompletion;
+    row.passYrds = row.data.passingYards;
+    row["Y/Comp"] = row.data.yardsPerCompletion;
     row["Pass TDs"] = row.data.passTDs;
     row.tdRate = row.data.tdRate;
     row.ints = row.data.ints;
     row.intRate = row.data.intRate;
-    row.rushAttempts = row.data.rushAttempts;
-    row["Yards/Carry"] = row.data.yardsPerCarry;
-    row.rushYards = row.data.rushYards;
+    row["Ru Atmpts"] = row.data.rushAttempts;
+    row.YPC = row.data.yardsPerCarry;
+    row["Ru Yrds"] = row.data.rushYards;
     row.rushTDs = row.data.rushTDs;
     row.targetShare = row.data.targetShare;
     row.targets = row.data.targets;
     row["Catch %"] = row.data.catchPercentage;
-    row.receptions = row.data.receptions;
+    row.Recs = row.data.receptions;
     row.YPR = row.data.yardsPerReception;
-    row["Rec Yards"] = row.data.recievingYards;
+    row["Rec Yrds"] = row.data.recievingYards;
     row.recTDs = row.data.recTDs;
     row["half PPR"] = row.data.halfPPR;
-    row["PPR Points"] = row.data.pprPoints;
+    row.PPR = row.data.pprPoints;
   });
 
   const [colDefs, setColDefs] = React.useState([
@@ -179,7 +179,7 @@ export default function AgTeamTable({
       maxWidth: 140,
     },
     {
-      field: "position",
+      field: "Pos",
       filter: true,
       floatingFilter: true,
       flex: 1,
@@ -187,12 +187,12 @@ export default function AgTeamTable({
       maxWidth: 70,
     },
     {
-      field: "passAttempts",
+      field: "Attempts",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 125,
+      maxWidth: 100,
     },
     {
       field: "comp %",
@@ -211,20 +211,20 @@ export default function AgTeamTable({
       maxWidth: 90,
     },
     {
-      field: "passYards",
+      field: "passYrds",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 100,
+      maxWidth: 90,
     },
     {
-      field: "YPC",
+      field: "Y/Comp",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 80,
+      maxWidth: 90,
     },
     {
       field: "Pass TDs",
@@ -259,28 +259,28 @@ export default function AgTeamTable({
     //   maxWidth: 90,
     // },
     {
-      field: "rushAttempts",
+      field: "Ru Atmpts",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 130,
+      maxWidth: 100,
     },
     {
-      field: "Yards/Carry",
+      field: "YPC",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 110,
+      maxWidth: 60,
     },
     {
-      field: "rushYards",
+      field: "Ru Yrds",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 110,
+      maxWidth: 80,
     },
     {
       field: "rushTDs",
@@ -315,12 +315,12 @@ export default function AgTeamTable({
       maxWidth: 90,
     },
     {
-      field: "receptions",
+      field: "Recs",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 110,
+      maxWidth: 70,
     },
     {
       field: "YPR",
@@ -331,7 +331,7 @@ export default function AgTeamTable({
       maxWidth: 80,
     },
     {
-      field: "Rec Yards",
+      field: "Rec Yrds",
       filter: true,
       floatingFilter: true,
       flex: 1,
@@ -355,12 +355,12 @@ export default function AgTeamTable({
       maxWidth: 120,
     },
     {
-      field: "PPR Points",
+      field: "PPR",
       filter: true,
       floatingFilter: true,
       flex: 1,
 
-      maxWidth: 120,
+      maxWidth: 90,
     },
   ]);
 
