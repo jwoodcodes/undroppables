@@ -177,103 +177,108 @@ export default function YardsPerCarry({
               return userSelectedPlayersToProjectArray.map((player) => {
                 // console.log(player);
                 if (topPlayer.data.name === player.data.name) {
-                  return (
-                    <div
-                      key={player.data.name}
-                      className={styles.teamsQBsWrapper}
-                    >
-                      {" "}
-                      <div className={styles.playerNameWrapper}>
-                        <div className={styles.playerNameLabel}>
-                          {player.data.name}
-                        </div>
-                      </div>
-                      <form
-                        onSubmit={(event) => {
-                          event.preventDefault();
-
-                          // Do something with `name` here
-                        }}
-                        className={styles.playerInputForm}
+                  if (player.data.rushAttempts > 0) {
+                    return (
+                      <div
+                        key={player.data.name}
+                        className={styles.teamsQBsWrapper}
                       >
-                        <label htmlFor="yardsPerCarry">Yards/Carry</label>
+                        {" "}
+                        <div className={styles.playerNameWrapper}>
+                          <div className={styles.playerNameLabel}>
+                            {player.data.name}
+                          </div>
+                        </div>
+                        <form
+                          onSubmit={(event) => {
+                            event.preventDefault();
 
-                        <input
-                          id="yardsPerCarry"
-                          value={
-                            // topPlayer.data.name === player.data.name
-                            //   ? player.data.yardsPerCarry
-                            //   : player.data.yardsPerCarry ===
-                            //     +event.target.value
-                            //   ? player.data.yardsPerCarry
-                            //   : +event.target.value !== ""
-                            //   ? +event.target.value
-                            //   : +event.target.value === 0
-                            //   ? ""
-                            //   : ""
-                            player.data.yardsPerCarry === 0
-                              ? ""
-                              : curPlayerBeingProjected === player.data.name &&
-                                +curValue === 0
-                              ? ""
-                              : curPlayerBeingProjected === player.data.name &&
-                                +curValue !== 0
-                              ? +curValue
-                              : player.data.yardsPerCarry !== 0
-                              ? player.data.yardsPerCarry
-                              : ""
-                          }
-                          className={styles.selectedTeamsPlayerInput}
-                          type="number"
-                          onChange={(event) => {
-                            setCurPlayerBeingProjected(player.data.name);
-                            setCurValue(event.target.value);
-                            if (
-                              +event.target.value < player.data.yardsPerCarry
-                            ) {
-                              setCurValue2(event.target.value);
+                            // Do something with `name` here
+                          }}
+                          className={styles.playerInputForm}
+                        >
+                          <label htmlFor="yardsPerCarry">Yards/Carry</label>
+
+                          <input
+                            id="yardsPerCarry"
+                            value={
+                              // topPlayer.data.name === player.data.name
+                              //   ? player.data.yardsPerCarry
+                              //   : player.data.yardsPerCarry ===
+                              //     +event.target.value
+                              //   ? player.data.yardsPerCarry
+                              //   : +event.target.value !== ""
+                              //   ? +event.target.value
+                              //   : +event.target.value === 0
+                              //   ? ""
+                              //   : ""
+                              player.data.yardsPerCarry === 0
+                                ? ""
+                                : curPlayerBeingProjected ===
+                                    player.data.name && +curValue === 0
+                                ? ""
+                                : curPlayerBeingProjected ===
+                                    player.data.name && +curValue !== 0
+                                ? +curValue
+                                : player.data.yardsPerCarry !== 0
+                                ? player.data.yardsPerCarry
+                                : ""
+                            }
+                            className={styles.selectedTeamsPlayerInput}
+                            type="number"
+                            onChange={(event) => {
+                              setCurPlayerBeingProjected(player.data.name);
+                              setCurValue(event.target.value);
+                              if (
+                                +event.target.value < player.data.yardsPerCarry
+                              ) {
+                                setCurValue2(event.target.value);
+                                player.data.yardsPerCarry = +event.target.value;
+                                if (+event.target.value === 0) {
+                                  player.data.yardsPerCarry = "";
+                                }
+                              }
+                              // console.log(
+                              //   player.data.yardsPerCarry,
+                              //   event.target.value
+                              // );
                               player.data.yardsPerCarry = +event.target.value;
                               if (+event.target.value === 0) {
                                 player.data.yardsPerCarry = "";
                               }
-                            }
-                            // console.log(
-                            //   player.data.yardsPerCarry,
-                            //   event.target.value
-                            // );
-                            player.data.yardsPerCarry = +event.target.value;
-                            if (+event.target.value === 0) {
-                              player.data.yardsPerCarry = "";
-                            }
-                            topPlayer.data.yardsPerCarry = +event.target.value;
+                              topPlayer.data.yardsPerCarry =
+                                +event.target.value;
 
-                            if (player.data.rushAttempts) {
-                              player.data.rushYards =
-                                +event.target.value * player.data.rushAttempts;
+                              if (player.data.rushAttempts) {
+                                player.data.rushYards =
+                                  +event.target.value *
+                                  player.data.rushAttempts;
 
-                              topPlayer.data.rushYards =
-                                +event.target.value * player.data.rushAttempts;
-                            }
+                                topPlayer.data.rushYards =
+                                  +event.target.value *
+                                  player.data.rushAttempts;
+                              }
 
-                            if (
-                              player.data.yardsPerCarry === 0 ||
-                              !player.data.yardsPerCarry
-                            ) {
-                              topPlayer.data.rushYards = 0;
-                            }
-                          }}
-                        />
-                        {/* <div className={styles.playercalcStatWrapper}> */}
-                        <div className={styles.showCalcPlayerstats}>
-                          Projected Attempts: {player.data.rushAttempts}
-                        </div>
-                        <div className={styles.showCalcPlayerstats}>
-                          Projected Rushing yards: {player.data.rushYards}
-                        </div>
-                        {/* </div> */}
-                      </form>
-                    </div>
-                  );
+                              if (
+                                player.data.yardsPerCarry === 0 ||
+                                !player.data.yardsPerCarry
+                              ) {
+                                topPlayer.data.rushYards = 0;
+                              }
+                            }}
+                          />
+                          {/* <div className={styles.playercalcStatWrapper}> */}
+                          <div className={styles.showCalcPlayerstats}>
+                            Projected Attempts: {player.data.rushAttempts}
+                          </div>
+                          <div className={styles.showCalcPlayerstats}>
+                            Projected Rushing yards: {player.data.rushYards}
+                          </div>
+                          {/* </div> */}
+                        </form>
+                      </div>
+                    );
+                  }
                 }
               });
             });
