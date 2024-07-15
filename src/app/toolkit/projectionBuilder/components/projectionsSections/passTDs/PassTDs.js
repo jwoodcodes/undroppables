@@ -13,6 +13,7 @@ export default function PassTDs({
   setIsINTSectionVisible,
   teamTotalReceptions,
   totalTeamProjectedPassingTDs,
+  passINTsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -124,6 +125,28 @@ export default function PassTDs({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (passINTsRef.current.firstChild) {
+      let tempRef = passINTsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (passINTsRef.current.firstChild) {
+          let tempRef = passINTsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (passINTsRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = passINTsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

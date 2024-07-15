@@ -11,6 +11,8 @@ export default function SelectPlayersToProject({
   isStoredValue,
   usersAllTeamsList,
   setUsersAllTeamsList,
+  teamSplits,
+  isUsersSelectedPlayerArrayReady,
 }) {
   //   console.log(selectedTeamObject);
   const [teamPlayersArray, setTeamPlayersArray] = React.useState([]);
@@ -85,14 +87,14 @@ export default function SelectPlayersToProject({
       }
     });
 
-    console.log(newTempPlayerArray);
+    // console.log(newTempPlayerArray);
 
     setUserSelectedPlayersToProjectArray(newTempPlayerArray);
     setIsStoredValue(true);
 
     usersAllTeamsList.map((teamObject) => {
       if (teamObject.teamName === team) {
-        console.log(teamObject);
+        // console.log(teamObject);
         teamObject.usersSelectedPlayers = userSelectedPlayersToProjectArray;
       }
     });
@@ -101,6 +103,29 @@ export default function SelectPlayersToProject({
       `userSelectedPlayersToProjectArray${team}`,
       JSON.stringify(teamPlayersArray)
     );
+    // console.log(teamSplits.current.lastChild);
+
+    if (teamSplits.current.firstChild) {
+      let tempRef = teamSplits.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (teamSplits.current.firstChild) {
+          let tempRef = teamSplits.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (teamSplits.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = teamSplits.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   function resetButton() {
@@ -115,13 +140,11 @@ export default function SelectPlayersToProject({
       <div className={styles.sectionTitle}>
         Delete all players you do not want to project from this team
       </div>
-
       {/* <div className={styles.resetBtnWrapper}>
         <button className={styles.resetBtn} onClick={() => resetButton()}>
           Reset team to all possible players
         </button>
       </div> */}
-
       <div className={styles.positionLabel}>QBs</div>
       <div className={styles.positionWrapper}>
         {teamPlayersArray.map((player) => {
@@ -154,7 +177,6 @@ export default function SelectPlayersToProject({
           }
         })}
       </div>
-
       <div className={styles.positionLabel}>WRs</div>
       <div className={styles.positionWrapper}>
         {teamPlayersArray.map((player) => {
@@ -187,20 +209,30 @@ export default function SelectPlayersToProject({
           }
         })}
       </div>
-
       <div className={styles.resetBtnWrapper}>
         <button className={styles.resetBtn} onClick={() => resetButton()}>
           Reset team to all possible players
         </button>
       </div>
+
       <div className={styles.submitBtnWrapper}>
-        <button
-          className={styles.submitBtn}
-          onClick={() => submitPlayersToProject(teamPlayersArray)}
-        >
-          Submit players to project
-        </button>
+        {isStoredValue ? (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitPlayersToProject(teamPlayersArray)}
+          >
+            &#8595; Submit players to project &#8595;
+          </button>
+        ) : (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitPlayersToProject(teamPlayersArray)}
+          >
+            Submit players to project
+          </button>
+        )}
       </div>
+
       <p className={styles.howToMoveToNextSectionText}>
         players to project must be submitted to move to team level section
       </p>

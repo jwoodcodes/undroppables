@@ -11,6 +11,7 @@ export default function PassAttempts({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsQBCompletionsSectionVisible,
+  QbCompletionsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -107,6 +108,28 @@ export default function PassAttempts({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (QbCompletionsRef.current.firstChild) {
+      let tempRef = QbCompletionsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (QbCompletionsRef.current.firstChild) {
+          let tempRef = QbCompletionsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (QbCompletionsRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = QbCompletionsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

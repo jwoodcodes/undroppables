@@ -16,6 +16,8 @@ export default function TeamTotalPlaysAndSplits({
   usersAllTeamsList,
   setUsersAllTeamsList,
   setIsPlayerRushAttemtpsSectionVisible,
+  isPlayerRushAttemtpsSectionVisible,
+  rushAttempts,
 }) {
   //   console.log(userSelectedPlayersToProjectArray);
 
@@ -55,6 +57,7 @@ export default function TeamTotalPlaysAndSplits({
     topLeveLTeam.usersSelectedPlayers = userSelectedPlayersToProjectArray;
 
     usersAllTeamsList.map((teamForHere) => {
+      setIsPlayerRushAttemtpsSectionVisible(true);
       if (team === teamForHere.teamName) {
         // teamForHere = topLeveLTeam;
         // console.log(userSelectedPlayersToProjectArray);
@@ -77,7 +80,38 @@ export default function TeamTotalPlaysAndSplits({
       JSON.stringify(usersAllTeamsList)
     );
 
-    setIsPlayerRushAttemtpsSectionVisible(true);
+    // console.log(rushAttempts);
+    if (rushAttempts.current.firstChild) {
+      let tempRef = rushAttempts.current.firstChild;
+      // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (rushAttempts.current.firstChild) {
+          let tempRef = rushAttempts.current.firstChild;
+          // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (rushAttempts.current.firstChild) {
+            let tempRef = rushAttempts.current.firstChild;
+            // console.log(tempRef);
+            tempRef.scrollIntoView({ behavior: "smooth" });
+          } else {
+            if (rushAttempts.current.firstChild) {
+              let tempRef = rushAttempts.current.firstChild;
+              // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            } else {
+              setTimeout(() => {
+                let tempRef = rushAttempts.current.firstChild;
+                // console.log(tempRef);
+                tempRef.scrollIntoView({ behavior: "smooth" });
+              }, 500);
+            }
+          }
+        }
+      }, 500);
+    }
   }
 
   return (
@@ -316,14 +350,25 @@ export default function TeamTotalPlaysAndSplits({
                 </div>
               </div>
               <div className={styles.submitBtnWrapper}>
-                <button
-                  className={styles.submitBtn}
-                  onClick={() =>
-                    submitTeamLevelProjectionsToProject(topLeveLTeam)
-                  }
-                >
-                  Submit team level projections
-                </button>
+                {isPlayerRushAttemtpsSectionVisible ? (
+                  <button
+                    className={styles.submitBtn}
+                    onClick={() =>
+                      submitTeamLevelProjectionsToProject(topLeveLTeam)
+                    }
+                  >
+                    &#8595; Submit team level projections &#8595;
+                  </button>
+                ) : (
+                  <button
+                    className={styles.submitBtn}
+                    onClick={() =>
+                      submitTeamLevelProjectionsToProject(topLeveLTeam)
+                    }
+                  >
+                    Submit team level projections
+                  </button>
+                )}
               </div>
               <p className={styles.howToMoveToNextSectionText}>
                 team level splits must be submitted to move to next section

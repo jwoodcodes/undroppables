@@ -11,6 +11,7 @@ export default function Targets({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsCatchPercentageSectionVisible,
+  catchPercentageRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -123,6 +124,28 @@ export default function Targets({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (catchPercentageRef.current.firstChild) {
+      let tempRef = catchPercentageRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (catchPercentageRef.current.firstChild) {
+          let tempRef = catchPercentageRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (catchPercentageRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = catchPercentageRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

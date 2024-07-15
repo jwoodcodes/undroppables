@@ -12,6 +12,8 @@ export default function YardsPerCarry({
   setUserSelectedPlayersToProjectArray,
   setIsRushTDsSectionVisible,
   setTotalProjectedTeamRushYards,
+  isRushTDsSectionVisible,
+  rushTDRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -123,6 +125,28 @@ export default function YardsPerCarry({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (rushTDRef.current.firstChild) {
+      let tempRef = rushTDRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (rushTDRef.current.firstChild) {
+          let tempRef = rushTDRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (rushTDRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = rushTDRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (
@@ -260,12 +284,21 @@ export default function YardsPerCarry({
         If you want to project zero for a player simply leave it blank
       </p>
       <div className={styles.submitBtnWrapper}>
-        <button
-          className={styles.submitBtn}
-          onClick={() => submitRushYardsPerCarryToProject()}
-        >
-          Submit Yards Per Carry projections
-        </button>
+        {isRushTDsSectionVisible ? (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitRushYardsPerCarryToProject()}
+          >
+            &#8595; Submit Yards Per Carry projections &#8595;
+          </button>
+        ) : (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitRushYardsPerCarryToProject()}
+          >
+            Submit Yards Per Carry projections
+          </button>
+        )}
       </div>
       <p className={styles.howToMoveToNextSectionText}>
         Yards Per Carry projections must be submitted to move to next section

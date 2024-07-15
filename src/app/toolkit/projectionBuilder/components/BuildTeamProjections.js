@@ -30,6 +30,30 @@ import RecievingTable from "./recievingTable/RecievingTable";
 import TeamLevelFantasyTable from "./teamLevelFantasyTable/teamLevelFantasyTable";
 
 export default function BuildTeamProjections({ dataTest, sleeperData }) {
+  // window.onbeforeunload = function () {
+  //   window.scrollTo(0, 0);
+  // };
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const teamSplits = React.useRef();
+  const rushAttempts = React.useRef();
+  const yardsPerCarryRef = React.useRef();
+  const rushTDRef = React.useRef();
+  const targetsRef = React.useRef();
+  const catchPercentageRef = React.useRef();
+  const yardsPerReceptionRef = React.useRef();
+  const redTDsRef = React.useRef();
+  const passAttemptsRef = React.useRef();
+  const QbCompletionsRef = React.useRef();
+  const passingYardsRef = React.useRef();
+  const passTDssRef = React.useRef();
+  const passINTsRef = React.useRef();
+
+  // console.log(teamSplits.current);
+
   //
   //
   //
@@ -1455,10 +1479,13 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
   }, [userSelectedPlayersToProjectArray, isStoredValue]);
 
   // React.useEffect(() => {
-  //   if (isYardsPerRushAttemptSectionVisible) {
-  //     console.log(userSelectedPlayersToProjectArray, usersAllTeamsList);
+  //   if (userSelectedPlayersToProjectArray && isUsersSelectedPlayerArrayReady) {
+  //     // let test = document.getElementById("TeamTotalPlaysAndSplits").focus();
+  //     // console.log(teamSplits.current);
+  //     // teamSplits.current.focus();
+  //     // window.scrollTo(test);
   //   }
-  // }, [isYardsPerRushAttemptSectionVisible]);
+  // }, [userSelectedPlayersToProjectArray]);
 
   //
   //
@@ -1526,295 +1553,350 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
             isStoredValue={isStoredValue}
             usersAllTeamsList={usersAllTeamsList}
             setUsersAllTeamsList={setUsersAllTeamsList}
+            teamSplits={teamSplits}
+            isUsersSelectedPlayerArrayReady
           />
           <div className={styles.sectionDividerWrapper}>
             <div className={styles.sectionDivider}></div>
           </div>
         </>
       )}
-      {isUsersSelectedPlayerArrayReady && (
-        <>
-          <TeamTotalPlaysAndSplits
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            teamTotalProjectedPlays={teamTotalProjectedPlays}
-            setTeamTotalProjectedPlays={setTeamTotalProjectedPlays}
-            totalPassPlays={totalPassPlays}
-            setTotalPassPlays={setTotalPassPlays}
-            totalRunPlays={totalRunPlays}
-            setTotalRunPlays={setTotalRunPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setIsPlayerRushAttemtpsSectionVisible={
-              setIsPlayerRushAttemtpsSectionVisible
-            }
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isUsersSelectedPlayerArrayReady &&
-        totalRunPlays &&
-        isPlayerRushAttemtpsSectionVisible &&
-        userSelectedPlayersToProjectArray && (
+      <div ref={teamSplits}>
+        {isUsersSelectedPlayerArrayReady && (
           <>
-            <PlayerRushAttempts
+            <TeamTotalPlaysAndSplits
               userSelectedPlayersToProjectArray={
                 userSelectedPlayersToProjectArray
               }
               team={team}
+              teamTotalProjectedPlays={teamTotalProjectedPlays}
+              setTeamTotalProjectedPlays={setTeamTotalProjectedPlays}
+              totalPassPlays={totalPassPlays}
+              setTotalPassPlays={setTotalPassPlays}
               totalRunPlays={totalRunPlays}
+              setTotalRunPlays={setTotalRunPlays}
               usersAllTeamsList={usersAllTeamsList}
               setUsersAllTeamsList={setUsersAllTeamsList}
-              setUserSelectedPlayersToProjectArray={
-                setUserSelectedPlayersToProjectArray
+              setIsPlayerRushAttemtpsSectionVisible={
+                setIsPlayerRushAttemtpsSectionVisible
               }
-              setIsYardsPerRushAttemptSectionVisible={
-                setIsYardsPerRushAttemptSectionVisible
+              isPlayerRushAttemtpsSectionVisible={
+                isPlayerRushAttemtpsSectionVisible
               }
+              rushAttempts={rushAttempts}
             />
             <div className={styles.sectionDividerWrapper}>
               <div className={styles.sectionDivider}></div>
             </div>
           </>
         )}
-      {isUsersSelectedPlayerArrayReady &&
-        isYardsPerRushAttemptSectionVisible &&
-        isPlayerRushAttemtpsSectionVisible &&
-        userSelectedPlayersToProjectArray && (
+      </div>
+      <div ref={rushAttempts}>
+        {isUsersSelectedPlayerArrayReady &&
+          totalRunPlays &&
+          isPlayerRushAttemtpsSectionVisible &&
+          userSelectedPlayersToProjectArray && (
+            <>
+              <PlayerRushAttempts
+                userSelectedPlayersToProjectArray={
+                  userSelectedPlayersToProjectArray
+                }
+                team={team}
+                totalRunPlays={totalRunPlays}
+                usersAllTeamsList={usersAllTeamsList}
+                setUsersAllTeamsList={setUsersAllTeamsList}
+                setUserSelectedPlayersToProjectArray={
+                  setUserSelectedPlayersToProjectArray
+                }
+                setIsYardsPerRushAttemptSectionVisible={
+                  setIsYardsPerRushAttemptSectionVisible
+                }
+                isYardsPerRushAttemptSectionVisible={
+                  isYardsPerRushAttemptSectionVisible
+                }
+                yardsPerCarryRef={yardsPerCarryRef}
+              />
+              <div className={styles.sectionDividerWrapper}>
+                <div className={styles.sectionDivider}></div>
+              </div>
+            </>
+          )}
+      </div>
+      <div ref={yardsPerCarryRef}>
+        {isUsersSelectedPlayerArrayReady &&
+          isYardsPerRushAttemptSectionVisible &&
+          isPlayerRushAttemtpsSectionVisible &&
+          userSelectedPlayersToProjectArray && (
+            <>
+              <YardsPerCarry
+                userSelectedPlayersToProjectArray={
+                  userSelectedPlayersToProjectArray
+                }
+                team={team}
+                totalRunPlays={totalRunPlays}
+                usersAllTeamsList={usersAllTeamsList}
+                setUsersAllTeamsList={setUsersAllTeamsList}
+                setUserSelectedPlayersToProjectArray={
+                  setUserSelectedPlayersToProjectArray
+                }
+                setIsRushTDsSectionVisible={setIsRushTDsSectionVisible}
+                setTotalProjectedTeamRushYards={setTotalProjectedTeamRushYards}
+                isRushTDsSectionVisible={isRushTDsSectionVisible}
+                rushTDRef={rushTDRef}
+              />
+              <div className={styles.sectionDividerWrapper}>
+                <div className={styles.sectionDivider}></div>
+              </div>
+            </>
+          )}
+      </div>
+
+      <div ref={rushTDRef}>
+        {isRushTDsSectionVisible && (
           <>
-            <YardsPerCarry
+            <RushTDs
               userSelectedPlayersToProjectArray={
                 userSelectedPlayersToProjectArray
               }
               team={team}
-              totalRunPlays={totalRunPlays}
               usersAllTeamsList={usersAllTeamsList}
               setUsersAllTeamsList={setUsersAllTeamsList}
               setUserSelectedPlayersToProjectArray={
                 setUserSelectedPlayersToProjectArray
               }
-              setIsRushTDsSectionVisible={setIsRushTDsSectionVisible}
-              setTotalProjectedTeamRushYards={setTotalProjectedTeamRushYards}
+              setIsTargetsSectionVisble={setIsTargetsSectionVisble}
+              targetsRef={targetsRef}
             />
             <div className={styles.sectionDividerWrapper}>
               <div className={styles.sectionDivider}></div>
             </div>
           </>
         )}
-      {isRushTDsSectionVisible && (
-        <>
-          <RushTDs
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsTargetsSectionVisble={setIsTargetsSectionVisble}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isTargetsSectionVisble && (
-        <>
-          <Targets
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsCatchPercentageSectionVisible={
-              setIsCatchPercentageSectionVisible
-            }
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isCatchPercentageSectionVisible && (
-        <>
-          <CatchPercentage
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsYardsPerReceptionVisable={setIsYardsPerReceptionVisable}
-            setTeamTotalReceptions={setTeamTotalReceptions}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isYardsPerReceptionVisable && (
-        <>
-          <YardsPerReceptionAndRecYards
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsRecTDsSectionVisible={setIsRecTDsSectionVisible}
-            setTotalProjectedTeamPassingYards={
-              setTotalProjectedTeamPassingYards
-            }
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isRecTDsSectionVisible && (
-        <>
-          <RecTDs
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsPassAttemptsSectionVisible={setIsPassAttemptsSectionVisible}
-            setTotalTeamProjectedPassingTDs={setTotalTeamProjectedPassingTDs}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isPassAttemptsSectionVisible && (
-        <>
-          <PassAttempts
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsQBCompletionsSectionVisible={setIsQBCompletionsSectionVisible}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isQBCompletionsSectionVisible && (
-        <>
-          <QbCompletions
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsPassingYardsSectionVisible={setIsPassingYardsSectionVisible}
-            teamTotalReceptions={teamTotalReceptions}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isPassingYardsSectionVisible && (
-        <>
-          <PassingYards
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsPassingTDsSectionVisible={setIsPassingTDsSectionVisible}
-            totalProjectedTeamPassingYards={totalProjectedTeamPassingYards}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isPassingTDsSectionVisible && (
-        <>
-          <PassTDs
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsINTSectionVisible={setIsINTSectionVisible}
-            teamTotalReceptions={teamTotalReceptions}
-            totalTeamProjectedPassingTDs={totalTeamProjectedPassingTDs}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
-      {isINTSectionVisable && (
-        <>
-          <INTs
-            userSelectedPlayersToProjectArray={
-              userSelectedPlayersToProjectArray
-            }
-            team={team}
-            totalPassPlays={totalPassPlays}
-            usersAllTeamsList={usersAllTeamsList}
-            setUsersAllTeamsList={setUsersAllTeamsList}
-            setUserSelectedPlayersToProjectArray={
-              setUserSelectedPlayersToProjectArray
-            }
-            setIsIntsSubmitted={setIsIntsSubmitted}
-            teamTotalReceptions={teamTotalReceptions}
-          />
-          <div className={styles.sectionDividerWrapper}>
-            <div className={styles.sectionDivider}></div>
-          </div>
-        </>
-      )}
+      </div>
+
+      <div ref={targetsRef}>
+        {isTargetsSectionVisble && (
+          <>
+            <Targets
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsCatchPercentageSectionVisible={
+                setIsCatchPercentageSectionVisible
+              }
+              catchPercentageRef={catchPercentageRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div ref={catchPercentageRef}>
+        {isCatchPercentageSectionVisible && (
+          <>
+            <CatchPercentage
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsYardsPerReceptionVisable={setIsYardsPerReceptionVisable}
+              setTeamTotalReceptions={setTeamTotalReceptions}
+              yardsPerReceptionRef={yardsPerReceptionRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div ref={yardsPerReceptionRef}>
+        {isYardsPerReceptionVisable && (
+          <>
+            <YardsPerReceptionAndRecYards
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsRecTDsSectionVisible={setIsRecTDsSectionVisible}
+              setTotalProjectedTeamPassingYards={
+                setTotalProjectedTeamPassingYards
+              }
+              redTDsRef={redTDsRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div ref={redTDsRef}>
+        {isRecTDsSectionVisible && (
+          <>
+            <RecTDs
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsPassAttemptsSectionVisible={setIsPassAttemptsSectionVisible}
+              setTotalTeamProjectedPassingTDs={setTotalTeamProjectedPassingTDs}
+              passAttemptsRef={passAttemptsRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+      <div ref={passAttemptsRef}>
+        {isPassAttemptsSectionVisible && (
+          <>
+            <PassAttempts
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsQBCompletionsSectionVisible={
+                setIsQBCompletionsSectionVisible
+              }
+              QbCompletionsRef={QbCompletionsRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+      <div ref={QbCompletionsRef}>
+        {isQBCompletionsSectionVisible && (
+          <>
+            <QbCompletions
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsPassingYardsSectionVisible={setIsPassingYardsSectionVisible}
+              teamTotalReceptions={teamTotalReceptions}
+              passingYardsRef={passingYardsRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+      <div ref={passingYardsRef}>
+        {isPassingYardsSectionVisible && (
+          <>
+            <PassingYards
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsPassingTDsSectionVisible={setIsPassingTDsSectionVisible}
+              isPassingTDsSectionVisible={isPassingTDsSectionVisible}
+              totalProjectedTeamPassingYards={totalProjectedTeamPassingYards}
+              passTDssRef={passTDssRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+      <div ref={passTDssRef}>
+        {isPassingTDsSectionVisible && (
+          <>
+            <PassTDs
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsINTSectionVisible={setIsINTSectionVisible}
+              teamTotalReceptions={teamTotalReceptions}
+              totalTeamProjectedPassingTDs={totalTeamProjectedPassingTDs}
+              passINTsRef={passINTsRef}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
+      <div ref={passINTsRef}>
+        {isINTSectionVisable && (
+          <>
+            <INTs
+              userSelectedPlayersToProjectArray={
+                userSelectedPlayersToProjectArray
+              }
+              team={team}
+              totalPassPlays={totalPassPlays}
+              usersAllTeamsList={usersAllTeamsList}
+              setUsersAllTeamsList={setUsersAllTeamsList}
+              setUserSelectedPlayersToProjectArray={
+                setUserSelectedPlayersToProjectArray
+              }
+              setIsIntsSubmitted={setIsIntsSubmitted}
+              teamTotalReceptions={teamTotalReceptions}
+            />
+            <div className={styles.sectionDividerWrapper}>
+              <div className={styles.sectionDivider}></div>
+            </div>
+          </>
+        )}
+      </div>
 
       {team &&
         userSelectedPlayersToProjectArray &&

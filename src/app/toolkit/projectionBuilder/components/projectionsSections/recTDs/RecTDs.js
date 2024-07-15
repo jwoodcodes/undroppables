@@ -12,6 +12,7 @@ export default function RecTDs({
   setUserSelectedPlayersToProjectArray,
   setIsPassAttemptsSectionVisible,
   setTotalTeamProjectedPassingTDs,
+  passAttemptsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -97,6 +98,32 @@ export default function RecTDs({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (passAttemptsRef.current.firstChild) {
+      let tempRef = passAttemptsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (passAttemptsRef.current.firstChild) {
+          let tempRef = passAttemptsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (passAttemptsRef.current.firstChild) {
+            let tempRef = passAttemptsRef.current.firstChild.firstChild;
+            //   // console.log(tempRef);
+            tempRef.scrollIntoView({ behavior: "smooth" });
+          } else {
+            setTimeout(() => {
+              let tempRef = passAttemptsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

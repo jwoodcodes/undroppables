@@ -11,6 +11,7 @@ export default function RushTDs({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsTargetsSectionVisble,
+  targetsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -76,6 +77,28 @@ export default function RushTDs({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (targetsRef.current.firstChild) {
+      let tempRef = targetsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (targetsRef.current.firstChild) {
+          let tempRef = targetsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (targetsRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = targetsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

@@ -11,7 +11,9 @@ export default function PassingYards({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsPassingTDsSectionVisible,
+  isPassingTDsSectionVisible,
   totalProjectedTeamPassingYards,
+  passTDssRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -111,6 +113,33 @@ export default function PassingYards({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (passTDssRef.current.firstChild) {
+      let tempRef = passTDssRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (passTDssRef.current.firstChild) {
+          let tempRef = passTDssRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (passTDssRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = passTDssRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
+    if (isPassingTDsSectionVisible) {
+      let tempRef = passTDssRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   return (

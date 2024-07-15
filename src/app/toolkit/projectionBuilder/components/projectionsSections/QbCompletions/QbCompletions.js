@@ -12,6 +12,7 @@ export default function QbCompletions({
   setUserSelectedPlayersToProjectArray,
   setIsPassingYardsSectionVisible,
   teamTotalReceptions,
+  passingYardsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -121,6 +122,28 @@ export default function QbCompletions({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (passingYardsRef.current.firstChild) {
+      let tempRef = passingYardsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (passingYardsRef.current.firstChild) {
+          let tempRef = passingYardsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (passingYardsRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = passingYardsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

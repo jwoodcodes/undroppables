@@ -12,6 +12,7 @@ export default function YardsPerReceptionAndRecYards({
   setUserSelectedPlayersToProjectArray,
   setIsRecTDsSectionVisible,
   setTotalProjectedTeamPassingYards,
+  redTDsRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -121,6 +122,28 @@ export default function YardsPerReceptionAndRecYards({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (redTDsRef.current.firstChild) {
+      let tempRef = redTDsRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (redTDsRef.current.firstChild) {
+          let tempRef = redTDsRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (redTDsRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = redTDsRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

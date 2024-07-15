@@ -12,6 +12,7 @@ export default function CatchPercentage({
   setUserSelectedPlayersToProjectArray,
   setIsYardsPerReceptionVisable,
   setTeamTotalReceptions,
+  yardsPerReceptionRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -118,6 +119,28 @@ export default function CatchPercentage({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (yardsPerReceptionRef.current.firstChild) {
+      let tempRef = yardsPerReceptionRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (yardsPerReceptionRef.current.firstChild) {
+          let tempRef = yardsPerReceptionRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (yardsPerReceptionRef.current.firstChild) {
+            setTimeout(() => {
+              let tempRef = yardsPerReceptionRef.current.firstChild.firstChild;
+              //   // console.log(tempRef);
+              tempRef.scrollIntoView({ behavior: "smooth" });
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (

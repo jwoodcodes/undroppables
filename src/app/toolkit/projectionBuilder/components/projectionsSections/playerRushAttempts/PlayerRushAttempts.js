@@ -11,6 +11,8 @@ export default function PlayerRushAttempts({
   setUsersAllTeamsList,
   setUserSelectedPlayersToProjectArray,
   setIsYardsPerRushAttemptSectionVisible,
+  isYardsPerRushAttemptSectionVisible,
+  yardsPerCarryRef,
 }) {
   const [curValue, setCurValue] = React.useState("");
   const [curValue2, setCurValue2] = React.useState("");
@@ -101,6 +103,43 @@ export default function PlayerRushAttempts({
       "usersAllTeamsList",
       JSON.stringify(usersAllTeamsList)
     );
+
+    if (yardsPerCarryRef.current.firstChild) {
+      let tempRef = yardsPerCarryRef.current.firstChild.firstChild;
+      //   // console.log(tempRef);
+      tempRef.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setTimeout(() => {
+        if (yardsPerCarryRef.current.firstChild) {
+          let tempRef = yardsPerCarryRef.current.firstChild.firstChild;
+          //   // console.log(tempRef);
+          tempRef.scrollIntoView({ behavior: "smooth" });
+        } else {
+          if (yardsPerCarryRef.current.firstChild) {
+            let tempRef = yardsPerCarryRef.current.firstChild.firstChild;
+            //   // console.log(tempRef);
+            tempRef.scrollIntoView({ behavior: "smooth" });
+          } else {
+            setTimeout(() => {
+              if (yardsPerCarryRef.current.firstChild) {
+                let tempRef = yardsPerCarryRef.current.firstChild.firstChild;
+                //   // console.log(tempRef);
+                tempRef.scrollIntoView({ behavior: "smooth" });
+              } else {
+                setTimeout(() => {
+                  if (yardsPerCarryRef.current.firstChild) {
+                    let tempRef =
+                      yardsPerCarryRef.current.firstChild.firstChild;
+                    //   // console.log(tempRef);
+                    tempRef.scrollIntoView({ behavior: "smooth" });
+                  }
+                }, 500);
+              }
+            }, 500);
+          }
+        }
+      }, 500);
+    }
   }
 
   return (
@@ -197,12 +236,21 @@ export default function PlayerRushAttempts({
         If you want to project zero for a player simply leave it blank
       </p>
       <div className={styles.submitBtnWrapper}>
-        <button
-          className={styles.submitBtn}
-          onClick={() => submitRushAttemptsProjectionsToProject()}
-        >
-          Submit rush attempts projections
-        </button>
+        {isYardsPerRushAttemptSectionVisible ? (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitRushAttemptsProjectionsToProject()}
+          >
+            &#8595; Submit rush attempts projections &#8595;
+          </button>
+        ) : (
+          <button
+            className={styles.submitBtn}
+            onClick={() => submitRushAttemptsProjectionsToProject()}
+          >
+            Submit rush attempts projections
+          </button>
+        )}
       </div>
       <p className={styles.howToMoveToNextSectionText}>
         Rush Attempts must be submitted to move to next section
