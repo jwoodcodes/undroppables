@@ -92,6 +92,8 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
 
   const [usersAllTeamsList, setUsersAllTeamsList] =
     React.useState(allTeamsList);
+  const [newTeamTrigger, setNewTeamTrigger] = React.useState(false);
+  const [teamPlayersArray, setTeamPlayersArray] = React.useState([]);
 
   const [team, setTeam] = React.useState("");
 
@@ -104,11 +106,22 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
       `userSelectedPlayersToProjectArray${team}`
     );
 
-    if (userSelectedPlayersArrayStoredValue) {
-      setUserSelectedPlayersToProjectArray(
-        JSON.parse(userSelectedPlayersArrayStoredValue)
-      );
-    }
+    // if (userSelectedPlayersArrayStoredValue) {
+    //   setUserSelectedPlayersToProjectArray(
+    //     JSON.parse(userSelectedPlayersArrayStoredValue)
+    //   );
+    // }
+    // console.log(team, selectedTeamObject);
+
+    setUserSelectedPlayersToProjectArray(
+      userSelectedPlayersArrayStoredValue
+        ? JSON.parse(userSelectedPlayersArrayStoredValue)
+        : selectedTeamObject
+        ? selectedTeamObject
+        : []
+    );
+
+    // console.log(team, selectedTeamObject);
 
     setIsPlayerRushAttemtpsSectionVisible(false);
     setIsYardsPerRushAttemptSectionVisible(false);
@@ -118,7 +131,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
     // if (storedValue && userSelectedPlayersToProjectArray) {
     //   console.log(userSelectedPlayersToProjectArray);
     // }
-  }, [team]);
+  }, [team, usersAllTeamsList, newTeamTrigger, teamPlayersArray]);
 
   //
   //
@@ -127,7 +140,6 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
   //
   ///////////////////////////// state variables ////////////////////////////////////
   //
-
   const [selectedTeamObject, setSelectedTeamObject] = React.useState({});
   const [
     userSelectedPlayersToProjectArray,
@@ -1463,6 +1475,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
             } // end if (player.position === "TE")
             // console.log(teamObject);
             setSelectedTeamObject(teamObject);
+            setNewTeamTrigger(!setNewTeamTrigger);
           } // end if (teamObject.teamName === team) {
         }); // end usersAllTeamsList.map((teamObject) => {
       }
@@ -1555,6 +1568,8 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
             setUsersAllTeamsList={setUsersAllTeamsList}
             teamSplits={teamSplits}
             isUsersSelectedPlayerArrayReady
+            teamPlayersArray={teamPlayersArray}
+            setTeamPlayersArray={setTeamPlayersArray}
           />
           <div className={styles.sectionDividerWrapper}>
             <div className={styles.sectionDivider}></div>

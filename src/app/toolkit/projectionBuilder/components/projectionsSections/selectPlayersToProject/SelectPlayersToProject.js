@@ -13,9 +13,11 @@ export default function SelectPlayersToProject({
   setUsersAllTeamsList,
   teamSplits,
   isUsersSelectedPlayerArrayReady,
+  teamPlayersArray,
+  setTeamPlayersArray,
 }) {
   //   console.log(selectedTeamObject);
-  const [teamPlayersArray, setTeamPlayersArray] = React.useState([]);
+  // const [teamPlayersArray, setTeamPlayersArray] = React.useState([]);
   const [isTeamArrayAllPossiblePlayers, setIsTeamArrayAllPossiblePlayers] =
     React.useState(true);
 
@@ -23,7 +25,7 @@ export default function SelectPlayersToProject({
     const storedValue = window.localStorage.getItem("usersAllTeamsList");
 
     setUsersAllTeamsList(storedValue ? JSON.parse(storedValue) : allTeamsList);
-  }, [team]);
+  }, [team, selectedTeamObject]);
 
   React.useEffect(() => {
     const storedValue = window.localStorage.getItem(
@@ -39,7 +41,7 @@ export default function SelectPlayersToProject({
         storedValue ? JSON.parse(storedValue) : []
       );
     }
-  }, [team]);
+  }, [team, selectedTeamObject]);
 
   React.useEffect(() => {
     if (
@@ -55,7 +57,12 @@ export default function SelectPlayersToProject({
         setTeamPlayersArray(tempArray);
       }
     }
-  }, [selectedTeamObject, isTeamArrayAllPossiblePlayers, team]);
+  }, [
+    selectedTeamObject,
+    isTeamArrayAllPossiblePlayers,
+    team,
+    selectedTeamObject,
+  ]);
 
   function deletePlayer(player) {
     setTeamPlayersArray(teamPlayersArray.filter((p) => p !== player));
