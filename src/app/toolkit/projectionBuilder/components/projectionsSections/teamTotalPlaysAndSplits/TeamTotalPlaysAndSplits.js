@@ -115,7 +115,7 @@ export default function TeamTotalPlaysAndSplits({
   }
 
   return (
-    <div key={team}>
+    <div key={`${team}`}>
       <div className={styles.SectionLabel}>
         Project Total Team Plays & Pass/Run Splits
       </div>

@@ -131,7 +131,7 @@ export default function BuildTeamProjections({ dataTest, sleeperData }) {
     // if (storedValue && userSelectedPlayersToProjectArray) {
     //   console.log(userSelectedPlayersToProjectArray);
     // }
-  }, [team, usersAllTeamsList, newTeamTrigger, teamPlayersArray]);
+  }, [team]);
 
   //
   //
