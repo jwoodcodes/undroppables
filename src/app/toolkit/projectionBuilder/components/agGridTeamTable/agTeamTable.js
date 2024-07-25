@@ -187,6 +187,22 @@ export default function AgTeamTable({
       maxWidth: 70,
     },
     {
+      field: "1/2 PPR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      pinned: "left",
+      maxWidth: 100,
+    },
+    {
+      field: "PPR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      pinned: "left",
+      maxWidth: 100,
+    },
+    {
       field: "Atmpts",
       filter: true,
       floatingFilter: true,
@@ -345,22 +361,6 @@ export default function AgTeamTable({
       flex: 1,
 
       maxWidth: 100,
-    },
-    {
-      field: "1/2 PPR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-
-      maxWidth: 90,
-    },
-    {
-      field: "PPR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-
-      maxWidth: 90,
     },
   ]);
 
