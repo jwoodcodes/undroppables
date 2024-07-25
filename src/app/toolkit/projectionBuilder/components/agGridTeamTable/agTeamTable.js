@@ -192,7 +192,7 @@ export default function AgTeamTable({
       floatingFilter: true,
       flex: 1,
       pinned: "left",
-      maxWidth: 100,
+      maxWidth: 90,
     },
     {
       field: "PPR",
@@ -200,7 +200,7 @@ export default function AgTeamTable({
       floatingFilter: true,
       flex: 1,
       pinned: "left",
-      maxWidth: 100,
+      maxWidth: 80,
     },
     {
       field: "Atmpts",
