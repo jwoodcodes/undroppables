@@ -3,7 +3,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
-import { Main } from "next/document";
 import MainNav from "./components/mainNav/MainNav"
 
 export default function Home() {
