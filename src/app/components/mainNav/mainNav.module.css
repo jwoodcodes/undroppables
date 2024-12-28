@@ -1,0 +1,13 @@
+
+
+  .mainNavWrapper {
+    display: flex;
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .navLinksWrapper {
+    display: flex;
+    justify-content: space-between;
+   
+  }
