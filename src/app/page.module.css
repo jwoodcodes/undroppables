@@ -16,20 +16,4 @@
   font-size: 3.5rem;
 }
 
-.linkWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
 
-.mainNavLink {
-  text-decoration: none;
-  color: var(--color-white);
-  font-size: 2rem;
-}
-
-.mainNavLink:hover {
-  color: var(--color-red-primary);
-  transform: scaleY(1.5rem);
-}
