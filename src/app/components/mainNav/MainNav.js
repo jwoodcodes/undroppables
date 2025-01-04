@@ -11,9 +11,10 @@ export default function MainNav() {
             </a>
             </div>
             <ul className={styles.navLinksWrapper}>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li className={styles.navLink}><a href="#">Home</a></li>
+                <li className={styles.navLink}><a href="#">About</a></li>
+                <li className={styles.navLink}><a href="#">Contact</a></li>
+                
             </ul>
         </nav>
     );
