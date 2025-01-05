@@ -11,7 +11,7 @@ export default function Home() {
       <MainNav />
       <div className={styles.mainSiteTitleWrapper}>
         <div className={styles.mainSiteTitle}>The Undroppables</div>
-        <div className={styles.mainSiteTitle}>Test</div>
+        
       </div>
       
     </main>
