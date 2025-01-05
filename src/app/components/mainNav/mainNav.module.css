@@ -2,17 +2,33 @@
 
   .mainNavWrapper {
     display: flex;
+    align-items: center;
     font-size: 2rem;
     width: 100%;
+    padding: 1rem 1rem;
+  }
+  
+  .mainLogo {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
   }
 
   .navLinksWrapper {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none ;
+    list-style: none;
+    
    
   }
 
   .navLink {
     text-decoration: none;
-    color: var(--color-white);
+    color: var(--color-red-primary);
+    margin: 0 1rem;
+    letter-spacing: 0.1rem;
+    font-size: 1.75rem;
   }
