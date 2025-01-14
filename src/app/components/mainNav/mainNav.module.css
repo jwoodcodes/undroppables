@@ -1,11 +1,12 @@
-
-
   .mainNavWrapper {
     display: flex;
     align-items: center;
     font-size: 2rem;
     width: 100%;
     padding: 1rem 1rem;
+    position: sticky;
+    top: 0;
+    
   }
   
   .mainLogo {
@@ -21,14 +22,30 @@
     align-items: center;
     text-decoration: none ;
     list-style: none;
-    
+   
    
   }
 
   .navLink {
     text-decoration: none;
-    color: var(--color-red-primary);
+    background: linear-gradient(to bottom right, var(--color-white), var(--color-red-primary));
+    -webkit-background-clip: text;
+    color: transparent;
     margin: 0 1rem;
     letter-spacing: 0.1rem;
     font-size: 1.75rem;
+    padding: .5rem;
+    transition: transform 0.15s;
+    
+  }
+
+  .navLink:hover {
+    color: var(--color-red-primary);
+    transform: translateY(-0.25rem);
+    background-color: var(--color-black);
+  }
+
+  .navLink:active {
+    transform: translateY(0);
+   
   }
