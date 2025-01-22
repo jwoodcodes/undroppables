@@ -11,13 +11,14 @@ export default function MainNav() {
             </a>
             </div>
             <ul className={styles.navLinksWrapper}>
-                <li ><a href="#" className={styles.navLink}>Home</a></li>
-                <li ><a href="#" className={styles.navLink}>Articles</a></li>
+                
+                <li ><a href="#" className={styles.navLink}>Tools</a></li>
                 
                 <li ><a href="#" className={styles.navLink}>Rankings</a></li>
-                <li ><a href="#" className={styles.navLink}>Tools</a></li>
-                <li ><a href="#" className={styles.navLink}>Shows</a></li>
-                <li ><a href="#" className={styles.navLink}>Shop</a></li>
+                <li ><a href="#" className={styles.navLink}>Youtube Shows</a></li>
+                <li ><a href="#" className={styles.navLink}>The Undrafted</a></li>
+                <li ><a href="#" className={styles.navLink}>Underdog ADP</a></li>
+                <li ><a href="#" className={styles.navLink}>partnerships</a></li>
 
                 
             </ul>
