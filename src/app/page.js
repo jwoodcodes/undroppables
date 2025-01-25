@@ -13,9 +13,11 @@ export default function Home() {
     <main className={styles.main}>
       <Header />
       <MainNav />
-      <div className={styles.mainSiteTitleWrapper}>
+      <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
-       
+          <div className={styles.articlesSectionWrapper}>articles</div>
+          <div className={styles.middleSectionWrapper}>main</div>
+          <div className={styles.rssSectionWrapper}>rss</div>
         
       </div>
       

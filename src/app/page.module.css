@@ -5,11 +5,11 @@
   min-height: fit-content;
 }
 
-.mainSiteTitleWrapper {
+/* .mainSiteTitleWrapper {
   color: var(--color-white);
   width: 100%;
   margin-bottom: 100dvh;
-}
+} */
 
 .mainSiteTitle {
   padding-top: 6rem;
@@ -17,8 +17,47 @@
   font-size: 3.5rem;
 }
 
-.artOfDynastyImage {
-  margin: 2rem auto;
+.mainSectionWrapper {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr; /* 5 sections: 1/5, 3/5, 1/5 */
+  gap: 1rem; /* Optional: adds space between the sections */
+
+  color: var(--color-white);
+  height: 100dvh;
+}
+
+
+
+.articlesSectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  
+}
+
+.middleSectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  border-left: 1px solid white; /* Left border */
+  border-right: 1px solid white; /* Right border */
+  
+}
+
+.rssSectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+ 
 }
 
 

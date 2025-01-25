@@ -22,7 +22,13 @@ export default function MainNav() {
             </ul>
 
             <div className={styles.socialsWrapper}>
-                Social Media: 
+                Socials: 
+                <Image
+            src="/1691832581twitter-x-icon-png.png"
+            width={60}
+            height={60}
+            alt=""
+          ></Image>
             </div>
         </nav>
     );
