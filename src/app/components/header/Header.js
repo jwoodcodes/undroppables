@@ -5,7 +5,10 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <a href="/" className={styles.mainLogo}>
-            <Image src="/TU-LOGO-WHITE-ON-TRANSPARENT.webp" alt="logo" width={900} height={150} />
+            <Image src="/UNLogoWithRed.webp" alt="logo" width={100} height={150} />
+            
+          
+
             </a>
         </header>
     );
