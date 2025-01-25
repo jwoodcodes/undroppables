@@ -23,12 +23,12 @@ export default function MainNav() {
 
             <div className={styles.socialsWrapper}>
                 Socials: 
-                <Image
+                {/* <Image
             src="/1691832581twitter-x-icon-png.png"
             width={60}
             height={60}
             alt=""
-          ></Image>
+          ></Image> */}
             </div>
         </nav>
     );
