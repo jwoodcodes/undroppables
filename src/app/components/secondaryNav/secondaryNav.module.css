@@ -1,0 +1,26 @@
+.secondaryNavLinksWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 2rem 2rem;
+}
+
+.secondaryNavLink {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid var(--color-white);
+    border-radius: 20px;
+
+    
+}
+
+.secondaryNavLogo {
+   padding: .5rem 1rem;
+   
+}

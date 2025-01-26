@@ -22,13 +22,31 @@ export default function MainNav() {
             </ul>
 
             <div className={styles.socialsWrapper}>
-                Socials: 
-                {/* <Image
+                
+                <Image
             src="/1691832581twitter-x-icon-png.png"
             width={60}
             height={60}
             alt=""
-          ></Image> */}
+          ></Image>
+          <Image
+            src="/instagramLogo.png"
+            width={60}
+            height={60}
+            alt=""
+          ></Image>
+          <Image
+            src="/Bluesky_Logo.svg"
+            width={50}
+            height={50}
+            alt=""
+          ></Image>
+          <Image
+            src="/tiktok-logo.png"
+            width={50}
+            height={50}
+            alt=""
+          ></Image>
             </div>
         </nav>
     );

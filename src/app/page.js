@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import Header from "./components/header/Header";
 import MainNav from "./components/mainNav/MainNav"
+import SecondaryNav from "./components/secondaryNav/SecondaryNav";
 import Footer from "./components/footer/Footer";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
     <main className={styles.main}>
       <Header />
       <MainNav />
+      <SecondaryNav />
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
           <div className={styles.articlesSectionWrapper}>articles</div>
