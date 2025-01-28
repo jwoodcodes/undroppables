@@ -6,20 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "queries": "ts-node ./src/queries.ts",
+    "caching": "ts-node ./src/caching.ts",
+    "realtime": "ts-node ./src/realtime.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "@vercel/analytics": "^1.3.1",
     "ag-grid-react": "^32.0.1",
     "axios": "^1.7.0",
     "mongodb": "^6.6.2",
     "mongoose": "^8.4.0",
     "next": "14.2.3",
+    "prisma": "^6.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-feather": "^2.0.10"
   },
   "devDependencies": {
+    "@types/node": "22.12.0",
+    "@types/react": "19.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.3"
   }

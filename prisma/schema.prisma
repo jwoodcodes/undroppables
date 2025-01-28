@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id        String   @id @default(cuid())
+  title   String   
+  author    String
+  filePath   String
+  createdAt DateTime @default(now())
+}
+
+
+
+// to update run: npx prisma migrate dev
+
+// then
+
+// npx prisma generate
