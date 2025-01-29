@@ -9,6 +9,8 @@ import MainNav from "./components/mainNav/MainNav"
 import SecondaryNav from "./components/secondaryNav/SecondaryNav";
 import Footer from "./components/footer/Footer";
 
+import RecentArticlesSection from "./components/recentArticlesSection/RecentArticlesSection";
+
 export default function Home() {
   return (
     <main className={styles.main}>
@@ -17,7 +19,8 @@ export default function Home() {
       <SecondaryNav />
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
-          <div className={styles.articlesSectionWrapper}>articles</div>
+          {/* <div className={styles.articlesSectionWrapper}>articles</div> */}
+          <RecentArticlesSection />
           <div className={styles.middleSectionWrapper}>main</div>
           <div className={styles.rssSectionWrapper}>rss</div>
         

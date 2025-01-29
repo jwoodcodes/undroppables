@@ -14,7 +14,7 @@ export default function MainNav() {
                 
                 <li ><a href="#" className={styles.navLink}>The Undrafted</a></li>
                 <li ><a href="#" className={styles.navLink}>ADP</a></li>
-                <li ><a href="#" className={styles.navLink}>Tools</a></li>
+                <li ><a href="/toolkit" className={styles.navLink}>Tools</a></li>
                 <li ><a href="#" className={styles.navLink}>Partnerships</a></li>
                 <li ><a href="#" className={styles.navLink}>Patreon</a></li>
 

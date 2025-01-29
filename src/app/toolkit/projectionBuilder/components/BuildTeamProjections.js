@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useActionState } from "react";
-import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.css";
+import styles from "../projectionsBuilder.module.css"
 import Link from "next/link";
 import allTeamsList from "./data/allTeamsList";
 

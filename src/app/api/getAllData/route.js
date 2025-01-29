@@ -1,9 +1,8 @@
+"use server";
 import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { data } = req.body;
-
+  if (req.method === "GET") {
     const client = new MongoClient(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -12,11 +11,10 @@ export default async function handler(req, res) {
     try {
       await client.connect();
       const database = client.db("projectionsBuilder"); // Choose a name for your database
-      const collection = database.collection("allPlayersData"); // Choose a name for your collection
+      const collection = database.collection("allPlayerData"); // Choose a name for your collection
+      const allData = await collection.find({}).toArray();
 
-      await collection.insertOne({ data });
-
-      res.status(201).json({ message: "Data saved successfully!" });
+      res.status(200).json(allData);
     } catch (error) {
       res.status(500).json({ message: "Something went wrong!" });
     } finally {
@@ -25,4 +23,4 @@ export default async function handler(req, res) {
   } else {
     res.status(405).json({ message: "Method not allowed!" });
   }
-}
+}MongoClient, 

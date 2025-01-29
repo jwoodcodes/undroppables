@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.css";
+import syles from "../projectionsBuilder.module.css"
 import Link from "next/link";
 import allTeamsList from "./data/allTeamsList";
 import previousYearTeamData from "./data/previousYearTeamData";
