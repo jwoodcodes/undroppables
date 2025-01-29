@@ -1,8 +1,8 @@
 import Image from "next/image";
-import styles from "@/app/toolkit/projectionBuilder/projectionsBuilder.module.css";
+import styles from "./projectionsBuilder.module.css"
 import Link from "next/link";
 import React from "react";
-import clientPromise from "@/lib/mongodb";
+import clientPromise from "../../../lib/mongodb";
 
 import ConstructProjections from "./components/ConstructProjections";
 import { MongoClient } from "mongodb";

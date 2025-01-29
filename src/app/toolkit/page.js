@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/app/toolkit/toolkit.module.css";
+import styles from "./toolkit.module.css"
 import Link from "next/link";
 
 export default function Toolkit() {
