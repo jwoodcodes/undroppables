@@ -1,12 +1,14 @@
+
 services:
   app:
     build:
       context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
     image: nextjs-dev
     ports:
       - "3000:3000"
-    environment:
-     NODE_ENV: development
     develop:
       watch:
         - action: sync
@@ -16,3 +18,5 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
+    volumes:
+      - .:/app
