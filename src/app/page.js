@@ -20,7 +20,7 @@ export default function Home() {
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
           {/* <div className={styles.articlesSectionWrapper}>articles</div> */}
-          {/* <RecentArticlesSection /> */}
+      
             {/* <div className={styles.middleSectionWrapper}>main</div>
           <div className={styles.rssSectionWrapper}>rss</div>   */}
 
