@@ -9,20 +9,22 @@ import MainNav from "./components/mainNav/MainNav"
 import SecondaryNav from "./components/secondaryNav/SecondaryNav";
 import Footer from "./components/footer/Footer";
 
-import RecentArticlesSection from "./components/recentArticlesSection/RecentArticlesSection";
+
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Header />
+      {/* <Header /> */}
       <MainNav />
-      <SecondaryNav />
+      {/* <SecondaryNav /> */}
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
           {/* <div className={styles.articlesSectionWrapper}>articles</div> */}
-          <RecentArticlesSection />
-          <div className={styles.middleSectionWrapper}>main</div>
-          <div className={styles.rssSectionWrapper}>rss</div>
+      
+            {/* <div className={styles.middleSectionWrapper}>main</div>
+          <div className={styles.rssSectionWrapper}>rss</div>   */}
+
+          <div className={styles.mainToolTitle}>UN <span className={styles.scoreToolSpan}>Score Data</span></div>
         
       </div>
       

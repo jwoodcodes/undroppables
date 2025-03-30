@@ -18,5 +18,7 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+    #   - /app/.next
