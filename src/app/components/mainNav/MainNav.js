@@ -5,9 +5,9 @@ import styles from "./mainNav.module.css";
 export default function MainNav() {
     return (
         <nav className={styles.mainNavWrapper}>
-            
+             
             <ul className={styles.navLinksWrapper}>
-                
+                <li><Image src="/UNLogoWithRed.webp" alt="logo" width={300} height={50} /></li>
                 <li ><a href="#" className={styles.navLink}>Podcasts</a></li>
                 
                 <li ><a href="#" className={styles.navLink}>Rankings</a></li>
@@ -25,26 +25,26 @@ export default function MainNav() {
                 
                 <Image
             src="/1691832581twitter-x-icon-png.png"
-            width={60}
-            height={60}
+            width={50}
+            height={50}
             alt=""
           ></Image>
           <Image
             src="/instagramLogo.png"
-            width={60}
-            height={60}
+            width={50}
+            height={50}
             alt=""
           ></Image>
           <Image
             src="/Bluesky_Logo.svg"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt=""
           ></Image>
           <Image
             src="/tiktok-logo.png"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt=""
           ></Image>
             </div>

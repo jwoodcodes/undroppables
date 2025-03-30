@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <a href="/" className={styles.mainLogo}>
-            <Image src="/UNLogoWithRed.webp" alt="logo" width={1300} height={200} />
+            <Image src="/UNLogoWithRed.webp" alt="logo" width={800} height={200} />
             
           
 
