@@ -9,7 +9,7 @@ import MainNav from "./components/mainNav/MainNav"
 import SecondaryNav from "./components/secondaryNav/SecondaryNav";
 import Footer from "./components/footer/Footer";
 
-import RecentArticlesSection from "./components/recentArticlesSection/RecentArticlesSection";
+
 
 export default function Home() {
   return (
