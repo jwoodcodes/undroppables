@@ -441,7 +441,7 @@ const getResponsiveColumnDefs = (width) => {
 //       field: "Pos",
 //       filter: true,
 //       floatingFilter: true,
-//       flex: 1,
+//       
       
 //       minWidth: 60,
 //       cellStyle: {textAlign: 'center'},
