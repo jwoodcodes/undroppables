@@ -443,7 +443,7 @@ const getResponsiveColumnDefs = (width) => {
 //       floatingFilter: true,
 //       
       
-//       minWidth: 60,
+//       
 //       cellStyle: {textAlign: 'center'},
 //     },
 //     {
