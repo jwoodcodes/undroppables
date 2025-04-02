@@ -3,7 +3,8 @@
 
   height: 100dvh;
   min-height: fit-content;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
+  padding-bottom: 10rem;
 }
 
 /* .mainSiteTitleWrapper {
@@ -24,7 +25,7 @@
   gap: 1rem; */
   width: 100%;
   color: var(--color-white);
-  height: 30dvh;
+  /* height: 30dvh; */
   min-height: fit-content;
 }
 
@@ -32,7 +33,7 @@
   text-align: center;
   font-size: 4rem;
   letter-spacing: 0.2rem;
-  margin: 4rem auto 3rem auto;
+  margin: 4rem auto 1rem auto;
   
 
   

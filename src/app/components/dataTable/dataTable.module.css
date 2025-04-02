@@ -1,0 +1,119 @@
+.dataTableSelectsWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 75%;
+    margin: 1rem auto;
+  }
+
+
+
+.clsSelectForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-orange-primary);
+/*   
+    margin-top: 3rem;*/
+      margin-bottom: 3rem; 
+    
+  }
+
+  .clsSelectLabel {
+    margin-bottom: .5rem;
+    font-size: 1.25rem;
+  }
+
+  .clsSelect {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--color-gray-200);
+    /* color: var(--color-gray-50); */
+    color: var(--color-orange-primary);
+    border-radius: 20px;
+    padding: .5rem;
+    font-size: 1.15rem;
+    font-weight: 200;
+  }
+
+  
+
+  .dataGrid {
+    min-width: auto; /* Remove fixed min-width */
+    width: 100%; /* Take full width of container */
+    margin-bottom: 10rem;
+  }
+
+  @media (max-width: 768px) {
+ 
+    
+    .dataTableSelectsWrapper {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .clsSelectForm {
+        margin: 0 auto 1rem auto;
+      }
+
+      .clsSelectForm {
+        margin: 0 auto 1rem auto;
+      }
+
+      .dataGrid {
+        height: calc(100vh - 150px) !important;
+        font-size: 0.5rem;
+      }
+}
+
+@media (max-width: 480px) {
+
+    
+  
+
+    .clsSelectBtnsWrapper {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .clsSelectBtn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  
+    
+  
+    .dataGrid {
+      height: calc(100vh - 120px) !important;
+      font-size: 0.4rem;
+     
+    }
+    .dataGridContainer {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden; /* Prevent outer container from scrolling */
+      }
+      
+      /* Add custom scrollbar styles for better visibility */
+      .dataGrid::-webkit-scrollbar {
+        height: 8px;
+      }
+      
+      .dataGrid::-webkit-scrollbar-track {
+        background: var(--color-gray-200);
+        border-radius: 4px;
+      }
+      
+      .dataGrid::-webkit-scrollbar-thumb {
+        background: var(--color-blue-light);
+        border-radius: 4px;
+      }
+      
+      .dataGrid::-webkit-scrollbar-thumb:hover {
+        background: var(--color-orange-dark);
+      }
+    }
