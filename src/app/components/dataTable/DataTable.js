@@ -11,7 +11,7 @@ export default function DataTable({ data }) {
     const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog visibility
 
-    // console.log(data)
+    console.log(data)
     const myTheme = {
         backgroundColor: "hsl(210deg, 15%, 25%)",
         foregroundColor: "hsl(210deg, 20%, 77%)",
