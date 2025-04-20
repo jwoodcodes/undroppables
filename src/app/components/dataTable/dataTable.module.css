@@ -23,6 +23,7 @@
   .clsSelectLabel {
     margin-bottom: .5rem;
     font-size: 1.25rem;
+    color: var(--color-gray-300);
   }
 
   .clsSelect {
