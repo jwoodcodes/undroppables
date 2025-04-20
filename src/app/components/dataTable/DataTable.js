@@ -11,7 +11,7 @@ export default function DataTable({ data }) {
     const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog visibility
 
-    console.log(data)
+    // console.log(data)
     const myTheme = {
         backgroundColor: "hsl(210deg, 15%, 25%)",
         foregroundColor: "hsl(210deg, 20%, 77%)",
@@ -40,42 +40,7 @@ export default function DataTable({ data }) {
     let dataToUse = data
 
     
-    function year2018(event) {
-      setClassYear(2018);
-      // console.log(classYear)
-    }
-    function year2019(event) {
-      setClassYear(2019);
-      // console.log(classYear)
-    }
-    function year2020(event) {
-      setClassYear(2020);
-      // console.log(classYear)
-    }
-    function year2021(event) {
-      setClassYear(2021);
-      // console.log(classYear)
-    }
-    function year2022(event) {
-      setClassYear(2022);
-      // console.log(classYear)
-    }
-    function year2023(event) {
-      setClassYear(2023);
-      // console.log(classYear)
-    }
-    function year2024(event) {
-      setClassYear(2024);
-      // console.log(classYear)
-    }
-    function year2025(event) {
-      setClassYear(2025);
-      // console.log(classYear)
-    }
-    function yearAll(event) {
-      setClassYear("all");
-      // console.log(classYear)
-    }
+   
 
   //  React.useEffect(() => {
     
@@ -95,25 +60,24 @@ export default function DataTable({ data }) {
       
     //   return +player.class === classYear
     // })
+    let tempDataToUse = data
 
-    if(classYear === "all") {
-      let tempDataToUse = data
-    }
+    if(classYear !== "all") {
+      
+    
 
-    // dataToUse = tempDataToUse.filter((player) => {
+    dataToUse = dataToUse.filter((player) => {
       
-    //   // console.log(player.rookieGuideData.Position, positionForDataTable)
+      console.log(+player.class, positionForDataTable)
       
       
-    //   return player.rookieGuideData.Position === positionForDataTable
-    // })
+      return +player.class === positionForDataTable
+    })
+
+    
     // console.log("here", positionForDataTable)
-    if(positionForDataTable === "all") {
-      if(classYear === "all") {
-      dataToUse = data
-      } else {
-        dataToUse = tempDataToUse
-      }
+    
+     
       
     }
 
@@ -130,8 +94,8 @@ export default function DataTable({ data }) {
         p.weight = player.weight;
         p.draftRound = player.draftRound;
         p.draftPick = player.draftPick;
-        p['slot %'] = player.careerSlotPercentage;
-        p['wide %'] = player.careerWidePercentage;
+        p['slot %'] = player.careerSlotPercentage.toFixed(1);
+        p['wide %'] = player.careerWidePercentage.toFixed(1);
         p['HCT %'] = player.highestContestedTargetPercent;
 
         p['AVG PPR'] = player.careerAveragedStats['PPR Points'];
@@ -382,20 +346,47 @@ const getResponsiveColumnDefs = (width) => {
       sortable: true,
       
     },
-   
-  
+    {
+      field: "TGTs/G",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: {textAlign: 'center'},
+      minWidth: 100,
+      sortable: true,
+      
+    },
+    {
+      field: "RR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: {textAlign: 'center'},
+      minWidth: 100,
+      sortable: true,
+      
+    },
+    {
+      field: "Man YPRR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: {textAlign: 'center'},
+      minWidth: 100,
+      sortable: true,
+      
+    },
+    {
+      field: "Zone YPRR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: {textAlign: 'center'},
+      minWidth: 100,
+      sortable: true,
+      
+    },
 
-
-    
-    
-    //     p['TGTs/G'] = player.careerAveragedStats['TGTs/G'];
-    //     p.RR = player.careerAveragedStats.RR;
-   
-    
-  
-    //     p['Man YPRR'] = player.careerAveragedStats['Man YPRR'];
-    //     p['Zone YPRR'] = player.careerAveragedStats['Zone YPRR'];
-   
     {
       field: "HCT %",
       filter: true,
@@ -413,458 +404,7 @@ const getResponsiveColumnDefs = (width) => {
   
 
   return baseColDefs;
-// };
 
-
-// function changeDataTableData(value) {
-
-//   baseColDefs = [
-//     {
-//       field: "name",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 2,
-//       pinned: "left",
-//       maxWidth: 160,
-//       minWidth: 140,
-//       cellStyle: {textAlign: 'center'},
-//       cellRenderer: (params) => (
-//         <span
-//           style={{ cursor: 'pointer', textDecoration: 'none' }}
-//           onClick={() => openDialog(params.value)}
-//         >
-//           {params.value}
-//         </span>
-//       ),
-//     },
-//     {
-//       field: "Pos",
-//       filter: true,
-//       floatingFilter: true,
-//       
-      
-//       
-//       cellStyle: {textAlign: 'center'},
-//     },
-//     {
-//       field: "class",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 1,
-      
-//       minWidth: 70,
-//       cellStyle: {textAlign: 'center'},
-//     },
-//     {
-//       field: "Grade",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 1,
-      
-//       minWidth: 100,
-//       sortable: true,
-//       sort: 'desc',
-//       cellStyle: {textAlign: 'center'},
-//     }
-//   ];
-
-//   if(value === "prospect grades") {
-//     baseColDefs.push(
- 
-//     {
-//       field: "analytical",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 1,
-      
-//       minWidth: 100,
-//       sortable: true,
-//       cellStyle: {textAlign: 'center'},
-//     },
-//     {
-//       field: "film",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 1,
-      
-//       minWidth: 100,
-//       sortable: true,
-//       cellStyle: {textAlign: 'center'},
-//     },
-//     {
-//       field: "Landing",
-//       filter: true,
-//       floatingFilter: true,
-//       flex: 1,
-      
-//       minWidth: 100,
-//       sortable: true,
-//       cellStyle: {textAlign: 'center'},
-//     },
-
-
-   
-//   )
-    
-//   }
-
-//   if(value === "all") {
-//     baseColDefs.push(
-//       {
-//         field: "ruAtt",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-        
-//       },
-//       {
-//         field: "ruYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-        
-//       },
-//       {
-//         field: "ruTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 70,
-//         minWidth: 70,
-        
-//       },
-//       {
-//         field: "Ru Y/A",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 80,
-//         minWidth: 80,
-//       },
-//       {
-//         field: "Ru Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 80,
-//         minWidth: 80,
-//       },
-//       {
-//         field: "rec",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 60,
-//         minWidth: 60,
-//       },
-//       {
-//         field: "reYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-//       },
-//       {
-//         field: "reTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-//       },
-//       {
-//         field: "Re Y/R",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-//       },
-//       {
-//         field: "Re Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-//       },
-//       {
-//         field: "pAtt",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 70,
-//         minWidth: 70,
-//       },
-//       {
-//         field: "Cmp",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 70,
-//         minWidth: 70,
-//       },
-//       {
-//         field: "cmp%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 80,
-//         minWidth: 80,
-//       },
-//       {
-//         field: "pYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 75,
-//         minWidth: 75,
-//       },
-//       {
-//         field: "pTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 70,
-//         minWidth: 70,
-//       },
-//       {
-//         field: "TD%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 65,
-//         minWidth: 65,
-//       },
-//       {
-//         field: "Int",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 55,
-//         minWidth: 55,
-//       },
-//       {
-//         field: "Int%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 65,
-//         minWidth: 65,
-//       },
-//       {
-//         field: "Y/A",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 60,
-//         minWidth: 60,
-//       },
-//       {
-//         field: "Y/C",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 60,
-//         minWidth: 60,
-//       },
-//       {
-//         field: "Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         maxWidth: 80,
-//         minWidth: 80,
-//       },
-//     );
-//   }
-
-//   if(value === "passing") {
- 
-//     baseColDefs.push(
-      
-//       {
-//         field: "pAtt",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 70,
-//       },
-//       {
-//         field: "Cmp",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 70,
-//       },
-//       {
-//         field: "cmp%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 80,
-//       },
-//       {
-//         field: "pYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "pTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 70,
-//       },
-//       {
-//         field: "TD%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 65,
-//       },
-//       {
-//         field: "Int",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 55,
-//       },
-//       {
-//         field: "Int%",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 65,
-//       },
-//       {
-//         field: "Y/A",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 60,
-//       },
-//       {
-//         field: "Y/C",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 60,
-//       },
-//       {
-//         field: "Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 80,
-//       },
-//     );
-//   }
-
-
-//   if(value === "rushing & receiving") {
- 
-//     baseColDefs.push(
-//       {
-//         field: "ruAtt",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "ruYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "ruTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 70,
-//       },
-//       {
-//         field: "Ru Y/A",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 80,
-//       },
-//       {
-//         field: "Ru Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 80,
-//       },
-//       {
-//         field: "rec",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 60,
-//       },
-//       {
-//         field: "reYds",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "reTD",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "Re Y/R",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//       {
-//         field: "Re Y/G",
-//         filter: true,
-//         floatingFilter: true,
-//         flex: 1,
-//         cellStyle: {textAlign: 'center'},
-//         minWidth: 75,
-//       },
-//     )
-  // }
 
   setColDefs(baseColDefs);
 
@@ -938,7 +478,9 @@ const defaultColDef = useMemo(() => ({
                     id="class-select"
                    value={classYear}
                    onChange={event => {
+                    // console.log(event.target.value)
                      event.target.value === "all" ? setClassYear("all") : setClassYear(+event.target.value)
+                     event.target.value === "all" ? setPositionForDataTable("all") : setPositionForDataTable(+event.target.value)
                     
             // console.log(event.target.value, typeof event.target.value, classYear, )
                    }}
@@ -1056,16 +598,7 @@ const defaultColDef = useMemo(() => ({
 
         </div>
 
-          {/* <div className={styles.clsSelectBtnsWrapper}>
-          
-          <button className={styles.clsSelectBtn} value={2021} onClick={year2021}>2021</button>
-          <button className={styles.clsSelectBtn} onClick={year2022}>2022</button>
-          <button className={styles.clsSelectBtn} onClick={year2023}>2023</button>
-          <button className={styles.clsSelectBtn} onClick={year2024}>2024</button>
-          <button className={styles.clsSelectBtn} onClick={year2025}>2025</button>
-          <button className={styles.clsSelectBtn} onClick={yearAll}>21-25</button>
-
-        </div> */}
+      
         <div className="ag-theme-alpine-dark" style={gridStyle}>
             <AgGridReact
                 columnDefs={colDefs}
