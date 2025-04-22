@@ -11,6 +11,8 @@ export default function DataTable({ data }) {
     const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog visibility
 
+    const [statsToShow, setStatsToShow] = useState([]);
+
     // console.log(data)
     const myTheme = {
         backgroundColor: "hsl(210deg, 15%, 25%)",
@@ -32,83 +34,64 @@ export default function DataTable({ data }) {
 
     const [positionForDataTable,setPositionForDataTable] = React.useState("all")
 
-    const [dataSetToDisplay, setDataSetToDisplay] = React.useState("prospect grades")
+    const [dataSetToDisplay, setDataSetToDisplay] = React.useState(["name", "class", "UNScore"])
 
     const [rowData, setRowData] = React.useState([]);
 
 
+
+    //
+    //
+
     let dataToUse = data
 
-    
-   
+        //  console.log(dataToUse)
 
-  //  React.useEffect(() => {
-    
-    
+  React.useEffect(() => {
 
-    
+      const newPlayerArray = [];
 
-  //  }, [classYear])
-
-    
-  //  console.log(dataToUse)
-
-    React.useEffect(() => {
-    const newPlayerArray = [];
-
-    // let tempDataToUse = data.filter((player) => {
       
-    //   return +player.class === classYear
-    // })
-    let tempDataToUse = data
 
-    if(classYear !== "all") {
-      
-    
+        if(classYear !== "all") {
 
-    dataToUse = dataToUse.filter((player) => {
+        dataToUse = dataToUse.filter((player) => {
       
-      console.log(+player.class, positionForDataTable)
-      
-      
-      return +player.class === positionForDataTable
-    })
+          return +player.class === positionForDataTable
+        })    
+        }
+
 
     
-    // console.log("here", positionForDataTable)
-    
-     
-      
-    }
 
-    dataToUse.map((player) => {
+      dataToUse.map((player) => {
         let p = {};
 
-        console.log(player)
+        // console.log(player)
 
 
         p.name = player.name;
         p.class = player.class;
         p.UNScore = player.unScore;
-        p.height = player.height;
-        p.weight = player.weight;
-        p.draftRound = player.draftRound;
-        p.draftPick = player.draftPick;
-        p['slot %'] = player.careerSlotPercentage.toFixed(1);
-        p['wide %'] = player.careerWidePercentage.toFixed(1);
-        p['HCT %'] = player.highestContestedTargetPercent;
+        p.Height = +player.height;
+        p.weight = +player.weight;
+        p['Draft Round'] = +player.draftRound;
+        p['Draft Pick'] = +player.draftPick;
+        p['slot %'] = +player.careerSlotPercentage.toFixed(1);
+        p['wide %'] = +player.careerWidePercentage.toFixed(1);
+        p['HCT %'] = +player.highestContestedTargetPercent;
 
-        p['AVG PPR'] = player.careerAveragedStats['PPR Points'];
-        p['MTF/REC %'] = player.careerAveragedStats['MTF/REC %'];
-        p['1D/Snap'] = (player.careerAveragedStats['1D/Snap'] / 100).toFixed(3);
-        p['1D/RR'] = (player.careerAveragedStats['1D/RR'] / 100).toFixed(3);
-        p['TGTs/G'] = player.careerAveragedStats['TGTs/G'];
-        p.RR = player.careerAveragedStats.RR;
-        p.TPRR = player.careerAveragedStats.TPRR;
-        p['YAC/Rec'] = player.careerAveragedStats['YAC/Rec'];
-        p.YPRR = player.careerAveragedStats.YPRR;
-        p['Man YPRR'] = player.careerAveragedStats['Man YPRR'];
-        p['Zone YPRR'] = player.careerAveragedStats['Zone YPRR'];
+        p['AVG PPR'] = +player.careerAveragedStats['PPR Points'];
+        p['MTF/REC %'] = +player.careerAveragedStats['MTF/REC %'];
+        p['1D/Snap'] = +(player.careerAveragedStats['1D/Snap'] / 100).toFixed(3);
+        p['1D/RR'] = +(player.careerAveragedStats['1D/RR'] / 100).toFixed(3);
+        p['TGTs/G'] = +player.careerAveragedStats['TGTs/G'];
+        p['AVG RR'] = +player.careerAveragedStats.RR;
+        p.TPRR = +player.careerAveragedStats.TPRR;
+        p['YAC/Rec'] = +player.careerAveragedStats['YAC/Rec'];
+        p.YPRR = +player.careerAveragedStats.YPRR;
+        p['Man YPRR'] = +player.careerAveragedStats['Man YPRR'];
+        p['Zone YPRR'] = +player.careerAveragedStats['Zone YPRR'];
         
         
        
@@ -118,15 +101,14 @@ export default function DataTable({ data }) {
         //   app-1   |       'MTF/REC %': 12.7,
         //   app-1   |       '1D/Snap': 9.6,
         //   app-1   |       '1D/RR': 10.12,
-          
-          
-        //   app-1   |       'TGTs/G': 5.33,
+       //   app-1   |       'TGTs/G': 5.33,
         //   app-1   |       RR: 323.33,
         //   app-1   |       TPRR: 0.24,
         //   app-1   |       'YAC/Rec': 3.33,
         //   app-1   |       YPRR: 2.06,
         //   app-1   |       'Man YPRR': 0,
         //   app-1   |       'Zone YPRR': 0,
+
         //   app-1   |       'PPR Points': 163.63,
         //   app-1   |       'Reception MS (Games Played)': 0.2,
         //   app-1   |       'Rec Yds MS': 0.21,
@@ -153,14 +135,16 @@ export default function DataTable({ data }) {
 
 
         newPlayerArray.push(p)
-    })
+      })
 
-    setRowData(newPlayerArray)
+          setRowData(newPlayerArray)
 
-}, [data, classYear, positionForDataTable])
+  }, [data, classYear, positionForDataTable])
 
 
 let baseColDefs = []
+
+
 
 
 
@@ -207,201 +191,10 @@ const getResponsiveColumnDefs = (width) => {
       minWidth: width < 768 ? 95 : 100,
       sortable: true,
       sort: 'desc',
-    }
+    },
+   
   ];
 
-
-  
-
-  if(dataSetToDisplay === "prospect grades") {
-    baseColDefs.push(
- 
-    {
-      field: "height",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "weight",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "draftRound",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "draftPick",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "AVG PPR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "slot %",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "wide %",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "1D/RR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "1D/Snap",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "MTF/REC %",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "TPRR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "YPRR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "YAC/Rec",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "TGTs/G",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "RR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "Man YPRR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-    {
-      field: "Zone YPRR",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-
-    {
-      field: "HCT %",
-      filter: true,
-      floatingFilter: true,
-      flex: 1,
-      cellStyle: {textAlign: 'center'},
-      minWidth: 100,
-      sortable: true,
-      
-    },
-  )
-    
-  }
-
-  
 
   return baseColDefs;
 
@@ -409,6 +202,8 @@ const getResponsiveColumnDefs = (width) => {
   setColDefs(baseColDefs);
 
 }
+
+
 
 
 
@@ -427,9 +222,249 @@ useEffect(() => {
   return () => window.removeEventListener('resize', handleResize);
 }, []);
 
+
+
 const [colDefs, setColDefs] = useState(getResponsiveColumnDefs(windowWidth));
 
+const allPossibleMetrics = [
+      
+  {
+    field: "Height",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "weight",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "Draft Round",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "Draft Pick",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "AVG PPR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  
+  {
+    field: "slot %",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "wide %",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "1D/RR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "1D/Snap",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "MTF/REC %",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "TPRR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "YPRR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "YAC/Rec",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "TGTs/G",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "AVG RR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "Man YPRR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+  {
+    field: "Zone YPRR",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
 
+  {
+    field: "HCT %",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {textAlign: 'center'},
+    minWidth: 100,
+    sortable: true,
+    
+  },
+]
+
+
+React.useEffect((windowWidth) => {
+  let baseColDefs = [ {
+    field: "name",
+    
+    filter: true,
+    floatingFilter: true,
+    flex: 2,
+    pinned: "left",
+    maxWidth: windowWidth < 768 ? 130 : 200,
+    minWidth: windowWidth < 768 ? 90 : 140,
+    headerClass: 'header-center',
+    cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+    cellRenderer: (params) => (
+      <span
+        style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center' }}
+        onClick={() => openDialog(params.value)}
+      >
+        {params.value}
+      </span>
+    ),
+  },
+
+  {
+    field: "class",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+    minWidth: windowWidth < 768 ? 65 : 70,
+  },
+  {
+    field: "UNScore",
+    filter: true,
+    floatingFilter: true,
+    flex: 1,
+    cellStyle: {   textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+    minWidth: windowWidth < 768 ? 95 : 100,
+    sortable: true,
+    sort: 'desc',
+  },]
+  
+  allPossibleMetrics.map((metric) => {
+    dataSetToDisplay.map((dataSet) => {
+      if(metric.field === dataSet){
+        baseColDefs.push(metric)
+      }
+    })
+    
+  })
+
+  setColDefs(baseColDefs)
+}, [dataSetToDisplay, windowWidth])
 
 const defaultColDef = useMemo(() => ({
     flex: 1,
@@ -459,6 +494,8 @@ const defaultColDef = useMemo(() => ({
         setComparePlayer(null)
     };
 
+    console.log(dataSetToDisplay)
+
     return (
         <div style={containerStyle}>
 
@@ -477,6 +514,7 @@ const defaultColDef = useMemo(() => ({
                   <select
                     id="class-select"
                    value={classYear}
+                  //  multiple= {true}
                    onChange={event => {
                     // console.log(event.target.value)
                      event.target.value === "all" ? setClassYear("all") : setClassYear(+event.target.value)
@@ -516,85 +554,202 @@ const defaultColDef = useMemo(() => ({
                   </select>
                   </form>
 
-                  {/* <form
+                  
+
+              <form
                   onSubmit={(event) => {
                    event.preventDefault();
                   }}
-                  className={styles.clsSelectForm}
+                  className={styles.dataSelectForm}
               >
-                  <label htmlFor="position-select" className={styles.clsSelectLabel}>
-                   Position
+                  <label htmlFor="metrics-select" className={styles.clsSelectLabel}>
+                   Add/Remove metrics from table
                   </label>
         
-                  <select
-                    id="position-select"
-                   value={positionForDataTable}
+                <select
+                    id="metrics-select"
+                   value={classYear}
+                   multiple= {true}
                    onChange={event => {
-                    // console.log("target value", event.target.value)
-                    event.target.value === "all" ? setPositionForDataTable("all") : setPositionForDataTable(event.target.value)
-                     
-                  // console.log(event.target.value, typeof event.target.value, classYear, )
-                   }}
-                   className={styles.clsSelect}
-                  >
-                   <option value={"QB"}>
-                      QB
-                    </option>
-                    <option value={"RB"}>
-                      RB
-                    </option>
-                    <option value={"WR"}>
-                      WR
-                   </option>
-                    <option value={"TE"}>
-                      TE
-                    </option>
-                    <option value={"all"}>
-                      All
-                    </option>
-                   
-                  </select>
-                  </form> */}
-
-
-                  {/* <form
-                  onSubmit={(event) => {
-                   event.preventDefault();
-                  }}
-                  className={styles.clsSelectForm}
-              >
-                  <label htmlFor="dataSet-select" className={styles.clsSelectLabel}>
-                   Dataset
-                  </label>
-        
-                  <select
-                    id="dataSet-select"
-                   value={dataSetToDisplay}
-                   onChange={event => {
-                    // console.log("target value", event.target.value)
-                    event.target.value === "all" ? setDataSetToDisplay("all") : setDataSetToDisplay(event.target.value)
-                    changeDataTableData(event.target.value)
-                     
-                  // console.log(event.target.value, typeof event.target.value, classYear, )
-                   }}
-                   className={styles.clsSelect}
-                  >
-                   <option value={"prospect grades"}>
-                      prospect grades
-                    </option>
-                    <option value={"passing"}>
-                      passing
-                    </option>
+                    // console.log(event.target.value)
+                    //  event.target.value === "all" ? setClassYear("all") : setClassYear(+event.target.value)
+                    //  event.target.value === "all" ? setPositionForDataTable("all") : setPositionForDataTable(+event.target.value)
+                    dataSetToDisplay.includes(event.target.value) ? setDataSetToDisplay(dataSetToDisplay.filter(item => item !== event.target.value)) : setDataSetToDisplay([...dataSetToDisplay, event.target.value])
                     
-                    <option value={"rushing & receiving"}>
-                      rushing & receiving
+                    
+          
+                   }}
+                   className={styles.datasetSelect}
+                  >
+                    {dataSetToDisplay.includes("Height") ? 
+                    <option value="Height" style={{color: "red"}}>
+                      Height
                     </option>
-                    <option value={"all"}>
-                      All
+                    : <option value="Height" >
+                    Height
+                  </option>
+                    }
+
+
+                      {dataSetToDisplay.includes("Draft Round") ? 
+                    <option value="Draft Round" style={{color: "red"}}>
+                      Draft Round
                     </option>
+                    : <option value="Draft Round" >
+                    Draft Round
+                  </option>
+                    }
+
+                  {dataSetToDisplay.includes("Draft Pick") ? 
+                    <option value="Draft Pick" style={{color: "red"}}>
+                      Draft Pick
+                    </option>
+                    : <option value="Draft Pick" >
+                    Draft Pick
+                  </option>
+                    }
+
+
+                    {dataSetToDisplay.includes("AVG PPR") ? 
+                    <option value="AVG PPR" style={{color: "red"}}>
+                      AVG PPR
+                    </option>
+                    : <option value="AVG PPR" >
+                    AVG PPR
+                  </option>
+                    }
+
+                    {dataSetToDisplay.includes("slot %") ? 
+                    <option value="slot %" style={{color: "red"}}>
+                      slot %
+                    </option>
+                    : <option value="slot %" >
+                    slot %
+                  </option>
+                    }
+
+                    {dataSetToDisplay.includes("wide %") ? 
+                    <option value="wide %" style={{color: "red"}}>
+                      wide %
+                    </option>
+                    : <option value="wide %" >
+                    wide %
+                  </option>
+                    }
                    
-                  </select>
-                  </form> */}
+                   {dataSetToDisplay.includes("1D/RR") ? 
+                    <option value="1D/RR" style={{color: "red"}}>
+                      1D/RR
+                    </option>
+                    : <option value="1D/RR" >
+                    1D/RR
+                  </option>
+                    }
+
+                  {dataSetToDisplay.includes("1D/Snap") ? 
+                    <option value="1D/Snap" style={{color: "red"}}>
+                      1D/Snap
+                    </option>
+                    : <option value="1D/Snap" >
+                    1D/Snap
+                  </option>
+                    }
+
+                  {dataSetToDisplay.includes("MTF/REC %") ? 
+                    <option value="MTF/REC %" style={{color: "red"}}>
+                      MTF/REC %
+                    </option>
+                    : <option value="MTF/REC %" >
+                    MTF/REC %
+                  </option>
+                    } 
+
+                  {dataSetToDisplay.includes("TPRR") ? 
+                    <option value="TPRR" style={{color: "red"}}>
+                      TPRR
+                    </option>
+                    : <option value="TPRR" >
+                    TPRR
+                  </option>
+                    } 
+
+                    {dataSetToDisplay.includes("YPRR") ? 
+                    <option value="YPRR" style={{color: "red"}}>
+                      YPRR
+                    </option>
+                    : <option value="YPRR" >
+                    YPRR
+                  </option>
+                    } 
+
+                    {dataSetToDisplay.includes("YAC/Rec") ? 
+                    <option value="YAC/Rec" style={{color: "red"}}>
+                      YAC/Rec
+                    </option>
+                    : <option value="YAC/Rec" >
+                    YAC/Rec
+                  </option>
+                    } 
+
+                  {dataSetToDisplay.includes("TGTs/G") ? 
+                    <option value="TGTs/G" style={{color: "red"}}>
+                      TGTs/G
+                    </option>
+                    : <option value="TGTs/G" >
+                    TGTs/G
+                  </option>
+                    } 
+                   
+                   {dataSetToDisplay.includes("TGTs/G") ? 
+                    <option value="TGTs/G" style={{color: "red"}}>
+                      TGTs/G
+                    </option>
+                    : <option value="TGTs/G" >
+                    TGTs/G
+                  </option>
+                    } 
+
+                    {dataSetToDisplay.includes("AVG RR") ? 
+                    <option value="AVG RR" style={{color: "red"}}>
+                      AVG RR
+                    </option>
+                    : <option value="AVG RR" >
+                    AVG RR
+                  </option>
+                    }
+
+                  {dataSetToDisplay.includes("Man YPRR") ? 
+                    <option value="Man YPRR" style={{color: "red"}}>
+                      Man YPRR
+                    </option>
+                    : <option value="Man YPRR" >
+                    Man YPRR
+                  </option>
+                    }
+
+                    {dataSetToDisplay.includes("Zone YPRR") ? 
+                    <option value="Zone YPRR" style={{color: "red"}}>
+                      Zone YPRR
+                    </option>
+                    : <option value="Zone YPRR" >
+                    Zone YPRR
+                  </option>
+                    }
+
+                    {dataSetToDisplay.includes("HCT %") ? 
+                    <option value="HCT %" style={{color: "red"}}>
+                      HCT %
+                    </option>
+                    : <option value="HCT %" >
+                    HCT %
+                  </option>
+                    }
+                   
+                   
+                   
+                   
+                </select>
+              </form>
 
         </div>
 
