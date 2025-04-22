@@ -16,13 +16,28 @@
     color: var(--color-orange-primary);
 /*   
     margin-top: 3rem;*/
-      margin-bottom: 3rem; 
+      margin-bottom: 1rem; 
+      margin-top: -1rem;
+    
+  }
+
+  .dataSelectForm {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+  
+     margin-top: 3rem;
+      margin-bottom: 1rem; 
+    
     
   }
 
   .clsSelectLabel {
     margin-bottom: .5rem;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--color-gray-300);
   }
 
@@ -30,13 +45,54 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-100);
     /* color: var(--color-gray-50); */
-    color: var(--color-orange-primary);
+    color: var(--color-gray-900);
     border-radius: 20px;
     padding: .5rem;
     font-size: 1.15rem;
     font-weight: 200;
+  }
+
+  .datasetSelect {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--color-gray-100);
+    /* color: var(--color-gray-50); */
+    /* margin-top: 2rem; */
+    border-radius: 5px;
+    padding: .25rem 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 200;
+    max-height: 20rem;
+  }
+  
+  
+  
+  /* Custom scrollbar for WebKit browsers */
+  .datasetSelect::-webkit-scrollbar {
+      width: 12px; /* Width of the scrollbar */
+  }
+  
+  .datasetSelect::-webkit-scrollbar-track {
+      background: var(--color-gray-200); /* Background of the scrollbar track */
+      border-radius: 10px; /* Rounded corners for the track */
+  }
+  
+  .datasetSelect::-webkit-scrollbar-thumb {
+      background: var(--color-blue-light); /* Color of the scrollbar thumb */
+      border-radius: 10px; /* Rounded corners for the thumb */
+  }
+  
+  .datasetSelect::-webkit-scrollbar-thumb:hover {
+      background: var(--color-orange-dark); /* Color of the thumb on hover */
+  }
+  
+  /* Custom scrollbar for Firefox */
+  .datasetSelect {
+      scrollbar-width: thin; /* Options: auto | thin */
+      scrollbar-color: var(--color-blue-light) var(--color-gray-200); /* thumb color and track color */
   }
 
   
