@@ -589,30 +589,31 @@ const defaultColDef = useMemo(() => ({
     }
 }), []);
 
-    const openDialog = (playerName) => {
-        console.log("Clicked Player Name:", playerName); // Log the clicked player name
+    // const openDialog = (playerName) => {
+    //     console.log("Clicked Player Name:", playerName); // Log the clicked player name
+    //     const TESTplayer = data.find(item => {
+    //       // console.log(item.name)
+    //       // item.name.trim().toLowerCase() === playerName.trim().toLowerCase();
+    //     });
+    //     const player = data.find(item => item.name.toLowerCase() === playerName.trim().toLowerCase()); // Find the player by name
+    //     // console.log("Selected Player Data:", player); // Log the selected player data
+    //     setSelectedPlayer(player); // Set the selected player
+    //     setIsDialogOpen(true); // Open the dialog
+    // };
+
+    const openComps = (playerName) => {
+      
+        // console.log("Clicked Player Name:", playerName); // Log the clicked player name
         const TESTplayer = data.find(item => {
           // console.log(item.name)
           // item.name.trim().toLowerCase() === playerName.trim().toLowerCase();
         });
         const player = data.find(item => item.name.toLowerCase() === playerName.trim().toLowerCase()); // Find the player by name
         // console.log("Selected Player Data:", player); // Log the selected player data
-        setSelectedPlayer(player); // Set the selected player
-        setIsDialogOpen(true); // Open the dialog
-    };
-
-    const openComps = (playerName) => {
-        console.log("Clicked Player Name:", playerName); // Log the clicked player name
-        const TESTplayer = data.find(item => {
-          // console.log(item.name)
-          // item.name.trim().toLowerCase() === playerName.trim().toLowerCase();
-        });
-        const player = data.find(item => item.name.toLowerCase() === playerName.trim().toLowerCase()); // Find the player by name
-        console.log("Selected Player Data:", player); // Log the selected player data
-        setSelectedPlayer(player); // Set the selected player
-        setIsCompsOpen(true); // Open the dialog
+        // setSelectedPlayer(player); // Set the selected player
+        // setIsCompsOpen(true); // Open the dialog
         let selectedPlayersComps = player.topModelComps
-        let compDataArray = []
+        let compDataArray = [player]
         // console.log(data)
         data.map((metric) => {
           // console.log(metric)
@@ -710,7 +711,10 @@ const defaultColDef = useMemo(() => ({
         //
 
         setRowData(finalCompArray)
-        setResetToAllPlayers(false)
+        
+          setResetToAllPlayers(false)
+        
+        // setResetToAllPlayers(false)
     };
 
     const [comparePlayer, setComparePlayer] = useState(null);
@@ -720,6 +724,12 @@ const defaultColDef = useMemo(() => ({
         setSelectedPlayer(null); // Clear the selected player
         setComparePlayer(null)
     };
+
+    const resetTable = () => {
+      
+        setResetToAllPlayers(true)
+     
+    }
 
     // console.log(dataSetToDisplay)
 
@@ -781,7 +791,7 @@ const defaultColDef = useMemo(() => ({
                   </select>
                   </form>
 
-                  <button onClick={() => setResetToAllPlayers(true)} className={styles.clsSelect}>Return to all Players</button>
+                  <button onClick={() => resetTable()} className={styles.clsSelect}>Return to all Players</button>
 
               <form
                   onSubmit={(event) => {
