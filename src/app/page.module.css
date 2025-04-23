@@ -3,8 +3,8 @@
 
   height: 100dvh;
   min-height: fit-content;
-  margin-bottom: 10rem;
-  padding-bottom: 10rem;
+  margin-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 
 /* .mainSiteTitleWrapper {
@@ -27,6 +27,7 @@
   color: var(--color-white);
   /* height: 30dvh; */
   min-height: fit-content;
+ 
 }
 
 .mainToolTitle {
