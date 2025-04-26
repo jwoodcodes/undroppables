@@ -204,7 +204,8 @@ const getResponsiveColumnDefs = (width) => {
       cellRenderer: (params) => (
         <span
           style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center' }}
-          onClick={() => openDialog(params.value)}
+          // onClick={() => openDialog(params.value)}
+          onClick={() => openComps(params.value)}
         >
           {params.value}
         </span>
@@ -712,9 +713,7 @@ const defaultColDef = useMemo(() => ({
 
         setRowData(finalCompArray)
         
-          setResetToAllPlayers(false)
         
-        // setResetToAllPlayers(false)
     };
 
     const [comparePlayer, setComparePlayer] = useState(null);
@@ -727,7 +726,9 @@ const defaultColDef = useMemo(() => ({
 
     const resetTable = () => {
       
-        setResetToAllPlayers(true)
+        setResetToAllPlayers(!resetToAllPlayers)
+
+        
      
     }
 
