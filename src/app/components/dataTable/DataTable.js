@@ -5,7 +5,7 @@ import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import styles from './dataTable.module.css'
-import PlayerDialog from './PlayerDialog'; // Import the dialog component
+import PlayerDialog from './PlayerDialog'; 
 
 export default function DataTable({ data }) {
     const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
@@ -719,8 +719,8 @@ const defaultColDef = useMemo(() => ({
     const [comparePlayer, setComparePlayer] = useState(null);
 
     const closeDialog = () => {
-        setIsDialogOpen(false); // Close the dialog
-        setSelectedPlayer(null); // Clear the selected player
+        setIsDialogOpen(false);
+        setSelectedPlayer(null); 
         setComparePlayer(null)
     };
 
