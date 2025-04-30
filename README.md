@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# The Undroppables Fantasy Football Analytics
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
+The Undroppables is a comprehensive fantasy football analytics platform that provides player rankings, statistical analysis, and comparison tools. Built with Next.js and MongoDB, this application offers an interactive data grid for exploring player statistics and performance metrics.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Portfolio Preview](/public/readMeImg.png)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Features
+- **Interactive Data Grid**: Powered by AG-Grid, offering:
+  - Sortable columns
+  - Custom filtering
+  - Pagination
+  - Responsive design
+  - Dark theme optimization
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Player Analytics**:
+  - UN Score rankings
+  - Detailed player statistics
+  - Class-based filtering (2018-2025)
+  - Multiple metric comparisons
 
-## Learn More
+- **Customizable Metrics Display**:
+  - Height & Weight
+  - Draft information
+  - Performance metrics (PPR, TPRR, YPRR, etc.)
+  - Advanced statistics (Dominator Rating, AYPTP, etc.)
 
-To learn more about Next.js, take a look at the following resources:
+- **Player Comparison Tools**:
+  - Side-by-side player comparison
+  - Statistical breakdowns
+  - Player bio information
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
+- **Frontend**:
+  - Next.js
+  - React
+  - AG-Grid for data visualization
+  - CSS Modules for styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Backend**:
+  - MongoDB for data storage
+  - Next.js API routes
+  - Server-side rendering
 
-## Deploy on Vercel
+- **Deployment**:
+  - Docker support
+  - Vercel Analytics integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Features in Development
+- Advanced player comparison tools
+- Historical data analysis
+- Player projection models
+- Mobile optimization
