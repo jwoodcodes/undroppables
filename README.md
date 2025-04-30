@@ -6,7 +6,7 @@
 The Undroppables is a comprehensive fantasy football analytics platform that provides player rankings, statistical analysis, and comparison tools. Built with Next.js and MongoDB, this application offers an interactive data grid for exploring player statistics and performance metrics.
 
 ## Preview
-![The Undroppables Preview](/undroppables/public/readMeImg.png)
+![The Undroppables Preview](/public/readMeImg.png)
 
 ## Features
 - **Interactive Data Grid**: Powered by AG-Grid, offering:
