@@ -8,13 +8,14 @@ export default function MainNav() {
              
             <ul className={styles.navLinksWrapper}>
                 <li><Image src="/UNLogoWithRed.webp" alt="logo" width={300} height={50} /></li>
-                <li ><a href="#" className={styles.navLink}>Podcasts</a></li>
+                
                 
                 <li ><a href="#" className={styles.navLink}>Rankings</a></li>
-                
-                <li ><a href="#" className={styles.navLink}>The Undrafted</a></li>
-                <li ><a href="#" className={styles.navLink}>ADP</a></li>
+                <li ><a href="/unscore" className={styles.navLink}>UN Score</a></li>
+                <li ><a href="#" className={styles.navLink}>Podcasts</a></li>
                 <li ><a href="/toolkit" className={styles.navLink}>Tools</a></li>
+                {/* <li ><a href="#" className={styles.navLink}>The Undrafted</a></li> */}
+                
                 <li ><a href="#" className={styles.navLink}>Partnerships</a></li>
                 <li ><a href="#" className={styles.navLink}>Patreon</a></li>
 
