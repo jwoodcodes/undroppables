@@ -1,17 +1,22 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import Link from "next/link";
 
-import Header from "./components/header/Header";
-import MainNav from "./components/mainNav/MainNav"
+import Header from "../components/header/Header";
+import MainNav from "../components/mainNav/MainNav"
 
-import Footer from "./components/footer/Footer";
-import { fetchData } from "./components/unScoreComponents/DataFetcher";
-import DataTableWrapper from "./components/unScoreComponents/DataTableWrapper";
+import Footer from "../components/footer/Footer";
+import { fetchData } from "../components/unScoreComponents/DataFetcher";
+import DataTableWrapper from "../components/unScoreComponents/DataTableWrapper";
 
-export default async function Home() {
+// Define the type for the data fetched
+type DataType = {
+  // Define the structure of your data here
+};
+
+export default async function unscore(): Promise<JSX.Element> {
   // Fetch data at the server level
-  const data = await fetchData();
+  const data: DataType = await fetchData();
 
   // console.log(data);
 
@@ -19,7 +24,7 @@ export default async function Home() {
     <main className={styles.main}>
       {/* <Header /> */}
       <MainNav />
-    
+      
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
           {/* <div className={styles.articlesSectionWrapper}>articles</div> */}
@@ -37,3 +42,6 @@ export default async function Home() {
     </main>
   );
 }
+
+
+
