@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import styles from "../page.module.css";
 import Link from "next/link";
@@ -10,8 +11,6 @@ import { fetchData } from "../components/unScoreComponents/DataFetcher";
 import DataTableWrapper from "../components/unScoreComponents/DataTableWrapper";
 
 // Define the type for the data fetched
-
-
 type DataType = {
   careerAveragedStats: {
     "1D/RR": number;
@@ -51,7 +50,7 @@ type DataType = {
   }
 };
 
-export default async function unscore(): Promise<JSX.Element> {
+export default async function unscore(): Promise<React.ReactElement> {
   // Fetch data at the server level
   const data: DataType = await fetchData();
 
