@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
@@ -14,7 +15,7 @@ type DataType = {
   // Define the structure of your data here
 };
 
-export default async function Home(): Promise<JSX.Element> {
+export default async function Home(): Promise<React.ReactElement> {
   // Fetch data at the server level
   const data: DataType = await fetchData();
 
