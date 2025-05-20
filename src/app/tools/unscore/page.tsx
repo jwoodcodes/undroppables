@@ -1,14 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../page.module.css";
+// import styles from "../../page.module.css";
+import styles from "./unScoreData.module.css";
 import Link from "next/link";
 
-import Header from "../components/header/Header";
-import MainNav from "../components/mainNav/MainNav"
+import Header from "../../components/header/Header";
+import MainNav from "../../components/mainNav/MainNav"
 
-import Footer from "../components/footer/Footer";
-import { fetchData } from "../components/unScoreComponents/DataFetcher.js";
-import DataTableWrapper from "../components/unScoreComponents/DataTableWrapper";
+import Footer from "../../components/footer/Footer";
+import { fetchData } from "../../components/unScoreComponents/DataFetcher.js";
+import DataTableWrapper from "../../components/unScoreComponents/DataTableWrapper";
 
 // Define the type for the data fetched
 type DataType = {

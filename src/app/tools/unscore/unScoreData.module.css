@@ -1,0 +1,51 @@
+.main {
+    background-color: var(--color-black);
+  
+    height: 100dvh;
+    min-height: fit-content;
+    margin-bottom: 5rem;
+    padding-bottom: 5rem;
+  }
+  
+  /* .mainSiteTitleWrapper {
+    color: var(--color-white);
+    width: 100%;
+    margin-bottom: 100dvh;
+  } */
+  
+  /* .mainSiteTitle {
+    padding-top: 6rem;
+    text-align: center;
+    font-size: 3.5rem;
+  } */
+  
+  .mainSectionWrapper {
+    display: flex;
+    /* grid-template-columns: 1fr 3fr 1fr; 
+    gap: 1rem; */
+    width: 100%;
+    color: var(--color-white);
+    /* height: 30dvh; */
+    min-height: fit-content;
+   
+  }
+
+.mainToolTitle {
+    text-align: center;
+    font-size: 4rem;
+    letter-spacing: 0.2rem;
+    margin: 4rem auto 1rem auto;
+    
+  
+    
+      color: var(--color-red-primary);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+  }
+  
+  .scoreToolSpan {
+  background: linear-gradient(to bottom right, var(--color-red-primary), var(--color-white));
+      -webkit-background-clip: text;
+      color: transparent;
+      /* color: var(--color-white); */
+  }
