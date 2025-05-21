@@ -13,7 +13,7 @@ export default function MainNav() {
                 </Link>
                 
                 <li ><a href="#" className={styles.navLink}>Rankings</a></li>
-                <li ><a href="/unscore" className={styles.navLink}>UN Score</a></li>
+                <li ><a href="/tools/unscore" className={styles.navLink}>UN Score</a></li>
                 <li ><a href="https://www.theundroppables.com/articles/" className={styles.navLink}>Content</a></li>
                 
                 <li ><a href="/toolkit" className={styles.navLink}>Tools</a></li>
