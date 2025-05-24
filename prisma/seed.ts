@@ -1,7 +1,9 @@
-import { PrismaClient, Prisma } from "../src/app/generated/prisma";
+import { PrismaClient } from "../src/app/generated/prisma";
 
 const prisma = new PrismaClient();
 
+// Commenting out the userData array and related code
+/*
 const userData: Prisma.UserCreateInput[] = [
   {
     name: "Alice",
@@ -34,11 +36,15 @@ const userData: Prisma.UserCreateInput[] = [
     },
   },
 ];
+*/
 
 export async function main() {
+  // You can remove or comment out the user creation loop
+  /*
   for (const u of userData) {
     await prisma.user.create({ data: u });
   }
+  */
 }
 
 main();

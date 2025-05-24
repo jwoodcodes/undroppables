@@ -14,18 +14,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  Int
-  author    User    @relation(fields: [authorId], references: [id])
+model tradeAnalyzerData {
+  id                                               String @id @default(cuid()) // Use cuid() for unique string IDs
+  name                                             String
+  position                                         String
+  team                                             String
+  marketValue                                      Float
+  myValue                                          Float
+  valueDiffBetweenMyValueAndMarketValue            Float
+  PRPScore                                         Float
+  projectedNextOffseasonDynastyValue               Float
+  valueDifferenceBetweenCurrentMarketValueAndPNODV Float
+  PNODVScore                                       Float?
+  RVSScore                                         Float?
 }

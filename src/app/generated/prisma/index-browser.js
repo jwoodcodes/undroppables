@@ -120,18 +120,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  name: 'name'
-};
-
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  name: 'name',
+  position: 'position',
+  team: 'team',
+  marketValue: 'marketValue',
+  myValue: 'myValue',
+  valueDiffBetweenMyValueAndMarketValue: 'valueDiffBetweenMyValueAndMarketValue',
+  PRPScore: 'PRPScore',
+  projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
+  valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
+  PNODVScore: 'PNODVScore',
+  RVSScore: 'RVSScore'
 };
 
 exports.Prisma.SortOrder = {
@@ -151,8 +152,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User',
-  Post: 'Post'
+  tradeAnalyzerData: 'tradeAnalyzerData'
 };
 
 /**

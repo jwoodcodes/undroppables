@@ -26,7 +26,7 @@ export default async function Home(): Promise<React.ReactElement> {
     <main className={styles.main}>
       {/* <Header /> */}
       <MainNav />
-      <p style={{fontSize: "1rem", color: "var(--color-white)", textAlign: "center", marginTop: "2rem"}}> this is the main page placeholder, will be home page is ever go fully custom</p>
+      {/* <p style={{fontSize: "1rem", color: "var(--color-white)", textAlign: "center", marginTop: "2rem"}}> this is the main page placeholder, will be home page is ever go fully custom</p> */}
       <div className={styles.mainSectionWrapper}>
         {/* <div className={styles.mainSiteTitle}>The Undroppables</div> */}
           {/* <div className={styles.articlesSectionWrapper}>articles</div> */}
