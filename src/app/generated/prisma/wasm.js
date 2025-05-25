@@ -120,18 +120,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  name: 'name'
-};
-
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  name: 'name',
+  position: 'position',
+  team: 'team',
+  marketValue: 'marketValue',
+  myValue: 'myValue',
+  valueDiffBetweenMyValueAndMarketValue: 'valueDiffBetweenMyValueAndMarketValue',
+  PRPScore: 'PRPScore',
+  projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
+  valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
+  PNODVScore: 'PNODVScore',
+  RVSScore: 'RVSScore'
 };
 
 exports.Prisma.SortOrder = {
@@ -139,9 +140,20 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -151,8 +163,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User',
-  Post: 'Post'
+  tradeAnalyzerData: 'tradeAnalyzerData'
 };
 
 /**
