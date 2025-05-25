@@ -14,19 +14,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tradeAnalyzerData {
-  id    String  @id @default(cuid()) // Use cuid() for unique string IDs
-  name  String
-  position String
-  team String
-  marketValue Float
-  myValue Float
-  valueDiffBetweenMyValueAndMarketValue Float
-  PRPScore Float
-  projectedNextOffseasonDynastyValue Float
-  valueDifferenceBetweenCurrentMarketValueAndPNODV Float
-  PNODVScore Float?
-  RVSScore Float?
-}
 
 
+  model tradeAnalyzerData {
+    id    String  @id @default(cuid()) // Use cuid() for unique string IDs
+    name  String?
+    position String?
+    team String?
+    marketValue Float?
+    myValue Float?
+    valueDiffBetweenMyValueAndMarketValue Float?
+    PRPScore Float?
+    projectedNextOffseasonDynastyValue Json?
+    valueDifferenceBetweenCurrentMarketValueAndPNODV Float?
+    PNODVScore Float?
+    RVSScore Float?
+  }

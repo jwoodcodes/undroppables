@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../../../src/app/generated/prisma';
+
 
 const prisma = new PrismaClient();
 const mongoClient = new MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
@@ -17,8 +18,20 @@ interface YourDataType {
   valueDifferenceBetweenCurrentMarketValueAndPNODV: number;
   PNODVScore: number;
   RVSScore?: number;
-
- 
+  tradeAnalyzerDataObjectsArray: {
+    id: string;
+    name: string;
+    position: string;
+    team: string;
+    marketValue: number;
+    myValue: number;
+    valueDiffBetweenMyValueAndMarketValue: number;
+    PRPScore: number;
+    projectedNextOffseasonDynastyValue: number;
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number;
+    PNODVScore: number;
+    RVSScore?: number;
+  }[];
 }
 
 async function fetchDataFromMongoDB() {
@@ -26,28 +39,79 @@ async function fetchDataFromMongoDB() {
   const database = mongoClient.db('dailydynasties');
   const collection = database.collection<YourDataType>('tradeAnalyzerData');
 
-  const data = await collection.find({}).toArray();
+  let tempData = await collection.find({}).toArray();
+  let data: YourDataType[] = [];
+
+  tempData.forEach(item => {
+    // console.log(item.tradeAnalyzerDataObjectsArray);
+    
+    // Create a new YourDataType object for each item
+    const tradeDataArray = item.tradeAnalyzerDataObjectsArray.map(tradeData => ({
+      id: tradeData.id,
+      name: tradeData.name,
+      position: tradeData.position,
+      team: tradeData.team,
+      marketValue: tradeData.marketValue,
+      myValue: tradeData.myValue,
+      valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+      PRPScore: tradeData.PRPScore,
+      projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+      valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+      PNODVScore: tradeData.PNODVScore,
+      RVSScore: tradeData.RVSScore,
+    }));
+
+    // Push the entire object including tradeAnalyzerDataObjectsArray
+    data.push({
+      id: item?.id, // Assuming item has an id
+      name: item?.name, // Assuming item has a name
+      position: item?.position, // Assuming item has a position
+      team: item?.team, // Assuming item has a team
+      marketValue: item?.marketValue, // Assuming item has a marketValue
+      myValue: item?.myValue, // Assuming item has a myValue
+      valueDiffBetweenMyValueAndMarketValue: item?.valueDiffBetweenMyValueAndMarketValue, // Assuming item has this property
+      PRPScore: item?.PRPScore, // Assuming item has a PRPScore
+      projectedNextOffseasonDynastyValue: item?.projectedNextOffseasonDynastyValue, // Assuming item has this property
+      valueDifferenceBetweenCurrentMarketValueAndPNODV: item?.valueDifferenceBetweenCurrentMarketValueAndPNODV, // Assuming item has this property
+      PNODVScore: item?.PNODVScore, // Assuming item has this property
+      RVSScore: item?.RVSScore, // Assuming item has this property
+      tradeAnalyzerDataObjectsArray: tradeDataArray, 
+    });
+  });
+  
   return data;
 }
 
 async function pushDataToPostgreSQL(data: YourDataType[]) {
   for (const item of data) {
-    await prisma.tradeAnalyzerData.create({
-      data: {
-        id: item.id,
-        name: item.name,
-        position: item.position,
-        team: item.team,
-        marketValue: item.marketValue,
-        myValue: item.myValue,
-        valueDiffBetweenMyValueAndMarketValue: item.valueDiffBetweenMyValueAndMarketValue,
-        PRPScore: item.PRPScore,
-        projectedNextOffseasonDynastyValue: item.projectedNextOffseasonDynastyValue,
-        valueDifferenceBetweenCurrentMarketValueAndPNODV: item.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-        PNODVScore: item.PNODVScore,
-        RVSScore: item.RVSScore,
-      },
-    });
+    // Access the tradeAnalyzerDataObjectsArray from the item
+    const tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+
+    // Loop through each object in the tradeAnalyzerDataObjectsArray
+    for (const tradeData of tradeDataArray) {
+      // Ensure that the required fields are populated
+      if (!tradeData.name) {
+        console.error('Missing name for trade data:', tradeData);
+        continue; // Skip this item if name is missing
+      }
+
+      await prisma.tradeAnalyzerData.create({
+        data: {
+          id: tradeData.id, // Ensure this is populated
+          name: tradeData.name, // Ensure this is populated
+          position: tradeData.position,
+          team: tradeData.team,
+          marketValue: tradeData.marketValue,
+          myValue: tradeData.myValue,
+          valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+          PRPScore: tradeData.PRPScore,
+          projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+          valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+          PNODVScore: tradeData.PNODVScore,
+          RVSScore: tradeData.RVSScore,
+        },
+      });
+    }
   }
 }
 
@@ -69,3 +133,5 @@ main()
 
   // npx tsc fetchAndPushData.ts
   // node fetchAndPushData.js
+
+

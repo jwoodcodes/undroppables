@@ -886,7 +886,6 @@ export namespace Prisma {
     myValue: number | null
     valueDiffBetweenMyValueAndMarketValue: number | null
     PRPScore: number | null
-    projectedNextOffseasonDynastyValue: number | null
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
@@ -897,7 +896,6 @@ export namespace Prisma {
     myValue: number | null
     valueDiffBetweenMyValueAndMarketValue: number | null
     PRPScore: number | null
-    projectedNextOffseasonDynastyValue: number | null
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
@@ -912,7 +910,6 @@ export namespace Prisma {
     myValue: number | null
     valueDiffBetweenMyValueAndMarketValue: number | null
     PRPScore: number | null
-    projectedNextOffseasonDynastyValue: number | null
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
@@ -927,7 +924,6 @@ export namespace Prisma {
     myValue: number | null
     valueDiffBetweenMyValueAndMarketValue: number | null
     PRPScore: number | null
-    projectedNextOffseasonDynastyValue: number | null
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
@@ -955,7 +951,6 @@ export namespace Prisma {
     myValue?: true
     valueDiffBetweenMyValueAndMarketValue?: true
     PRPScore?: true
-    projectedNextOffseasonDynastyValue?: true
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
@@ -966,7 +961,6 @@ export namespace Prisma {
     myValue?: true
     valueDiffBetweenMyValueAndMarketValue?: true
     PRPScore?: true
-    projectedNextOffseasonDynastyValue?: true
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
@@ -981,7 +975,6 @@ export namespace Prisma {
     myValue?: true
     valueDiffBetweenMyValueAndMarketValue?: true
     PRPScore?: true
-    projectedNextOffseasonDynastyValue?: true
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
@@ -996,7 +989,6 @@ export namespace Prisma {
     myValue?: true
     valueDiffBetweenMyValueAndMarketValue?: true
     PRPScore?: true
-    projectedNextOffseasonDynastyValue?: true
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
@@ -1106,15 +1098,15 @@ export namespace Prisma {
 
   export type TradeAnalyzerDataGroupByOutputType = {
     id: string
-    name: string
-    position: string
-    team: string
-    marketValue: number
-    myValue: number
-    valueDiffBetweenMyValueAndMarketValue: number
-    PRPScore: number
-    projectedNextOffseasonDynastyValue: number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+    name: string | null
+    position: string | null
+    team: string | null
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    projectedNextOffseasonDynastyValue: JsonValue | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
     _count: TradeAnalyzerDataCountAggregateOutputType | null
@@ -1205,15 +1197,15 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      position: string
-      team: string
-      marketValue: number
-      myValue: number
-      valueDiffBetweenMyValueAndMarketValue: number
-      PRPScore: number
-      projectedNextOffseasonDynastyValue: number
-      valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+      name: string | null
+      position: string | null
+      team: string | null
+      marketValue: number | null
+      myValue: number | null
+      valueDiffBetweenMyValueAndMarketValue: number | null
+      PRPScore: number | null
+      projectedNextOffseasonDynastyValue: Prisma.JsonValue | null
+      valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
       PNODVScore: number | null
       RVSScore: number | null
     }, ExtArgs["result"]["tradeAnalyzerData"]>
@@ -1647,7 +1639,7 @@ export namespace Prisma {
     readonly myValue: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly valueDiffBetweenMyValueAndMarketValue: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly PRPScore: FieldRef<"tradeAnalyzerData", 'Float'>
-    readonly projectedNextOffseasonDynastyValue: FieldRef<"tradeAnalyzerData", 'Float'>
+    readonly projectedNextOffseasonDynastyValue: FieldRef<"tradeAnalyzerData", 'Json'>
     readonly valueDifferenceBetweenCurrentMarketValueAndPNODV: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly PNODVScore: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly RVSScore: FieldRef<"tradeAnalyzerData", 'Float'>
@@ -1845,7 +1837,7 @@ export namespace Prisma {
     /**
      * The data needed to create a tradeAnalyzerData.
      */
-    data: XOR<tradeAnalyzerDataCreateInput, tradeAnalyzerDataUncheckedCreateInput>
+    data?: XOR<tradeAnalyzerDataCreateInput, tradeAnalyzerDataUncheckedCreateInput>
   }
 
   /**
@@ -2057,12 +2049,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -2107,6 +2116,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -2128,30 +2151,30 @@ export namespace Prisma {
     OR?: tradeAnalyzerDataWhereInput[]
     NOT?: tradeAnalyzerDataWhereInput | tradeAnalyzerDataWhereInput[]
     id?: StringFilter<"tradeAnalyzerData"> | string
-    name?: StringFilter<"tradeAnalyzerData"> | string
-    position?: StringFilter<"tradeAnalyzerData"> | string
-    team?: StringFilter<"tradeAnalyzerData"> | string
-    marketValue?: FloatFilter<"tradeAnalyzerData"> | number
-    myValue?: FloatFilter<"tradeAnalyzerData"> | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFilter<"tradeAnalyzerData"> | number
-    PRPScore?: FloatFilter<"tradeAnalyzerData"> | number
-    projectedNextOffseasonDynastyValue?: FloatFilter<"tradeAnalyzerData"> | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFilter<"tradeAnalyzerData"> | number
+    name?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    position?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    team?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    marketValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    myValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    PRPScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableFilter<"tradeAnalyzerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    position?: SortOrder
-    team?: SortOrder
-    marketValue?: SortOrder
-    myValue?: SortOrder
-    valueDiffBetweenMyValueAndMarketValue?: SortOrder
-    PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    name?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    team?: SortOrderInput | SortOrder
+    marketValue?: SortOrderInput | SortOrder
+    myValue?: SortOrderInput | SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrderInput | SortOrder
+    PRPScore?: SortOrderInput | SortOrder
+    projectedNextOffseasonDynastyValue?: SortOrderInput | SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
     PNODVScore?: SortOrderInput | SortOrder
     RVSScore?: SortOrderInput | SortOrder
   }
@@ -2161,30 +2184,30 @@ export namespace Prisma {
     AND?: tradeAnalyzerDataWhereInput | tradeAnalyzerDataWhereInput[]
     OR?: tradeAnalyzerDataWhereInput[]
     NOT?: tradeAnalyzerDataWhereInput | tradeAnalyzerDataWhereInput[]
-    name?: StringFilter<"tradeAnalyzerData"> | string
-    position?: StringFilter<"tradeAnalyzerData"> | string
-    team?: StringFilter<"tradeAnalyzerData"> | string
-    marketValue?: FloatFilter<"tradeAnalyzerData"> | number
-    myValue?: FloatFilter<"tradeAnalyzerData"> | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFilter<"tradeAnalyzerData"> | number
-    PRPScore?: FloatFilter<"tradeAnalyzerData"> | number
-    projectedNextOffseasonDynastyValue?: FloatFilter<"tradeAnalyzerData"> | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFilter<"tradeAnalyzerData"> | number
+    name?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    position?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    team?: StringNullableFilter<"tradeAnalyzerData"> | string | null
+    marketValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    myValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    PRPScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableFilter<"tradeAnalyzerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }, "id">
 
   export type tradeAnalyzerDataOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    position?: SortOrder
-    team?: SortOrder
-    marketValue?: SortOrder
-    myValue?: SortOrder
-    valueDiffBetweenMyValueAndMarketValue?: SortOrder
-    PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    name?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    team?: SortOrderInput | SortOrder
+    marketValue?: SortOrderInput | SortOrder
+    myValue?: SortOrderInput | SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrderInput | SortOrder
+    PRPScore?: SortOrderInput | SortOrder
+    projectedNextOffseasonDynastyValue?: SortOrderInput | SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
     PNODVScore?: SortOrderInput | SortOrder
     RVSScore?: SortOrderInput | SortOrder
     _count?: tradeAnalyzerDataCountOrderByAggregateInput
@@ -2199,120 +2222,120 @@ export namespace Prisma {
     OR?: tradeAnalyzerDataScalarWhereWithAggregatesInput[]
     NOT?: tradeAnalyzerDataScalarWhereWithAggregatesInput | tradeAnalyzerDataScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"tradeAnalyzerData"> | string
-    name?: StringWithAggregatesFilter<"tradeAnalyzerData"> | string
-    position?: StringWithAggregatesFilter<"tradeAnalyzerData"> | string
-    team?: StringWithAggregatesFilter<"tradeAnalyzerData"> | string
-    marketValue?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
-    myValue?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
-    PRPScore?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
-    projectedNextOffseasonDynastyValue?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatWithAggregatesFilter<"tradeAnalyzerData"> | number
+    name?: StringNullableWithAggregatesFilter<"tradeAnalyzerData"> | string | null
+    position?: StringNullableWithAggregatesFilter<"tradeAnalyzerData"> | string | null
+    team?: StringNullableWithAggregatesFilter<"tradeAnalyzerData"> | string | null
+    marketValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    myValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    PRPScore?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableWithAggregatesFilter<"tradeAnalyzerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataCreateInput = {
     id?: string
-    name: string
-    position: string
-    team: string
-    marketValue: number
-    myValue: number
-    valueDiffBetweenMyValueAndMarketValue: number
-    PRPScore: number
-    projectedNextOffseasonDynastyValue: number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+    name?: string | null
+    position?: string | null
+    team?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
   }
 
   export type tradeAnalyzerDataUncheckedCreateInput = {
     id?: string
-    name: string
-    position: string
-    team: string
-    marketValue: number
-    myValue: number
-    valueDiffBetweenMyValueAndMarketValue: number
-    PRPScore: number
-    projectedNextOffseasonDynastyValue: number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+    name?: string | null
+    position?: string | null
+    team?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
   }
 
   export type tradeAnalyzerDataUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    position?: StringFieldUpdateOperationsInput | string
-    team?: StringFieldUpdateOperationsInput | string
-    marketValue?: FloatFieldUpdateOperationsInput | number
-    myValue?: FloatFieldUpdateOperationsInput | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFieldUpdateOperationsInput | number
-    PRPScore?: FloatFieldUpdateOperationsInput | number
-    projectedNextOffseasonDynastyValue?: FloatFieldUpdateOperationsInput | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    position?: StringFieldUpdateOperationsInput | string
-    team?: StringFieldUpdateOperationsInput | string
-    marketValue?: FloatFieldUpdateOperationsInput | number
-    myValue?: FloatFieldUpdateOperationsInput | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFieldUpdateOperationsInput | number
-    PRPScore?: FloatFieldUpdateOperationsInput | number
-    projectedNextOffseasonDynastyValue?: FloatFieldUpdateOperationsInput | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataCreateManyInput = {
     id?: string
-    name: string
-    position: string
-    team: string
-    marketValue: number
-    myValue: number
-    valueDiffBetweenMyValueAndMarketValue: number
-    PRPScore: number
-    projectedNextOffseasonDynastyValue: number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+    name?: string | null
+    position?: string | null
+    team?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
   }
 
   export type tradeAnalyzerDataUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    position?: StringFieldUpdateOperationsInput | string
-    team?: StringFieldUpdateOperationsInput | string
-    marketValue?: FloatFieldUpdateOperationsInput | number
-    myValue?: FloatFieldUpdateOperationsInput | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFieldUpdateOperationsInput | number
-    PRPScore?: FloatFieldUpdateOperationsInput | number
-    projectedNextOffseasonDynastyValue?: FloatFieldUpdateOperationsInput | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    position?: StringFieldUpdateOperationsInput | string
-    team?: StringFieldUpdateOperationsInput | string
-    marketValue?: FloatFieldUpdateOperationsInput | number
-    myValue?: FloatFieldUpdateOperationsInput | number
-    valueDiffBetweenMyValueAndMarketValue?: FloatFieldUpdateOperationsInput | number
-    PRPScore?: FloatFieldUpdateOperationsInput | number
-    projectedNextOffseasonDynastyValue?: FloatFieldUpdateOperationsInput | number
-    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
   }
@@ -2332,15 +2355,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -2352,6 +2379,29 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type SortOrderInput = {
@@ -2379,7 +2429,6 @@ export namespace Prisma {
     myValue?: SortOrder
     valueDiffBetweenMyValueAndMarketValue?: SortOrder
     PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
@@ -2394,7 +2443,6 @@ export namespace Prisma {
     myValue?: SortOrder
     valueDiffBetweenMyValueAndMarketValue?: SortOrder
     PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
@@ -2409,7 +2457,6 @@ export namespace Prisma {
     myValue?: SortOrder
     valueDiffBetweenMyValueAndMarketValue?: SortOrder
     PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
@@ -2420,7 +2467,6 @@ export namespace Prisma {
     myValue?: SortOrder
     valueDiffBetweenMyValueAndMarketValue?: SortOrder
     PRPScore?: SortOrder
-    projectedNextOffseasonDynastyValue?: SortOrder
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
@@ -2444,20 +2490,22 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2475,17 +2523,39 @@ export namespace Prisma {
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -2510,15 +2580,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -2560,20 +2633,32 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2591,16 +2676,28 @@ export namespace Prisma {
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
 

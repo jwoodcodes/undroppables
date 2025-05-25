@@ -11,7 +11,7 @@
     "caching": "ts-node ./src/caching.ts",
     "realtime": "ts-node ./src/realtime.ts"
   },
-    "prisma": {
+  "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "mongodb": "^6.6.2",
     "mongoose": "^8.4.0",
     "next": "14.2.3",
+    "nodemon": "^3.1.10",
     "react": "^18",
     "react-dom": "^18",
     "react-feather": "^2.0.10"

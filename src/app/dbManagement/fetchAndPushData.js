@@ -37,12 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
-var client_1 = require("@prisma/client");
-var prisma = new client_1.PrismaClient();
+var prisma_1 = require("../../../src/app/generated/prisma");
+var prisma = new prisma_1.PrismaClient();
 var mongoClient = new mongodb_1.MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
 function fetchDataFromMongoDB() {
     return __awaiter(this, void 0, void 0, function () {
-        var database, collection, data;
+        var database, collection, tempData, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, mongoClient.connect()];
@@ -52,7 +52,42 @@ function fetchDataFromMongoDB() {
                     collection = database.collection('tradeAnalyzerData');
                     return [4 /*yield*/, collection.find({}).toArray()];
                 case 2:
-                    data = _a.sent();
+                    tempData = _a.sent();
+                    data = [];
+                    tempData.forEach(function (item) {
+                        // console.log(item.tradeAnalyzerDataObjectsArray);
+                        // Create a new YourDataType object for each item
+                        var tradeDataArray = item.tradeAnalyzerDataObjectsArray.map(function (tradeData) { return ({
+                            id: tradeData.id,
+                            name: tradeData.name,
+                            position: tradeData.position,
+                            team: tradeData.team,
+                            marketValue: tradeData.marketValue,
+                            myValue: tradeData.myValue,
+                            valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                            PRPScore: tradeData.PRPScore,
+                            projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                            valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                            PNODVScore: tradeData.PNODVScore,
+                            RVSScore: tradeData.RVSScore,
+                        }); });
+                        // Push the entire object including tradeAnalyzerDataObjectsArray
+                        data.push({
+                            id: item === null || item === void 0 ? void 0 : item.id, // Assuming item has an id
+                            name: item === null || item === void 0 ? void 0 : item.name, // Assuming item has a name
+                            position: item === null || item === void 0 ? void 0 : item.position, // Assuming item has a position
+                            team: item === null || item === void 0 ? void 0 : item.team, // Assuming item has a team
+                            marketValue: item === null || item === void 0 ? void 0 : item.marketValue, // Assuming item has a marketValue
+                            myValue: item === null || item === void 0 ? void 0 : item.myValue, // Assuming item has a myValue
+                            valueDiffBetweenMyValueAndMarketValue: item === null || item === void 0 ? void 0 : item.valueDiffBetweenMyValueAndMarketValue, // Assuming item has this property
+                            PRPScore: item === null || item === void 0 ? void 0 : item.PRPScore, // Assuming item has a PRPScore
+                            projectedNextOffseasonDynastyValue: item === null || item === void 0 ? void 0 : item.projectedNextOffseasonDynastyValue, // Assuming item has this property
+                            valueDifferenceBetweenCurrentMarketValueAndPNODV: item === null || item === void 0 ? void 0 : item.valueDifferenceBetweenCurrentMarketValueAndPNODV, // Assuming item has this property
+                            PNODVScore: item === null || item === void 0 ? void 0 : item.PNODVScore, // Assuming item has this property
+                            RVSScore: item === null || item === void 0 ? void 0 : item.RVSScore, // Assuming item has this property
+                            tradeAnalyzerDataObjectsArray: tradeDataArray,
+                        });
+                    });
                     return [2 /*return*/, data];
             }
         });
@@ -60,38 +95,52 @@ function fetchDataFromMongoDB() {
 }
 function pushDataToPostgreSQL(data) {
     return __awaiter(this, void 0, void 0, function () {
-        var _i, data_1, item;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _i, data_1, item, tradeDataArray, _a, tradeDataArray_1, tradeData;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     _i = 0, data_1 = data;
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    if (!(_i < data_1.length)) return [3 /*break*/, 4];
+                    if (!(_i < data_1.length)) return [3 /*break*/, 6];
                     item = data_1[_i];
+                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+                    _a = 0, tradeDataArray_1 = tradeDataArray;
+                    _b.label = 2;
+                case 2:
+                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 5];
+                    tradeData = tradeDataArray_1[_a];
+                    // Ensure that the required fields are populated
+                    if (!tradeData.name) {
+                        console.error('Missing name for trade data:', tradeData);
+                        return [3 /*break*/, 4]; // Skip this item if name is missing
+                    }
                     return [4 /*yield*/, prisma.tradeAnalyzerData.create({
                             data: {
-                                id: item.id,
-                                name: item.name,
-                                position: item.position,
-                                team: item.team,
-                                marketValue: item.marketValue,
-                                myValue: item.myValue,
-                                valueDiffBetweenMyValueAndMarketValue: item.valueDiffBetweenMyValueAndMarketValue,
-                                PRPScore: item.PRPScore,
-                                projectedNextOffseasonDynastyValue: item.projectedNextOffseasonDynastyValue,
-                                valueDifferenceBetweenCurrentMarketValueAndPNODV: item.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-                                PNODVScore: item.PNODVScore,
-                                RVSScore: item.RVSScore,
+                                id: tradeData.id, // Ensure this is populated
+                                name: tradeData.name, // Ensure this is populated
+                                position: tradeData.position,
+                                team: tradeData.team,
+                                marketValue: tradeData.marketValue,
+                                myValue: tradeData.myValue,
+                                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                                PRPScore: tradeData.PRPScore,
+                                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                                PNODVScore: tradeData.PNODVScore,
+                                RVSScore: tradeData.RVSScore,
                             },
                         })];
-                case 2:
-                    _a.sent();
-                    _a.label = 3;
                 case 3:
+                    _b.sent();
+                    _b.label = 4;
+                case 4:
+                    _a++;
+                    return [3 /*break*/, 2];
+                case 5:
                     _i++;
                     return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });
