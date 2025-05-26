@@ -1,8 +1,8 @@
 import { MongoClient } from 'mongodb';
-import { PrismaClient } from '../../../src/app/generated/prisma';
+// import { PrismaClient } from '../../../src/app/generated/prisma';
 
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const mongoClient = new MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
 
 interface YourDataType {
@@ -82,7 +82,7 @@ async function fetchDataFromMongoDB() {
   return data;
 }
 
-async function pushDataToPostgreSQL(data: YourDataType[]) {
+async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
   for (const item of data) {
     // Access the tradeAnalyzerDataObjectsArray from the item
     const tradeDataArray = item.tradeAnalyzerDataObjectsArray;
@@ -116,16 +116,27 @@ async function pushDataToPostgreSQL(data: YourDataType[]) {
 }
 
 async function main() {
+  // Dynamically import PrismaClient
+  const pkg = await import('../../../src/app/generated/prisma/index.js');
+  const { PrismaClient } = pkg;
+  const prisma = new PrismaClient();
+
   const data = await fetchDataFromMongoDB();
-  await pushDataToPostgreSQL(data);
+  await pushDataToPostgreSQL(data, prisma);
   console.log('Data pushed to PostgreSQL successfully!');
+  return prisma; // Return the client so we can disconnect it
 }
 
+let prisma: any = null;
+
 main()
+  .then((client) => { prisma = client; })
   .catch(e => console.error(e))
   .finally(async () => {
     await mongoClient.close();
-    await prisma.$disconnect();
+    if (prisma) {
+      await prisma.$disconnect();
+    }
   });
 
 

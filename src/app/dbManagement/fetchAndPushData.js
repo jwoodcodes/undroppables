@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
-var prisma_1 = require("../../../src/app/generated/prisma");
-var prisma = new prisma_1.PrismaClient();
+// import { PrismaClient } from '../../../src/app/generated/prisma';
+// const prisma = new PrismaClient();
 var mongoClient = new mongodb_1.MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
 function fetchDataFromMongoDB() {
     return __awaiter(this, void 0, void 0, function () {
@@ -93,7 +93,7 @@ function fetchDataFromMongoDB() {
         });
     });
 }
-function pushDataToPostgreSQL(data) {
+function pushDataToPostgreSQL(data, prisma) {
     return __awaiter(this, void 0, void 0, function () {
         var _i, data_1, item, tradeDataArray, _a, tradeDataArray_1, tradeData;
         return __generator(this, function (_b) {
@@ -147,22 +147,29 @@ function pushDataToPostgreSQL(data) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var data;
+        var pkg, PrismaClient, prisma, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchDataFromMongoDB()];
+                case 0: return [4 /*yield*/, Promise.resolve().then(function () { return require('../../../src/app/generated/prisma/index.js'); })];
                 case 1:
-                    data = _a.sent();
-                    return [4 /*yield*/, pushDataToPostgreSQL(data)];
+                    pkg = _a.sent();
+                    PrismaClient = pkg.PrismaClient;
+                    prisma = new PrismaClient();
+                    return [4 /*yield*/, fetchDataFromMongoDB()];
                 case 2:
+                    data = _a.sent();
+                    return [4 /*yield*/, pushDataToPostgreSQL(data, prisma)];
+                case 3:
                     _a.sent();
                     console.log('Data pushed to PostgreSQL successfully!');
-                    return [2 /*return*/];
+                    return [2 /*return*/, prisma]; // Return the client so we can disconnect it
             }
         });
     });
 }
+var prisma = null;
 main()
+    .then(function (client) { prisma = client; })
     .catch(function (e) { return console.error(e); })
     .finally(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
@@ -170,10 +177,12 @@ main()
             case 0: return [4 /*yield*/, mongoClient.close()];
             case 1:
                 _a.sent();
+                if (!prisma) return [3 /*break*/, 3];
                 return [4 /*yield*/, prisma.$disconnect()];
             case 2:
                 _a.sent();
-                return [2 /*return*/];
+                _a.label = 3;
+            case 3: return [2 /*return*/];
         }
     });
 }); });
