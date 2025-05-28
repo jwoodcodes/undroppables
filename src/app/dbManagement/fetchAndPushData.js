@@ -38,11 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
 // import { PrismaClient } from '../../../src/app/generated/prisma';
+var jaxDynoRankings_1 = require("./rankings/jaxDynoRankings");
 // const prisma = new PrismaClient();
 var mongoClient = new mongodb_1.MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
 function fetchDataFromMongoDB() {
     return __awaiter(this, void 0, void 0, function () {
-        var database, collection, tempData, data;
+        var database, collection, tempData, data, tradeDataArray;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, mongoClient.connect()];
@@ -54,10 +55,11 @@ function fetchDataFromMongoDB() {
                 case 2:
                     tempData = _a.sent();
                     data = [];
+                    tradeDataArray = [];
                     tempData.forEach(function (item) {
                         // console.log(item.tradeAnalyzerDataObjectsArray);
                         // Create a new YourDataType object for each item
-                        var tradeDataArray = item.tradeAnalyzerDataObjectsArray.map(function (tradeData) { return ({
+                        tradeDataArray = item.tradeAnalyzerDataObjectsArray.map(function (tradeData) { return ({
                             id: tradeData.id,
                             name: tradeData.name,
                             position: tradeData.position,
@@ -95,74 +97,137 @@ function fetchDataFromMongoDB() {
 }
 function pushDataToPostgreSQL(data, prisma) {
     return __awaiter(this, void 0, void 0, function () {
-        var _i, data_1, item, tradeDataArray, _a, tradeDataArray_1, tradeData;
+        var deleteResult, mappedPlayerRankings, counter_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _i = 0, data_1 = data;
-                    _b.label = 1;
+                    _b.trys.push([0, 8, , 9]);
+                    console.log('Attempting to delete existing records from tradeAnalyzerData...');
+                    return [4 /*yield*/, prisma.tradeAnalyzerData.deleteMany({})];
                 case 1:
-                    if (!(_i < data_1.length)) return [3 /*break*/, 6];
-                    item = data_1[_i];
-                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
-                    _a = 0, tradeDataArray_1 = tradeDataArray;
+                    deleteResult = _b.sent();
+                    // Log the result of the deletion
+                    console.log('Delete operation completed:', deleteResult);
+                    mappedPlayerRankings = jaxDynoRankings_1.default.map(function (player) { return ({
+                        Name: player.Name.replace(/"/g, ''), // Remove quotes if necessary
+                        Team: player.Team,
+                        Position: player.Position.replace(/"/g, ''), // Remove quotes if necessary
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined // Initialize with undefined or set it later
+                    }); });
+                    counter_1 = 1;
+                    mappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = counter_1;
+                        console.log(player, counter_1);
+                        counter_1++;
+                    });
+                    _i = 0, data_1 = data;
                     _b.label = 2;
                 case 2:
-                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 5];
-                    tradeData = tradeDataArray_1[_a];
-                    // Ensure that the required fields are populated
-                    if (!tradeData.name) {
-                        console.error('Missing name for trade data:', tradeData);
-                        return [3 /*break*/, 4]; // Skip this item if name is missing
-                    }
-                    return [4 /*yield*/, prisma.tradeAnalyzerData.create({
-                            data: {
-                                id: tradeData.id, // Ensure this is populated
-                                name: tradeData.name, // Ensure this is populated
-                                position: tradeData.position,
-                                team: tradeData.team,
-                                marketValue: tradeData.marketValue,
-                                myValue: tradeData.myValue,
-                                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
-                                PRPScore: tradeData.PRPScore,
-                                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
-                                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-                                PNODVScore: tradeData.PNODVScore,
-                                RVSScore: tradeData.RVSScore,
-                            },
-                        })];
+                    if (!(_i < data_1.length)) return [3 /*break*/, 7];
+                    item = data_1[_i];
+                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+                    // Sort tradeDataArray by myValue in descending order
+                    tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
+                    _loop_1 = function (tradeData) {
+                        return __generator(this, function (_c) {
+                            switch (_c.label) {
+                                case 0:
+                                    // Ensure that the required fields are populated
+                                    if (!tradeData.name) {
+                                        console.error('Missing name for trade data:', tradeData);
+                                        return [2 /*return*/, "continue"];
+                                    }
+                                    // Update overallSFRank based on the mappedPlayerRankings
+                                    mappedPlayerRankings.forEach(function (player) {
+                                        if (player.Name === tradeData.name) {
+                                            // console.log(player);
+                                        }
+                                    });
+                                    return [4 /*yield*/, prisma.tradeAnalyzerData.create({
+                                            data: {
+                                                id: tradeData.id, // Ensure this is populated
+                                                name: tradeData.name, // Ensure this is populated
+                                                position: tradeData.position,
+                                                team: tradeData.team,
+                                                marketValue: tradeData.marketValue,
+                                                myValue: tradeData.myValue,
+                                                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                                                PRPScore: tradeData.PRPScore,
+                                                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                                                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                                                PNODVScore: tradeData.PNODVScore,
+                                                RVSScore: tradeData.RVSScore,
+                                            },
+                                        })];
+                                case 1:
+                                    _c.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
+                    _a = 0, tradeDataArray_1 = tradeDataArray;
+                    _b.label = 3;
                 case 3:
-                    _b.sent();
-                    _b.label = 4;
+                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 6];
+                    tradeData = tradeDataArray_1[_a];
+                    return [5 /*yield**/, _loop_1(tradeData)];
                 case 4:
-                    _a++;
-                    return [3 /*break*/, 2];
+                    _b.sent();
+                    _b.label = 5;
                 case 5:
+                    _a++;
+                    return [3 /*break*/, 3];
+                case 6:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 2];
+                case 7: return [3 /*break*/, 9];
+                case 8:
+                    error_1 = _b.sent();
+                    console.error('Error while pushing data to PostgreSQL:', error_1);
+                    return [3 /*break*/, 9];
+                case 9: return [2 /*return*/];
             }
         });
     });
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var pkg, PrismaClient, prisma, data;
+        var pkg, PrismaClient, prisma_1, deleteResult, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Promise.resolve().then(function () { return require('../../../src/app/generated/prisma/index.js'); })];
+                case 0:
+                    console.log('Main function started');
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 6, , 7]);
+                    return [4 /*yield*/, Promise.resolve().then(function () { return require('../../../src/app/generated/prisma/index.js'); })];
+                case 2:
                     pkg = _a.sent();
                     PrismaClient = pkg.PrismaClient;
-                    prisma = new PrismaClient();
-                    return [4 /*yield*/, fetchDataFromMongoDB()];
-                case 2:
-                    data = _a.sent();
-                    return [4 /*yield*/, pushDataToPostgreSQL(data, prisma)];
+                    prisma_1 = new PrismaClient();
+                    console.log('Prisma Client created');
+                    console.log('Attempting to delete existing records from tradeAnalyzerData...');
+                    return [4 /*yield*/, prisma_1.tradeAnalyzerData.deleteMany({})];
                 case 3:
+                    deleteResult = _a.sent();
+                    // Log the result of the deletion
+                    console.log('Delete operation completed:', deleteResult);
+                    return [4 /*yield*/, fetchDataFromMongoDB()];
+                case 4:
+                    data = _a.sent();
+                    // console.log('Data fetched from MongoDB:', data);
+                    console.log('Pushing data to PostgreSQL...');
+                    return [4 /*yield*/, pushDataToPostgreSQL(data, prisma_1)];
+                case 5:
                     _a.sent();
                     console.log('Data pushed to PostgreSQL successfully!');
-                    return [2 /*return*/, prisma]; // Return the client so we can disconnect it
+                    return [2 /*return*/, prisma_1]; // Return the client so we can disconnect it
+                case 6:
+                    error_2 = _a.sent();
+                    console.error('Error in main function:', error_2);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
@@ -170,7 +235,7 @@ function main() {
 var prisma = null;
 main()
     .then(function (client) { prisma = client; })
-    .catch(function (e) { return console.error(e); })
+    .catch(function (e) { return console.error('Error in main promise chain:', e); })
     .finally(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -187,5 +252,10 @@ main()
     });
 }); });
 // commands to run in terminal to run the script:
+// *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
+// *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
+// *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
+// *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
+// *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
 // npx tsc fetchAndPushData.ts
 // node fetchAndPushData.js
