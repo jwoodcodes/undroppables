@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./projectionsBuilder.module.css"
+import styles from "./projectionsBuilder.module.css";
 import Link from "next/link";
 import React from "react";
 import clientPromise from "../../../lib/mongodb";
@@ -14,7 +14,8 @@ async function ProjectionsBuilder() {
     //   "mongodb+srv://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
     // const url =
     //   "mongodb://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
-    const url = "mongodb+srv://FFCoder:DlOwRc8ItLxRCM5g@undroppables.unq112p.mongodb.net/?retryWrites=true&w=majority&appName=undroppables"
+    const url =
+      "mongodb+srv://FFCoder:DlOwRc8ItLxRCM5g@undroppables.unq112p.mongodb.net/?retryWrites=true&w=majority&appName=undroppables";
     const client = new MongoClient(url);
 
     // The database to use
@@ -80,7 +81,7 @@ async function ProjectionsBuilder() {
       // Find one document
       const mySleperDoc = await col.findOne();
 
-    //   console.log(mySleperDoc);
+      //   console.log(mySleperDoc);
       // playerData = mySleperDoc;
 
       return mySleperDoc;
@@ -96,7 +97,7 @@ async function ProjectionsBuilder() {
 
   let sleeperData = await fetchSleeperDataFromMongodb();
   // console.log(dataTest);
-//   console.log(sleeperData);
+  //   console.log(sleeperData);
   // React.useEffect(() => {
 
   sleeperData = JSON.parse(JSON.stringify(sleeperData));
