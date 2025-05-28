@@ -376,7 +376,7 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
 
     // Map jaxDynoRankings to PlayerRanking interface
     const jaxMappedPlayerRankings: PlayerRanking[] = jaxDynoRankings.map(
-      (player) => ({
+      (player: PlayerRanking) => ({
         Name: player.Name.replace(/"/g, ""), // Remove quotes if necessary
         Team: player.Team,
         Position: player.Position.replace(/"/g, ""), // Remove quotes if necessary
