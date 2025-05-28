@@ -12,7 +12,7 @@ export default function MainNav() {
                 <li><Image src="/UNLogoWithRed.webp" alt="logo" width={300} height={50} /></li>
                 </Link>
                 
-                <li ><a href="#" className={styles.navLink}>Rankings</a></li>
+                <li ><a href="/rankings" className={styles.navLink}>Rankings</a></li>
                 <li ><a href="/tools/unscore" className={styles.navLink}>UN Score</a></li>
                 <li ><a href="https://www.theundroppables.com/articles/" className={styles.navLink}>Content</a></li>
                 
