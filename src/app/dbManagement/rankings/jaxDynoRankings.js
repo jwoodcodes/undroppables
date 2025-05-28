@@ -1640,4 +1640,4 @@ const jaxDynoRankings = [
 	
 ]
 
-export default jaxDynoRankings;
+module.exports = jaxDynoRankings;
