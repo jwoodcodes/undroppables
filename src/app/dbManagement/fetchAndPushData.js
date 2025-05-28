@@ -38,9 +38,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
 // import { PrismaClient } from '../../../src/app/generated/prisma';
-var jaxDynoRankings_1 = require("./rankings/jaxDynoRankings");
+var jaxDynoRankings = require("./rankings/jaxDynoRankings");
 // const prisma = new PrismaClient();
-var mongoClient = new mongodb_1.MongoClient('mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test');
+var mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test");
 function fetchDataFromMongoDB() {
     return __awaiter(this, void 0, void 0, function () {
         var database, collection, tempData, data, tradeDataArray;
@@ -49,8 +49,8 @@ function fetchDataFromMongoDB() {
                 case 0: return [4 /*yield*/, mongoClient.connect()];
                 case 1:
                     _a.sent();
-                    database = mongoClient.db('dailydynasties');
-                    collection = database.collection('tradeAnalyzerData');
+                    database = mongoClient.db("dailydynasties");
+                    collection = database.collection("tradeAnalyzerData");
                     return [4 /*yield*/, collection.find({}).toArray()];
                 case 2:
                     tempData = _a.sent();
@@ -95,98 +95,267 @@ function fetchDataFromMongoDB() {
         });
     });
 }
+function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tier3LastPlayerRank, tier4LastPlayerRank, tier5LastPlayerRank, tier6LastPlayerRank, tier7LastPlayerRank, tier8LastPlayerRank, tier9LastPlayerRank) {
+    function assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier) {
+        // console.log(player, tier1LastPlayerRank);
+        // console.log(Math.round(tier1LastPlayerRank / 2));
+        var maxMinDiff = tiermax - tiermin;
+        var middleValue = tiermin + maxMinDiff / 2;
+        var tempMiddleOfTier = Math.round((rankOfLastPlayerInTier - rankOfFirstPlayerInTier) / 2);
+        var middleOfTier = tempMiddleOfTier + rankOfFirstPlayerInTier;
+        if (player.overallSFRank === middleOfTier) {
+            player.thierValue = middleValue;
+            // console.log(player, tier1min, maxMinDiff, tier1min + maxMinDiff / 2);
+        }
+        if (player.overallSFRank && player.overallSFRank !== middleOfTier) {
+            var diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
+            var diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
+            var valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
+            if (player.overallSFRank < middleOfTier) {
+                player.thierValue = middleValue + valueIncrease;
+                if (player.thierValue > tiermax) {
+                    player.thierValue = tiermax;
+                }
+            }
+            else {
+                player.thierValue = middleValue - valueIncrease;
+                // console.log(
+                //   player,
+                //   diffBetweenMiddleAndPlayer,
+                //   diffAsPercentageOfTotal,
+                //   valueIncrease
+                // );
+                if (player.thierValue < tiermin) {
+                    player.thierValue = tiermin;
+                }
+            }
+            console.log(player, diffAsPercentageOfTotal, diffBetweenMiddleAndPlayer, maxMinDiff, valueIncrease, middleValue);
+        }
+    }
+    rankingsSet.forEach(function (player) {
+        // console.log(player);
+        var tier10LastPlayerRank = rankingsSet.length;
+        if (player.Tiers === "1") {
+            // console.log(player, tier1LastPlayerRank);
+            // console.log(Math.round(tier1LastPlayerRank / 2));
+            var tiermax = 10000;
+            var tiermin = 8500;
+            var maxMinDiff = tiermax - tiermin;
+            var middleValue = tiermin + maxMinDiff / 2;
+            var middleOfTier = Math.round(tier1LastPlayerRank / 2);
+            if (player.overallSFRank === 1) {
+                player.thierValue = tiermax;
+            }
+            if (player.overallSFRank === middleOfTier) {
+                player.thierValue = middleValue;
+                // console.log(player, tier1min, maxMinDiff, tier1min + maxMinDiff / 2);
+            }
+            if (player.overallSFRank !== 1 &&
+                player.overallSFRank &&
+                player.overallSFRank !== middleOfTier) {
+                var diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
+                var diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
+                var valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
+                if (player.overallSFRank < middleOfTier) {
+                    player.thierValue = middleValue + valueIncrease;
+                    if (player.thierValue > tiermax) {
+                        player.thierValue = tiermax;
+                    }
+                }
+                else {
+                    player.thierValue = middleValue - valueIncrease;
+                    // console.log(
+                    //   player,
+                    //   diffBetweenMiddleAndPlayer,
+                    //   diffAsPercentageOfTotal,
+                    //   valueIncrease
+                    // );
+                    if (player.thierValue < tiermin) {
+                        player.thierValue = tiermin;
+                    }
+                }
+                // console.log(
+                //   player,
+                //   diffAsPercentageOfTotal,
+                //   diffBetweenMiddleAndPlayer,
+                //   maxMinDiff,
+                //   valueIncrease,
+                //   middleValue
+                // );
+            }
+        }
+        if (player.Tiers === "2") {
+            // console.log(player, tier2LastPlayerRank);
+            var tiermax = 6500;
+            var tiermin = 5600;
+            var rankOfFirstPlayerInTier = tier1LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier2LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "3") {
+            // console.log(player, tier3LastPlayerRank);
+            var tiermax = 4500;
+            var tiermin = 3650;
+            var rankOfFirstPlayerInTier = tier2LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier3LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "4") {
+            // console.log(player, tier4LastPlayerRank);
+            var tiermax = 3200;
+            var tiermin = 2800;
+            var rankOfFirstPlayerInTier = tier3LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier4LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "5") {
+            // console.log(player, tier5LastPlayerRank);
+            var tiermax = 2400;
+            var tiermin = 1900;
+            var rankOfFirstPlayerInTier = tier4LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier5LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "6") {
+            // console.log(player, tier6LastPlayerRank);
+            var tiermax = 1700;
+            var tiermin = 1400;
+            var rankOfFirstPlayerInTier = tier5LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier6LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "7") {
+            // console.log(player, tier7LastPlayerRank);
+            var tiermax = 1200;
+            var tiermin = 900;
+            var rankOfFirstPlayerInTier = tier6LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier7LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "8") {
+            // console.log(player, tier8LastPlayerRank);
+            var tiermax = 800;
+            var tiermin = 600;
+            var rankOfFirstPlayerInTier = tier7LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier8LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "9") {
+            // console.log(player, tier9LastPlayerRank);
+            var tiermax = 600;
+            var tiermin = 500;
+            var rankOfFirstPlayerInTier = tier8LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier9LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+        if (player.Tiers === "10") {
+            // console.log(
+            //   player,
+            //   tier9LastPlayerRank,
+            //   tier10LastPlayerRank
+            // );
+            var tiermax = 500;
+            var tiermin = 200;
+            var rankOfFirstPlayerInTier = tier9LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier10LastPlayerRank;
+            assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
+        }
+    });
+    return rankingsSet;
+}
 function pushDataToPostgreSQL(data, prisma) {
     return __awaiter(this, void 0, void 0, function () {
-        var deleteResult, mappedPlayerRankings, counter_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
+        var deleteResult, jaxMappedPlayerRankings, counter_1, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 8, , 9]);
-                    console.log('Attempting to delete existing records from tradeAnalyzerData...');
+                    _b.trys.push([0, 2, , 3]);
+                    console.log("Attempting to delete existing records from tradeAnalyzerData...");
                     return [4 /*yield*/, prisma.tradeAnalyzerData.deleteMany({})];
                 case 1:
                     deleteResult = _b.sent();
                     // Log the result of the deletion
-                    console.log('Delete operation completed:', deleteResult);
-                    mappedPlayerRankings = jaxDynoRankings_1.default.map(function (player) { return ({
-                        Name: player.Name.replace(/"/g, ''), // Remove quotes if necessary
+                    console.log("Delete operation completed:", deleteResult);
+                    jaxMappedPlayerRankings = jaxDynoRankings.map(function (player) { return ({
+                        Name: player.Name.replace(/"/g, ""), // Remove quotes if necessary
                         Team: player.Team,
-                        Position: player.Position.replace(/"/g, ''), // Remove quotes if necessary
+                        Position: player.Position.replace(/"/g, ""), // Remove quotes if necessary
                         Tiers: player.Tiers,
-                        overallSFRank: undefined // Initialize with undefined or set it later
+                        overallSFRank: undefined, // Initialize with undefined or set it later
                     }); });
                     counter_1 = 1;
-                    mappedPlayerRankings.forEach(function (player) {
+                    JaxTier1LastPlayerRank_1 = 0;
+                    JaxTier2LastPlayerRank_1 = 0;
+                    JaxTier3LastPlayerRank_1 = 0;
+                    JaxTier4LastPlayerRank_1 = 0;
+                    JaxTier5LastPlayerRank_1 = 0;
+                    JaxTier6LastPlayerRank_1 = 0;
+                    JaxTier7LastPlayerRank_1 = 0;
+                    JaxTier8LastPlayerRank_1 = 0;
+                    JaxTier9LastPlayerRank_1 = 0;
+                    jaxMappedPlayerRankings.forEach(function (player) {
                         player.overallSFRank = counter_1;
-                        console.log(player, counter_1);
+                        // console.log(player, counter);
+                        if (JaxTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            JaxTier1LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            JaxTier2LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            JaxTier3LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            JaxTier4LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            JaxTier5LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            JaxTier6LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            JaxTier7LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            JaxTier8LastPlayerRank_1 = counter_1 - 1;
+                        }
+                        if (JaxTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            JaxTier9LastPlayerRank_1 = counter_1 - 1;
+                        }
                         counter_1++;
                     });
-                    _i = 0, data_1 = data;
-                    _b.label = 2;
-                case 2:
-                    if (!(_i < data_1.length)) return [3 /*break*/, 7];
-                    item = data_1[_i];
-                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
-                    // Sort tradeDataArray by myValue in descending order
-                    tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
-                    _loop_1 = function (tradeData) {
-                        return __generator(this, function (_c) {
-                            switch (_c.label) {
-                                case 0:
-                                    // Ensure that the required fields are populated
-                                    if (!tradeData.name) {
-                                        console.error('Missing name for trade data:', tradeData);
-                                        return [2 /*return*/, "continue"];
-                                    }
-                                    // Update overallSFRank based on the mappedPlayerRankings
-                                    mappedPlayerRankings.forEach(function (player) {
-                                        if (player.Name === tradeData.name) {
-                                            // console.log(player);
-                                        }
-                                    });
-                                    return [4 /*yield*/, prisma.tradeAnalyzerData.create({
-                                            data: {
-                                                id: tradeData.id, // Ensure this is populated
-                                                name: tradeData.name, // Ensure this is populated
-                                                position: tradeData.position,
-                                                team: tradeData.team,
-                                                marketValue: tradeData.marketValue,
-                                                myValue: tradeData.myValue,
-                                                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
-                                                PRPScore: tradeData.PRPScore,
-                                                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
-                                                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-                                                PNODVScore: tradeData.PNODVScore,
-                                                RVSScore: tradeData.RVSScore,
-                                            },
-                                        })];
-                                case 1:
-                                    _c.sent();
-                                    return [2 /*return*/];
+                    assignValues(jaxMappedPlayerRankings, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1);
+                    for (_i = 0, data_1 = data; _i < data_1.length; _i++) {
+                        item = data_1[_i];
+                        tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+                        // Sort tradeDataArray by myValue in descending order
+                        tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
+                        _loop_1 = function (tradeData) {
+                            // Ensure that the required fields are populated
+                            if (!tradeData.name) {
+                                console.error("Missing name for trade data:", tradeData);
+                                return "continue";
                             }
-                        });
-                    };
-                    _a = 0, tradeDataArray_1 = tradeDataArray;
-                    _b.label = 3;
-                case 3:
-                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 6];
-                    tradeData = tradeDataArray_1[_a];
-                    return [5 /*yield**/, _loop_1(tradeData)];
-                case 4:
-                    _b.sent();
-                    _b.label = 5;
-                case 5:
-                    _a++;
+                            // Update overallSFRank based on the jaxMappedPlayerRankings
+                            jaxMappedPlayerRankings.forEach(function (player) {
+                                if (player.Name === tradeData.name) {
+                                    // console.log(player);
+                                }
+                            });
+                        };
+                        // Loop through each object in the tradeAnalyzerDataObjectsArray
+                        for (_a = 0, tradeDataArray_1 = tradeDataArray; _a < tradeDataArray_1.length; _a++) {
+                            tradeData = tradeDataArray_1[_a];
+                            _loop_1(tradeData);
+                        }
+                    }
                     return [3 /*break*/, 3];
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 2];
-                case 7: return [3 /*break*/, 9];
-                case 8:
+                case 2:
                     error_1 = _b.sent();
-                    console.error('Error while pushing data to PostgreSQL:', error_1);
-                    return [3 /*break*/, 9];
-                case 9: return [2 /*return*/];
+                    console.error("Error while pushing data to PostgreSQL:", error_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -197,35 +366,35 @@ function main() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log('Main function started');
+                    console.log("Main function started");
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 6, , 7]);
-                    return [4 /*yield*/, Promise.resolve().then(function () { return require('../../../src/app/generated/prisma/index.js'); })];
+                    return [4 /*yield*/, Promise.resolve().then(function () { return require("../../../src/app/generated/prisma/index.js"); })];
                 case 2:
                     pkg = _a.sent();
                     PrismaClient = pkg.PrismaClient;
                     prisma_1 = new PrismaClient();
-                    console.log('Prisma Client created');
-                    console.log('Attempting to delete existing records from tradeAnalyzerData...');
+                    console.log("Prisma Client created");
+                    console.log("Attempting to delete existing records from tradeAnalyzerData...");
                     return [4 /*yield*/, prisma_1.tradeAnalyzerData.deleteMany({})];
                 case 3:
                     deleteResult = _a.sent();
                     // Log the result of the deletion
-                    console.log('Delete operation completed:', deleteResult);
+                    console.log("Delete operation completed:", deleteResult);
                     return [4 /*yield*/, fetchDataFromMongoDB()];
                 case 4:
                     data = _a.sent();
                     // console.log('Data fetched from MongoDB:', data);
-                    console.log('Pushing data to PostgreSQL...');
+                    console.log("Pushing data to PostgreSQL...");
                     return [4 /*yield*/, pushDataToPostgreSQL(data, prisma_1)];
                 case 5:
                     _a.sent();
-                    console.log('Data pushed to PostgreSQL successfully!');
+                    console.log("Data pushed to PostgreSQL successfully!");
                     return [2 /*return*/, prisma_1]; // Return the client so we can disconnect it
                 case 6:
                     error_2 = _a.sent();
-                    console.error('Error in main function:', error_2);
+                    console.error("Error in main function:", error_2);
                     return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];
             }
@@ -234,8 +403,10 @@ function main() {
 }
 var prisma = null;
 main()
-    .then(function (client) { prisma = client; })
-    .catch(function (e) { return console.error('Error in main promise chain:', e); })
+    .then(function (client) {
+    prisma = client;
+})
+    .catch(function (e) { return console.error("Error in main promise chain:", e); })
     .finally(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
