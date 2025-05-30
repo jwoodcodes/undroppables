@@ -115,11 +115,11 @@ function assignValues(
   tier9LastPlayerRank: number
 ) {
   function assignThierValuesBasedOffTiersAndRankings(
-    player,
-    tiermax,
-    tiermin,
-    rankOfFirstPlayerInTier,
-    rankOfLastPlayerInTier
+    player: PlayerRanking,
+    tiermax: number,
+    tiermin: number,
+    rankOfFirstPlayerInTier: number,
+    rankOfLastPlayerInTier: number
   ) {
     // console.log(player, tier1LastPlayerRank);
     // console.log(Math.round(tier1LastPlayerRank / 2));
