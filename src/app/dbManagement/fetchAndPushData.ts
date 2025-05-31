@@ -1,6 +1,8 @@
 import { MongoClient } from "mongodb";
 // import { PrismaClient } from '../../../src/app/generated/prisma';
 const jaxDynoRankings = require("./rankings/jaxDynoRankings");
+const travDynoRankings = require("./rankings/travDynoRankings");
+const joeDynoRankings = require("./rankings/joeDynoRankings");
 
 // const prisma = new PrismaClient();
 const mongoClient = new MongoClient(
@@ -21,6 +23,9 @@ interface YourDataType {
   PNODVScore: number;
   RVSScore?: number;
   overallSFRank?: number;
+  jaxValue?: number;
+  travValue?: number;
+  joeValue?: number;
   tradeAnalyzerDataObjectsArray: {
     id: string;
     name: string;
@@ -34,6 +39,9 @@ interface YourDataType {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number;
     PNODVScore: number;
     RVSScore?: number;
+    jaxValue?: number;
+    travValue?: number;
+    joeValue?: number;
   }[];
 }
 
@@ -44,6 +52,21 @@ interface PlayerRanking {
   Tiers: string; // The tier of the player, e.g., "10"
   overallSFRank?: number; // Optional property for overall rank
   thierValue?: number;
+}
+
+function sanitizeName(name: string): string {
+  return name
+    .toLowerCase() // Convert to lowercase
+    .replace(/ jr\.?/g, '') // Remove "jr." or "Jr."
+    .replace(/ ii\.?/g, '') // Remove "ii" or "II"
+    .replace(/ iii\.?/g, '') // Remove "iii" or "III"
+    .replace(/\./g, '') // Remove periods
+    .replace(/\./g, '') // Remove periods again
+    .replace(/-/g, '') // Remove hyphens
+    .replace(/'/g, '') // Remove single quotes
+    .replace(/'/g, '') // Remove single quotes again (if needed)
+    .replace("Cameron", "Cam") // Specific name replacement
+    .trim(); // Trim any leading or trailing spaces
 }
 
 async function fetchDataFromMongoDB() {
@@ -160,14 +183,14 @@ function assignValues(
         }
       }
       player.thierValue = Math.round(player.thierValue);
-      console.log(
-        player,
-        diffAsPercentageOfTotal,
-        diffBetweenMiddleAndPlayer,
-        maxMinDiff,
-        valueIncrease,
-        middleValue
-      );
+      // console.log(
+      //   player,
+      //   diffAsPercentageOfTotal,
+      //   diffBetweenMiddleAndPlayer,
+      //   maxMinDiff,
+      //   valueIncrease,
+      //   middleValue
+      // );
     }
   }
 
@@ -357,8 +380,8 @@ function assignValues(
         rankOfFirstPlayerInTier,
         rankOfLastPlayerInTier
       );
-    }
-  });
+  }
+});
   return rankingsSet;
 }
 
@@ -377,15 +400,15 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
     // Map jaxDynoRankings to PlayerRanking interface
     const jaxMappedPlayerRankings: PlayerRanking[] = jaxDynoRankings.map(
       (player: PlayerRanking) => ({
-        Name: player.Name.replace(/"/g, ""), // Remove quotes if necessary
+        Name: sanitizeName(player.Name),
         Team: player.Team,
-        Position: player.Position.replace(/"/g, ""), // Remove quotes if necessary
+        Position: sanitizeName(player.Position),
         Tiers: player.Tiers,
         overallSFRank: undefined, // Initialize with undefined or set it later
       })
     );
 
-    let counter = 1;
+    let jaxCounter = 1;
     let JaxTier1LastPlayerRank = 0;
     let JaxTier2LastPlayerRank = 0;
     let JaxTier3LastPlayerRank = 0;
@@ -397,37 +420,37 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
     let JaxTier9LastPlayerRank = 0;
 
     jaxMappedPlayerRankings.forEach((player) => {
-      player.overallSFRank = counter;
+      player.overallSFRank = jaxCounter;
       // console.log(player, counter);
       if (JaxTier1LastPlayerRank === 0 && player.Tiers === "2") {
-        JaxTier1LastPlayerRank = counter - 1;
+        JaxTier1LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier2LastPlayerRank === 0 && player.Tiers === "3") {
-        JaxTier2LastPlayerRank = counter - 1;
+        JaxTier2LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier3LastPlayerRank === 0 && player.Tiers === "4") {
-        JaxTier3LastPlayerRank = counter - 1;
+        JaxTier3LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier4LastPlayerRank === 0 && player.Tiers === "5") {
-        JaxTier4LastPlayerRank = counter - 1;
+        JaxTier4LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier5LastPlayerRank === 0 && player.Tiers === "6") {
-        JaxTier5LastPlayerRank = counter - 1;
+        JaxTier5LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier6LastPlayerRank === 0 && player.Tiers === "7") {
-        JaxTier6LastPlayerRank = counter - 1;
+        JaxTier6LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier7LastPlayerRank === 0 && player.Tiers === "8") {
-        JaxTier7LastPlayerRank = counter - 1;
+        JaxTier7LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier8LastPlayerRank === 0 && player.Tiers === "9") {
-        JaxTier8LastPlayerRank = counter - 1;
+        JaxTier8LastPlayerRank = jaxCounter - 1;
       }
       if (JaxTier9LastPlayerRank === 0 && player.Tiers === "10") {
-        JaxTier9LastPlayerRank = counter - 1;
+        JaxTier9LastPlayerRank = jaxCounter - 1;
       }
 
-      counter++;
+      jaxCounter++;
     });
 
     assignValues(
@@ -442,6 +465,155 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
       JaxTier8LastPlayerRank,
       JaxTier9LastPlayerRank
     );
+
+    // console.log(jaxMappedPlayerRankings);
+
+    //
+    // map travDynoRankings to PlayerRanking interface
+    const travMappedPlayerRankings: PlayerRanking[] = travDynoRankings.map(
+      (player: PlayerRanking) => ({
+        Name: sanitizeName(player.Name),
+        Team: player.Team,
+        Position: sanitizeName(player.Position),
+        Tiers: player.Tiers,
+        overallSFRank: undefined, // Initialize with undefined or set it later
+      })
+    );
+
+    let travCounter = 1;
+    let travTier1LastPlayerRank = 0;
+    let travTier2LastPlayerRank = 0;
+    let travTier3LastPlayerRank = 0;
+    let travTier4LastPlayerRank = 0;
+    let travTier5LastPlayerRank = 0;
+    let travTier6LastPlayerRank = 0;
+    let travTier7LastPlayerRank = 0;
+    let travTier8LastPlayerRank = 0;
+    let travTier9LastPlayerRank = 0;
+
+    travMappedPlayerRankings.forEach((player) => {
+      player.overallSFRank = travCounter;
+      // console.log(player, counter);
+      if (travTier1LastPlayerRank === 0 && player.Tiers === "2") {
+        travTier1LastPlayerRank = travCounter - 1;
+      }
+      if (travTier2LastPlayerRank === 0 && player.Tiers === "3") {
+        travTier2LastPlayerRank = travCounter - 1;
+      }
+      if (travTier3LastPlayerRank === 0 && player.Tiers === "4") {
+        travTier3LastPlayerRank = travCounter - 1;
+      }
+      if (travTier4LastPlayerRank === 0 && player.Tiers === "5") {
+        travTier4LastPlayerRank = travCounter - 1;
+      }
+      if (travTier5LastPlayerRank === 0 && player.Tiers === "6") {
+        travTier5LastPlayerRank = travCounter - 1;
+      }
+      if (travTier6LastPlayerRank === 0 && player.Tiers === "7") {
+        travTier6LastPlayerRank = travCounter - 1;
+      }
+      if (travTier7LastPlayerRank === 0 && player.Tiers === "8") {
+        travTier7LastPlayerRank = travCounter - 1;
+      }
+      if (travTier8LastPlayerRank === 0 && player.Tiers === "9") {
+        travTier8LastPlayerRank = travCounter - 1;
+      }
+      if (travTier9LastPlayerRank === 0 && player.Tiers === "10") {
+        travTier9LastPlayerRank = travCounter - 1;
+      }
+
+      travCounter++;
+    });
+
+    assignValues(
+      travMappedPlayerRankings,
+      travTier1LastPlayerRank,
+      travTier2LastPlayerRank,
+      travTier3LastPlayerRank,
+      travTier4LastPlayerRank,
+      travTier5LastPlayerRank,
+      travTier6LastPlayerRank,
+      travTier7LastPlayerRank,
+      travTier8LastPlayerRank,
+      travTier9LastPlayerRank
+    );
+
+    // map joeDynoRankings to PlayerRanking interface
+
+    
+   
+    const joeDynoRankingsMappedPlayerRankings: PlayerRanking[] = joeDynoRankings.map(
+      (player: PlayerRanking) => ({
+        Name: sanitizeName(player.Name),
+        Team: player.Team,
+        Position: sanitizeName(player.Position),
+        Tiers: player.Tiers,
+        overallSFRank: undefined, // Initialize with undefined or set it later
+      })
+    );
+
+    let joeCounter = 1;
+    let joeTier1LastPlayerRank = 0;
+    let joeTier2LastPlayerRank = 0;
+    let joeTier3LastPlayerRank = 0;
+    let joeTier4LastPlayerRank = 0;
+    let joeTier5LastPlayerRank = 0;
+    let joeTier6LastPlayerRank = 0;
+    let joeTier7LastPlayerRank = 0;
+    let joeTier8LastPlayerRank = 0;
+    let joeTier9LastPlayerRank = 0;
+
+    joeDynoRankingsMappedPlayerRankings.forEach((player) => {
+      player.overallSFRank = joeCounter;
+      // console.log(player, counter);
+      if (joeTier1LastPlayerRank === 0 && player.Tiers === "2") {
+        joeTier1LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier2LastPlayerRank === 0 && player.Tiers === "3") {
+        joeTier2LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier3LastPlayerRank === 0 && player.Tiers === "4") {
+        joeTier3LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier4LastPlayerRank === 0 && player.Tiers === "5") {
+        joeTier4LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier5LastPlayerRank === 0 && player.Tiers === "6") {
+        joeTier5LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier6LastPlayerRank === 0 && player.Tiers === "7") {
+        joeTier6LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier7LastPlayerRank === 0 && player.Tiers === "8") {
+        joeTier7LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier8LastPlayerRank === 0 && player.Tiers === "9") {
+        joeTier8LastPlayerRank = joeCounter - 1;
+      }
+      if (joeTier9LastPlayerRank === 0 && player.Tiers === "10") {
+        joeTier9LastPlayerRank = joeCounter - 1;
+      }
+
+      joeCounter++;
+    });
+
+    assignValues(
+      joeDynoRankingsMappedPlayerRankings,
+      joeTier1LastPlayerRank,
+      joeTier2LastPlayerRank,
+      joeTier3LastPlayerRank,
+      joeTier4LastPlayerRank,
+      joeTier5LastPlayerRank,
+      joeTier6LastPlayerRank,
+      joeTier7LastPlayerRank,
+      joeTier8LastPlayerRank,
+      joeTier9LastPlayerRank
+    );
+
+
+
+    //
+    //
 
     for (const item of data) {
       // Access the tradeAnalyzerDataObjectsArray from the item
@@ -459,32 +631,61 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
           continue; // Skip this item if name is missing
         }
 
+        // Sanitize tradeData.name
+        const sanitizedTradeDataName = sanitizeName(tradeData.name);
+
         // Update overallSFRank based on the jaxMappedPlayerRankings
         jaxMappedPlayerRankings.forEach((player) => {
-          if (player.Name === tradeData.name) {
+          // console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName);
+          // if(tradeData.name === 'Patrick Mahomes') {
+          //   console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName)
+          // }
+          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
             // console.log(player);
+            // console.log(tradeData);
+            tradeData.jaxValue = player.thierValue
           }
         });
 
-        // await prisma.tradeAnalyzerData.create({
-        //   data: {
-        //     id: tradeData.id, // Ensure this is populated
-        //     name: tradeData.name, // Ensure this is populated
-        //     position: tradeData.position,
-        //     team: tradeData.team,
-        //     marketValue: tradeData.marketValue,
-        //     myValue: tradeData.myValue,
-        //     valueDiffBetweenMyValueAndMarketValue:
-        //       tradeData.valueDiffBetweenMyValueAndMarketValue,
-        //     PRPScore: tradeData.PRPScore,
-        //     projectedNextOffseasonDynastyValue:
-        //       tradeData.projectedNextOffseasonDynastyValue,
-        //     valueDifferenceBetweenCurrentMarketValueAndPNODV:
-        //       tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-        //     PNODVScore: tradeData.PNODVScore,
-        //     RVSScore: tradeData.RVSScore,
-        //   },
-        // });
+        travMappedPlayerRankings.forEach((player) => {
+          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+            // console.log(player);
+            // console.log(tradeData);
+            tradeData.travValue = player.thierValue
+          }
+        });
+
+        joeDynoRankingsMappedPlayerRankings.forEach((player) => {
+          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+            // console.log(player);
+            // console.log(tradeData);
+            tradeData.joeValue = player.thierValue
+          }
+        });
+
+        await prisma.tradeAnalyzerData.create({
+          data: {
+            id: tradeData.id, // Ensure this is populated
+            name: tradeData.name, // Ensure this is populated
+            position: tradeData.position,
+            team: tradeData.team,
+            marketValue: tradeData.marketValue,
+            myValue: tradeData.myValue,
+            valueDiffBetweenMyValueAndMarketValue:
+              tradeData.valueDiffBetweenMyValueAndMarketValue,
+            PRPScore: tradeData.PRPScore,
+            projectedNextOffseasonDynastyValue:
+              tradeData.projectedNextOffseasonDynastyValue,
+            valueDifferenceBetweenCurrentMarketValueAndPNODV:
+              tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+            PNODVScore: tradeData.PNODVScore,
+            RVSScore: tradeData.RVSScore,
+            // overallSFRank: tradeData.overallSFRank,
+            jaxValue: tradeData.jaxValue,
+            travValue: tradeData.travValue,
+            joeValue: tradeData.joeValue
+          },
+        });
       }
     }
   } catch (error) {

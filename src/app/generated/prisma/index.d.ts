@@ -889,6 +889,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
+    jaxValue: number | null
+    travValue: number | null
+    joeValue: number | null
   }
 
   export type TradeAnalyzerDataSumAggregateOutputType = {
@@ -899,6 +902,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
+    jaxValue: number | null
+    travValue: number | null
+    joeValue: number | null
   }
 
   export type TradeAnalyzerDataMinAggregateOutputType = {
@@ -913,6 +919,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
+    jaxValue: number | null
+    travValue: number | null
+    joeValue: number | null
   }
 
   export type TradeAnalyzerDataMaxAggregateOutputType = {
@@ -927,6 +936,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
+    jaxValue: number | null
+    travValue: number | null
+    joeValue: number | null
   }
 
   export type TradeAnalyzerDataCountAggregateOutputType = {
@@ -942,6 +954,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number
     PNODVScore: number
     RVSScore: number
+    jaxValue: number
+    travValue: number
+    joeValue: number
     _all: number
   }
 
@@ -954,6 +969,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
+    jaxValue?: true
+    travValue?: true
+    joeValue?: true
   }
 
   export type TradeAnalyzerDataSumAggregateInputType = {
@@ -964,6 +982,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
+    jaxValue?: true
+    travValue?: true
+    joeValue?: true
   }
 
   export type TradeAnalyzerDataMinAggregateInputType = {
@@ -978,6 +999,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
+    jaxValue?: true
+    travValue?: true
+    joeValue?: true
   }
 
   export type TradeAnalyzerDataMaxAggregateInputType = {
@@ -992,6 +1016,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
+    jaxValue?: true
+    travValue?: true
+    joeValue?: true
   }
 
   export type TradeAnalyzerDataCountAggregateInputType = {
@@ -1007,6 +1034,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
     PNODVScore?: true
     RVSScore?: true
+    jaxValue?: true
+    travValue?: true
+    joeValue?: true
     _all?: true
   }
 
@@ -1109,6 +1139,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
     PNODVScore: number | null
     RVSScore: number | null
+    jaxValue: number | null
+    travValue: number | null
+    joeValue: number | null
     _count: TradeAnalyzerDataCountAggregateOutputType | null
     _avg: TradeAnalyzerDataAvgAggregateOutputType | null
     _sum: TradeAnalyzerDataSumAggregateOutputType | null
@@ -1143,6 +1176,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
     PNODVScore?: boolean
     RVSScore?: boolean
+    jaxValue?: boolean
+    travValue?: boolean
+    joeValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1158,6 +1194,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
     PNODVScore?: boolean
     RVSScore?: boolean
+    jaxValue?: boolean
+    travValue?: boolean
+    joeValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1173,6 +1212,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
     PNODVScore?: boolean
     RVSScore?: boolean
+    jaxValue?: boolean
+    travValue?: boolean
+    joeValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectScalar = {
@@ -1188,9 +1230,12 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
     PNODVScore?: boolean
     RVSScore?: boolean
+    jaxValue?: boolean
+    travValue?: boolean
+    joeValue?: boolean
   }
 
-  export type tradeAnalyzerDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "position" | "team" | "marketValue" | "myValue" | "valueDiffBetweenMyValueAndMarketValue" | "PRPScore" | "projectedNextOffseasonDynastyValue" | "valueDifferenceBetweenCurrentMarketValueAndPNODV" | "PNODVScore" | "RVSScore", ExtArgs["result"]["tradeAnalyzerData"]>
+  export type tradeAnalyzerDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "position" | "team" | "marketValue" | "myValue" | "valueDiffBetweenMyValueAndMarketValue" | "PRPScore" | "projectedNextOffseasonDynastyValue" | "valueDifferenceBetweenCurrentMarketValueAndPNODV" | "PNODVScore" | "RVSScore" | "jaxValue" | "travValue" | "joeValue", ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type $tradeAnalyzerDataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tradeAnalyzerData"
@@ -1208,6 +1253,9 @@ export namespace Prisma {
       valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
       PNODVScore: number | null
       RVSScore: number | null
+      jaxValue: number | null
+      travValue: number | null
+      joeValue: number | null
     }, ExtArgs["result"]["tradeAnalyzerData"]>
     composites: {}
   }
@@ -1643,6 +1691,9 @@ export namespace Prisma {
     readonly valueDifferenceBetweenCurrentMarketValueAndPNODV: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly PNODVScore: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly RVSScore: FieldRef<"tradeAnalyzerData", 'Float'>
+    readonly jaxValue: FieldRef<"tradeAnalyzerData", 'Float'>
+    readonly travValue: FieldRef<"tradeAnalyzerData", 'Float'>
+    readonly joeValue: FieldRef<"tradeAnalyzerData", 'Float'>
   }
     
 
@@ -2035,7 +2086,10 @@ export namespace Prisma {
     projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
     valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
     PNODVScore: 'PNODVScore',
-    RVSScore: 'RVSScore'
+    RVSScore: 'RVSScore',
+    jaxValue: 'jaxValue',
+    travValue: 'travValue',
+    joeValue: 'joeValue'
   };
 
   export type TradeAnalyzerDataScalarFieldEnum = (typeof TradeAnalyzerDataScalarFieldEnum)[keyof typeof TradeAnalyzerDataScalarFieldEnum]
@@ -2162,6 +2216,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    jaxValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    travValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    joeValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataOrderByWithRelationInput = {
@@ -2177,6 +2234,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
     PNODVScore?: SortOrderInput | SortOrder
     RVSScore?: SortOrderInput | SortOrder
+    jaxValue?: SortOrderInput | SortOrder
+    travValue?: SortOrderInput | SortOrder
+    joeValue?: SortOrderInput | SortOrder
   }
 
   export type tradeAnalyzerDataWhereUniqueInput = Prisma.AtLeast<{
@@ -2195,6 +2255,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    jaxValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    travValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    joeValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }, "id">
 
   export type tradeAnalyzerDataOrderByWithAggregationInput = {
@@ -2210,6 +2273,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
     PNODVScore?: SortOrderInput | SortOrder
     RVSScore?: SortOrderInput | SortOrder
+    jaxValue?: SortOrderInput | SortOrder
+    travValue?: SortOrderInput | SortOrder
+    joeValue?: SortOrderInput | SortOrder
     _count?: tradeAnalyzerDataCountOrderByAggregateInput
     _avg?: tradeAnalyzerDataAvgOrderByAggregateInput
     _max?: tradeAnalyzerDataMaxOrderByAggregateInput
@@ -2233,6 +2299,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     PNODVScore?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     RVSScore?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    jaxValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    travValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    joeValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataCreateInput = {
@@ -2248,6 +2317,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
+    jaxValue?: number | null
+    travValue?: number | null
+    joeValue?: number | null
   }
 
   export type tradeAnalyzerDataUncheckedCreateInput = {
@@ -2263,6 +2335,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
+    jaxValue?: number | null
+    travValue?: number | null
+    joeValue?: number | null
   }
 
   export type tradeAnalyzerDataUpdateInput = {
@@ -2278,6 +2353,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    travValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateInput = {
@@ -2293,6 +2371,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    travValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataCreateManyInput = {
@@ -2308,6 +2389,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
     PNODVScore?: number | null
     RVSScore?: number | null
+    jaxValue?: number | null
+    travValue?: number | null
+    joeValue?: number | null
   }
 
   export type tradeAnalyzerDataUpdateManyMutationInput = {
@@ -2323,6 +2407,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    travValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateManyInput = {
@@ -2338,6 +2425,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
     PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
     RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    travValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2422,6 +2512,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
+    jaxValue?: SortOrder
+    travValue?: SortOrder
+    joeValue?: SortOrder
   }
 
   export type tradeAnalyzerDataAvgOrderByAggregateInput = {
@@ -2432,6 +2525,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
+    jaxValue?: SortOrder
+    travValue?: SortOrder
+    joeValue?: SortOrder
   }
 
   export type tradeAnalyzerDataMaxOrderByAggregateInput = {
@@ -2446,6 +2542,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
+    jaxValue?: SortOrder
+    travValue?: SortOrder
+    joeValue?: SortOrder
   }
 
   export type tradeAnalyzerDataMinOrderByAggregateInput = {
@@ -2460,6 +2559,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
+    jaxValue?: SortOrder
+    travValue?: SortOrder
+    joeValue?: SortOrder
   }
 
   export type tradeAnalyzerDataSumOrderByAggregateInput = {
@@ -2470,6 +2572,9 @@ export namespace Prisma {
     valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
     PNODVScore?: SortOrder
     RVSScore?: SortOrder
+    jaxValue?: SortOrder
+    travValue?: SortOrder
+    joeValue?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {

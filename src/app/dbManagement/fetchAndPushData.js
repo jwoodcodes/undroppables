@@ -39,8 +39,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
 // import { PrismaClient } from '../../../src/app/generated/prisma';
 var jaxDynoRankings = require("./rankings/jaxDynoRankings");
+var travDynoRankings = require("./rankings/travDynoRankings");
+var joeDynoRankings = require("./rankings/joeDynoRankings");
 // const prisma = new PrismaClient();
 var mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test");
+function sanitizeName(name) {
+    return name
+        .toLowerCase() // Convert to lowercase
+        .replace(/ jr\.?/g, '') // Remove "jr." or "Jr."
+        .replace(/ ii\.?/g, '') // Remove "ii" or "II"
+        .replace(/ iii\.?/g, '') // Remove "iii" or "III"
+        .replace(/\./g, '') // Remove periods
+        .replace(/\./g, '') // Remove periods again
+        .replace(/-/g, '') // Remove hyphens
+        .replace(/'/g, '') // Remove single quotes
+        .replace(/'/g, '') // Remove single quotes again (if needed)
+        .replace("Cameron", "Cam") // Specific name replacement
+        .trim(); // Trim any leading or trailing spaces
+}
 function fetchDataFromMongoDB() {
     return __awaiter(this, void 0, void 0, function () {
         var database, collection, tempData, data, tradeDataArray;
@@ -129,7 +145,15 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
                     player.thierValue = tiermin;
                 }
             }
-            console.log(player, diffAsPercentageOfTotal, diffBetweenMiddleAndPlayer, maxMinDiff, valueIncrease, middleValue);
+            player.thierValue = Math.round(player.thierValue);
+            // console.log(
+            //   player,
+            //   diffAsPercentageOfTotal,
+            //   diffBetweenMiddleAndPlayer,
+            //   maxMinDiff,
+            //   valueIncrease,
+            //   middleValue
+            // );
         }
     }
     rankingsSet.forEach(function (player) {
@@ -265,11 +289,11 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
 }
 function pushDataToPostgreSQL(data, prisma) {
     return __awaiter(this, void 0, void 0, function () {
-        var deleteResult, jaxMappedPlayerRankings, counter_1, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
+        var deleteResult, jaxMappedPlayerRankings, jaxCounter_1, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1, travMappedPlayerRankings, travCounter_1, travTier1LastPlayerRank_1, travTier2LastPlayerRank_1, travTier3LastPlayerRank_1, travTier4LastPlayerRank_1, travTier5LastPlayerRank_1, travTier6LastPlayerRank_1, travTier7LastPlayerRank_1, travTier8LastPlayerRank_1, travTier9LastPlayerRank_1, joeDynoRankingsMappedPlayerRankings, joeCounter_1, joeTier1LastPlayerRank_1, joeTier2LastPlayerRank_1, joeTier3LastPlayerRank_1, joeTier4LastPlayerRank_1, joeTier5LastPlayerRank_1, joeTier6LastPlayerRank_1, joeTier7LastPlayerRank_1, joeTier8LastPlayerRank_1, joeTier9LastPlayerRank_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 8, , 9]);
                     console.log("Attempting to delete existing records from tradeAnalyzerData...");
                     return [4 /*yield*/, prisma.tradeAnalyzerData.deleteMany({})];
                 case 1:
@@ -277,13 +301,13 @@ function pushDataToPostgreSQL(data, prisma) {
                     // Log the result of the deletion
                     console.log("Delete operation completed:", deleteResult);
                     jaxMappedPlayerRankings = jaxDynoRankings.map(function (player) { return ({
-                        Name: player.Name.replace(/"/g, ""), // Remove quotes if necessary
+                        Name: sanitizeName(player.Name),
                         Team: player.Team,
-                        Position: player.Position.replace(/"/g, ""), // Remove quotes if necessary
+                        Position: sanitizeName(player.Position),
                         Tiers: player.Tiers,
                         overallSFRank: undefined, // Initialize with undefined or set it later
                     }); });
-                    counter_1 = 1;
+                    jaxCounter_1 = 1;
                     JaxTier1LastPlayerRank_1 = 0;
                     JaxTier2LastPlayerRank_1 = 0;
                     JaxTier3LastPlayerRank_1 = 0;
@@ -294,68 +318,230 @@ function pushDataToPostgreSQL(data, prisma) {
                     JaxTier8LastPlayerRank_1 = 0;
                     JaxTier9LastPlayerRank_1 = 0;
                     jaxMappedPlayerRankings.forEach(function (player) {
-                        player.overallSFRank = counter_1;
+                        player.overallSFRank = jaxCounter_1;
                         // console.log(player, counter);
                         if (JaxTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
-                            JaxTier1LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier1LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
-                            JaxTier2LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier2LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
-                            JaxTier3LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier3LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
-                            JaxTier4LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier4LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
-                            JaxTier5LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier5LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
-                            JaxTier6LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier6LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
-                            JaxTier7LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier7LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
-                            JaxTier8LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier8LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
                         if (JaxTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
-                            JaxTier9LastPlayerRank_1 = counter_1 - 1;
+                            JaxTier9LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
-                        counter_1++;
+                        jaxCounter_1++;
                     });
                     assignValues(jaxMappedPlayerRankings, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1);
-                    for (_i = 0, data_1 = data; _i < data_1.length; _i++) {
-                        item = data_1[_i];
-                        tradeDataArray = item.tradeAnalyzerDataObjectsArray;
-                        // Sort tradeDataArray by myValue in descending order
-                        tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
-                        _loop_1 = function (tradeData) {
-                            // Ensure that the required fields are populated
-                            if (!tradeData.name) {
-                                console.error("Missing name for trade data:", tradeData);
-                                return "continue";
-                            }
-                            // Update overallSFRank based on the jaxMappedPlayerRankings
-                            jaxMappedPlayerRankings.forEach(function (player) {
-                                if (player.Name === tradeData.name) {
-                                    // console.log(player);
-                                }
-                            });
-                        };
-                        // Loop through each object in the tradeAnalyzerDataObjectsArray
-                        for (_a = 0, tradeDataArray_1 = tradeDataArray; _a < tradeDataArray_1.length; _a++) {
-                            tradeData = tradeDataArray_1[_a];
-                            _loop_1(tradeData);
+                    travMappedPlayerRankings = travDynoRankings.map(function (player) { return ({
+                        Name: sanitizeName(player.Name),
+                        Team: player.Team,
+                        Position: sanitizeName(player.Position),
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined, // Initialize with undefined or set it later
+                    }); });
+                    travCounter_1 = 1;
+                    travTier1LastPlayerRank_1 = 0;
+                    travTier2LastPlayerRank_1 = 0;
+                    travTier3LastPlayerRank_1 = 0;
+                    travTier4LastPlayerRank_1 = 0;
+                    travTier5LastPlayerRank_1 = 0;
+                    travTier6LastPlayerRank_1 = 0;
+                    travTier7LastPlayerRank_1 = 0;
+                    travTier8LastPlayerRank_1 = 0;
+                    travTier9LastPlayerRank_1 = 0;
+                    travMappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = travCounter_1;
+                        // console.log(player, counter);
+                        if (travTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            travTier1LastPlayerRank_1 = travCounter_1 - 1;
                         }
-                    }
-                    return [3 /*break*/, 3];
+                        if (travTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            travTier2LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            travTier3LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            travTier4LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            travTier5LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            travTier6LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            travTier7LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            travTier8LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            travTier9LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        travCounter_1++;
+                    });
+                    assignValues(travMappedPlayerRankings, travTier1LastPlayerRank_1, travTier2LastPlayerRank_1, travTier3LastPlayerRank_1, travTier4LastPlayerRank_1, travTier5LastPlayerRank_1, travTier6LastPlayerRank_1, travTier7LastPlayerRank_1, travTier8LastPlayerRank_1, travTier9LastPlayerRank_1);
+                    joeDynoRankingsMappedPlayerRankings = joeDynoRankings.map(function (player) { return ({
+                        Name: sanitizeName(player.Name),
+                        Team: player.Team,
+                        Position: sanitizeName(player.Position),
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined, // Initialize with undefined or set it later
+                    }); });
+                    joeCounter_1 = 1;
+                    joeTier1LastPlayerRank_1 = 0;
+                    joeTier2LastPlayerRank_1 = 0;
+                    joeTier3LastPlayerRank_1 = 0;
+                    joeTier4LastPlayerRank_1 = 0;
+                    joeTier5LastPlayerRank_1 = 0;
+                    joeTier6LastPlayerRank_1 = 0;
+                    joeTier7LastPlayerRank_1 = 0;
+                    joeTier8LastPlayerRank_1 = 0;
+                    joeTier9LastPlayerRank_1 = 0;
+                    joeDynoRankingsMappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = joeCounter_1;
+                        // console.log(player, counter);
+                        if (joeTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            joeTier1LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            joeTier2LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            joeTier3LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            joeTier4LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            joeTier5LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            joeTier6LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            joeTier7LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            joeTier8LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            joeTier9LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        joeCounter_1++;
+                    });
+                    assignValues(joeDynoRankingsMappedPlayerRankings, joeTier1LastPlayerRank_1, joeTier2LastPlayerRank_1, joeTier3LastPlayerRank_1, joeTier4LastPlayerRank_1, joeTier5LastPlayerRank_1, joeTier6LastPlayerRank_1, joeTier7LastPlayerRank_1, joeTier8LastPlayerRank_1, joeTier9LastPlayerRank_1);
+                    _i = 0, data_1 = data;
+                    _b.label = 2;
                 case 2:
+                    if (!(_i < data_1.length)) return [3 /*break*/, 7];
+                    item = data_1[_i];
+                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+                    // Sort tradeDataArray by myValue in descending order
+                    tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
+                    _loop_1 = function (tradeData) {
+                        var sanitizedTradeDataName;
+                        return __generator(this, function (_c) {
+                            switch (_c.label) {
+                                case 0:
+                                    // Ensure that the required fields are populated
+                                    if (!tradeData.name) {
+                                        console.error("Missing name for trade data:", tradeData);
+                                        return [2 /*return*/, "continue"];
+                                    }
+                                    sanitizedTradeDataName = sanitizeName(tradeData.name);
+                                    // Update overallSFRank based on the jaxMappedPlayerRankings
+                                    jaxMappedPlayerRankings.forEach(function (player) {
+                                        // console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName);
+                                        // if(tradeData.name === 'Patrick Mahomes') {
+                                        //   console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName)
+                                        // }
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            tradeData.jaxValue = player.thierValue;
+                                        }
+                                    });
+                                    travMappedPlayerRankings.forEach(function (player) {
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            tradeData.travValue = player.thierValue;
+                                        }
+                                    });
+                                    joeDynoRankingsMappedPlayerRankings.forEach(function (player) {
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            tradeData.joeValue = player.thierValue;
+                                        }
+                                    });
+                                    return [4 /*yield*/, prisma.tradeAnalyzerData.create({
+                                            data: {
+                                                id: tradeData.id, // Ensure this is populated
+                                                name: tradeData.name, // Ensure this is populated
+                                                position: tradeData.position,
+                                                team: tradeData.team,
+                                                marketValue: tradeData.marketValue,
+                                                myValue: tradeData.myValue,
+                                                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                                                PRPScore: tradeData.PRPScore,
+                                                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                                                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                                                PNODVScore: tradeData.PNODVScore,
+                                                RVSScore: tradeData.RVSScore,
+                                                // overallSFRank: tradeData.overallSFRank,
+                                                jaxValue: tradeData.jaxValue,
+                                                travValue: tradeData.travValue,
+                                                joeValue: tradeData.joeValue
+                                            },
+                                        })];
+                                case 1:
+                                    _c.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
+                    _a = 0, tradeDataArray_1 = tradeDataArray;
+                    _b.label = 3;
+                case 3:
+                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 6];
+                    tradeData = tradeDataArray_1[_a];
+                    return [5 /*yield**/, _loop_1(tradeData)];
+                case 4:
+                    _b.sent();
+                    _b.label = 5;
+                case 5:
+                    _a++;
+                    return [3 /*break*/, 3];
+                case 6:
+                    _i++;
+                    return [3 /*break*/, 2];
+                case 7: return [3 /*break*/, 9];
+                case 8:
                     error_1 = _b.sent();
                     console.error("Error while pushing data to PostgreSQL:", error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 9];
+                case 9: return [2 /*return*/];
             }
         });
     });

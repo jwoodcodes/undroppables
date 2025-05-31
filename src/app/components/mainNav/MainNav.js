@@ -16,7 +16,7 @@ export default function MainNav() {
                 <li ><a href="/tools/unscore" className={styles.navLink}>UN Score</a></li>
                 <li ><a href="https://www.theundroppables.com/articles/" className={styles.navLink}>Content</a></li>
                 
-                <li ><a href="/toolkit" className={styles.navLink}>Tools</a></li>
+                <li ><a href="/tools" className={styles.navLink}>Tools</a></li>
                 <li ><a href="https://shop.theundroppables.com/" className={styles.navLink}>Shop</a></li>
                 <li ><a href="#" className={styles.navLink}>Pods</a></li>
                 {/* <li ><a href="#" className={styles.navLink}>Patreon</a></li> */}
