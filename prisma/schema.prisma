@@ -29,4 +29,7 @@ datasource db {
     valueDifferenceBetweenCurrentMarketValueAndPNODV Float?
     PNODVScore Float?
     RVSScore Float?
+    jaxValue Float?
+    travValue Float?
+    joeValue Float?
   }

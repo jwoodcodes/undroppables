@@ -132,7 +132,10 @@ exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
   valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
   PNODVScore: 'PNODVScore',
-  RVSScore: 'RVSScore'
+  RVSScore: 'RVSScore',
+  jaxValue: 'jaxValue',
+  travValue: 'travValue',
+  joeValue: 'joeValue'
 };
 
 exports.Prisma.SortOrder = {
