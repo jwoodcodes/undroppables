@@ -46,14 +46,14 @@ var mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksaret
 function sanitizeName(name) {
     return name
         .toLowerCase() // Convert to lowercase
-        .replace(/ jr\.?/g, '') // Remove "jr." or "Jr."
-        .replace(/ ii\.?/g, '') // Remove "ii" or "II"
-        .replace(/ iii\.?/g, '') // Remove "iii" or "III"
-        .replace(/\./g, '') // Remove periods
-        .replace(/\./g, '') // Remove periods again
-        .replace(/-/g, '') // Remove hyphens
-        .replace(/'/g, '') // Remove single quotes
-        .replace(/'/g, '') // Remove single quotes again (if needed)
+        .replace(/ jr\.?/g, "") // Remove "jr." or "Jr."
+        .replace(/ ii\.?/g, "") // Remove "ii" or "II"
+        .replace(/ iii\.?/g, "") // Remove "iii" or "III"
+        .replace(/\./g, "") // Remove periods
+        .replace(/\./g, "") // Remove periods again
+        .replace(/-/g, "") // Remove hyphens
+        .replace(/'/g, "") // Remove single quotes
+        .replace(/'/g, "") // Remove single quotes again (if needed)
         .replace("Cameron", "Cam") // Specific name replacement
         .trim(); // Trim any leading or trailing spaces
 }
@@ -495,6 +495,23 @@ function pushDataToPostgreSQL(data, prisma) {
                                             tradeData.joeValue = player.thierValue;
                                         }
                                     });
+                                    // console.log(tradeData);
+                                    if (tradeData.jaxValue && tradeData.travValue && tradeData.joeValue) {
+                                        tradeData.concensusValue =
+                                            (tradeData.myValue +
+                                                tradeData.jaxValue +
+                                                tradeData.travValue +
+                                                tradeData.joeValue) /
+                                                4;
+                                    }
+                                    else {
+                                        tradeData.concensusValue = tradeData.myValue;
+                                    }
+                                    if (tradeData.concensusValue !== tradeData.myValue) {
+                                        tradeData.valueDiffBetweenMyValueAndMarketValue =
+                                            tradeData.concensusValue - tradeData.marketValue;
+                                    }
+                                    // console.log(tradeData);
                                     return [4 /*yield*/, prisma.tradeAnalyzerData.create({
                                             data: {
                                                 id: tradeData.id, // Ensure this is populated
@@ -512,10 +529,12 @@ function pushDataToPostgreSQL(data, prisma) {
                                                 // overallSFRank: tradeData.overallSFRank,
                                                 jaxValue: tradeData.jaxValue,
                                                 travValue: tradeData.travValue,
-                                                joeValue: tradeData.joeValue
+                                                joeValue: tradeData.joeValue,
+                                                concensusValue: tradeData.concensusValue,
                                             },
                                         })];
                                 case 1:
+                                    // console.log(tradeData);
                                     _c.sent();
                                     return [2 /*return*/];
                             }

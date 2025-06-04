@@ -32,4 +32,5 @@ datasource db {
     jaxValue Float?
     travValue Float?
     joeValue Float?
+    concensusValue Float?
   }

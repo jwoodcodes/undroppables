@@ -30,4 +30,5 @@ model tradeAnalyzerData {
   jaxValue                                         Float?
   travValue                                        Float?
   joeValue                                         Float?
+  concensusValue                                   Float?
 }

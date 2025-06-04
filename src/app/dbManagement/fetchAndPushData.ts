@@ -26,6 +26,7 @@ interface YourDataType {
   jaxValue?: number;
   travValue?: number;
   joeValue?: number;
+  concensusValue?: number;
   tradeAnalyzerDataObjectsArray: {
     id: string;
     name: string;
@@ -42,6 +43,7 @@ interface YourDataType {
     jaxValue?: number;
     travValue?: number;
     joeValue?: number;
+    concensusValue?: number;
   }[];
 }
 
@@ -57,14 +59,14 @@ interface PlayerRanking {
 function sanitizeName(name: string): string {
   return name
     .toLowerCase() // Convert to lowercase
-    .replace(/ jr\.?/g, '') // Remove "jr." or "Jr."
-    .replace(/ ii\.?/g, '') // Remove "ii" or "II"
-    .replace(/ iii\.?/g, '') // Remove "iii" or "III"
-    .replace(/\./g, '') // Remove periods
-    .replace(/\./g, '') // Remove periods again
-    .replace(/-/g, '') // Remove hyphens
-    .replace(/'/g, '') // Remove single quotes
-    .replace(/'/g, '') // Remove single quotes again (if needed)
+    .replace(/ jr\.?/g, "") // Remove "jr." or "Jr."
+    .replace(/ ii\.?/g, "") // Remove "ii" or "II"
+    .replace(/ iii\.?/g, "") // Remove "iii" or "III"
+    .replace(/\./g, "") // Remove periods
+    .replace(/\./g, "") // Remove periods again
+    .replace(/-/g, "") // Remove hyphens
+    .replace(/'/g, "") // Remove single quotes
+    .replace(/'/g, "") // Remove single quotes again (if needed)
     .replace("Cameron", "Cam") // Specific name replacement
     .trim(); // Trim any leading or trailing spaces
 }
@@ -380,8 +382,8 @@ function assignValues(
         rankOfFirstPlayerInTier,
         rankOfLastPlayerInTier
       );
-  }
-});
+    }
+  });
   return rankingsSet;
 }
 
@@ -540,17 +542,14 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
 
     // map joeDynoRankings to PlayerRanking interface
 
-    
-   
-    const joeDynoRankingsMappedPlayerRankings: PlayerRanking[] = joeDynoRankings.map(
-      (player: PlayerRanking) => ({
+    const joeDynoRankingsMappedPlayerRankings: PlayerRanking[] =
+      joeDynoRankings.map((player: PlayerRanking) => ({
         Name: sanitizeName(player.Name),
         Team: player.Team,
         Position: sanitizeName(player.Position),
         Tiers: player.Tiers,
         overallSFRank: undefined, // Initialize with undefined or set it later
-      })
-    );
+      }));
 
     let joeCounter = 1;
     let joeTier1LastPlayerRank = 0;
@@ -610,8 +609,6 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
       joeTier9LastPlayerRank
     );
 
-
-
     //
     //
 
@@ -640,28 +637,53 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
           // if(tradeData.name === 'Patrick Mahomes') {
           //   console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName)
           // }
-          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+          if (
+            sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName
+          ) {
             // console.log(player);
             // console.log(tradeData);
-            tradeData.jaxValue = player.thierValue
+            tradeData.jaxValue = player.thierValue;
           }
         });
 
         travMappedPlayerRankings.forEach((player) => {
-          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+          if (
+            sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName
+          ) {
             // console.log(player);
             // console.log(tradeData);
-            tradeData.travValue = player.thierValue
+            tradeData.travValue = player.thierValue;
           }
         });
 
         joeDynoRankingsMappedPlayerRankings.forEach((player) => {
-          if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+          if (
+            sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName
+          ) {
             // console.log(player);
             // console.log(tradeData);
-            tradeData.joeValue = player.thierValue
+            tradeData.joeValue = player.thierValue;
           }
         });
+
+        // console.log(tradeData);
+        if (tradeData.jaxValue && tradeData.travValue && tradeData.joeValue) {
+          tradeData.concensusValue =
+            (tradeData.myValue +
+              tradeData.jaxValue +
+              tradeData.travValue +
+              tradeData.joeValue) /
+            4;
+        } else {
+          tradeData.concensusValue = tradeData.myValue;
+        }
+
+        if (tradeData.concensusValue !== tradeData.myValue) {
+          tradeData.valueDiffBetweenMyValueAndMarketValue =
+            tradeData.concensusValue - tradeData.marketValue;
+        }
+
+        // console.log(tradeData);
 
         await prisma.tradeAnalyzerData.create({
           data: {
@@ -683,7 +705,8 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
             // overallSFRank: tradeData.overallSFRank,
             jaxValue: tradeData.jaxValue,
             travValue: tradeData.travValue,
-            joeValue: tradeData.joeValue
+            joeValue: tradeData.joeValue,
+            concensusValue: tradeData.concensusValue,
           },
         });
       }
