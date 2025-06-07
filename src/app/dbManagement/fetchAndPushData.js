@@ -46,14 +46,14 @@ var mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksaret
 function sanitizeName(name) {
     return name
         .toLowerCase() // Convert to lowercase
-        .replace(/ jr\.?/g, '') // Remove "jr." or "Jr."
-        .replace(/ ii\.?/g, '') // Remove "ii" or "II"
-        .replace(/ iii\.?/g, '') // Remove "iii" or "III"
-        .replace(/\./g, '') // Remove periods
-        .replace(/\./g, '') // Remove periods again
-        .replace(/-/g, '') // Remove hyphens
-        .replace(/'/g, '') // Remove single quotes
-        .replace(/'/g, '') // Remove single quotes again (if needed)
+        .replace(/ jr\.?/g, "") // Remove "jr." or "Jr."
+        .replace(/ ii\.?/g, "") // Remove "ii" or "II"
+        .replace(/ iii\.?/g, "") // Remove "iii" or "III"
+        .replace(/\./g, "") // Remove periods
+        .replace(/\./g, "") // Remove periods again
+        .replace(/-/g, "") // Remove hyphens
+        .replace(/'/g, "") // Remove single quotes
+        .replace(/'/g, "") // Remove single quotes again (if needed)
         .replace("Cameron", "Cam") // Specific name replacement
         .trim(); // Trim any leading or trailing spaces
 }
@@ -478,23 +478,45 @@ function pushDataToPostgreSQL(data, prisma) {
                                         if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
                                             // console.log(player);
                                             // console.log(tradeData);
-                                            tradeData.jaxValue = player.thierValue;
+                                            if (player.thierValue) {
+                                                tradeData.jaxValue = Math.round(player.thierValue);
+                                            }
                                         }
                                     });
                                     travMappedPlayerRankings.forEach(function (player) {
                                         if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
                                             // console.log(player);
                                             // console.log(tradeData);
-                                            tradeData.travValue = player.thierValue;
+                                            if (player.thierValue) {
+                                                tradeData.travValue = Math.round(player.thierValue);
+                                            }
                                         }
                                     });
                                     joeDynoRankingsMappedPlayerRankings.forEach(function (player) {
                                         if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
                                             // console.log(player);
                                             // console.log(tradeData);
-                                            tradeData.joeValue = player.thierValue;
+                                            if (player.thierValue) {
+                                                tradeData.joeValue = Math.round(player.thierValue);
+                                            }
                                         }
                                     });
+                                    // console.log(tradeData);
+                                    if (tradeData.jaxValue && tradeData.travValue && tradeData.joeValue) {
+                                        tradeData.consensusValue = Math.round((tradeData.myValue +
+                                            tradeData.jaxValue +
+                                            tradeData.travValue +
+                                            tradeData.joeValue) /
+                                            4);
+                                    }
+                                    else {
+                                        tradeData.consensusValue = tradeData.myValue;
+                                    }
+                                    if (tradeData.consensusValue !== tradeData.myValue) {
+                                        tradeData.valueDiffBetweenMyValueAndMarketValue =
+                                            tradeData.consensusValue - tradeData.marketValue;
+                                    }
+                                    // console.log(tradeData);
                                     return [4 /*yield*/, prisma.tradeAnalyzerData.create({
                                             data: {
                                                 id: tradeData.id, // Ensure this is populated
@@ -512,10 +534,12 @@ function pushDataToPostgreSQL(data, prisma) {
                                                 // overallSFRank: tradeData.overallSFRank,
                                                 jaxValue: tradeData.jaxValue,
                                                 travValue: tradeData.travValue,
-                                                joeValue: tradeData.joeValue
+                                                joeValue: tradeData.joeValue,
+                                                consensusValue: tradeData.consensusValue,
                                             },
                                         })];
                                 case 1:
+                                    // console.log(tradeData);
                                     _c.sent();
                                     return [2 /*return*/];
                             }

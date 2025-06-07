@@ -892,6 +892,7 @@ export namespace Prisma {
     jaxValue: number | null
     travValue: number | null
     joeValue: number | null
+    consensusValue: number | null
   }
 
   export type TradeAnalyzerDataSumAggregateOutputType = {
@@ -905,6 +906,7 @@ export namespace Prisma {
     jaxValue: number | null
     travValue: number | null
     joeValue: number | null
+    consensusValue: number | null
   }
 
   export type TradeAnalyzerDataMinAggregateOutputType = {
@@ -922,6 +924,7 @@ export namespace Prisma {
     jaxValue: number | null
     travValue: number | null
     joeValue: number | null
+    consensusValue: number | null
   }
 
   export type TradeAnalyzerDataMaxAggregateOutputType = {
@@ -939,6 +942,7 @@ export namespace Prisma {
     jaxValue: number | null
     travValue: number | null
     joeValue: number | null
+    consensusValue: number | null
   }
 
   export type TradeAnalyzerDataCountAggregateOutputType = {
@@ -957,6 +961,7 @@ export namespace Prisma {
     jaxValue: number
     travValue: number
     joeValue: number
+    consensusValue: number
     _all: number
   }
 
@@ -972,6 +977,7 @@ export namespace Prisma {
     jaxValue?: true
     travValue?: true
     joeValue?: true
+    consensusValue?: true
   }
 
   export type TradeAnalyzerDataSumAggregateInputType = {
@@ -985,6 +991,7 @@ export namespace Prisma {
     jaxValue?: true
     travValue?: true
     joeValue?: true
+    consensusValue?: true
   }
 
   export type TradeAnalyzerDataMinAggregateInputType = {
@@ -1002,6 +1009,7 @@ export namespace Prisma {
     jaxValue?: true
     travValue?: true
     joeValue?: true
+    consensusValue?: true
   }
 
   export type TradeAnalyzerDataMaxAggregateInputType = {
@@ -1019,6 +1027,7 @@ export namespace Prisma {
     jaxValue?: true
     travValue?: true
     joeValue?: true
+    consensusValue?: true
   }
 
   export type TradeAnalyzerDataCountAggregateInputType = {
@@ -1037,6 +1046,7 @@ export namespace Prisma {
     jaxValue?: true
     travValue?: true
     joeValue?: true
+    consensusValue?: true
     _all?: true
   }
 
@@ -1142,6 +1152,7 @@ export namespace Prisma {
     jaxValue: number | null
     travValue: number | null
     joeValue: number | null
+    consensusValue: number | null
     _count: TradeAnalyzerDataCountAggregateOutputType | null
     _avg: TradeAnalyzerDataAvgAggregateOutputType | null
     _sum: TradeAnalyzerDataSumAggregateOutputType | null
@@ -1179,6 +1190,7 @@ export namespace Prisma {
     jaxValue?: boolean
     travValue?: boolean
     joeValue?: boolean
+    consensusValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1197,6 +1209,7 @@ export namespace Prisma {
     jaxValue?: boolean
     travValue?: boolean
     joeValue?: boolean
+    consensusValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1215,6 +1228,7 @@ export namespace Prisma {
     jaxValue?: boolean
     travValue?: boolean
     joeValue?: boolean
+    consensusValue?: boolean
   }, ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type tradeAnalyzerDataSelectScalar = {
@@ -1233,9 +1247,10 @@ export namespace Prisma {
     jaxValue?: boolean
     travValue?: boolean
     joeValue?: boolean
+    consensusValue?: boolean
   }
 
-  export type tradeAnalyzerDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "position" | "team" | "marketValue" | "myValue" | "valueDiffBetweenMyValueAndMarketValue" | "PRPScore" | "projectedNextOffseasonDynastyValue" | "valueDifferenceBetweenCurrentMarketValueAndPNODV" | "PNODVScore" | "RVSScore" | "jaxValue" | "travValue" | "joeValue", ExtArgs["result"]["tradeAnalyzerData"]>
+  export type tradeAnalyzerDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "position" | "team" | "marketValue" | "myValue" | "valueDiffBetweenMyValueAndMarketValue" | "PRPScore" | "projectedNextOffseasonDynastyValue" | "valueDifferenceBetweenCurrentMarketValueAndPNODV" | "PNODVScore" | "RVSScore" | "jaxValue" | "travValue" | "joeValue" | "consensusValue", ExtArgs["result"]["tradeAnalyzerData"]>
 
   export type $tradeAnalyzerDataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tradeAnalyzerData"
@@ -1256,6 +1271,7 @@ export namespace Prisma {
       jaxValue: number | null
       travValue: number | null
       joeValue: number | null
+      consensusValue: number | null
     }, ExtArgs["result"]["tradeAnalyzerData"]>
     composites: {}
   }
@@ -1694,6 +1710,7 @@ export namespace Prisma {
     readonly jaxValue: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly travValue: FieldRef<"tradeAnalyzerData", 'Float'>
     readonly joeValue: FieldRef<"tradeAnalyzerData", 'Float'>
+    readonly consensusValue: FieldRef<"tradeAnalyzerData", 'Float'>
   }
     
 
@@ -2089,7 +2106,8 @@ export namespace Prisma {
     RVSScore: 'RVSScore',
     jaxValue: 'jaxValue',
     travValue: 'travValue',
-    joeValue: 'joeValue'
+    joeValue: 'joeValue',
+    consensusValue: 'consensusValue'
   };
 
   export type TradeAnalyzerDataScalarFieldEnum = (typeof TradeAnalyzerDataScalarFieldEnum)[keyof typeof TradeAnalyzerDataScalarFieldEnum]
@@ -2219,6 +2237,7 @@ export namespace Prisma {
     jaxValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     travValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     joeValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    consensusValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataOrderByWithRelationInput = {
@@ -2237,6 +2256,7 @@ export namespace Prisma {
     jaxValue?: SortOrderInput | SortOrder
     travValue?: SortOrderInput | SortOrder
     joeValue?: SortOrderInput | SortOrder
+    consensusValue?: SortOrderInput | SortOrder
   }
 
   export type tradeAnalyzerDataWhereUniqueInput = Prisma.AtLeast<{
@@ -2258,6 +2278,7 @@ export namespace Prisma {
     jaxValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     travValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
     joeValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
+    consensusValue?: FloatNullableFilter<"tradeAnalyzerData"> | number | null
   }, "id">
 
   export type tradeAnalyzerDataOrderByWithAggregationInput = {
@@ -2276,6 +2297,7 @@ export namespace Prisma {
     jaxValue?: SortOrderInput | SortOrder
     travValue?: SortOrderInput | SortOrder
     joeValue?: SortOrderInput | SortOrder
+    consensusValue?: SortOrderInput | SortOrder
     _count?: tradeAnalyzerDataCountOrderByAggregateInput
     _avg?: tradeAnalyzerDataAvgOrderByAggregateInput
     _max?: tradeAnalyzerDataMaxOrderByAggregateInput
@@ -2302,6 +2324,7 @@ export namespace Prisma {
     jaxValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     travValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
     joeValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
+    consensusValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
   }
 
   export type tradeAnalyzerDataCreateInput = {
@@ -2320,6 +2343,7 @@ export namespace Prisma {
     jaxValue?: number | null
     travValue?: number | null
     joeValue?: number | null
+    consensusValue?: number | null
   }
 
   export type tradeAnalyzerDataUncheckedCreateInput = {
@@ -2338,6 +2362,7 @@ export namespace Prisma {
     jaxValue?: number | null
     travValue?: number | null
     joeValue?: number | null
+    consensusValue?: number | null
   }
 
   export type tradeAnalyzerDataUpdateInput = {
@@ -2356,6 +2381,7 @@ export namespace Prisma {
     jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
     travValue?: NullableFloatFieldUpdateOperationsInput | number | null
     joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    consensusValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateInput = {
@@ -2374,6 +2400,7 @@ export namespace Prisma {
     jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
     travValue?: NullableFloatFieldUpdateOperationsInput | number | null
     joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    consensusValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataCreateManyInput = {
@@ -2392,6 +2419,7 @@ export namespace Prisma {
     jaxValue?: number | null
     travValue?: number | null
     joeValue?: number | null
+    consensusValue?: number | null
   }
 
   export type tradeAnalyzerDataUpdateManyMutationInput = {
@@ -2410,6 +2438,7 @@ export namespace Prisma {
     jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
     travValue?: NullableFloatFieldUpdateOperationsInput | number | null
     joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    consensusValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type tradeAnalyzerDataUncheckedUpdateManyInput = {
@@ -2428,6 +2457,7 @@ export namespace Prisma {
     jaxValue?: NullableFloatFieldUpdateOperationsInput | number | null
     travValue?: NullableFloatFieldUpdateOperationsInput | number | null
     joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    consensusValue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2515,6 +2545,7 @@ export namespace Prisma {
     jaxValue?: SortOrder
     travValue?: SortOrder
     joeValue?: SortOrder
+    consensusValue?: SortOrder
   }
 
   export type tradeAnalyzerDataAvgOrderByAggregateInput = {
@@ -2528,6 +2559,7 @@ export namespace Prisma {
     jaxValue?: SortOrder
     travValue?: SortOrder
     joeValue?: SortOrder
+    consensusValue?: SortOrder
   }
 
   export type tradeAnalyzerDataMaxOrderByAggregateInput = {
@@ -2545,6 +2577,7 @@ export namespace Prisma {
     jaxValue?: SortOrder
     travValue?: SortOrder
     joeValue?: SortOrder
+    consensusValue?: SortOrder
   }
 
   export type tradeAnalyzerDataMinOrderByAggregateInput = {
@@ -2562,6 +2595,7 @@ export namespace Prisma {
     jaxValue?: SortOrder
     travValue?: SortOrder
     joeValue?: SortOrder
+    consensusValue?: SortOrder
   }
 
   export type tradeAnalyzerDataSumOrderByAggregateInput = {
@@ -2575,6 +2609,7 @@ export namespace Prisma {
     jaxValue?: SortOrder
     travValue?: SortOrder
     joeValue?: SortOrder
+    consensusValue?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {

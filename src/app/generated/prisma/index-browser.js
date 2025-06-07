@@ -135,7 +135,8 @@ exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   RVSScore: 'RVSScore',
   jaxValue: 'jaxValue',
   travValue: 'travValue',
-  joeValue: 'joeValue'
+  joeValue: 'joeValue',
+  consensusValue: 'consensusValue'
 };
 
 exports.Prisma.SortOrder = {
