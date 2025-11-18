@@ -1,6 +1,14 @@
 import { PrismaClient } from "../generated/prisma";
 
-const prisma = new PrismaClient();
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    log: ["query"],
+  });
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export const getPostgresData = async () => {
   try {
@@ -11,7 +19,9 @@ export const getPostgresData = async () => {
     console.error("Error fetching data from PostgreSQL:", error);
     return [];
   } finally {
-    await prisma.$disconnect();
+    // It's generally not recommended to disconnect after every query in a serverless environment
+    // as it can lead to connection pool exhaustion. Prisma manages connections automatically.
+    // await prisma.$disconnect();
   }
 };
 

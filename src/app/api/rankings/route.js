@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getPostgresData } from "../../dbManagement/getPostgresData";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   console.log("API /api/rankings GET called");
   try {

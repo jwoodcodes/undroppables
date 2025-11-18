@@ -152,7 +152,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\jkwoo\\undroppables\\undroppables\\src\\app\\generated\\prisma",
+      "value": "C:\\Users\\Kitchen\\projects\\undroppables\\undroppables\\src\\app\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -166,7 +166,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\jkwoo\\undroppables\\undroppables\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Kitchen\\projects\\undroppables\\undroppables\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
