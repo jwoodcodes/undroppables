@@ -1,15 +1,199 @@
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
-   Collecting page data ...
-Prisma has detected that this project was built on Vercel, which caches dependencies. This leads to an outdated Prisma Client because Prisma's auto-generation isn't triggered. To fix this, make sure to run the `prisma generate` command during the build process.
-Learn how: https://pris.ly/d/vercel-build
-PrismaClientInitializationError: Prisma has detected that this project was built on Vercel, which caches dependencies. This leads to an outdated Prisma Client because Prisma's auto-generation isn't triggered. To fix this, make sure to run the `prisma generate` command during the build process.
-Learn how: https://pris.ly/d/vercel-build
-    at /vercel/path0/.next/server/app/api/rankings/route.js:136:69
-    at new t (/vercel/path0/.next/server/app/api/rankings/route.js:136:82)
-    at 7216 (/vercel/path0/.next/server/app/api/rankings/route.js:12:16206)
-    at t (/vercel/path0/.next/server/webpack-runtime.js:1:128)
-    at 2565 (/vercel/path0/.next/server/app/api/rankings/route.js:1:1222)
-    at t (/vercel/path0/.next/server/webpack-runtime.js:1:128)
-    at r (/vercel/path0/.next/server/app/api/rankings/route.js:138:998)
-    at /vercel/path0/.next/server/app/api/rankings/route.js:138:1025
-    at t.X (/vercel/path0/.next/server/webpack-runtime.js:1:1206)
+MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+   [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+   [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+   Generating static pages (0/11) ...
+(node:495) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:495) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Database error: MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+  [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+   Generating static pages (2/11) 
+Error fetching data from MongoDB: MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+  [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+Error fetching data from MongoDB: MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+     code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+  [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+   Generating static pages (5/11) 
+MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9)
+    MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+    at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9)
+SyntaxError: "undefined" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at y (/vercel/path0/.next/server/app/tools/projectionsBuilder/page.js:1:150241)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  digest: '1167441978'
+}
+SyntaxError: "undefined" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at y (/vercel/path0/.next/server/app/tools/projectionsBuilder/page.js:1:150241)
+     at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  digest: '1167441978'
+}
+SyntaxError: "undefined" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at y (/vercel/path0/.next/server/app/tools/projectionsBuilder/page.js:1:150241)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  digest: '1167441978'
+}
+Error occurred prerendering page "/tools/projectionsBuilder". Read more: https://nextjs.org/docs/messages/prerender-error
+SyntaxError: "undefined" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at y (/vercel/path0/.next/server/app/tools/projectionsBuilder/page.js:1:150241)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+   Generating static pages (8/11) 
+Error fetching data from MongoDB: MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+      at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+  [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+Error fetching data from MongoDB: MongoServerError: bad auth : authentication failed
+    at Connection.sendCommand (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:297:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (/vercel/path0/node_modules/mongodb/lib/cmap/connection.js:325:26)
+     at async continueScramConversation (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:131:15)
+    at async executeScram (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:80:5)
+    at async ScramSHA1.auth (/vercel/path0/node_modules/mongodb/lib/cmap/auth/scram.js:39:16)
+    at async performInitialHandshake (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:101:13)
+    at async connect (/vercel/path0/node_modules/mongodb/lib/cmap/connect.js:19:9) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'bad auth : authentication failed',
+    code: 8000,
+    codeName: 'AtlasError'
+  },
+  ok: 0,
+  code: 8000,
+  codeName: 'AtlasError',
+  connectionGeneration: 0,
+  [Symbol(errorLabels)]: Set(2) { 'HandshakeError', 'ResetPool' }
+}
+ ✓ Generating static pages (11/11)
+> Export encountered errors on following paths:
+	/tools/projectionsBuilder/page: /tools/projectionsBuilder
+    Error: Command "npm run build" exited with 1
