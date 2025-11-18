@@ -1,0 +1,369 @@
+# Migration Journaling and Learning
+
+**CRITICAL: This plan must be executed in conjunction with the migration journal and the learning document.**
+
+After completing **every single task** in this plan, you **must** perform two documentation steps:
+
+**1. Update the Migration Journal (`llm/cSharpMigration.md`)**
+*   **Purpose:** To log the raw facts of what was done.
+*   **Audience:** An experienced developer who needs to know exactly what changed.
+*   **Content:**
+    1.  **Date:** The date the change was made.
+    2.  **Description:** A detailed, clear description of what was added or changed.
+    3.  **Reason:** The justification for the change, referencing the plan.
+    4.  **Files Changed/Added:** A complete list of all files that were modified or created.
+    5.  **Code Snippets:** Relevant code examples showing the exact change. Using `before` and `after` blocks is highly encouraged for clarity.
+
+**2. Update the Learning Document (`llm/learning.md`)**
+*   **Purpose:** To explain the concepts and bridge the knowledge gap from JavaScript/React to C#/.NET.
+*   **Audience:** A developer new to C#/.NET.
+*   **Content:**
+    *   Explain the **concepts** behind the task (e.g., "What is a NuGet package?").
+    *   Draw **parallels** to the JavaScript/React ecosystem (e.g., "NuGet is like npm, and a .csproj file is like package.json").
+    *   Explain **what the code is doing** in simple terms.
+    *   Describe **why** we are taking this approach.
+
+These two documents are essential for tracking progress and ensuring that anyone can understand the migration from both a technical and a conceptual perspective.
+
+---
+
+# Migration Plan: Next.js Backend to C# .NET
+
+This document outlines the step-by-step plan to migrate the existing Next.js backend functionality to a new C# .NET Web API. The frontend will remain a Next.js application.
+
+## Phase 1: Project Setup and Initial Configuration
+
+### Task 1.1: Create the .NET Solution and Projects
+1.  Create a new .NET solution file (`Undroppables.sln`).
+2.  Create a new **ASP.NET Core Web API** project named `Undroppables.Api`. This will house the new backend API.
+3.  Create a new **Console App** project named `Undroppables.DataProcessor`. This will be the C# equivalent of the `fetchAndPushData.ts` script.
+
+### Task 1.2: Add Necessary NuGet Packages
+For `Undroppables.Api`:
+- `Microsoft.EntityFrameworkCore.Design`
+- `Microsoft.EntityFrameworkCore.Tools`
+- `Npgsql.EntityFrameworkCore.PostgreSQL` (for PostgreSQL access)
+- `MongoDB.Driver` (for MongoDB access)
+
+For `Undroppables.DataProcessor`:
+- `Microsoft.EntityFrameworkCore`
+- `Npgsql.EntityFrameworkCore.PostgreSQL`
+- `MongoDB.Driver`
+- `Microsoft.Extensions.Configuration.Json` (to read configuration files)
+- `Microsoft.Extensions.Configuration.EnvironmentVariables`
+
+### Task 1.3: Configuration Management
+1.  Create an `appsettings.json` file in both `Undroppables.Api` and `Undroppables.DataProcessor`.
+2.  Add sections for `ConnectionStrings` (for PostgreSQL and MongoDB) and any other configuration. Use the existing `.env` file as a reference for these values.
+3.  Set up `Program.cs` in both projects to load configuration from `appsettings.json` and environment variables.
+
+## Phase 2: Data Layer Migration
+
+### Task 2.1: Create C# Data Models
+1.  Analyze `prisma/schema.prisma`. For the `tradeAnalyzerData` model, create a corresponding C# entity class (`TradeAnalyzerData.cs`) in a `Models` or `Entities` folder within a shared project or in the `Api` project.
+2.  Use attributes (`[Key]`, `[Column("column_name")]`, etc.) to map the C# properties to the PostgreSQL table columns.
+3.  Create C# model classes to represent the documents stored in the MongoDB `allPlayerData` collection. These will be used by the `MongoDB.Driver`.
+
+### Task 2.2: Set up Entity Framework Core
+1.  In `Undroppables.Api`, create a `DbContext` class (e.g., `AppDbContext.cs`).
+2.  Define a `DbSet<TradeAnalyzerData>` property in the `AppDbContext`.
+3.  Configure the `DbContext` in `Program.cs` to use the PostgreSQL connection string.
+
+## Phase 3: Business Logic and API Endpoint Migration
+
+### Task 3.1: Port the Data Processing Script
+1.  **Convert Static Data:** Convert the JavaScript array data from `jaxDynoRankings.js`, `travDynoRankings.js`, and `joeDynoRankings.js` into JSON files (e.g., `jaxDynoRankings.json`). Add these JSON files to the `Undroppables.DataProcessor` project and configure them to be copied to the output directory.
+2.  **Re-implement ETL Logic:** In the `Undroppables.DataProcessor` console application, replicate the entire logic from `src/app/dbManagement/fetchAndPushData.ts`.
+    - Use the `MongoDB.Driver` to implement `fetchDataFromMongoDB`.
+    - Load the JSON ranking files.
+    - Carefully translate the `assignValues` and `sanitizeName` functions from TypeScript to C#. This is the most complex part of the business logic.
+    - Use EF Core to implement `pushDataToPostgreSQL`. This will involve deleting all existing data and then inserting the newly processed data, just like the original script.
+
+### Task 3.2: Re-implement API Endpoints
+1.  **`/api/getAllData`:**
+    - Create a new controller `AllPlayerDataController.cs` in `Undroppables.Api`.
+    - Create a `GET` endpoint.
+    - Use the `MongoDB.Driver` to connect to the `projectionsBuilder` database and fetch all data from the `allPlayerData` collection.
+    - Return the data as a JSON response.
+2.  **`/api/rankings`:**
+    - Create a new controller `RankingsController.cs` in `Undroppables.Api`.
+    - Create a `GET` endpoint.
+    - Inject the `AppDbContext` into the controller.
+    - Use the `DbContext` to query the `tradeAnalyzerData` table (`_context.TradeAnalyzerData.ToListAsync()`).
+    - Return the data as a JSON response.
+
+## Phase 4: Frontend Adaptation
+
+### Task 4.1: Update API Calls
+1.  Identify all `fetch` calls in the Next.js frontend components that point to `/api/getAllData` and `/api/rankings`.
+2.  Create a new environment variable in the Next.js app (e.g., `NEXT_PUBLIC_API_BASE_URL`) that will point to the URL of the new .NET API (e.g., `http://localhost:5000`).
+3.  Update the `fetch` calls to use this new base URL. For example: `fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rankings`)`.
+
+### Task 4.2: Handle CORS
+- In the .NET API's `Program.cs`, configure a CORS policy to allow requests from the Next.js application's origin. For development, this might be a lenient policy, but it should be more restrictive for production.
+
+## Phase 5: Containerization and Deployment
+
+### Task 5.1: Dockerize the .NET Applications
+1.  Create a `Dockerfile` for the `Undroppables.Api` project. This will build the project, publish it, and define the runtime environment.
+2.  Create a `Dockerfile` for the `Undroppables.DataProcessor` project. This will be a simpler Dockerfile that just runs the console application.
+
+### Task 5.2: Update Docker Compose
+1.  Modify the `compose.yaml` file.
+2.  Rename the existing `app` service to `frontend`.
+3.  Add a new service named `backend` for the `Undroppables.Api`, using its new `Dockerfile` and mapping the appropriate port (e.g., `5001:8080`).
+4.  Decide on a strategy for the `DataProcessor`. It could be a separate service that runs to completion, or you might run it as a one-off command using `docker-compose run`.
+5.  Ensure the `frontend` service has the `NEXT_PUBLIC_API_BASE_URL` environment variable set to the address of the `backend` service (e.g., `http://backend:8080`).
+
+## Phase 6: Testing and Verification
+
+### Task 6.1: Test the Data Processor
+1.  Run the `Undroppables.DataProcessor` application.
+2.  Connect to the PostgreSQL database and verify that the `tradeAnalyzerData` table is populated correctly and matches the output of the original Node.js script.
+
+### Task 6.2: Test the API
+1.  Run the `Undroppables.Api` project.
+2.  Use a tool like Postman or a web browser to hit the `/api/getAllData` and `/api/rankings` endpoints.
+3.  Verify that the JSON data returned is correct and matches the output of the original Next.js API routes.
+
+### Task 6.3: Test the Full Application
+1.  Run the entire stack using `docker-compose up`.
+2.  Open the Next.js application in a browser.
+3.  Verify that all data is displayed correctly and that there are no errors in the browser console related to data fetching.
+
+---
+
+# Appendices: Detailed Implementation Notes
+
+## Appendix A: Configuration Details (`appsettings.json`)
+
+Here is a template for the `appsettings.json` file for both the API and DataProcessor projects.
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "MongoDb": "mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test",
+    "PostgreSql": "YOUR_POSTGRESQL_CONNECTION_STRING_FROM_ENV_FILE"
+  }
+}
+```
+**Note:** The MongoDB connection string was found in `src/app/dbManagement/fetchAndPushData.ts`. The PostgreSQL connection string must be retrieved from the project's `.env` file.
+
+## Appendix B: Data Model Examples
+
+**PostgreSQL Entity (`TradeAnalyzerData.cs`)**
+
+Based on `prisma/schema.prisma`. Note the use of `[Column]` attributes to map to the exact database column names.
+
+```csharp
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class TradeAnalyzerData
+{
+    [Key]
+    [Column("id")]
+    public string Id { get; set; }
+
+    [Column("name")]
+    public string Name { get; set; }
+
+    [Column("position")]
+    public string? Position { get; set; }
+
+    [Column("team")]
+    public string? Team { get; set; }
+
+    [Column("marketValue")]
+    public int? MarketValue { get; set; }
+
+    [Column("myValue")]
+    public int? MyValue { get; set; }
+
+    [Column("valueDiffBetweenMyValueAndMarketValue")]
+    public int? ValueDiffBetweenMyValueAndMarketValue { get; set; }
+
+    [Column("PRPScore")]
+    public int? PRPScore { get; set; }
+
+    [Column("projectedNextOffseasonDynastyValue")]
+    public int? ProjectedNextOffseasonDynastyValue { get; set; }
+
+    [Column("valueDifferenceBetweenCurrentMarketValueAndPNODV")]
+    public int? ValueDifferenceBetweenCurrentMarketValueAndPNODV { get; set; }
+
+    [Column("PNODVScore")]
+    public int? PNODVScore { get; set; }
+
+    [Column("RVSScore")]
+    public int? RVSScore { get; set; }
+
+    [Column("jaxValue")]
+    public int? JaxValue { get; set; }
+
+    [Column("travValue")]
+    public int? TravValue { get; set; }
+
+    [Column("joeValue")]
+    public int? JoeValue { get; set; }
+
+    [Column("consensusValue")]
+    public int? ConsensusValue { get; set; }
+}
+```
+
+**Static Ranking Data Model (`PlayerRanking.cs`)**
+
+This class can be used to deserialize the content from the `*.json` ranking files.
+
+```csharp
+public class PlayerRanking
+{
+    public string Name { get; set; }
+    public string Team { get; set; }
+    public string Position { get; set; }
+    public string Tiers { get; set; }
+    public int? OverallSFRank { get; set; }
+    public double? ThierValue { get; set; } // Note: 'thier' is likely a typo for 'tier'
+}
+```
+
+## Appendix C: Business Logic Translation Notes
+
+**`sanitizeName` Function**
+
+The TypeScript `sanitizeName` function uses a series of string replacements. This can be replicated in C# using `string.Replace()` and regular expressions.
+
+*C# Pseudo-code:*
+```csharp
+public static string SanitizeName(string name)
+{
+    name = name.ToLower();
+    name = Regex.Replace(name, @" jr\.?", "");
+    name = Regex.Replace(name, @" ii\.?", "");
+    name = Regex.Replace(name, @" iii\.?", "");
+    name = name.Replace(".", "");
+    name = name.Replace("-", "");
+    name = name.Replace("'", "");
+    name = name.Replace("Cameron", "Cam");
+    return name.Trim();
+}
+```
+
+**`assignValues` Function**
+
+This is the most complex piece of logic. It calculates a player's value based on their rank within a tier. The core idea is a linear interpolation between a `tiermax` and `tiermin` value.
+
+*C# Pseudo-code for the `assignThierValuesBasedOffTiersAndRankings` sub-function:*
+```csharp
+public void AssignTierValues(PlayerRanking player, double tierMax, double tierMin, int rankOfFirstPlayerInTier, int rankOfLastPlayerInTier)
+{
+    double maxMinDiff = tierMax - tierMin;
+    double middleValue = tierMin + maxMinDiff / 2;
+    
+    // Round to nearest integer, not floor
+    int tempMiddleOfTier = (int)Math.Round((double)(rankOfLastPlayerInTier - rankOfFirstPlayerInTier) / 2);
+    int middleOfTier = tempMiddleOfTier + rankOfFirstPlayerInTier;
+
+    if (player.OverallSFRank == middleOfTier)
+    {
+        player.ThierValue = middleValue;
+    }
+    else if (player.OverallSFRank.HasValue)
+    {
+        int diffBetweenMiddleAndPlayer = Math.Abs(middleOfTier - player.OverallSFRank.Value);
+        double diffAsPercentageOfTotal = (double)diffBetweenMiddleAndPlayer / middleOfTier;
+        double valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
+
+        if (player.OverallSFRank < middleOfTier)
+        {
+            player.ThierValue = middleValue + valueIncrease;
+            if (player.ThierValue > tierMax) player.ThierValue = tierMax;
+        }
+        else
+        {
+            player.ThierValue = middleValue - valueIncrease;
+            if (player.ThierValue < tierMin) player.ThierValue = tierMin;
+        }
+        player.ThierValue = Math.Round(player.ThierValue.Value);
+    }
+}
+```
+This logic will need to be called within a loop for each tier, similar to the structure in `fetchAndPushData.ts`.
+
+## Appendix D: Dockerfile Example for .NET API
+
+A multi-stage Dockerfile is best practice for creating optimized and secure .NET container images.
+
+```dockerfile
+# Stage 1: Build the application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore as distinct layers
+COPY ["Undroppables.Api/Undroppables.Api.csproj", "Undroppables.Api/"]
+RUN dotnet restore "Undroppables.Api/Undroppables.Api.csproj"
+
+# Copy everything else and build
+COPY . .
+WORKDIR "/src/Undroppables.Api"
+RUN dotnet build "Undroppables.Api.csproj" -c Release -o /app/build
+
+# Stage 2: Publish the application
+FROM build AS publish
+RUN dotnet publish "Undroppables.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# Stage 3: Create the final runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Undroppables.Api.dll"]
+```
+
+## Appendix E: CORS Policy Example
+
+In `Program.cs` for the `Undroppables.Api` project, add the following to configure a CORS policy that allows your Next.js frontend to make requests.
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Define a CORS policy
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+                      policy =>
+                      {
+                          // For development, you can be more permissive.
+                          // For production, lock this down to your actual frontend domain.
+                          policy.WithOrigins("http://localhost:3000") 
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
+// ... other services
+
+var app = builder.Build();
+
+// ... other middleware
+
+app.UseHttpsRedirection();
+
+// Use the CORS policy
+app.UseCors(myAllowSpecificOrigins);
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+```

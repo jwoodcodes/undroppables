@@ -14,8 +14,13 @@ async function ProjectionsBuilder() {
     //   "mongodb+srv://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
     // const url =
     //   "mongodb://FFCoder:Hesstrucksarethebest!@undroppables.unq112p.mongodb.net/undroppables";
+    // const url =
+    //   "mongodb+srv://FFCoder:DlOwRc8ItLxRCM5g@undroppables.unq112p.mongodb.net/?retryWrites=true&w=majority&appName=undroppables";
     const url =
-      "mongodb+srv://FFCoder:DlOwRc8ItLxRCM5g@undroppables.unq112p.mongodb.net/?retryWrites=true&w=majority&appName=undroppables";
+      "mongodb+srv://FFCoder:RKTd8DEN6oH233Yk@undroppables.unq112p.mongodb.net/?appName=undroppables";
+
+
+
     const client = new MongoClient(url);
 
     // The database to use
