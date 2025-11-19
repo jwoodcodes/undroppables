@@ -34,3 +34,44 @@ datasource db {
     joeValue Float?
     consensusValue Float?
   }
+
+  model SleeperPlayer {
+    id String @id @default(cuid())
+    name String
+    team String?
+    position String?
+  }
+
+  model AllPlayerData {
+    id String @id @default(cuid())
+    name String?
+    team String?
+    position String?
+    marketValue Float?
+    myValue Float?
+    valueDiffBetweenMyValueAndMarketValue Float?
+    PRPScore Float?
+    projectedNextOffseasonDynastyValue Json?
+    valueDifferenceBetweenCurrentMarketValueAndPNODV Float?
+    PNODVScore Float?
+    RVSScore Float?
+    tradeAnalyzerDataObjectsArray Json?
+    rawData Json?
+  }
+
+  model UNScorePlayer {
+    id String @id @default(cuid())
+    name String
+    class String?
+    unScore Float?
+    height Float?
+    weight Float?
+    draftRound Float?
+    draftPick Float?
+    careerSlotPercentage Float?
+    careerWidePercentage Float?
+    highestContestedTargetPercent Float?
+    careerAveragedStats Json?
+    topModelComps Json?
+    rawData Json?
+  }

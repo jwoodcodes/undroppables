@@ -18,6 +18,21 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type tradeAnalyzerData = $Result.DefaultSelection<Prisma.$tradeAnalyzerDataPayload>
+/**
+ * Model SleeperPlayer
+ * 
+ */
+export type SleeperPlayer = $Result.DefaultSelection<Prisma.$SleeperPlayerPayload>
+/**
+ * Model AllPlayerData
+ * 
+ */
+export type AllPlayerData = $Result.DefaultSelection<Prisma.$AllPlayerDataPayload>
+/**
+ * Model UNScorePlayer
+ * 
+ */
+export type UNScorePlayer = $Result.DefaultSelection<Prisma.$UNScorePlayerPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +168,36 @@ export class PrismaClient<
     * ```
     */
   get tradeAnalyzerData(): Prisma.tradeAnalyzerDataDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sleeperPlayer`: Exposes CRUD operations for the **SleeperPlayer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SleeperPlayers
+    * const sleeperPlayers = await prisma.sleeperPlayer.findMany()
+    * ```
+    */
+  get sleeperPlayer(): Prisma.SleeperPlayerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.allPlayerData`: Exposes CRUD operations for the **AllPlayerData** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AllPlayerData
+    * const allPlayerData = await prisma.allPlayerData.findMany()
+    * ```
+    */
+  get allPlayerData(): Prisma.AllPlayerDataDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.uNScorePlayer`: Exposes CRUD operations for the **UNScorePlayer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UNScorePlayers
+    * const uNScorePlayers = await prisma.uNScorePlayer.findMany()
+    * ```
+    */
+  get uNScorePlayer(): Prisma.UNScorePlayerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +638,10 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    tradeAnalyzerData: 'tradeAnalyzerData'
+    tradeAnalyzerData: 'tradeAnalyzerData',
+    SleeperPlayer: 'SleeperPlayer',
+    AllPlayerData: 'AllPlayerData',
+    UNScorePlayer: 'UNScorePlayer'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +660,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tradeAnalyzerData"
+      modelProps: "tradeAnalyzerData" | "sleeperPlayer" | "allPlayerData" | "uNScorePlayer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +735,228 @@ export namespace Prisma {
           count: {
             args: Prisma.tradeAnalyzerDataCountArgs<ExtArgs>
             result: $Utils.Optional<TradeAnalyzerDataCountAggregateOutputType> | number
+          }
+        }
+      }
+      SleeperPlayer: {
+        payload: Prisma.$SleeperPlayerPayload<ExtArgs>
+        fields: Prisma.SleeperPlayerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SleeperPlayerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SleeperPlayerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          findFirst: {
+            args: Prisma.SleeperPlayerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SleeperPlayerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          findMany: {
+            args: Prisma.SleeperPlayerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>[]
+          }
+          create: {
+            args: Prisma.SleeperPlayerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          createMany: {
+            args: Prisma.SleeperPlayerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SleeperPlayerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>[]
+          }
+          delete: {
+            args: Prisma.SleeperPlayerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          update: {
+            args: Prisma.SleeperPlayerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          deleteMany: {
+            args: Prisma.SleeperPlayerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SleeperPlayerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SleeperPlayerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>[]
+          }
+          upsert: {
+            args: Prisma.SleeperPlayerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SleeperPlayerPayload>
+          }
+          aggregate: {
+            args: Prisma.SleeperPlayerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSleeperPlayer>
+          }
+          groupBy: {
+            args: Prisma.SleeperPlayerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SleeperPlayerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SleeperPlayerCountArgs<ExtArgs>
+            result: $Utils.Optional<SleeperPlayerCountAggregateOutputType> | number
+          }
+        }
+      }
+      AllPlayerData: {
+        payload: Prisma.$AllPlayerDataPayload<ExtArgs>
+        fields: Prisma.AllPlayerDataFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AllPlayerDataFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AllPlayerDataFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          findFirst: {
+            args: Prisma.AllPlayerDataFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AllPlayerDataFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          findMany: {
+            args: Prisma.AllPlayerDataFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>[]
+          }
+          create: {
+            args: Prisma.AllPlayerDataCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          createMany: {
+            args: Prisma.AllPlayerDataCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AllPlayerDataCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>[]
+          }
+          delete: {
+            args: Prisma.AllPlayerDataDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          update: {
+            args: Prisma.AllPlayerDataUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          deleteMany: {
+            args: Prisma.AllPlayerDataDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AllPlayerDataUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AllPlayerDataUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>[]
+          }
+          upsert: {
+            args: Prisma.AllPlayerDataUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AllPlayerDataPayload>
+          }
+          aggregate: {
+            args: Prisma.AllPlayerDataAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAllPlayerData>
+          }
+          groupBy: {
+            args: Prisma.AllPlayerDataGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AllPlayerDataGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AllPlayerDataCountArgs<ExtArgs>
+            result: $Utils.Optional<AllPlayerDataCountAggregateOutputType> | number
+          }
+        }
+      }
+      UNScorePlayer: {
+        payload: Prisma.$UNScorePlayerPayload<ExtArgs>
+        fields: Prisma.UNScorePlayerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UNScorePlayerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UNScorePlayerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          findFirst: {
+            args: Prisma.UNScorePlayerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UNScorePlayerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          findMany: {
+            args: Prisma.UNScorePlayerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>[]
+          }
+          create: {
+            args: Prisma.UNScorePlayerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          createMany: {
+            args: Prisma.UNScorePlayerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UNScorePlayerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>[]
+          }
+          delete: {
+            args: Prisma.UNScorePlayerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          update: {
+            args: Prisma.UNScorePlayerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          deleteMany: {
+            args: Prisma.UNScorePlayerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UNScorePlayerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UNScorePlayerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>[]
+          }
+          upsert: {
+            args: Prisma.UNScorePlayerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UNScorePlayerPayload>
+          }
+          aggregate: {
+            args: Prisma.UNScorePlayerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUNScorePlayer>
+          }
+          groupBy: {
+            args: Prisma.UNScorePlayerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UNScorePlayerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UNScorePlayerCountArgs<ExtArgs>
+            result: $Utils.Optional<UNScorePlayerCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +1045,9 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     tradeAnalyzerData?: tradeAnalyzerDataOmit
+    sleeperPlayer?: SleeperPlayerOmit
+    allPlayerData?: AllPlayerDataOmit
+    uNScorePlayer?: UNScorePlayerOmit
   }
 
   /* Types for Logging */
@@ -2078,6 +2351,3308 @@ export namespace Prisma {
 
 
   /**
+   * Model SleeperPlayer
+   */
+
+  export type AggregateSleeperPlayer = {
+    _count: SleeperPlayerCountAggregateOutputType | null
+    _min: SleeperPlayerMinAggregateOutputType | null
+    _max: SleeperPlayerMaxAggregateOutputType | null
+  }
+
+  export type SleeperPlayerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    team: string | null
+    position: string | null
+  }
+
+  export type SleeperPlayerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    team: string | null
+    position: string | null
+  }
+
+  export type SleeperPlayerCountAggregateOutputType = {
+    id: number
+    name: number
+    team: number
+    position: number
+    _all: number
+  }
+
+
+  export type SleeperPlayerMinAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+  }
+
+  export type SleeperPlayerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+  }
+
+  export type SleeperPlayerCountAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+    _all?: true
+  }
+
+  export type SleeperPlayerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SleeperPlayer to aggregate.
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SleeperPlayers to fetch.
+     */
+    orderBy?: SleeperPlayerOrderByWithRelationInput | SleeperPlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SleeperPlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SleeperPlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SleeperPlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SleeperPlayers
+    **/
+    _count?: true | SleeperPlayerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SleeperPlayerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SleeperPlayerMaxAggregateInputType
+  }
+
+  export type GetSleeperPlayerAggregateType<T extends SleeperPlayerAggregateArgs> = {
+        [P in keyof T & keyof AggregateSleeperPlayer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSleeperPlayer[P]>
+      : GetScalarType<T[P], AggregateSleeperPlayer[P]>
+  }
+
+
+
+
+  export type SleeperPlayerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SleeperPlayerWhereInput
+    orderBy?: SleeperPlayerOrderByWithAggregationInput | SleeperPlayerOrderByWithAggregationInput[]
+    by: SleeperPlayerScalarFieldEnum[] | SleeperPlayerScalarFieldEnum
+    having?: SleeperPlayerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SleeperPlayerCountAggregateInputType | true
+    _min?: SleeperPlayerMinAggregateInputType
+    _max?: SleeperPlayerMaxAggregateInputType
+  }
+
+  export type SleeperPlayerGroupByOutputType = {
+    id: string
+    name: string
+    team: string | null
+    position: string | null
+    _count: SleeperPlayerCountAggregateOutputType | null
+    _min: SleeperPlayerMinAggregateOutputType | null
+    _max: SleeperPlayerMaxAggregateOutputType | null
+  }
+
+  type GetSleeperPlayerGroupByPayload<T extends SleeperPlayerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SleeperPlayerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SleeperPlayerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SleeperPlayerGroupByOutputType[P]>
+            : GetScalarType<T[P], SleeperPlayerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SleeperPlayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+  }, ExtArgs["result"]["sleeperPlayer"]>
+
+  export type SleeperPlayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+  }, ExtArgs["result"]["sleeperPlayer"]>
+
+  export type SleeperPlayerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+  }, ExtArgs["result"]["sleeperPlayer"]>
+
+  export type SleeperPlayerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+  }
+
+  export type SleeperPlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "team" | "position", ExtArgs["result"]["sleeperPlayer"]>
+
+  export type $SleeperPlayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SleeperPlayer"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      team: string | null
+      position: string | null
+    }, ExtArgs["result"]["sleeperPlayer"]>
+    composites: {}
+  }
+
+  type SleeperPlayerGetPayload<S extends boolean | null | undefined | SleeperPlayerDefaultArgs> = $Result.GetResult<Prisma.$SleeperPlayerPayload, S>
+
+  type SleeperPlayerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SleeperPlayerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SleeperPlayerCountAggregateInputType | true
+    }
+
+  export interface SleeperPlayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SleeperPlayer'], meta: { name: 'SleeperPlayer' } }
+    /**
+     * Find zero or one SleeperPlayer that matches the filter.
+     * @param {SleeperPlayerFindUniqueArgs} args - Arguments to find a SleeperPlayer
+     * @example
+     * // Get one SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SleeperPlayerFindUniqueArgs>(args: SelectSubset<T, SleeperPlayerFindUniqueArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SleeperPlayer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SleeperPlayerFindUniqueOrThrowArgs} args - Arguments to find a SleeperPlayer
+     * @example
+     * // Get one SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SleeperPlayerFindUniqueOrThrowArgs>(args: SelectSubset<T, SleeperPlayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SleeperPlayer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerFindFirstArgs} args - Arguments to find a SleeperPlayer
+     * @example
+     * // Get one SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SleeperPlayerFindFirstArgs>(args?: SelectSubset<T, SleeperPlayerFindFirstArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SleeperPlayer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerFindFirstOrThrowArgs} args - Arguments to find a SleeperPlayer
+     * @example
+     * // Get one SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SleeperPlayerFindFirstOrThrowArgs>(args?: SelectSubset<T, SleeperPlayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SleeperPlayers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SleeperPlayers
+     * const sleeperPlayers = await prisma.sleeperPlayer.findMany()
+     * 
+     * // Get first 10 SleeperPlayers
+     * const sleeperPlayers = await prisma.sleeperPlayer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sleeperPlayerWithIdOnly = await prisma.sleeperPlayer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SleeperPlayerFindManyArgs>(args?: SelectSubset<T, SleeperPlayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SleeperPlayer.
+     * @param {SleeperPlayerCreateArgs} args - Arguments to create a SleeperPlayer.
+     * @example
+     * // Create one SleeperPlayer
+     * const SleeperPlayer = await prisma.sleeperPlayer.create({
+     *   data: {
+     *     // ... data to create a SleeperPlayer
+     *   }
+     * })
+     * 
+     */
+    create<T extends SleeperPlayerCreateArgs>(args: SelectSubset<T, SleeperPlayerCreateArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SleeperPlayers.
+     * @param {SleeperPlayerCreateManyArgs} args - Arguments to create many SleeperPlayers.
+     * @example
+     * // Create many SleeperPlayers
+     * const sleeperPlayer = await prisma.sleeperPlayer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SleeperPlayerCreateManyArgs>(args?: SelectSubset<T, SleeperPlayerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SleeperPlayers and returns the data saved in the database.
+     * @param {SleeperPlayerCreateManyAndReturnArgs} args - Arguments to create many SleeperPlayers.
+     * @example
+     * // Create many SleeperPlayers
+     * const sleeperPlayer = await prisma.sleeperPlayer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SleeperPlayers and only return the `id`
+     * const sleeperPlayerWithIdOnly = await prisma.sleeperPlayer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SleeperPlayerCreateManyAndReturnArgs>(args?: SelectSubset<T, SleeperPlayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SleeperPlayer.
+     * @param {SleeperPlayerDeleteArgs} args - Arguments to delete one SleeperPlayer.
+     * @example
+     * // Delete one SleeperPlayer
+     * const SleeperPlayer = await prisma.sleeperPlayer.delete({
+     *   where: {
+     *     // ... filter to delete one SleeperPlayer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SleeperPlayerDeleteArgs>(args: SelectSubset<T, SleeperPlayerDeleteArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SleeperPlayer.
+     * @param {SleeperPlayerUpdateArgs} args - Arguments to update one SleeperPlayer.
+     * @example
+     * // Update one SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SleeperPlayerUpdateArgs>(args: SelectSubset<T, SleeperPlayerUpdateArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SleeperPlayers.
+     * @param {SleeperPlayerDeleteManyArgs} args - Arguments to filter SleeperPlayers to delete.
+     * @example
+     * // Delete a few SleeperPlayers
+     * const { count } = await prisma.sleeperPlayer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SleeperPlayerDeleteManyArgs>(args?: SelectSubset<T, SleeperPlayerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SleeperPlayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SleeperPlayers
+     * const sleeperPlayer = await prisma.sleeperPlayer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SleeperPlayerUpdateManyArgs>(args: SelectSubset<T, SleeperPlayerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SleeperPlayers and returns the data updated in the database.
+     * @param {SleeperPlayerUpdateManyAndReturnArgs} args - Arguments to update many SleeperPlayers.
+     * @example
+     * // Update many SleeperPlayers
+     * const sleeperPlayer = await prisma.sleeperPlayer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SleeperPlayers and only return the `id`
+     * const sleeperPlayerWithIdOnly = await prisma.sleeperPlayer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SleeperPlayerUpdateManyAndReturnArgs>(args: SelectSubset<T, SleeperPlayerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SleeperPlayer.
+     * @param {SleeperPlayerUpsertArgs} args - Arguments to update or create a SleeperPlayer.
+     * @example
+     * // Update or create a SleeperPlayer
+     * const sleeperPlayer = await prisma.sleeperPlayer.upsert({
+     *   create: {
+     *     // ... data to create a SleeperPlayer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SleeperPlayer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SleeperPlayerUpsertArgs>(args: SelectSubset<T, SleeperPlayerUpsertArgs<ExtArgs>>): Prisma__SleeperPlayerClient<$Result.GetResult<Prisma.$SleeperPlayerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SleeperPlayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerCountArgs} args - Arguments to filter SleeperPlayers to count.
+     * @example
+     * // Count the number of SleeperPlayers
+     * const count = await prisma.sleeperPlayer.count({
+     *   where: {
+     *     // ... the filter for the SleeperPlayers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SleeperPlayerCountArgs>(
+      args?: Subset<T, SleeperPlayerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SleeperPlayerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SleeperPlayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SleeperPlayerAggregateArgs>(args: Subset<T, SleeperPlayerAggregateArgs>): Prisma.PrismaPromise<GetSleeperPlayerAggregateType<T>>
+
+    /**
+     * Group by SleeperPlayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SleeperPlayerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SleeperPlayerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SleeperPlayerGroupByArgs['orderBy'] }
+        : { orderBy?: SleeperPlayerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SleeperPlayerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSleeperPlayerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SleeperPlayer model
+   */
+  readonly fields: SleeperPlayerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SleeperPlayer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SleeperPlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SleeperPlayer model
+   */
+  interface SleeperPlayerFieldRefs {
+    readonly id: FieldRef<"SleeperPlayer", 'String'>
+    readonly name: FieldRef<"SleeperPlayer", 'String'>
+    readonly team: FieldRef<"SleeperPlayer", 'String'>
+    readonly position: FieldRef<"SleeperPlayer", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SleeperPlayer findUnique
+   */
+  export type SleeperPlayerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which SleeperPlayer to fetch.
+     */
+    where: SleeperPlayerWhereUniqueInput
+  }
+
+  /**
+   * SleeperPlayer findUniqueOrThrow
+   */
+  export type SleeperPlayerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which SleeperPlayer to fetch.
+     */
+    where: SleeperPlayerWhereUniqueInput
+  }
+
+  /**
+   * SleeperPlayer findFirst
+   */
+  export type SleeperPlayerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which SleeperPlayer to fetch.
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SleeperPlayers to fetch.
+     */
+    orderBy?: SleeperPlayerOrderByWithRelationInput | SleeperPlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SleeperPlayers.
+     */
+    cursor?: SleeperPlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SleeperPlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SleeperPlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SleeperPlayers.
+     */
+    distinct?: SleeperPlayerScalarFieldEnum | SleeperPlayerScalarFieldEnum[]
+  }
+
+  /**
+   * SleeperPlayer findFirstOrThrow
+   */
+  export type SleeperPlayerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which SleeperPlayer to fetch.
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SleeperPlayers to fetch.
+     */
+    orderBy?: SleeperPlayerOrderByWithRelationInput | SleeperPlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SleeperPlayers.
+     */
+    cursor?: SleeperPlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SleeperPlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SleeperPlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SleeperPlayers.
+     */
+    distinct?: SleeperPlayerScalarFieldEnum | SleeperPlayerScalarFieldEnum[]
+  }
+
+  /**
+   * SleeperPlayer findMany
+   */
+  export type SleeperPlayerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which SleeperPlayers to fetch.
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SleeperPlayers to fetch.
+     */
+    orderBy?: SleeperPlayerOrderByWithRelationInput | SleeperPlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SleeperPlayers.
+     */
+    cursor?: SleeperPlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SleeperPlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SleeperPlayers.
+     */
+    skip?: number
+    distinct?: SleeperPlayerScalarFieldEnum | SleeperPlayerScalarFieldEnum[]
+  }
+
+  /**
+   * SleeperPlayer create
+   */
+  export type SleeperPlayerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SleeperPlayer.
+     */
+    data: XOR<SleeperPlayerCreateInput, SleeperPlayerUncheckedCreateInput>
+  }
+
+  /**
+   * SleeperPlayer createMany
+   */
+  export type SleeperPlayerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SleeperPlayers.
+     */
+    data: SleeperPlayerCreateManyInput | SleeperPlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SleeperPlayer createManyAndReturn
+   */
+  export type SleeperPlayerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * The data used to create many SleeperPlayers.
+     */
+    data: SleeperPlayerCreateManyInput | SleeperPlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SleeperPlayer update
+   */
+  export type SleeperPlayerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SleeperPlayer.
+     */
+    data: XOR<SleeperPlayerUpdateInput, SleeperPlayerUncheckedUpdateInput>
+    /**
+     * Choose, which SleeperPlayer to update.
+     */
+    where: SleeperPlayerWhereUniqueInput
+  }
+
+  /**
+   * SleeperPlayer updateMany
+   */
+  export type SleeperPlayerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SleeperPlayers.
+     */
+    data: XOR<SleeperPlayerUpdateManyMutationInput, SleeperPlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which SleeperPlayers to update
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * Limit how many SleeperPlayers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SleeperPlayer updateManyAndReturn
+   */
+  export type SleeperPlayerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * The data used to update SleeperPlayers.
+     */
+    data: XOR<SleeperPlayerUpdateManyMutationInput, SleeperPlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which SleeperPlayers to update
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * Limit how many SleeperPlayers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SleeperPlayer upsert
+   */
+  export type SleeperPlayerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SleeperPlayer to update in case it exists.
+     */
+    where: SleeperPlayerWhereUniqueInput
+    /**
+     * In case the SleeperPlayer found by the `where` argument doesn't exist, create a new SleeperPlayer with this data.
+     */
+    create: XOR<SleeperPlayerCreateInput, SleeperPlayerUncheckedCreateInput>
+    /**
+     * In case the SleeperPlayer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SleeperPlayerUpdateInput, SleeperPlayerUncheckedUpdateInput>
+  }
+
+  /**
+   * SleeperPlayer delete
+   */
+  export type SleeperPlayerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+    /**
+     * Filter which SleeperPlayer to delete.
+     */
+    where: SleeperPlayerWhereUniqueInput
+  }
+
+  /**
+   * SleeperPlayer deleteMany
+   */
+  export type SleeperPlayerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SleeperPlayers to delete
+     */
+    where?: SleeperPlayerWhereInput
+    /**
+     * Limit how many SleeperPlayers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SleeperPlayer without action
+   */
+  export type SleeperPlayerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SleeperPlayer
+     */
+    select?: SleeperPlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SleeperPlayer
+     */
+    omit?: SleeperPlayerOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AllPlayerData
+   */
+
+  export type AggregateAllPlayerData = {
+    _count: AllPlayerDataCountAggregateOutputType | null
+    _avg: AllPlayerDataAvgAggregateOutputType | null
+    _sum: AllPlayerDataSumAggregateOutputType | null
+    _min: AllPlayerDataMinAggregateOutputType | null
+    _max: AllPlayerDataMaxAggregateOutputType | null
+  }
+
+  export type AllPlayerDataAvgAggregateOutputType = {
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+    PNODVScore: number | null
+    RVSScore: number | null
+  }
+
+  export type AllPlayerDataSumAggregateOutputType = {
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+    PNODVScore: number | null
+    RVSScore: number | null
+  }
+
+  export type AllPlayerDataMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    team: string | null
+    position: string | null
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+    PNODVScore: number | null
+    RVSScore: number | null
+  }
+
+  export type AllPlayerDataMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    team: string | null
+    position: string | null
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+    PNODVScore: number | null
+    RVSScore: number | null
+  }
+
+  export type AllPlayerDataCountAggregateOutputType = {
+    id: number
+    name: number
+    team: number
+    position: number
+    marketValue: number
+    myValue: number
+    valueDiffBetweenMyValueAndMarketValue: number
+    PRPScore: number
+    projectedNextOffseasonDynastyValue: number
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number
+    PNODVScore: number
+    RVSScore: number
+    tradeAnalyzerDataObjectsArray: number
+    rawData: number
+    _all: number
+  }
+
+
+  export type AllPlayerDataAvgAggregateInputType = {
+    marketValue?: true
+    myValue?: true
+    valueDiffBetweenMyValueAndMarketValue?: true
+    PRPScore?: true
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
+    PNODVScore?: true
+    RVSScore?: true
+  }
+
+  export type AllPlayerDataSumAggregateInputType = {
+    marketValue?: true
+    myValue?: true
+    valueDiffBetweenMyValueAndMarketValue?: true
+    PRPScore?: true
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
+    PNODVScore?: true
+    RVSScore?: true
+  }
+
+  export type AllPlayerDataMinAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+    marketValue?: true
+    myValue?: true
+    valueDiffBetweenMyValueAndMarketValue?: true
+    PRPScore?: true
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
+    PNODVScore?: true
+    RVSScore?: true
+  }
+
+  export type AllPlayerDataMaxAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+    marketValue?: true
+    myValue?: true
+    valueDiffBetweenMyValueAndMarketValue?: true
+    PRPScore?: true
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
+    PNODVScore?: true
+    RVSScore?: true
+  }
+
+  export type AllPlayerDataCountAggregateInputType = {
+    id?: true
+    name?: true
+    team?: true
+    position?: true
+    marketValue?: true
+    myValue?: true
+    valueDiffBetweenMyValueAndMarketValue?: true
+    PRPScore?: true
+    projectedNextOffseasonDynastyValue?: true
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: true
+    PNODVScore?: true
+    RVSScore?: true
+    tradeAnalyzerDataObjectsArray?: true
+    rawData?: true
+    _all?: true
+  }
+
+  export type AllPlayerDataAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AllPlayerData to aggregate.
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AllPlayerData to fetch.
+     */
+    orderBy?: AllPlayerDataOrderByWithRelationInput | AllPlayerDataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AllPlayerDataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AllPlayerData from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AllPlayerData.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AllPlayerData
+    **/
+    _count?: true | AllPlayerDataCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AllPlayerDataAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AllPlayerDataSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AllPlayerDataMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AllPlayerDataMaxAggregateInputType
+  }
+
+  export type GetAllPlayerDataAggregateType<T extends AllPlayerDataAggregateArgs> = {
+        [P in keyof T & keyof AggregateAllPlayerData]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAllPlayerData[P]>
+      : GetScalarType<T[P], AggregateAllPlayerData[P]>
+  }
+
+
+
+
+  export type AllPlayerDataGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AllPlayerDataWhereInput
+    orderBy?: AllPlayerDataOrderByWithAggregationInput | AllPlayerDataOrderByWithAggregationInput[]
+    by: AllPlayerDataScalarFieldEnum[] | AllPlayerDataScalarFieldEnum
+    having?: AllPlayerDataScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AllPlayerDataCountAggregateInputType | true
+    _avg?: AllPlayerDataAvgAggregateInputType
+    _sum?: AllPlayerDataSumAggregateInputType
+    _min?: AllPlayerDataMinAggregateInputType
+    _max?: AllPlayerDataMaxAggregateInputType
+  }
+
+  export type AllPlayerDataGroupByOutputType = {
+    id: string
+    name: string | null
+    team: string | null
+    position: string | null
+    marketValue: number | null
+    myValue: number | null
+    valueDiffBetweenMyValueAndMarketValue: number | null
+    PRPScore: number | null
+    projectedNextOffseasonDynastyValue: JsonValue | null
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+    PNODVScore: number | null
+    RVSScore: number | null
+    tradeAnalyzerDataObjectsArray: JsonValue | null
+    rawData: JsonValue | null
+    _count: AllPlayerDataCountAggregateOutputType | null
+    _avg: AllPlayerDataAvgAggregateOutputType | null
+    _sum: AllPlayerDataSumAggregateOutputType | null
+    _min: AllPlayerDataMinAggregateOutputType | null
+    _max: AllPlayerDataMaxAggregateOutputType | null
+  }
+
+  type GetAllPlayerDataGroupByPayload<T extends AllPlayerDataGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AllPlayerDataGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AllPlayerDataGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AllPlayerDataGroupByOutputType[P]>
+            : GetScalarType<T[P], AllPlayerDataGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AllPlayerDataSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+    marketValue?: boolean
+    myValue?: boolean
+    valueDiffBetweenMyValueAndMarketValue?: boolean
+    PRPScore?: boolean
+    projectedNextOffseasonDynastyValue?: boolean
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
+    PNODVScore?: boolean
+    RVSScore?: boolean
+    tradeAnalyzerDataObjectsArray?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["allPlayerData"]>
+
+  export type AllPlayerDataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+    marketValue?: boolean
+    myValue?: boolean
+    valueDiffBetweenMyValueAndMarketValue?: boolean
+    PRPScore?: boolean
+    projectedNextOffseasonDynastyValue?: boolean
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
+    PNODVScore?: boolean
+    RVSScore?: boolean
+    tradeAnalyzerDataObjectsArray?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["allPlayerData"]>
+
+  export type AllPlayerDataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+    marketValue?: boolean
+    myValue?: boolean
+    valueDiffBetweenMyValueAndMarketValue?: boolean
+    PRPScore?: boolean
+    projectedNextOffseasonDynastyValue?: boolean
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
+    PNODVScore?: boolean
+    RVSScore?: boolean
+    tradeAnalyzerDataObjectsArray?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["allPlayerData"]>
+
+  export type AllPlayerDataSelectScalar = {
+    id?: boolean
+    name?: boolean
+    team?: boolean
+    position?: boolean
+    marketValue?: boolean
+    myValue?: boolean
+    valueDiffBetweenMyValueAndMarketValue?: boolean
+    PRPScore?: boolean
+    projectedNextOffseasonDynastyValue?: boolean
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: boolean
+    PNODVScore?: boolean
+    RVSScore?: boolean
+    tradeAnalyzerDataObjectsArray?: boolean
+    rawData?: boolean
+  }
+
+  export type AllPlayerDataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "team" | "position" | "marketValue" | "myValue" | "valueDiffBetweenMyValueAndMarketValue" | "PRPScore" | "projectedNextOffseasonDynastyValue" | "valueDifferenceBetweenCurrentMarketValueAndPNODV" | "PNODVScore" | "RVSScore" | "tradeAnalyzerDataObjectsArray" | "rawData", ExtArgs["result"]["allPlayerData"]>
+
+  export type $AllPlayerDataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AllPlayerData"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string | null
+      team: string | null
+      position: string | null
+      marketValue: number | null
+      myValue: number | null
+      valueDiffBetweenMyValueAndMarketValue: number | null
+      PRPScore: number | null
+      projectedNextOffseasonDynastyValue: Prisma.JsonValue | null
+      valueDifferenceBetweenCurrentMarketValueAndPNODV: number | null
+      PNODVScore: number | null
+      RVSScore: number | null
+      tradeAnalyzerDataObjectsArray: Prisma.JsonValue | null
+      rawData: Prisma.JsonValue | null
+    }, ExtArgs["result"]["allPlayerData"]>
+    composites: {}
+  }
+
+  type AllPlayerDataGetPayload<S extends boolean | null | undefined | AllPlayerDataDefaultArgs> = $Result.GetResult<Prisma.$AllPlayerDataPayload, S>
+
+  type AllPlayerDataCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AllPlayerDataFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AllPlayerDataCountAggregateInputType | true
+    }
+
+  export interface AllPlayerDataDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AllPlayerData'], meta: { name: 'AllPlayerData' } }
+    /**
+     * Find zero or one AllPlayerData that matches the filter.
+     * @param {AllPlayerDataFindUniqueArgs} args - Arguments to find a AllPlayerData
+     * @example
+     * // Get one AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AllPlayerDataFindUniqueArgs>(args: SelectSubset<T, AllPlayerDataFindUniqueArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AllPlayerData that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AllPlayerDataFindUniqueOrThrowArgs} args - Arguments to find a AllPlayerData
+     * @example
+     * // Get one AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AllPlayerDataFindUniqueOrThrowArgs>(args: SelectSubset<T, AllPlayerDataFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AllPlayerData that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataFindFirstArgs} args - Arguments to find a AllPlayerData
+     * @example
+     * // Get one AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AllPlayerDataFindFirstArgs>(args?: SelectSubset<T, AllPlayerDataFindFirstArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AllPlayerData that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataFindFirstOrThrowArgs} args - Arguments to find a AllPlayerData
+     * @example
+     * // Get one AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AllPlayerDataFindFirstOrThrowArgs>(args?: SelectSubset<T, AllPlayerDataFindFirstOrThrowArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AllPlayerData that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findMany()
+     * 
+     * // Get first 10 AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const allPlayerDataWithIdOnly = await prisma.allPlayerData.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AllPlayerDataFindManyArgs>(args?: SelectSubset<T, AllPlayerDataFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AllPlayerData.
+     * @param {AllPlayerDataCreateArgs} args - Arguments to create a AllPlayerData.
+     * @example
+     * // Create one AllPlayerData
+     * const AllPlayerData = await prisma.allPlayerData.create({
+     *   data: {
+     *     // ... data to create a AllPlayerData
+     *   }
+     * })
+     * 
+     */
+    create<T extends AllPlayerDataCreateArgs>(args: SelectSubset<T, AllPlayerDataCreateArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AllPlayerData.
+     * @param {AllPlayerDataCreateManyArgs} args - Arguments to create many AllPlayerData.
+     * @example
+     * // Create many AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AllPlayerDataCreateManyArgs>(args?: SelectSubset<T, AllPlayerDataCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AllPlayerData and returns the data saved in the database.
+     * @param {AllPlayerDataCreateManyAndReturnArgs} args - Arguments to create many AllPlayerData.
+     * @example
+     * // Create many AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AllPlayerData and only return the `id`
+     * const allPlayerDataWithIdOnly = await prisma.allPlayerData.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AllPlayerDataCreateManyAndReturnArgs>(args?: SelectSubset<T, AllPlayerDataCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AllPlayerData.
+     * @param {AllPlayerDataDeleteArgs} args - Arguments to delete one AllPlayerData.
+     * @example
+     * // Delete one AllPlayerData
+     * const AllPlayerData = await prisma.allPlayerData.delete({
+     *   where: {
+     *     // ... filter to delete one AllPlayerData
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AllPlayerDataDeleteArgs>(args: SelectSubset<T, AllPlayerDataDeleteArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AllPlayerData.
+     * @param {AllPlayerDataUpdateArgs} args - Arguments to update one AllPlayerData.
+     * @example
+     * // Update one AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AllPlayerDataUpdateArgs>(args: SelectSubset<T, AllPlayerDataUpdateArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AllPlayerData.
+     * @param {AllPlayerDataDeleteManyArgs} args - Arguments to filter AllPlayerData to delete.
+     * @example
+     * // Delete a few AllPlayerData
+     * const { count } = await prisma.allPlayerData.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AllPlayerDataDeleteManyArgs>(args?: SelectSubset<T, AllPlayerDataDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AllPlayerData.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AllPlayerDataUpdateManyArgs>(args: SelectSubset<T, AllPlayerDataUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AllPlayerData and returns the data updated in the database.
+     * @param {AllPlayerDataUpdateManyAndReturnArgs} args - Arguments to update many AllPlayerData.
+     * @example
+     * // Update many AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AllPlayerData and only return the `id`
+     * const allPlayerDataWithIdOnly = await prisma.allPlayerData.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AllPlayerDataUpdateManyAndReturnArgs>(args: SelectSubset<T, AllPlayerDataUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AllPlayerData.
+     * @param {AllPlayerDataUpsertArgs} args - Arguments to update or create a AllPlayerData.
+     * @example
+     * // Update or create a AllPlayerData
+     * const allPlayerData = await prisma.allPlayerData.upsert({
+     *   create: {
+     *     // ... data to create a AllPlayerData
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AllPlayerData we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AllPlayerDataUpsertArgs>(args: SelectSubset<T, AllPlayerDataUpsertArgs<ExtArgs>>): Prisma__AllPlayerDataClient<$Result.GetResult<Prisma.$AllPlayerDataPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AllPlayerData.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataCountArgs} args - Arguments to filter AllPlayerData to count.
+     * @example
+     * // Count the number of AllPlayerData
+     * const count = await prisma.allPlayerData.count({
+     *   where: {
+     *     // ... the filter for the AllPlayerData we want to count
+     *   }
+     * })
+    **/
+    count<T extends AllPlayerDataCountArgs>(
+      args?: Subset<T, AllPlayerDataCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AllPlayerDataCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AllPlayerData.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AllPlayerDataAggregateArgs>(args: Subset<T, AllPlayerDataAggregateArgs>): Prisma.PrismaPromise<GetAllPlayerDataAggregateType<T>>
+
+    /**
+     * Group by AllPlayerData.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllPlayerDataGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AllPlayerDataGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AllPlayerDataGroupByArgs['orderBy'] }
+        : { orderBy?: AllPlayerDataGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AllPlayerDataGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAllPlayerDataGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AllPlayerData model
+   */
+  readonly fields: AllPlayerDataFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AllPlayerData.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AllPlayerDataClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AllPlayerData model
+   */
+  interface AllPlayerDataFieldRefs {
+    readonly id: FieldRef<"AllPlayerData", 'String'>
+    readonly name: FieldRef<"AllPlayerData", 'String'>
+    readonly team: FieldRef<"AllPlayerData", 'String'>
+    readonly position: FieldRef<"AllPlayerData", 'String'>
+    readonly marketValue: FieldRef<"AllPlayerData", 'Float'>
+    readonly myValue: FieldRef<"AllPlayerData", 'Float'>
+    readonly valueDiffBetweenMyValueAndMarketValue: FieldRef<"AllPlayerData", 'Float'>
+    readonly PRPScore: FieldRef<"AllPlayerData", 'Float'>
+    readonly projectedNextOffseasonDynastyValue: FieldRef<"AllPlayerData", 'Json'>
+    readonly valueDifferenceBetweenCurrentMarketValueAndPNODV: FieldRef<"AllPlayerData", 'Float'>
+    readonly PNODVScore: FieldRef<"AllPlayerData", 'Float'>
+    readonly RVSScore: FieldRef<"AllPlayerData", 'Float'>
+    readonly tradeAnalyzerDataObjectsArray: FieldRef<"AllPlayerData", 'Json'>
+    readonly rawData: FieldRef<"AllPlayerData", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AllPlayerData findUnique
+   */
+  export type AllPlayerDataFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter, which AllPlayerData to fetch.
+     */
+    where: AllPlayerDataWhereUniqueInput
+  }
+
+  /**
+   * AllPlayerData findUniqueOrThrow
+   */
+  export type AllPlayerDataFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter, which AllPlayerData to fetch.
+     */
+    where: AllPlayerDataWhereUniqueInput
+  }
+
+  /**
+   * AllPlayerData findFirst
+   */
+  export type AllPlayerDataFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter, which AllPlayerData to fetch.
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AllPlayerData to fetch.
+     */
+    orderBy?: AllPlayerDataOrderByWithRelationInput | AllPlayerDataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AllPlayerData.
+     */
+    cursor?: AllPlayerDataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AllPlayerData from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AllPlayerData.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AllPlayerData.
+     */
+    distinct?: AllPlayerDataScalarFieldEnum | AllPlayerDataScalarFieldEnum[]
+  }
+
+  /**
+   * AllPlayerData findFirstOrThrow
+   */
+  export type AllPlayerDataFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter, which AllPlayerData to fetch.
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AllPlayerData to fetch.
+     */
+    orderBy?: AllPlayerDataOrderByWithRelationInput | AllPlayerDataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AllPlayerData.
+     */
+    cursor?: AllPlayerDataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AllPlayerData from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AllPlayerData.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AllPlayerData.
+     */
+    distinct?: AllPlayerDataScalarFieldEnum | AllPlayerDataScalarFieldEnum[]
+  }
+
+  /**
+   * AllPlayerData findMany
+   */
+  export type AllPlayerDataFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter, which AllPlayerData to fetch.
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AllPlayerData to fetch.
+     */
+    orderBy?: AllPlayerDataOrderByWithRelationInput | AllPlayerDataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AllPlayerData.
+     */
+    cursor?: AllPlayerDataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AllPlayerData from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AllPlayerData.
+     */
+    skip?: number
+    distinct?: AllPlayerDataScalarFieldEnum | AllPlayerDataScalarFieldEnum[]
+  }
+
+  /**
+   * AllPlayerData create
+   */
+  export type AllPlayerDataCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AllPlayerData.
+     */
+    data?: XOR<AllPlayerDataCreateInput, AllPlayerDataUncheckedCreateInput>
+  }
+
+  /**
+   * AllPlayerData createMany
+   */
+  export type AllPlayerDataCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AllPlayerData.
+     */
+    data: AllPlayerDataCreateManyInput | AllPlayerDataCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AllPlayerData createManyAndReturn
+   */
+  export type AllPlayerDataCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * The data used to create many AllPlayerData.
+     */
+    data: AllPlayerDataCreateManyInput | AllPlayerDataCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AllPlayerData update
+   */
+  export type AllPlayerDataUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AllPlayerData.
+     */
+    data: XOR<AllPlayerDataUpdateInput, AllPlayerDataUncheckedUpdateInput>
+    /**
+     * Choose, which AllPlayerData to update.
+     */
+    where: AllPlayerDataWhereUniqueInput
+  }
+
+  /**
+   * AllPlayerData updateMany
+   */
+  export type AllPlayerDataUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AllPlayerData.
+     */
+    data: XOR<AllPlayerDataUpdateManyMutationInput, AllPlayerDataUncheckedUpdateManyInput>
+    /**
+     * Filter which AllPlayerData to update
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * Limit how many AllPlayerData to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AllPlayerData updateManyAndReturn
+   */
+  export type AllPlayerDataUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * The data used to update AllPlayerData.
+     */
+    data: XOR<AllPlayerDataUpdateManyMutationInput, AllPlayerDataUncheckedUpdateManyInput>
+    /**
+     * Filter which AllPlayerData to update
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * Limit how many AllPlayerData to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AllPlayerData upsert
+   */
+  export type AllPlayerDataUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AllPlayerData to update in case it exists.
+     */
+    where: AllPlayerDataWhereUniqueInput
+    /**
+     * In case the AllPlayerData found by the `where` argument doesn't exist, create a new AllPlayerData with this data.
+     */
+    create: XOR<AllPlayerDataCreateInput, AllPlayerDataUncheckedCreateInput>
+    /**
+     * In case the AllPlayerData was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AllPlayerDataUpdateInput, AllPlayerDataUncheckedUpdateInput>
+  }
+
+  /**
+   * AllPlayerData delete
+   */
+  export type AllPlayerDataDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+    /**
+     * Filter which AllPlayerData to delete.
+     */
+    where: AllPlayerDataWhereUniqueInput
+  }
+
+  /**
+   * AllPlayerData deleteMany
+   */
+  export type AllPlayerDataDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AllPlayerData to delete
+     */
+    where?: AllPlayerDataWhereInput
+    /**
+     * Limit how many AllPlayerData to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AllPlayerData without action
+   */
+  export type AllPlayerDataDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllPlayerData
+     */
+    select?: AllPlayerDataSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AllPlayerData
+     */
+    omit?: AllPlayerDataOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UNScorePlayer
+   */
+
+  export type AggregateUNScorePlayer = {
+    _count: UNScorePlayerCountAggregateOutputType | null
+    _avg: UNScorePlayerAvgAggregateOutputType | null
+    _sum: UNScorePlayerSumAggregateOutputType | null
+    _min: UNScorePlayerMinAggregateOutputType | null
+    _max: UNScorePlayerMaxAggregateOutputType | null
+  }
+
+  export type UNScorePlayerAvgAggregateOutputType = {
+    unScore: number | null
+    height: number | null
+    weight: number | null
+    draftRound: number | null
+    draftPick: number | null
+    careerSlotPercentage: number | null
+    careerWidePercentage: number | null
+    highestContestedTargetPercent: number | null
+  }
+
+  export type UNScorePlayerSumAggregateOutputType = {
+    unScore: number | null
+    height: number | null
+    weight: number | null
+    draftRound: number | null
+    draftPick: number | null
+    careerSlotPercentage: number | null
+    careerWidePercentage: number | null
+    highestContestedTargetPercent: number | null
+  }
+
+  export type UNScorePlayerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    class: string | null
+    unScore: number | null
+    height: number | null
+    weight: number | null
+    draftRound: number | null
+    draftPick: number | null
+    careerSlotPercentage: number | null
+    careerWidePercentage: number | null
+    highestContestedTargetPercent: number | null
+  }
+
+  export type UNScorePlayerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    class: string | null
+    unScore: number | null
+    height: number | null
+    weight: number | null
+    draftRound: number | null
+    draftPick: number | null
+    careerSlotPercentage: number | null
+    careerWidePercentage: number | null
+    highestContestedTargetPercent: number | null
+  }
+
+  export type UNScorePlayerCountAggregateOutputType = {
+    id: number
+    name: number
+    class: number
+    unScore: number
+    height: number
+    weight: number
+    draftRound: number
+    draftPick: number
+    careerSlotPercentage: number
+    careerWidePercentage: number
+    highestContestedTargetPercent: number
+    careerAveragedStats: number
+    topModelComps: number
+    rawData: number
+    _all: number
+  }
+
+
+  export type UNScorePlayerAvgAggregateInputType = {
+    unScore?: true
+    height?: true
+    weight?: true
+    draftRound?: true
+    draftPick?: true
+    careerSlotPercentage?: true
+    careerWidePercentage?: true
+    highestContestedTargetPercent?: true
+  }
+
+  export type UNScorePlayerSumAggregateInputType = {
+    unScore?: true
+    height?: true
+    weight?: true
+    draftRound?: true
+    draftPick?: true
+    careerSlotPercentage?: true
+    careerWidePercentage?: true
+    highestContestedTargetPercent?: true
+  }
+
+  export type UNScorePlayerMinAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    unScore?: true
+    height?: true
+    weight?: true
+    draftRound?: true
+    draftPick?: true
+    careerSlotPercentage?: true
+    careerWidePercentage?: true
+    highestContestedTargetPercent?: true
+  }
+
+  export type UNScorePlayerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    unScore?: true
+    height?: true
+    weight?: true
+    draftRound?: true
+    draftPick?: true
+    careerSlotPercentage?: true
+    careerWidePercentage?: true
+    highestContestedTargetPercent?: true
+  }
+
+  export type UNScorePlayerCountAggregateInputType = {
+    id?: true
+    name?: true
+    class?: true
+    unScore?: true
+    height?: true
+    weight?: true
+    draftRound?: true
+    draftPick?: true
+    careerSlotPercentage?: true
+    careerWidePercentage?: true
+    highestContestedTargetPercent?: true
+    careerAveragedStats?: true
+    topModelComps?: true
+    rawData?: true
+    _all?: true
+  }
+
+  export type UNScorePlayerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UNScorePlayer to aggregate.
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UNScorePlayers to fetch.
+     */
+    orderBy?: UNScorePlayerOrderByWithRelationInput | UNScorePlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UNScorePlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UNScorePlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UNScorePlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UNScorePlayers
+    **/
+    _count?: true | UNScorePlayerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UNScorePlayerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UNScorePlayerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UNScorePlayerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UNScorePlayerMaxAggregateInputType
+  }
+
+  export type GetUNScorePlayerAggregateType<T extends UNScorePlayerAggregateArgs> = {
+        [P in keyof T & keyof AggregateUNScorePlayer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUNScorePlayer[P]>
+      : GetScalarType<T[P], AggregateUNScorePlayer[P]>
+  }
+
+
+
+
+  export type UNScorePlayerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UNScorePlayerWhereInput
+    orderBy?: UNScorePlayerOrderByWithAggregationInput | UNScorePlayerOrderByWithAggregationInput[]
+    by: UNScorePlayerScalarFieldEnum[] | UNScorePlayerScalarFieldEnum
+    having?: UNScorePlayerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UNScorePlayerCountAggregateInputType | true
+    _avg?: UNScorePlayerAvgAggregateInputType
+    _sum?: UNScorePlayerSumAggregateInputType
+    _min?: UNScorePlayerMinAggregateInputType
+    _max?: UNScorePlayerMaxAggregateInputType
+  }
+
+  export type UNScorePlayerGroupByOutputType = {
+    id: string
+    name: string
+    class: string | null
+    unScore: number | null
+    height: number | null
+    weight: number | null
+    draftRound: number | null
+    draftPick: number | null
+    careerSlotPercentage: number | null
+    careerWidePercentage: number | null
+    highestContestedTargetPercent: number | null
+    careerAveragedStats: JsonValue | null
+    topModelComps: JsonValue | null
+    rawData: JsonValue | null
+    _count: UNScorePlayerCountAggregateOutputType | null
+    _avg: UNScorePlayerAvgAggregateOutputType | null
+    _sum: UNScorePlayerSumAggregateOutputType | null
+    _min: UNScorePlayerMinAggregateOutputType | null
+    _max: UNScorePlayerMaxAggregateOutputType | null
+  }
+
+  type GetUNScorePlayerGroupByPayload<T extends UNScorePlayerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UNScorePlayerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UNScorePlayerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UNScorePlayerGroupByOutputType[P]>
+            : GetScalarType<T[P], UNScorePlayerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UNScorePlayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    unScore?: boolean
+    height?: boolean
+    weight?: boolean
+    draftRound?: boolean
+    draftPick?: boolean
+    careerSlotPercentage?: boolean
+    careerWidePercentage?: boolean
+    highestContestedTargetPercent?: boolean
+    careerAveragedStats?: boolean
+    topModelComps?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["uNScorePlayer"]>
+
+  export type UNScorePlayerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    unScore?: boolean
+    height?: boolean
+    weight?: boolean
+    draftRound?: boolean
+    draftPick?: boolean
+    careerSlotPercentage?: boolean
+    careerWidePercentage?: boolean
+    highestContestedTargetPercent?: boolean
+    careerAveragedStats?: boolean
+    topModelComps?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["uNScorePlayer"]>
+
+  export type UNScorePlayerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    unScore?: boolean
+    height?: boolean
+    weight?: boolean
+    draftRound?: boolean
+    draftPick?: boolean
+    careerSlotPercentage?: boolean
+    careerWidePercentage?: boolean
+    highestContestedTargetPercent?: boolean
+    careerAveragedStats?: boolean
+    topModelComps?: boolean
+    rawData?: boolean
+  }, ExtArgs["result"]["uNScorePlayer"]>
+
+  export type UNScorePlayerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    class?: boolean
+    unScore?: boolean
+    height?: boolean
+    weight?: boolean
+    draftRound?: boolean
+    draftPick?: boolean
+    careerSlotPercentage?: boolean
+    careerWidePercentage?: boolean
+    highestContestedTargetPercent?: boolean
+    careerAveragedStats?: boolean
+    topModelComps?: boolean
+    rawData?: boolean
+  }
+
+  export type UNScorePlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "class" | "unScore" | "height" | "weight" | "draftRound" | "draftPick" | "careerSlotPercentage" | "careerWidePercentage" | "highestContestedTargetPercent" | "careerAveragedStats" | "topModelComps" | "rawData", ExtArgs["result"]["uNScorePlayer"]>
+
+  export type $UNScorePlayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UNScorePlayer"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      class: string | null
+      unScore: number | null
+      height: number | null
+      weight: number | null
+      draftRound: number | null
+      draftPick: number | null
+      careerSlotPercentage: number | null
+      careerWidePercentage: number | null
+      highestContestedTargetPercent: number | null
+      careerAveragedStats: Prisma.JsonValue | null
+      topModelComps: Prisma.JsonValue | null
+      rawData: Prisma.JsonValue | null
+    }, ExtArgs["result"]["uNScorePlayer"]>
+    composites: {}
+  }
+
+  type UNScorePlayerGetPayload<S extends boolean | null | undefined | UNScorePlayerDefaultArgs> = $Result.GetResult<Prisma.$UNScorePlayerPayload, S>
+
+  type UNScorePlayerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UNScorePlayerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UNScorePlayerCountAggregateInputType | true
+    }
+
+  export interface UNScorePlayerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UNScorePlayer'], meta: { name: 'UNScorePlayer' } }
+    /**
+     * Find zero or one UNScorePlayer that matches the filter.
+     * @param {UNScorePlayerFindUniqueArgs} args - Arguments to find a UNScorePlayer
+     * @example
+     * // Get one UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UNScorePlayerFindUniqueArgs>(args: SelectSubset<T, UNScorePlayerFindUniqueArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UNScorePlayer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UNScorePlayerFindUniqueOrThrowArgs} args - Arguments to find a UNScorePlayer
+     * @example
+     * // Get one UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UNScorePlayerFindUniqueOrThrowArgs>(args: SelectSubset<T, UNScorePlayerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UNScorePlayer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerFindFirstArgs} args - Arguments to find a UNScorePlayer
+     * @example
+     * // Get one UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UNScorePlayerFindFirstArgs>(args?: SelectSubset<T, UNScorePlayerFindFirstArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UNScorePlayer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerFindFirstOrThrowArgs} args - Arguments to find a UNScorePlayer
+     * @example
+     * // Get one UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UNScorePlayerFindFirstOrThrowArgs>(args?: SelectSubset<T, UNScorePlayerFindFirstOrThrowArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UNScorePlayers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UNScorePlayers
+     * const uNScorePlayers = await prisma.uNScorePlayer.findMany()
+     * 
+     * // Get first 10 UNScorePlayers
+     * const uNScorePlayers = await prisma.uNScorePlayer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const uNScorePlayerWithIdOnly = await prisma.uNScorePlayer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UNScorePlayerFindManyArgs>(args?: SelectSubset<T, UNScorePlayerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UNScorePlayer.
+     * @param {UNScorePlayerCreateArgs} args - Arguments to create a UNScorePlayer.
+     * @example
+     * // Create one UNScorePlayer
+     * const UNScorePlayer = await prisma.uNScorePlayer.create({
+     *   data: {
+     *     // ... data to create a UNScorePlayer
+     *   }
+     * })
+     * 
+     */
+    create<T extends UNScorePlayerCreateArgs>(args: SelectSubset<T, UNScorePlayerCreateArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UNScorePlayers.
+     * @param {UNScorePlayerCreateManyArgs} args - Arguments to create many UNScorePlayers.
+     * @example
+     * // Create many UNScorePlayers
+     * const uNScorePlayer = await prisma.uNScorePlayer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UNScorePlayerCreateManyArgs>(args?: SelectSubset<T, UNScorePlayerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UNScorePlayers and returns the data saved in the database.
+     * @param {UNScorePlayerCreateManyAndReturnArgs} args - Arguments to create many UNScorePlayers.
+     * @example
+     * // Create many UNScorePlayers
+     * const uNScorePlayer = await prisma.uNScorePlayer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UNScorePlayers and only return the `id`
+     * const uNScorePlayerWithIdOnly = await prisma.uNScorePlayer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UNScorePlayerCreateManyAndReturnArgs>(args?: SelectSubset<T, UNScorePlayerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UNScorePlayer.
+     * @param {UNScorePlayerDeleteArgs} args - Arguments to delete one UNScorePlayer.
+     * @example
+     * // Delete one UNScorePlayer
+     * const UNScorePlayer = await prisma.uNScorePlayer.delete({
+     *   where: {
+     *     // ... filter to delete one UNScorePlayer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UNScorePlayerDeleteArgs>(args: SelectSubset<T, UNScorePlayerDeleteArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UNScorePlayer.
+     * @param {UNScorePlayerUpdateArgs} args - Arguments to update one UNScorePlayer.
+     * @example
+     * // Update one UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UNScorePlayerUpdateArgs>(args: SelectSubset<T, UNScorePlayerUpdateArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UNScorePlayers.
+     * @param {UNScorePlayerDeleteManyArgs} args - Arguments to filter UNScorePlayers to delete.
+     * @example
+     * // Delete a few UNScorePlayers
+     * const { count } = await prisma.uNScorePlayer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UNScorePlayerDeleteManyArgs>(args?: SelectSubset<T, UNScorePlayerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UNScorePlayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UNScorePlayers
+     * const uNScorePlayer = await prisma.uNScorePlayer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UNScorePlayerUpdateManyArgs>(args: SelectSubset<T, UNScorePlayerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UNScorePlayers and returns the data updated in the database.
+     * @param {UNScorePlayerUpdateManyAndReturnArgs} args - Arguments to update many UNScorePlayers.
+     * @example
+     * // Update many UNScorePlayers
+     * const uNScorePlayer = await prisma.uNScorePlayer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UNScorePlayers and only return the `id`
+     * const uNScorePlayerWithIdOnly = await prisma.uNScorePlayer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UNScorePlayerUpdateManyAndReturnArgs>(args: SelectSubset<T, UNScorePlayerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UNScorePlayer.
+     * @param {UNScorePlayerUpsertArgs} args - Arguments to update or create a UNScorePlayer.
+     * @example
+     * // Update or create a UNScorePlayer
+     * const uNScorePlayer = await prisma.uNScorePlayer.upsert({
+     *   create: {
+     *     // ... data to create a UNScorePlayer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UNScorePlayer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UNScorePlayerUpsertArgs>(args: SelectSubset<T, UNScorePlayerUpsertArgs<ExtArgs>>): Prisma__UNScorePlayerClient<$Result.GetResult<Prisma.$UNScorePlayerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UNScorePlayers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerCountArgs} args - Arguments to filter UNScorePlayers to count.
+     * @example
+     * // Count the number of UNScorePlayers
+     * const count = await prisma.uNScorePlayer.count({
+     *   where: {
+     *     // ... the filter for the UNScorePlayers we want to count
+     *   }
+     * })
+    **/
+    count<T extends UNScorePlayerCountArgs>(
+      args?: Subset<T, UNScorePlayerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UNScorePlayerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UNScorePlayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UNScorePlayerAggregateArgs>(args: Subset<T, UNScorePlayerAggregateArgs>): Prisma.PrismaPromise<GetUNScorePlayerAggregateType<T>>
+
+    /**
+     * Group by UNScorePlayer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UNScorePlayerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UNScorePlayerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UNScorePlayerGroupByArgs['orderBy'] }
+        : { orderBy?: UNScorePlayerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UNScorePlayerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUNScorePlayerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UNScorePlayer model
+   */
+  readonly fields: UNScorePlayerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UNScorePlayer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UNScorePlayerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UNScorePlayer model
+   */
+  interface UNScorePlayerFieldRefs {
+    readonly id: FieldRef<"UNScorePlayer", 'String'>
+    readonly name: FieldRef<"UNScorePlayer", 'String'>
+    readonly class: FieldRef<"UNScorePlayer", 'String'>
+    readonly unScore: FieldRef<"UNScorePlayer", 'Float'>
+    readonly height: FieldRef<"UNScorePlayer", 'Float'>
+    readonly weight: FieldRef<"UNScorePlayer", 'Float'>
+    readonly draftRound: FieldRef<"UNScorePlayer", 'Float'>
+    readonly draftPick: FieldRef<"UNScorePlayer", 'Float'>
+    readonly careerSlotPercentage: FieldRef<"UNScorePlayer", 'Float'>
+    readonly careerWidePercentage: FieldRef<"UNScorePlayer", 'Float'>
+    readonly highestContestedTargetPercent: FieldRef<"UNScorePlayer", 'Float'>
+    readonly careerAveragedStats: FieldRef<"UNScorePlayer", 'Json'>
+    readonly topModelComps: FieldRef<"UNScorePlayer", 'Json'>
+    readonly rawData: FieldRef<"UNScorePlayer", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UNScorePlayer findUnique
+   */
+  export type UNScorePlayerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which UNScorePlayer to fetch.
+     */
+    where: UNScorePlayerWhereUniqueInput
+  }
+
+  /**
+   * UNScorePlayer findUniqueOrThrow
+   */
+  export type UNScorePlayerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which UNScorePlayer to fetch.
+     */
+    where: UNScorePlayerWhereUniqueInput
+  }
+
+  /**
+   * UNScorePlayer findFirst
+   */
+  export type UNScorePlayerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which UNScorePlayer to fetch.
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UNScorePlayers to fetch.
+     */
+    orderBy?: UNScorePlayerOrderByWithRelationInput | UNScorePlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UNScorePlayers.
+     */
+    cursor?: UNScorePlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UNScorePlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UNScorePlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UNScorePlayers.
+     */
+    distinct?: UNScorePlayerScalarFieldEnum | UNScorePlayerScalarFieldEnum[]
+  }
+
+  /**
+   * UNScorePlayer findFirstOrThrow
+   */
+  export type UNScorePlayerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which UNScorePlayer to fetch.
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UNScorePlayers to fetch.
+     */
+    orderBy?: UNScorePlayerOrderByWithRelationInput | UNScorePlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UNScorePlayers.
+     */
+    cursor?: UNScorePlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UNScorePlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UNScorePlayers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UNScorePlayers.
+     */
+    distinct?: UNScorePlayerScalarFieldEnum | UNScorePlayerScalarFieldEnum[]
+  }
+
+  /**
+   * UNScorePlayer findMany
+   */
+  export type UNScorePlayerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter, which UNScorePlayers to fetch.
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UNScorePlayers to fetch.
+     */
+    orderBy?: UNScorePlayerOrderByWithRelationInput | UNScorePlayerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UNScorePlayers.
+     */
+    cursor?: UNScorePlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UNScorePlayers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UNScorePlayers.
+     */
+    skip?: number
+    distinct?: UNScorePlayerScalarFieldEnum | UNScorePlayerScalarFieldEnum[]
+  }
+
+  /**
+   * UNScorePlayer create
+   */
+  export type UNScorePlayerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * The data needed to create a UNScorePlayer.
+     */
+    data: XOR<UNScorePlayerCreateInput, UNScorePlayerUncheckedCreateInput>
+  }
+
+  /**
+   * UNScorePlayer createMany
+   */
+  export type UNScorePlayerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UNScorePlayers.
+     */
+    data: UNScorePlayerCreateManyInput | UNScorePlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UNScorePlayer createManyAndReturn
+   */
+  export type UNScorePlayerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * The data used to create many UNScorePlayers.
+     */
+    data: UNScorePlayerCreateManyInput | UNScorePlayerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UNScorePlayer update
+   */
+  export type UNScorePlayerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * The data needed to update a UNScorePlayer.
+     */
+    data: XOR<UNScorePlayerUpdateInput, UNScorePlayerUncheckedUpdateInput>
+    /**
+     * Choose, which UNScorePlayer to update.
+     */
+    where: UNScorePlayerWhereUniqueInput
+  }
+
+  /**
+   * UNScorePlayer updateMany
+   */
+  export type UNScorePlayerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UNScorePlayers.
+     */
+    data: XOR<UNScorePlayerUpdateManyMutationInput, UNScorePlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which UNScorePlayers to update
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * Limit how many UNScorePlayers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UNScorePlayer updateManyAndReturn
+   */
+  export type UNScorePlayerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * The data used to update UNScorePlayers.
+     */
+    data: XOR<UNScorePlayerUpdateManyMutationInput, UNScorePlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which UNScorePlayers to update
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * Limit how many UNScorePlayers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UNScorePlayer upsert
+   */
+  export type UNScorePlayerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * The filter to search for the UNScorePlayer to update in case it exists.
+     */
+    where: UNScorePlayerWhereUniqueInput
+    /**
+     * In case the UNScorePlayer found by the `where` argument doesn't exist, create a new UNScorePlayer with this data.
+     */
+    create: XOR<UNScorePlayerCreateInput, UNScorePlayerUncheckedCreateInput>
+    /**
+     * In case the UNScorePlayer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UNScorePlayerUpdateInput, UNScorePlayerUncheckedUpdateInput>
+  }
+
+  /**
+   * UNScorePlayer delete
+   */
+  export type UNScorePlayerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+    /**
+     * Filter which UNScorePlayer to delete.
+     */
+    where: UNScorePlayerWhereUniqueInput
+  }
+
+  /**
+   * UNScorePlayer deleteMany
+   */
+  export type UNScorePlayerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UNScorePlayers to delete
+     */
+    where?: UNScorePlayerWhereInput
+    /**
+     * Limit how many UNScorePlayers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UNScorePlayer without action
+   */
+  export type UNScorePlayerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UNScorePlayer
+     */
+    select?: UNScorePlayerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UNScorePlayer
+     */
+    omit?: UNScorePlayerOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -2111,6 +5686,56 @@ export namespace Prisma {
   };
 
   export type TradeAnalyzerDataScalarFieldEnum = (typeof TradeAnalyzerDataScalarFieldEnum)[keyof typeof TradeAnalyzerDataScalarFieldEnum]
+
+
+  export const SleeperPlayerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    team: 'team',
+    position: 'position'
+  };
+
+  export type SleeperPlayerScalarFieldEnum = (typeof SleeperPlayerScalarFieldEnum)[keyof typeof SleeperPlayerScalarFieldEnum]
+
+
+  export const AllPlayerDataScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    team: 'team',
+    position: 'position',
+    marketValue: 'marketValue',
+    myValue: 'myValue',
+    valueDiffBetweenMyValueAndMarketValue: 'valueDiffBetweenMyValueAndMarketValue',
+    PRPScore: 'PRPScore',
+    projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
+    valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
+    PNODVScore: 'PNODVScore',
+    RVSScore: 'RVSScore',
+    tradeAnalyzerDataObjectsArray: 'tradeAnalyzerDataObjectsArray',
+    rawData: 'rawData'
+  };
+
+  export type AllPlayerDataScalarFieldEnum = (typeof AllPlayerDataScalarFieldEnum)[keyof typeof AllPlayerDataScalarFieldEnum]
+
+
+  export const UNScorePlayerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    class: 'class',
+    unScore: 'unScore',
+    height: 'height',
+    weight: 'weight',
+    draftRound: 'draftRound',
+    draftPick: 'draftPick',
+    careerSlotPercentage: 'careerSlotPercentage',
+    careerWidePercentage: 'careerWidePercentage',
+    highestContestedTargetPercent: 'highestContestedTargetPercent',
+    careerAveragedStats: 'careerAveragedStats',
+    topModelComps: 'topModelComps',
+    rawData: 'rawData'
+  };
+
+  export type UNScorePlayerScalarFieldEnum = (typeof UNScorePlayerScalarFieldEnum)[keyof typeof UNScorePlayerScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2327,6 +5952,251 @@ export namespace Prisma {
     consensusValue?: FloatNullableWithAggregatesFilter<"tradeAnalyzerData"> | number | null
   }
 
+  export type SleeperPlayerWhereInput = {
+    AND?: SleeperPlayerWhereInput | SleeperPlayerWhereInput[]
+    OR?: SleeperPlayerWhereInput[]
+    NOT?: SleeperPlayerWhereInput | SleeperPlayerWhereInput[]
+    id?: StringFilter<"SleeperPlayer"> | string
+    name?: StringFilter<"SleeperPlayer"> | string
+    team?: StringNullableFilter<"SleeperPlayer"> | string | null
+    position?: StringNullableFilter<"SleeperPlayer"> | string | null
+  }
+
+  export type SleeperPlayerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+  }
+
+  export type SleeperPlayerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SleeperPlayerWhereInput | SleeperPlayerWhereInput[]
+    OR?: SleeperPlayerWhereInput[]
+    NOT?: SleeperPlayerWhereInput | SleeperPlayerWhereInput[]
+    name?: StringFilter<"SleeperPlayer"> | string
+    team?: StringNullableFilter<"SleeperPlayer"> | string | null
+    position?: StringNullableFilter<"SleeperPlayer"> | string | null
+  }, "id">
+
+  export type SleeperPlayerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    _count?: SleeperPlayerCountOrderByAggregateInput
+    _max?: SleeperPlayerMaxOrderByAggregateInput
+    _min?: SleeperPlayerMinOrderByAggregateInput
+  }
+
+  export type SleeperPlayerScalarWhereWithAggregatesInput = {
+    AND?: SleeperPlayerScalarWhereWithAggregatesInput | SleeperPlayerScalarWhereWithAggregatesInput[]
+    OR?: SleeperPlayerScalarWhereWithAggregatesInput[]
+    NOT?: SleeperPlayerScalarWhereWithAggregatesInput | SleeperPlayerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SleeperPlayer"> | string
+    name?: StringWithAggregatesFilter<"SleeperPlayer"> | string
+    team?: StringNullableWithAggregatesFilter<"SleeperPlayer"> | string | null
+    position?: StringNullableWithAggregatesFilter<"SleeperPlayer"> | string | null
+  }
+
+  export type AllPlayerDataWhereInput = {
+    AND?: AllPlayerDataWhereInput | AllPlayerDataWhereInput[]
+    OR?: AllPlayerDataWhereInput[]
+    NOT?: AllPlayerDataWhereInput | AllPlayerDataWhereInput[]
+    id?: StringFilter<"AllPlayerData"> | string
+    name?: StringNullableFilter<"AllPlayerData"> | string | null
+    team?: StringNullableFilter<"AllPlayerData"> | string | null
+    position?: StringNullableFilter<"AllPlayerData"> | string | null
+    marketValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    myValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    PRPScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableFilter<"AllPlayerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"AllPlayerData"> | number | null
+    PNODVScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    RVSScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    tradeAnalyzerDataObjectsArray?: JsonNullableFilter<"AllPlayerData">
+    rawData?: JsonNullableFilter<"AllPlayerData">
+  }
+
+  export type AllPlayerDataOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrderInput | SortOrder
+    team?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    marketValue?: SortOrderInput | SortOrder
+    myValue?: SortOrderInput | SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrderInput | SortOrder
+    PRPScore?: SortOrderInput | SortOrder
+    projectedNextOffseasonDynastyValue?: SortOrderInput | SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
+    PNODVScore?: SortOrderInput | SortOrder
+    RVSScore?: SortOrderInput | SortOrder
+    tradeAnalyzerDataObjectsArray?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
+  }
+
+  export type AllPlayerDataWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AllPlayerDataWhereInput | AllPlayerDataWhereInput[]
+    OR?: AllPlayerDataWhereInput[]
+    NOT?: AllPlayerDataWhereInput | AllPlayerDataWhereInput[]
+    name?: StringNullableFilter<"AllPlayerData"> | string | null
+    team?: StringNullableFilter<"AllPlayerData"> | string | null
+    position?: StringNullableFilter<"AllPlayerData"> | string | null
+    marketValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    myValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableFilter<"AllPlayerData"> | number | null
+    PRPScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableFilter<"AllPlayerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableFilter<"AllPlayerData"> | number | null
+    PNODVScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    RVSScore?: FloatNullableFilter<"AllPlayerData"> | number | null
+    tradeAnalyzerDataObjectsArray?: JsonNullableFilter<"AllPlayerData">
+    rawData?: JsonNullableFilter<"AllPlayerData">
+  }, "id">
+
+  export type AllPlayerDataOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrderInput | SortOrder
+    team?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    marketValue?: SortOrderInput | SortOrder
+    myValue?: SortOrderInput | SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrderInput | SortOrder
+    PRPScore?: SortOrderInput | SortOrder
+    projectedNextOffseasonDynastyValue?: SortOrderInput | SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrderInput | SortOrder
+    PNODVScore?: SortOrderInput | SortOrder
+    RVSScore?: SortOrderInput | SortOrder
+    tradeAnalyzerDataObjectsArray?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
+    _count?: AllPlayerDataCountOrderByAggregateInput
+    _avg?: AllPlayerDataAvgOrderByAggregateInput
+    _max?: AllPlayerDataMaxOrderByAggregateInput
+    _min?: AllPlayerDataMinOrderByAggregateInput
+    _sum?: AllPlayerDataSumOrderByAggregateInput
+  }
+
+  export type AllPlayerDataScalarWhereWithAggregatesInput = {
+    AND?: AllPlayerDataScalarWhereWithAggregatesInput | AllPlayerDataScalarWhereWithAggregatesInput[]
+    OR?: AllPlayerDataScalarWhereWithAggregatesInput[]
+    NOT?: AllPlayerDataScalarWhereWithAggregatesInput | AllPlayerDataScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AllPlayerData"> | string
+    name?: StringNullableWithAggregatesFilter<"AllPlayerData"> | string | null
+    team?: StringNullableWithAggregatesFilter<"AllPlayerData"> | string | null
+    position?: StringNullableWithAggregatesFilter<"AllPlayerData"> | string | null
+    marketValue?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    myValue?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    valueDiffBetweenMyValueAndMarketValue?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    PRPScore?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    projectedNextOffseasonDynastyValue?: JsonNullableWithAggregatesFilter<"AllPlayerData">
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    PNODVScore?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    RVSScore?: FloatNullableWithAggregatesFilter<"AllPlayerData"> | number | null
+    tradeAnalyzerDataObjectsArray?: JsonNullableWithAggregatesFilter<"AllPlayerData">
+    rawData?: JsonNullableWithAggregatesFilter<"AllPlayerData">
+  }
+
+  export type UNScorePlayerWhereInput = {
+    AND?: UNScorePlayerWhereInput | UNScorePlayerWhereInput[]
+    OR?: UNScorePlayerWhereInput[]
+    NOT?: UNScorePlayerWhereInput | UNScorePlayerWhereInput[]
+    id?: StringFilter<"UNScorePlayer"> | string
+    name?: StringFilter<"UNScorePlayer"> | string
+    class?: StringNullableFilter<"UNScorePlayer"> | string | null
+    unScore?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    height?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    weight?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    draftRound?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    draftPick?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerSlotPercentage?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerWidePercentage?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    highestContestedTargetPercent?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerAveragedStats?: JsonNullableFilter<"UNScorePlayer">
+    topModelComps?: JsonNullableFilter<"UNScorePlayer">
+    rawData?: JsonNullableFilter<"UNScorePlayer">
+  }
+
+  export type UNScorePlayerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrderInput | SortOrder
+    unScore?: SortOrderInput | SortOrder
+    height?: SortOrderInput | SortOrder
+    weight?: SortOrderInput | SortOrder
+    draftRound?: SortOrderInput | SortOrder
+    draftPick?: SortOrderInput | SortOrder
+    careerSlotPercentage?: SortOrderInput | SortOrder
+    careerWidePercentage?: SortOrderInput | SortOrder
+    highestContestedTargetPercent?: SortOrderInput | SortOrder
+    careerAveragedStats?: SortOrderInput | SortOrder
+    topModelComps?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
+  }
+
+  export type UNScorePlayerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UNScorePlayerWhereInput | UNScorePlayerWhereInput[]
+    OR?: UNScorePlayerWhereInput[]
+    NOT?: UNScorePlayerWhereInput | UNScorePlayerWhereInput[]
+    name?: StringFilter<"UNScorePlayer"> | string
+    class?: StringNullableFilter<"UNScorePlayer"> | string | null
+    unScore?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    height?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    weight?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    draftRound?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    draftPick?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerSlotPercentage?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerWidePercentage?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    highestContestedTargetPercent?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    careerAveragedStats?: JsonNullableFilter<"UNScorePlayer">
+    topModelComps?: JsonNullableFilter<"UNScorePlayer">
+    rawData?: JsonNullableFilter<"UNScorePlayer">
+  }, "id">
+
+  export type UNScorePlayerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrderInput | SortOrder
+    unScore?: SortOrderInput | SortOrder
+    height?: SortOrderInput | SortOrder
+    weight?: SortOrderInput | SortOrder
+    draftRound?: SortOrderInput | SortOrder
+    draftPick?: SortOrderInput | SortOrder
+    careerSlotPercentage?: SortOrderInput | SortOrder
+    careerWidePercentage?: SortOrderInput | SortOrder
+    highestContestedTargetPercent?: SortOrderInput | SortOrder
+    careerAveragedStats?: SortOrderInput | SortOrder
+    topModelComps?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
+    _count?: UNScorePlayerCountOrderByAggregateInput
+    _avg?: UNScorePlayerAvgOrderByAggregateInput
+    _max?: UNScorePlayerMaxOrderByAggregateInput
+    _min?: UNScorePlayerMinOrderByAggregateInput
+    _sum?: UNScorePlayerSumOrderByAggregateInput
+  }
+
+  export type UNScorePlayerScalarWhereWithAggregatesInput = {
+    AND?: UNScorePlayerScalarWhereWithAggregatesInput | UNScorePlayerScalarWhereWithAggregatesInput[]
+    OR?: UNScorePlayerScalarWhereWithAggregatesInput[]
+    NOT?: UNScorePlayerScalarWhereWithAggregatesInput | UNScorePlayerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UNScorePlayer"> | string
+    name?: StringWithAggregatesFilter<"UNScorePlayer"> | string
+    class?: StringNullableWithAggregatesFilter<"UNScorePlayer"> | string | null
+    unScore?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    height?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    weight?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    draftRound?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    draftPick?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    careerSlotPercentage?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    careerWidePercentage?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    highestContestedTargetPercent?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    careerAveragedStats?: JsonNullableWithAggregatesFilter<"UNScorePlayer">
+    topModelComps?: JsonNullableWithAggregatesFilter<"UNScorePlayer">
+    rawData?: JsonNullableWithAggregatesFilter<"UNScorePlayer">
+  }
+
   export type tradeAnalyzerDataCreateInput = {
     id?: string
     name?: string | null
@@ -2458,6 +6328,293 @@ export namespace Prisma {
     travValue?: NullableFloatFieldUpdateOperationsInput | number | null
     joeValue?: NullableFloatFieldUpdateOperationsInput | number | null
     consensusValue?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type SleeperPlayerCreateInput = {
+    id?: string
+    name: string
+    team?: string | null
+    position?: string | null
+  }
+
+  export type SleeperPlayerUncheckedCreateInput = {
+    id?: string
+    name: string
+    team?: string | null
+    position?: string | null
+  }
+
+  export type SleeperPlayerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SleeperPlayerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SleeperPlayerCreateManyInput = {
+    id?: string
+    name: string
+    team?: string | null
+    position?: string | null
+  }
+
+  export type SleeperPlayerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SleeperPlayerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AllPlayerDataCreateInput = {
+    id?: string
+    name?: string | null
+    team?: string | null
+    position?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
+    PNODVScore?: number | null
+    RVSScore?: number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataUncheckedCreateInput = {
+    id?: string
+    name?: string | null
+    team?: string | null
+    position?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
+    PNODVScore?: number | null
+    RVSScore?: number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
+    PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
+    PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataCreateManyInput = {
+    id?: string
+    name?: string | null
+    team?: string | null
+    position?: string | null
+    marketValue?: number | null
+    myValue?: number | null
+    valueDiffBetweenMyValueAndMarketValue?: number | null
+    PRPScore?: number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: number | null
+    PNODVScore?: number | null
+    RVSScore?: number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
+    PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AllPlayerDataUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    team?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    marketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    myValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    valueDiffBetweenMyValueAndMarketValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    PRPScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    projectedNextOffseasonDynastyValue?: NullableJsonNullValueInput | InputJsonValue
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: NullableFloatFieldUpdateOperationsInput | number | null
+    PNODVScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    RVSScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    tradeAnalyzerDataObjectsArray?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerCreateInput = {
+    id?: string
+    name: string
+    class?: string | null
+    unScore?: number | null
+    height?: number | null
+    weight?: number | null
+    draftRound?: number | null
+    draftPick?: number | null
+    careerSlotPercentage?: number | null
+    careerWidePercentage?: number | null
+    highestContestedTargetPercent?: number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerUncheckedCreateInput = {
+    id?: string
+    name: string
+    class?: string | null
+    unScore?: number | null
+    height?: number | null
+    weight?: number | null
+    draftRound?: number | null
+    draftPick?: number | null
+    careerSlotPercentage?: number | null
+    careerWidePercentage?: number | null
+    highestContestedTargetPercent?: number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: NullableStringFieldUpdateOperationsInput | string | null
+    unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftPick?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerSlotPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerWidePercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    highestContestedTargetPercent?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: NullableStringFieldUpdateOperationsInput | string | null
+    unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftPick?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerSlotPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerWidePercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    highestContestedTargetPercent?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerCreateManyInput = {
+    id?: string
+    name: string
+    class?: string | null
+    unScore?: number | null
+    height?: number | null
+    weight?: number | null
+    draftRound?: number | null
+    draftPick?: number | null
+    careerSlotPercentage?: number | null
+    careerWidePercentage?: number | null
+    highestContestedTargetPercent?: number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: NullableStringFieldUpdateOperationsInput | string | null
+    unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftPick?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerSlotPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerWidePercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    highestContestedTargetPercent?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UNScorePlayerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    class?: NullableStringFieldUpdateOperationsInput | string | null
+    unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
+    draftPick?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerSlotPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerWidePercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    highestContestedTargetPercent?: NullableFloatFieldUpdateOperationsInput | number | null
+    careerAveragedStats?: NullableJsonNullValueInput | InputJsonValue
+    topModelComps?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2688,6 +6845,159 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type SleeperPlayerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+  }
+
+  export type SleeperPlayerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+  }
+
+  export type SleeperPlayerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+  }
+
+  export type AllPlayerDataCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+    marketValue?: SortOrder
+    myValue?: SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrder
+    PRPScore?: SortOrder
+    projectedNextOffseasonDynastyValue?: SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    PNODVScore?: SortOrder
+    RVSScore?: SortOrder
+    tradeAnalyzerDataObjectsArray?: SortOrder
+    rawData?: SortOrder
+  }
+
+  export type AllPlayerDataAvgOrderByAggregateInput = {
+    marketValue?: SortOrder
+    myValue?: SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrder
+    PRPScore?: SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    PNODVScore?: SortOrder
+    RVSScore?: SortOrder
+  }
+
+  export type AllPlayerDataMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+    marketValue?: SortOrder
+    myValue?: SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrder
+    PRPScore?: SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    PNODVScore?: SortOrder
+    RVSScore?: SortOrder
+  }
+
+  export type AllPlayerDataMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    team?: SortOrder
+    position?: SortOrder
+    marketValue?: SortOrder
+    myValue?: SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrder
+    PRPScore?: SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    PNODVScore?: SortOrder
+    RVSScore?: SortOrder
+  }
+
+  export type AllPlayerDataSumOrderByAggregateInput = {
+    marketValue?: SortOrder
+    myValue?: SortOrder
+    valueDiffBetweenMyValueAndMarketValue?: SortOrder
+    PRPScore?: SortOrder
+    valueDifferenceBetweenCurrentMarketValueAndPNODV?: SortOrder
+    PNODVScore?: SortOrder
+    RVSScore?: SortOrder
+  }
+
+  export type UNScorePlayerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    unScore?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    draftRound?: SortOrder
+    draftPick?: SortOrder
+    careerSlotPercentage?: SortOrder
+    careerWidePercentage?: SortOrder
+    highestContestedTargetPercent?: SortOrder
+    careerAveragedStats?: SortOrder
+    topModelComps?: SortOrder
+    rawData?: SortOrder
+  }
+
+  export type UNScorePlayerAvgOrderByAggregateInput = {
+    unScore?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    draftRound?: SortOrder
+    draftPick?: SortOrder
+    careerSlotPercentage?: SortOrder
+    careerWidePercentage?: SortOrder
+    highestContestedTargetPercent?: SortOrder
+  }
+
+  export type UNScorePlayerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    unScore?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    draftRound?: SortOrder
+    draftPick?: SortOrder
+    careerSlotPercentage?: SortOrder
+    careerWidePercentage?: SortOrder
+    highestContestedTargetPercent?: SortOrder
+  }
+
+  export type UNScorePlayerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    class?: SortOrder
+    unScore?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    draftRound?: SortOrder
+    draftPick?: SortOrder
+    careerSlotPercentage?: SortOrder
+    careerWidePercentage?: SortOrder
+    highestContestedTargetPercent?: SortOrder
+  }
+
+  export type UNScorePlayerSumOrderByAggregateInput = {
+    unScore?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    draftRound?: SortOrder
+    draftPick?: SortOrder
+    careerSlotPercentage?: SortOrder
+    careerWidePercentage?: SortOrder
+    highestContestedTargetPercent?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
