@@ -44,7 +44,7 @@ async function ProjectionsBuilder() {
       // playerData = myDoc;
 
       return myDoc;
-      // Print to the console
+      // Print to the consol
 
       ////////////////////////////////////
     } catch (err) {
