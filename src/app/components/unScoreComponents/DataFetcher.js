@@ -1,55 +1,25 @@
 'use server'
-
-import { MongoClient } from 'mongodb';
-
-const uri = process.env.MONGODB_URI;
-const dbName = 'UNScoreTool';
-const collectionName = 'AllPlayerData';
-
-let clientPromise;
-
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your MongoDB URI to .env.local');
-}
-
-if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  if (!global._mongoClientPromise) {
-    const client = new MongoClient(process.env.MONGODB_URI);
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  const client = new MongoClient(process.env.MONGODB_URI);
-  clientPromise = client.connect();
-}
+import prisma from '../../../lib/prisma';
 
 export async function fetchData() {
-    try {
-        const client = await clientPromise;
-        const database = client.db(dbName);
-        const collection = database.collection(collectionName);
+  try {
+    const data = await prisma.uNScorePlayer.findMany();
 
-        const rawData = await collection.find({}).toArray();
-        
-        if (!rawData || rawData.length === 0) {
-            console.log('No data returned from MongoDB');
-            return [];
-        }
-
-        // Convert MongoDB ObjectId to string
-        const data = rawData.map(item => ({
-            ...item,
-            _id: item._id.toString(),
-        }));
-
-        // Just return the array of players directly
-        return data.flatMap((item) => item.playerObjectsForUNDatabaseArray || []);
-
-    } catch (error) {
-        console.error('Error fetching data from MongoDB:', error);
-        return [];
+    if (!data || data.length === 0) {
+      console.log('No data returned from Postgres');
+      return [];
     }
+
+    // The original code did:
+    // const data = rawData.map(item => ({ ...item, _id: item._id.toString() }));
+    // return data.flatMap((item) => item.playerObjectsForUNDatabaseArray || []);
+
+    // Our migration flattened this structure, so `data` is already the array of players.
+    // We just need to return it.
+    return data;
+
+  } catch (error) {
+    console.error('Error fetching data from Postgres:', error);
+    return [];
+  }
 }

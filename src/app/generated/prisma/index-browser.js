@@ -139,6 +139,47 @@ exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   consensusValue: 'consensusValue'
 };
 
+exports.Prisma.SleeperPlayerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  team: 'team',
+  position: 'position'
+};
+
+exports.Prisma.AllPlayerDataScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  team: 'team',
+  position: 'position',
+  marketValue: 'marketValue',
+  myValue: 'myValue',
+  valueDiffBetweenMyValueAndMarketValue: 'valueDiffBetweenMyValueAndMarketValue',
+  PRPScore: 'PRPScore',
+  projectedNextOffseasonDynastyValue: 'projectedNextOffseasonDynastyValue',
+  valueDifferenceBetweenCurrentMarketValueAndPNODV: 'valueDifferenceBetweenCurrentMarketValueAndPNODV',
+  PNODVScore: 'PNODVScore',
+  RVSScore: 'RVSScore',
+  tradeAnalyzerDataObjectsArray: 'tradeAnalyzerDataObjectsArray',
+  rawData: 'rawData'
+};
+
+exports.Prisma.UNScorePlayerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  class: 'class',
+  unScore: 'unScore',
+  height: 'height',
+  weight: 'weight',
+  draftRound: 'draftRound',
+  draftPick: 'draftPick',
+  careerSlotPercentage: 'careerSlotPercentage',
+  careerWidePercentage: 'careerWidePercentage',
+  highestContestedTargetPercent: 'highestContestedTargetPercent',
+  careerAveragedStats: 'careerAveragedStats',
+  topModelComps: 'topModelComps',
+  rawData: 'rawData'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -167,7 +208,10 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  tradeAnalyzerData: 'tradeAnalyzerData'
+  tradeAnalyzerData: 'tradeAnalyzerData',
+  SleeperPlayer: 'SleeperPlayer',
+  AllPlayerData: 'AllPlayerData',
+  UNScorePlayer: 'UNScorePlayer'
 };
 
 /**

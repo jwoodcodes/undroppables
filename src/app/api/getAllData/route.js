@@ -1,17 +1,9 @@
 "use server";
-import { MongoClient } from "mongodb";
+import prisma from "../../../lib/prisma";
 
 export async function GET() {
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
   try {
-    await client.connect();
-    const database = client.db("projectionsBuilder");
-    const collection = database.collection("allPlayerData");
-    const allData = await collection.find({}).toArray();
+    const allData = await prisma.allPlayerData.findMany();
 
     return new Response(JSON.stringify(allData), {
       status: 200,
@@ -30,7 +22,5 @@ export async function GET() {
         },
       }
     );
-  } finally {
-    await client.close();
   }
 }
