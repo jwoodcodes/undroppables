@@ -44,6 +44,11 @@ var getPostgresData = function () { return __awaiter(void 0, void 0, void 0, fun
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log("DATABASE_URL:", process.env.DATABASE_URL ? "****** (exists)" : "undefined or empty");
+                if (!process.env.DATABASE_URL) {
+                    console.error("DATABASE_URL is not defined. Returning empty array to prevent build failure.");
+                    return [2 /*return*/, []];
+                }
                 _a.trys.push([0, 2, 3, 5]);
                 return [4 /*yield*/, prisma.tradeAnalyzerData.findMany()];
             case 1:
