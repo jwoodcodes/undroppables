@@ -1,29 +1,20 @@
 'use server'
 
+import { getUNScoreData } from "../../dbManagement/getUNScoreData";
+
 export async function fetchData() {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5081';
-
-    const response = await fetch(`${apiUrl}/api/players/unscore`, {
-      cache: 'no-store' // Ensure fresh data on each request
-    });
-
-    if (!response.ok) {
-      console.error(`Failed to fetch UN Score data: ${response.status}`);
-      return [];
-    }
-
-    const data = await response.json();
+    const data = await getUNScoreData();
 
     if (!data || data.length === 0) {
-      console.log('No data returned from C# API');
+      console.log('No UNScore data found in database');
       return [];
     }
 
     return data;
 
   } catch (error) {
-    console.error('Error fetching data from C# API:', error);
+    console.error('Error fetching UNScore data:', error);
     return [];
   }
 }
