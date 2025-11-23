@@ -1,62 +1,75 @@
+'use client';
+
 import Image from "next/image";
 import styles from "./projectionsBuilder.module.css";
 import Link from "next/link";
-import React from "react";
-import prisma from "../../../lib/prisma";
+import React, { useState, useEffect } from "react";
 
 import ConstructProjections from "./components/ConstructProjections";
 import BuildTeamProjections from "./components/BuildTeamProjections";
 
-async function ProjectionsBuilder() {
-  async function fetchPlayerDataFromPostgres() {
-    try {
-      const allData = await prisma.allPlayerData.findMany();
-      // The original code expected a single document with an 'allPlayerData' property
-      // But our migration flattened it. However, looking at the original code:
-      // const myDoc = await col.findOne();
-      // return myDoc;
-      // And then: let tempDataTest = dataTest.allPlayerData;
+function ProjectionsBuilder() {
+  const [dataTest, setDataTest] = useState({ allPlayerData: [] });
+  const [sleeperData, setSleeperData] = useState({ JustSleeperNamesTeamsAndPostionsArray: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-      // So we need to return an object that has an allPlayerData property which is the array of players.
-      return { allPlayerData: allData };
-    } catch (err) {
-      console.log(err.stack);
-      return { allPlayerData: [] };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5081';
+
+        // Fetch all player data
+        const allPlayersResponse = await fetch(`${apiUrl}/api/players/all`);
+        if (!allPlayersResponse.ok) {
+          throw new Error(`Failed to fetch all players: ${allPlayersResponse.status}`);
+        }
+        const allData = await allPlayersResponse.json();
+
+        // Fetch sleeper data
+        const sleeperResponse = await fetch(`${apiUrl}/api/players/sleeper`);
+        if (!sleeperResponse.ok) {
+          throw new Error(`Failed to fetch sleeper data: ${sleeperResponse.status}`);
+        }
+        const sleeperPlayers = await sleeperResponse.json();
+
+        // Set data in the same structure as before
+        setDataTest({ allPlayerData: allData });
+        setSleeperData({ JustSleeperNamesTeamsAndPostionsArray: sleeperPlayers });
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching data from C# API:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <main className={styles.main}>
+        <div className={styles.mainSiteTitleWrapper}>
+          <div className={styles.pageTitle}>UN Projections Builder</div>
+          <div>Loading player data...</div>
+        </div>
+      </main>
+    );
   }
 
-  let dataTest = await fetchPlayerDataFromPostgres();
-  // console.log(dataTest);
-  // React.useEffect(() => {
-
-  dataTest = JSON.parse(JSON.stringify(dataTest));
-
-  // }, []);
-
-  //
-
-  async function fetchSleeperDataFromPostgres() {
-    try {
-      const sleeperPlayers = await prisma.sleeperPlayer.findMany();
-
-      // Original code:
-      // const mySleperDoc = await col.findOne();
-      // return mySleperDoc;
-      // And then: const sleeperDataArray = sleeperData.JustSleeperNamesTeamsAndPostionsArray;
-
-      return { JustSleeperNamesTeamsAndPostionsArray: sleeperPlayers };
-    } catch (err) {
-      console.log(err.stack);
-      return { JustSleeperNamesTeamsAndPostionsArray: [] };
-    }
+  if (error) {
+    return (
+      <main className={styles.main}>
+        <div className={styles.mainSiteTitleWrapper}>
+          <div className={styles.pageTitle}>UN Projections Builder</div>
+          <div style={{ color: 'red' }}>Error: {error}</div>
+        </div>
+      </main>
+    );
   }
-
-  let sleeperData = await fetchSleeperDataFromPostgres();
-  // console.log(dataTest);
-  //   console.log(sleeperData);
-  // React.useEffect(() => {
-
-  sleeperData = JSON.parse(JSON.stringify(sleeperData));
 
   return (
     <main className={styles.main}>
