@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace UndroppablesAPI.Models;
+
+public partial class AllPlayerDatum
+{
+    public string Id { get; set; } = null!;
+
+    public string? Name { get; set; }
+
+    public string? Team { get; set; }
+
+    public string? Position { get; set; }
+
+    public double? MarketValue { get; set; }
+
+    public double? MyValue { get; set; }
+
+    public double? ValueDiffBetweenMyValueAndMarketValue { get; set; }
+
+    public double? Prpscore { get; set; }
+
+    public string? ProjectedNextOffseasonDynastyValue { get; set; }
+
+    public double? ValueDifferenceBetweenCurrentMarketValueAndPnodv { get; set; }
+
+    public double? Pnodvscore { get; set; }
+
+    public double? Rvsscore { get; set; }
+
+    public string? TradeAnalyzerDataObjectsArray { get; set; }
+
+    public string? RawData { get; set; }
+}

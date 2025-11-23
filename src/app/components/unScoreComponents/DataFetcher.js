@@ -1,25 +1,29 @@
 'use server'
-import prisma from '../../../lib/prisma';
 
 export async function fetchData() {
   try {
-    const data = await prisma.uNScorePlayer.findMany();
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5081';
 
-    if (!data || data.length === 0) {
-      console.log('No data returned from Postgres');
+    const response = await fetch(`${apiUrl}/api/players/unscore`, {
+      cache: 'no-store' // Ensure fresh data on each request
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to fetch UN Score data: ${response.status}`);
       return [];
     }
 
-    // The original code did:
-    // const data = rawData.map(item => ({ ...item, _id: item._id.toString() }));
-    // return data.flatMap((item) => item.playerObjectsForUNDatabaseArray || []);
+    const data = await response.json();
 
-    // Our migration flattened this structure, so `data` is already the array of players.
-    // We just need to return it.
+    if (!data || data.length === 0) {
+      console.log('No data returned from C# API');
+      return [];
+    }
+
     return data;
 
   } catch (error) {
-    console.error('Error fetching data from Postgres:', error);
+    console.error('Error fetching data from C# API:', error);
     return [];
   }
 }
