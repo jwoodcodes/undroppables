@@ -18,17 +18,16 @@ function ProjectionsBuilder() {
     async function fetchData() {
       try {
         setLoading(true);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5081';
 
-        // Fetch all player data
-        const allPlayersResponse = await fetch(`${apiUrl}/api/players/all`);
+        // Fetch all player data from Next.js API route
+        const allPlayersResponse = await fetch('/api/players/all');
         if (!allPlayersResponse.ok) {
           throw new Error(`Failed to fetch all players: ${allPlayersResponse.status}`);
         }
         const allData = await allPlayersResponse.json();
 
-        // Fetch sleeper data
-        const sleeperResponse = await fetch(`${apiUrl}/api/players/sleeper`);
+        // Fetch sleeper data from Next.js API route
+        const sleeperResponse = await fetch('/api/players/sleeper');
         if (!sleeperResponse.ok) {
           throw new Error(`Failed to fetch sleeper data: ${sleeperResponse.status}`);
         }
@@ -39,7 +38,7 @@ function ProjectionsBuilder() {
         setSleeperData({ JustSleeperNamesTeamsAndPostionsArray: sleeperPlayers });
         setError(null);
       } catch (err) {
-        console.error('Error fetching data from C# API:', err);
+        console.error('Error fetching data from API:', err);
         setError(err.message);
       } finally {
         setLoading(false);
