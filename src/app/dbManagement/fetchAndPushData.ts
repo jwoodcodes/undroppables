@@ -27,6 +27,7 @@ interface YourDataType {
   travValue?: number;
   joeValue?: number;
   consensusValue?: number;
+  consensusVsMarketValueDiff?: number;
   tradeAnalyzerDataObjectsArray: {
     id: string;
     name: string;
@@ -44,6 +45,7 @@ interface YourDataType {
     travValue?: number;
     joeValue?: number;
     consensusValue?: number;
+    consensusVsMarketValueDiff?: number;
   }[];
 }
 
@@ -679,10 +681,12 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
               tradeData.jaxValue +
               tradeData.travValue +
               tradeData.joeValue) /
-              4
+            4
           );
+          tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
         } else {
           tradeData.consensusValue = tradeData.myValue;
+          tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
         }
 
         if (tradeData.consensusValue !== tradeData.myValue) {
@@ -714,6 +718,7 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
             travValue: tradeData.travValue,
             joeValue: tradeData.joeValue,
             consensusValue: tradeData.consensusValue,
+            consensusVsMarketValueDiff: tradeData.consensusVsMarketValueDiff,
           },
         });
       }

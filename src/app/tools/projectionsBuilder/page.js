@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./projectionsBuilder.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import MainNav from "../../components/mainNav/MainNav";
 
 import ConstructProjections from "./components/ConstructProjections";
 import BuildTeamProjections from "./components/BuildTeamProjections";
@@ -72,6 +73,7 @@ function ProjectionsBuilder() {
 
   return (
     <main className={styles.main}>
+      <MainNav />
       <div className={styles.mainSiteTitleWrapper}>
         <div className={styles.pageTitle}>UN Projections Builder</div>
 
