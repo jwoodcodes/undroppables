@@ -33,6 +33,7 @@ datasource db {
     travValue Float?
     joeValue Float?
     consensusValue Float?
+    consensusVsMarketValueDiff Float?
   }
 
   model SleeperPlayer {

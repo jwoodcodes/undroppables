@@ -1,0 +1,17 @@
+.main {
+    background-color: var(--color-black);
+    min-height: 100vh;
+}
+
+
+.rankingsLabel {
+    /* color: var(--color-red-primary); */
+    background: linear-gradient(to bottom, var(--color-gray-300), var(--color-red-primary));
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 200;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
