@@ -110,6 +110,39 @@ html {
   /* --color-red-primary: #ff0000; */
   --color-red-dark: #b71c1c;
 
- 
+
   --color-red-warning: oklch(57.15% 0.227 17.47);
+
+  --background-color: hsl(0, 0%, 7%);
+  --card-background: hsl(0, 0%, 15%);
+}
+
+/* Responsive AG Grid font sizes */
+.ag-theme-quartz-dark .ag-header-cell,
+.ag-theme-quartz-dark .ag-cell {
+  font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 950px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.7rem;
+  }
 }
