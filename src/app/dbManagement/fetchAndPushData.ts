@@ -1,13 +1,29 @@
 import { MongoClient } from "mongodb";
-// import { PrismaClient } from '../../../src/app/generated/prisma';
+import { createClient } from "@supabase/supabase-js";
+import * as dotenv from "dotenv";
+import * as path from "path";
+import { randomUUID } from "crypto";
+
+// Load environment variables from project root
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+
 const jaxDynoRankings = require("./rankings/jaxDynoRankings");
 const travDynoRankings = require("./rankings/travDynoRankings");
 const joeDynoRankings = require("./rankings/joeDynoRankings");
 
-// const prisma = new PrismaClient();
 const mongoClient = new MongoClient(
   "mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test"
 );
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing Supabase environment variables");
+}
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface YourDataType {
   id: string; // Adjust according to your MongoDB data structure
@@ -389,17 +405,24 @@ function assignValues(
   return rankingsSet;
 }
 
-async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
+async function pushDataToPostgreSQL(data: YourDataType[]) {
   try {
     console.log(
       "Attempting to delete existing records from tradeAnalyzerData..."
     );
 
     // Delete all existing records in the tradeAnalyzerData table
-    const deleteResult = await prisma.tradeAnalyzerData.deleteMany({});
+    const { error: deleteError } = await supabase
+      .from('tradeAnalyzerData')
+      .delete()
+      .neq('id', '');
+
+    if (deleteError) {
+      throw new Error(`Delete failed: ${deleteError.message}`);
+    }
 
     // Log the result of the deletion
-    console.log("Delete operation completed:", deleteResult);
+    console.log("Delete operation completed successfully");
 
     // Map jaxDynoRankings to PlayerRanking interface
     const jaxMappedPlayerRankings: PlayerRanking[] = jaxDynoRankings.map(
@@ -696,10 +719,11 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
 
         // console.log(tradeData);
 
-        await prisma.tradeAnalyzerData.create({
-          data: {
-            id: tradeData.id, // Ensure this is populated
-            name: tradeData.name, // Ensure this is populated
+        const { error: insertError } = await supabase
+          .from('tradeAnalyzerData')
+          .insert({
+            id: randomUUID(),
+            name: tradeData.name,
             position: tradeData.position,
             team: tradeData.team,
             marketValue: tradeData.marketValue,
@@ -713,14 +737,16 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
               tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
             PNODVScore: tradeData.PNODVScore,
             RVSScore: tradeData.RVSScore,
-            // overallSFRank: tradeData.overallSFRank,
             jaxValue: tradeData.jaxValue,
             travValue: tradeData.travValue,
             joeValue: tradeData.joeValue,
             consensusValue: tradeData.consensusValue,
             consensusVsMarketValueDiff: tradeData.consensusVsMarketValueDiff,
-          },
-        });
+          });
+
+        if (insertError) {
+          throw new Error(`Insert failed for ${tradeData.name}: ${insertError.message}`);
+        }
       }
     }
   } catch (error) {
@@ -731,49 +757,22 @@ async function pushDataToPostgreSQL(data: YourDataType[], prisma: any) {
 async function main() {
   console.log("Main function started");
   try {
-    // Dynamically import PrismaClient
-    const pkg = await import("../../../src/app/generated/prisma/index.js");
-    const { PrismaClient } = pkg;
-    const prisma = new PrismaClient();
-    console.log("Prisma Client created");
-
-    console.log(
-      "Attempting to delete existing records from tradeAnalyzerData..."
-    );
-
-    // Delete all existing records in the tradeAnalyzerData table
-    const deleteResult = await prisma.tradeAnalyzerData.deleteMany({});
-
-    // Log the result of the deletion
-    console.log("Delete operation completed:", deleteResult);
-
-    // console.log('Fetching data from MongoDB...');
+    console.log('Fetching data from MongoDB...');
     const data = await fetchDataFromMongoDB();
-    // console.log('Data fetched from MongoDB:', data);
+    console.log('Data fetched from MongoDB');
 
-    console.log("Pushing data to PostgreSQL...");
-    await pushDataToPostgreSQL(data, prisma);
-    console.log("Data pushed to PostgreSQL successfully!");
-
-    return prisma; // Return the client so we can disconnect it
+    console.log("Pushing data to Supabase...");
+    await pushDataToPostgreSQL(data);
+    console.log("Data pushed to Supabase successfully!");
   } catch (error) {
     console.error("Error in main function:", error);
+  } finally {
+    await mongoClient.close();
   }
 }
 
-let prisma: any = null;
-
 main()
-  .then((client) => {
-    prisma = client;
-  })
-  .catch((e) => console.error("Error in main promise chain:", e))
-  .finally(async () => {
-    await mongoClient.close();
-    if (prisma) {
-      await prisma.$disconnect();
-    }
-  });
+  .catch((e) => console.error("Error in main promise chain:", e));
 
 // commands to run in terminal to run the script:
 
@@ -785,3 +784,4 @@ main()
 
 // npx tsc fetchAndPushData.ts
 // node fetchAndPushData.js
+

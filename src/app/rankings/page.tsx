@@ -16,10 +16,22 @@ export default function Rankings() {
 
   const columnDefs = [
     { field: "name", filter: true, floatingFilter: true },
+    { field: "consensusValue", filter: true, floatingFilter: true, sort: 'desc' as const },
     { field: "position", filter: true, floatingFilter: true },
     { field: "team", filter: true, floatingFilter: true },
+
     { field: "marketValue", filter: true, floatingFilter: true },
-    { field: "consensusValue", filter: true, floatingFilter: true },
+
+    {
+      field: "consensusVsMarketValueDiff",
+      filter: true,
+      floatingFilter: true,
+      valueGetter: (params: any) => {
+        const consensus = params.data?.consensusValue || 0;
+        const market = params.data?.marketValue || 0;
+        return consensus - market;
+      }
+    },
     { field: "myValue", filter: true, floatingFilter: true },
     { field: "jaxValue", filter: true, floatingFilter: true },
     { field: "travValue", filter: true, floatingFilter: true },
@@ -32,7 +44,7 @@ export default function Rankings() {
     fetch("/api/rankings")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched data from /api/rankings:", data);
+        // console.log("Fetched data from /api/rankings:", data);
         setRowData(data as any[]);
         setLoading(false);
       });

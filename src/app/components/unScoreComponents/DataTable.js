@@ -19,14 +19,14 @@ export default function DataTable({ data }) {
   const myTheme = {
     backgroundColor: "hsl(210deg, 15%, 25%)",
     foregroundColor: "hsl(210deg, 20%, 77%)",
-    headerTextColor: "hsl(210deg, 20%, 77%)",
+    headerTextColor: "red",
     headerBackgroundColor: "hsl(210deg, 15%, 20%)",
-    oddRowBackgroundColor: "hsl(210deg, 10%, 40%)",
+    oddRowBackgroundColor: "hsl(0, 0%, 7%)",
     headerColumnResizeHandleColor: "hsl(210deg, 19%, 10%)",
   };
 
   const containerStyle = useMemo(() => ({ width: "100%", height: "200dvh", marginBottom: "5rem", paddingBottom: "5rem" }), []);
-  const gridStyle = useMemo(() => ({ height: "100%", width: "100%", }), []);
+  const gridStyle = useMemo(() => ({ height: "100%", width: "95%", margin: "auto" }), []);
 
   const theme = useMemo(() => {
     return myTheme;
@@ -212,7 +212,7 @@ export default function DataTable({ data }) {
         cellStyle: { textAlign: width < 768 ? 'left' : 'center', fontSize: width < 768 ? '12px' : '14px' },
         cellRenderer: (params) => (
           <span
-            style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center' }}
+            style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center', color: 'var(--color-red-primary)' }}
             // onClick={() => openDialog(params.value)}
             onClick={() => openComps(params.value)}
           >
@@ -240,7 +240,11 @@ export default function DataTable({ data }) {
         sort: 'desc',
       },
 
+
+
     ];
+
+
 
 
     return baseColDefs;
@@ -547,7 +551,7 @@ export default function DataTable({ data }) {
       cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
       cellRenderer: (params) => (
         <span
-          style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center' }}
+          style={{ cursor: 'pointer', textDecoration: 'none', textAlign: 'center', justifyContent: 'center', color: 'red' }}
           // onClick={() => openDialog(params.value)}
           onClick={() => openComps(params.value)}
         >
@@ -573,7 +577,49 @@ export default function DataTable({ data }) {
       minWidth: windowWidth < 768 ? 95 : 100,
       sortable: true,
       sort: 'desc',
-    },]
+    },
+    {
+      field: "Draft Round",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 95 : 100,
+      sortable: true,
+
+    },
+    {
+      field: "Draft Pick",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 95 : 100,
+      sortable: true,
+
+    },
+    {
+      field: "TPRR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 95 : 100,
+      sortable: true,
+
+    },
+    {
+      field: "YPRR",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 95 : 100,
+      sortable: true,
+
+    },
+
+    ]
 
     allPossibleMetrics.map((metric) => {
       dataSetToDisplay.map((dataSet) => {
@@ -801,7 +847,7 @@ export default function DataTable({ data }) {
           </select>
         </form>
 
-        <button onClick={() => resetTable()} className={styles.clsSelect}>Return to all Players</button>
+        <button onClick={() => resetTable()} className={styles.returnToPlayersBtn} aria-label="Return to all Players"></button>
 
         <form
           onSubmit={(event) => {
@@ -810,7 +856,7 @@ export default function DataTable({ data }) {
           className={styles.dataSelectForm}
         >
           <label htmlFor="metrics-select" className={styles.clsSelectLabel}>
-            Add/Remove metrics from table
+            Metrics in table
           </label>
 
           <select

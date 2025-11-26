@@ -6,23 +6,25 @@
     /* padding: 1rem 1rem; */
     /* position: sticky;
     top: 0; */
-    
-    
+
+
     border-bottom: 1px solid var(--color-white);
-    padding: .75rem 0;
+    padding: 1rem 0;
+
   }
 
 
   .navLinksWrapper {
     display: flex;
     max-width: 70%;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    text-decoration: none ;
+    text-decoration: none;
     list-style: none;
     margin: 0 auto;
-   
-   
+
+
+
   }
 
   .navLink {
@@ -36,8 +38,8 @@
     padding: .75rem;
     transition: transform 0.15s;
 
-    
-    
+
+
   }
 
   .navLink:hover {
@@ -48,10 +50,51 @@
 
   .navLink:active {
     transform: translateY(0);
-   
+
   }
 
-  .socialsWrapper {
+  .unLogoLink {
+    position: absolute;
+    left: 2%;
+    top: 0
+  }
+
+
+
+  @media (max-width: 1500px) {
+    .unLogoLink {
+      position: static;
+      left: auto;
+      top: auto;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 800px) {
+    .mainNavWrapper {
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+
+    .navLinksWrapper {
+      flex-direction: column;
+      max-width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .navLink {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    .socialsWrapper {
+      display: none;
+    }
+  }
+
+  /* .socialsWrapper {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -61,5 +104,3 @@
     font-size: 1.2rem;
     font-weight: 200;
     /* margin-left: auto; */
-    
-  }

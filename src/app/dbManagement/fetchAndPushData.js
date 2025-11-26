@@ -1,37 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,14 +8,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongodb_1 = require("mongodb");
-// import { PrismaClient } from '../../../src/app/generated/prisma';
-const jaxDynoRankings = require("./rankings/jaxDynoRankings");
-const travDynoRankings = require("./rankings/travDynoRankings");
-const joeDynoRankings = require("./rankings/joeDynoRankings");
-// const prisma = new PrismaClient();
-const mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test");
+var mongodb_1 = require("mongodb");
+var supabase_js_1 = require("@supabase/supabase-js");
+var dotenv = require("dotenv");
+var path = require("path");
+var crypto_1 = require("crypto");
+// Load environment variables from project root
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+var jaxDynoRankings = require("./rankings/jaxDynoRankings");
+var travDynoRankings = require("./rankings/travDynoRankings");
+var joeDynoRankings = require("./rankings/joeDynoRankings");
+var mongoClient = new mongodb_1.MongoClient("mongodb+srv://devJay:Hesstrucksarethebest@dailydynasties.syom4sb.mongodb.net/test");
+// Initialize Supabase client
+var supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+var supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error("Missing Supabase environment variables");
+}
+var supabase = (0, supabase_js_1.createClient)(supabaseUrl, supabaseAnonKey);
 function sanitizeName(name) {
     return name
         .toLowerCase() // Convert to lowercase
@@ -64,66 +69,75 @@ function sanitizeName(name) {
         .trim(); // Trim any leading or trailing spaces
 }
 function fetchDataFromMongoDB() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield mongoClient.connect();
-        const database = mongoClient.db("dailydynasties");
-        const collection = database.collection("tradeAnalyzerData");
-        let tempData = yield collection.find({}).toArray();
-        let data = [];
-        let tradeDataArray = [];
-        tempData.forEach((item) => {
-            // console.log(item.tradeAnalyzerDataObjectsArray);
-            // Create a new YourDataType object for each item
-            tradeDataArray = item.tradeAnalyzerDataObjectsArray.map((tradeData) => ({
-                id: tradeData.id,
-                name: tradeData.name,
-                position: tradeData.position,
-                team: tradeData.team,
-                marketValue: tradeData.marketValue,
-                myValue: tradeData.myValue,
-                valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
-                PRPScore: tradeData.PRPScore,
-                projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
-                valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-                PNODVScore: tradeData.PNODVScore,
-                RVSScore: tradeData.RVSScore,
-            }));
-            // Push the entire object including tradeAnalyzerDataObjectsArray
-            data.push({
-                id: item === null || item === void 0 ? void 0 : item.id, // Assuming item has an id
-                name: item === null || item === void 0 ? void 0 : item.name, // Assuming item has a name
-                position: item === null || item === void 0 ? void 0 : item.position, // Assuming item has a position
-                team: item === null || item === void 0 ? void 0 : item.team, // Assuming item has a team
-                marketValue: item === null || item === void 0 ? void 0 : item.marketValue, // Assuming item has a marketValue
-                myValue: item === null || item === void 0 ? void 0 : item.myValue, // Assuming item has a myValue
-                valueDiffBetweenMyValueAndMarketValue: item === null || item === void 0 ? void 0 : item.valueDiffBetweenMyValueAndMarketValue, // Assuming item has this property
-                PRPScore: item === null || item === void 0 ? void 0 : item.PRPScore, // Assuming item has a PRPScore
-                projectedNextOffseasonDynastyValue: item === null || item === void 0 ? void 0 : item.projectedNextOffseasonDynastyValue, // Assuming item has this property
-                valueDifferenceBetweenCurrentMarketValueAndPNODV: item === null || item === void 0 ? void 0 : item.valueDifferenceBetweenCurrentMarketValueAndPNODV, // Assuming item has this property
-                PNODVScore: item === null || item === void 0 ? void 0 : item.PNODVScore, // Assuming item has this property
-                RVSScore: item === null || item === void 0 ? void 0 : item.RVSScore, // Assuming item has this property
-                tradeAnalyzerDataObjectsArray: tradeDataArray,
-            });
+    return __awaiter(this, void 0, void 0, function () {
+        var database, collection, tempData, data, tradeDataArray;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mongoClient.connect()];
+                case 1:
+                    _a.sent();
+                    database = mongoClient.db("dailydynasties");
+                    collection = database.collection("tradeAnalyzerData");
+                    return [4 /*yield*/, collection.find({}).toArray()];
+                case 2:
+                    tempData = _a.sent();
+                    data = [];
+                    tradeDataArray = [];
+                    tempData.forEach(function (item) {
+                        // console.log(item.tradeAnalyzerDataObjectsArray);
+                        // Create a new YourDataType object for each item
+                        tradeDataArray = item.tradeAnalyzerDataObjectsArray.map(function (tradeData) { return ({
+                            id: tradeData.id,
+                            name: tradeData.name,
+                            position: tradeData.position,
+                            team: tradeData.team,
+                            marketValue: tradeData.marketValue,
+                            myValue: tradeData.myValue,
+                            valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                            PRPScore: tradeData.PRPScore,
+                            projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                            valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                            PNODVScore: tradeData.PNODVScore,
+                            RVSScore: tradeData.RVSScore,
+                        }); });
+                        // Push the entire object including tradeAnalyzerDataObjectsArray
+                        data.push({
+                            id: item === null || item === void 0 ? void 0 : item.id, // Assuming item has an id
+                            name: item === null || item === void 0 ? void 0 : item.name, // Assuming item has a name
+                            position: item === null || item === void 0 ? void 0 : item.position, // Assuming item has a position
+                            team: item === null || item === void 0 ? void 0 : item.team, // Assuming item has a team
+                            marketValue: item === null || item === void 0 ? void 0 : item.marketValue, // Assuming item has a marketValue
+                            myValue: item === null || item === void 0 ? void 0 : item.myValue, // Assuming item has a myValue
+                            valueDiffBetweenMyValueAndMarketValue: item === null || item === void 0 ? void 0 : item.valueDiffBetweenMyValueAndMarketValue, // Assuming item has this property
+                            PRPScore: item === null || item === void 0 ? void 0 : item.PRPScore, // Assuming item has a PRPScore
+                            projectedNextOffseasonDynastyValue: item === null || item === void 0 ? void 0 : item.projectedNextOffseasonDynastyValue, // Assuming item has this property
+                            valueDifferenceBetweenCurrentMarketValueAndPNODV: item === null || item === void 0 ? void 0 : item.valueDifferenceBetweenCurrentMarketValueAndPNODV, // Assuming item has this property
+                            PNODVScore: item === null || item === void 0 ? void 0 : item.PNODVScore, // Assuming item has this property
+                            RVSScore: item === null || item === void 0 ? void 0 : item.RVSScore, // Assuming item has this property
+                            tradeAnalyzerDataObjectsArray: tradeDataArray,
+                        });
+                    });
+                    return [2 /*return*/, data];
+            }
         });
-        return data;
     });
 }
 function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tier3LastPlayerRank, tier4LastPlayerRank, tier5LastPlayerRank, tier6LastPlayerRank, tier7LastPlayerRank, tier8LastPlayerRank, tier9LastPlayerRank) {
     function assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier) {
         // console.log(player, tier1LastPlayerRank);
         // console.log(Math.round(tier1LastPlayerRank / 2));
-        let maxMinDiff = tiermax - tiermin;
-        let middleValue = tiermin + maxMinDiff / 2;
-        let tempMiddleOfTier = Math.round((rankOfLastPlayerInTier - rankOfFirstPlayerInTier) / 2);
-        let middleOfTier = tempMiddleOfTier + rankOfFirstPlayerInTier;
+        var maxMinDiff = tiermax - tiermin;
+        var middleValue = tiermin + maxMinDiff / 2;
+        var tempMiddleOfTier = Math.round((rankOfLastPlayerInTier - rankOfFirstPlayerInTier) / 2);
+        var middleOfTier = tempMiddleOfTier + rankOfFirstPlayerInTier;
         if (player.overallSFRank === middleOfTier) {
             player.thierValue = middleValue;
             // console.log(player, tier1min, maxMinDiff, tier1min + maxMinDiff / 2);
         }
         if (player.overallSFRank && player.overallSFRank !== middleOfTier) {
-            let diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
-            let diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
-            let valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
+            var diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
+            var diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
+            var valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
             if (player.overallSFRank < middleOfTier) {
                 player.thierValue = middleValue + valueIncrease;
                 if (player.thierValue > tiermax) {
@@ -153,17 +167,17 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
             // );
         }
     }
-    rankingsSet.forEach((player) => {
+    rankingsSet.forEach(function (player) {
         // console.log(player);
-        let tier10LastPlayerRank = rankingsSet.length;
+        var tier10LastPlayerRank = rankingsSet.length;
         if (player.Tiers === "1") {
             // console.log(player, tier1LastPlayerRank);
             // console.log(Math.round(tier1LastPlayerRank / 2));
-            let tiermax = 10000;
-            let tiermin = 8500;
-            let maxMinDiff = tiermax - tiermin;
-            let middleValue = tiermin + maxMinDiff / 2;
-            let middleOfTier = Math.round(tier1LastPlayerRank / 2);
+            var tiermax = 10000;
+            var tiermin = 8500;
+            var maxMinDiff = tiermax - tiermin;
+            var middleValue = tiermin + maxMinDiff / 2;
+            var middleOfTier = Math.round(tier1LastPlayerRank / 2);
             if (player.overallSFRank === 1) {
                 player.thierValue = tiermax;
             }
@@ -174,9 +188,9 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
             if (player.overallSFRank !== 1 &&
                 player.overallSFRank &&
                 player.overallSFRank !== middleOfTier) {
-                let diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
-                let diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
-                let valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
+                var diffBetweenMiddleAndPlayer = Math.abs(middleOfTier - player.overallSFRank);
+                var diffAsPercentageOfTotal = diffBetweenMiddleAndPlayer / middleOfTier;
+                var valueIncrease = (maxMinDiff / 2) * diffAsPercentageOfTotal;
                 if (player.overallSFRank < middleOfTier) {
                     player.thierValue = middleValue + valueIncrease;
                     if (player.thierValue > tiermax) {
@@ -207,66 +221,66 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
         }
         if (player.Tiers === "2") {
             // console.log(player, tier2LastPlayerRank);
-            let tiermax = 6500;
-            let tiermin = 5600;
-            let rankOfFirstPlayerInTier = tier1LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier2LastPlayerRank;
+            var tiermax = 6500;
+            var tiermin = 5600;
+            var rankOfFirstPlayerInTier = tier1LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier2LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "3") {
             // console.log(player, tier3LastPlayerRank);
-            let tiermax = 4500;
-            let tiermin = 3650;
-            let rankOfFirstPlayerInTier = tier2LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier3LastPlayerRank;
+            var tiermax = 4500;
+            var tiermin = 3650;
+            var rankOfFirstPlayerInTier = tier2LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier3LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "4") {
             // console.log(player, tier4LastPlayerRank);
-            let tiermax = 3200;
-            let tiermin = 2800;
-            let rankOfFirstPlayerInTier = tier3LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier4LastPlayerRank;
+            var tiermax = 3200;
+            var tiermin = 2800;
+            var rankOfFirstPlayerInTier = tier3LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier4LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "5") {
             // console.log(player, tier5LastPlayerRank);
-            let tiermax = 2400;
-            let tiermin = 1900;
-            let rankOfFirstPlayerInTier = tier4LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier5LastPlayerRank;
+            var tiermax = 2400;
+            var tiermin = 1900;
+            var rankOfFirstPlayerInTier = tier4LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier5LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "6") {
             // console.log(player, tier6LastPlayerRank);
-            let tiermax = 1700;
-            let tiermin = 1400;
-            let rankOfFirstPlayerInTier = tier5LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier6LastPlayerRank;
+            var tiermax = 1700;
+            var tiermin = 1400;
+            var rankOfFirstPlayerInTier = tier5LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier6LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "7") {
             // console.log(player, tier7LastPlayerRank);
-            let tiermax = 1200;
-            let tiermin = 900;
-            let rankOfFirstPlayerInTier = tier6LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier7LastPlayerRank;
+            var tiermax = 1200;
+            var tiermin = 900;
+            var rankOfFirstPlayerInTier = tier6LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier7LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "8") {
             // console.log(player, tier8LastPlayerRank);
-            let tiermax = 800;
-            let tiermin = 600;
-            let rankOfFirstPlayerInTier = tier7LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier8LastPlayerRank;
+            var tiermax = 800;
+            var tiermin = 600;
+            var rankOfFirstPlayerInTier = tier7LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier8LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "9") {
             // console.log(player, tier9LastPlayerRank);
-            let tiermax = 600;
-            let tiermin = 500;
-            let rankOfFirstPlayerInTier = tier8LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier9LastPlayerRank;
+            var tiermax = 600;
+            var tiermin = 500;
+            var rankOfFirstPlayerInTier = tier8LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier9LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
         if (player.Tiers === "10") {
@@ -275,313 +289,343 @@ function assignValues(rankingsSet, tier1LastPlayerRank, tier2LastPlayerRank, tie
             //   tier9LastPlayerRank,
             //   tier10LastPlayerRank
             // );
-            let tiermax = 500;
-            let tiermin = 200;
-            let rankOfFirstPlayerInTier = tier9LastPlayerRank + 1;
-            let rankOfLastPlayerInTier = tier10LastPlayerRank;
+            var tiermax = 500;
+            var tiermin = 200;
+            var rankOfFirstPlayerInTier = tier9LastPlayerRank + 1;
+            var rankOfLastPlayerInTier = tier10LastPlayerRank;
             assignThierValuesBasedOffTiersAndRankings(player, tiermax, tiermin, rankOfFirstPlayerInTier, rankOfLastPlayerInTier);
         }
     });
     return rankingsSet;
 }
-function pushDataToPostgreSQL(data, prisma) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            console.log("Attempting to delete existing records from tradeAnalyzerData...");
-            // Delete all existing records in the tradeAnalyzerData table
-            const deleteResult = yield prisma.tradeAnalyzerData.deleteMany({});
-            // Log the result of the deletion
-            console.log("Delete operation completed:", deleteResult);
-            // Map jaxDynoRankings to PlayerRanking interface
-            const jaxMappedPlayerRankings = jaxDynoRankings.map((player) => ({
-                Name: sanitizeName(player.Name),
-                Team: player.Team,
-                Position: sanitizeName(player.Position),
-                Tiers: player.Tiers,
-                overallSFRank: undefined, // Initialize with undefined or set it later
-            }));
-            let jaxCounter = 1;
-            let JaxTier1LastPlayerRank = 0;
-            let JaxTier2LastPlayerRank = 0;
-            let JaxTier3LastPlayerRank = 0;
-            let JaxTier4LastPlayerRank = 0;
-            let JaxTier5LastPlayerRank = 0;
-            let JaxTier6LastPlayerRank = 0;
-            let JaxTier7LastPlayerRank = 0;
-            let JaxTier8LastPlayerRank = 0;
-            let JaxTier9LastPlayerRank = 0;
-            jaxMappedPlayerRankings.forEach((player) => {
-                player.overallSFRank = jaxCounter;
-                // console.log(player, counter);
-                if (JaxTier1LastPlayerRank === 0 && player.Tiers === "2") {
-                    JaxTier1LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier2LastPlayerRank === 0 && player.Tiers === "3") {
-                    JaxTier2LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier3LastPlayerRank === 0 && player.Tiers === "4") {
-                    JaxTier3LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier4LastPlayerRank === 0 && player.Tiers === "5") {
-                    JaxTier4LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier5LastPlayerRank === 0 && player.Tiers === "6") {
-                    JaxTier5LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier6LastPlayerRank === 0 && player.Tiers === "7") {
-                    JaxTier6LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier7LastPlayerRank === 0 && player.Tiers === "8") {
-                    JaxTier7LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier8LastPlayerRank === 0 && player.Tiers === "9") {
-                    JaxTier8LastPlayerRank = jaxCounter - 1;
-                }
-                if (JaxTier9LastPlayerRank === 0 && player.Tiers === "10") {
-                    JaxTier9LastPlayerRank = jaxCounter - 1;
-                }
-                jaxCounter++;
-            });
-            assignValues(jaxMappedPlayerRankings, JaxTier1LastPlayerRank, JaxTier2LastPlayerRank, JaxTier3LastPlayerRank, JaxTier4LastPlayerRank, JaxTier5LastPlayerRank, JaxTier6LastPlayerRank, JaxTier7LastPlayerRank, JaxTier8LastPlayerRank, JaxTier9LastPlayerRank);
-            // console.log(jaxMappedPlayerRankings);
-            //
-            // map travDynoRankings to PlayerRanking interface
-            const travMappedPlayerRankings = travDynoRankings.map((player) => ({
-                Name: sanitizeName(player.Name),
-                Team: player.Team,
-                Position: sanitizeName(player.Position),
-                Tiers: player.Tiers,
-                overallSFRank: undefined, // Initialize with undefined or set it later
-            }));
-            let travCounter = 1;
-            let travTier1LastPlayerRank = 0;
-            let travTier2LastPlayerRank = 0;
-            let travTier3LastPlayerRank = 0;
-            let travTier4LastPlayerRank = 0;
-            let travTier5LastPlayerRank = 0;
-            let travTier6LastPlayerRank = 0;
-            let travTier7LastPlayerRank = 0;
-            let travTier8LastPlayerRank = 0;
-            let travTier9LastPlayerRank = 0;
-            travMappedPlayerRankings.forEach((player) => {
-                player.overallSFRank = travCounter;
-                // console.log(player, counter);
-                if (travTier1LastPlayerRank === 0 && player.Tiers === "2") {
-                    travTier1LastPlayerRank = travCounter - 1;
-                }
-                if (travTier2LastPlayerRank === 0 && player.Tiers === "3") {
-                    travTier2LastPlayerRank = travCounter - 1;
-                }
-                if (travTier3LastPlayerRank === 0 && player.Tiers === "4") {
-                    travTier3LastPlayerRank = travCounter - 1;
-                }
-                if (travTier4LastPlayerRank === 0 && player.Tiers === "5") {
-                    travTier4LastPlayerRank = travCounter - 1;
-                }
-                if (travTier5LastPlayerRank === 0 && player.Tiers === "6") {
-                    travTier5LastPlayerRank = travCounter - 1;
-                }
-                if (travTier6LastPlayerRank === 0 && player.Tiers === "7") {
-                    travTier6LastPlayerRank = travCounter - 1;
-                }
-                if (travTier7LastPlayerRank === 0 && player.Tiers === "8") {
-                    travTier7LastPlayerRank = travCounter - 1;
-                }
-                if (travTier8LastPlayerRank === 0 && player.Tiers === "9") {
-                    travTier8LastPlayerRank = travCounter - 1;
-                }
-                if (travTier9LastPlayerRank === 0 && player.Tiers === "10") {
-                    travTier9LastPlayerRank = travCounter - 1;
-                }
-                travCounter++;
-            });
-            assignValues(travMappedPlayerRankings, travTier1LastPlayerRank, travTier2LastPlayerRank, travTier3LastPlayerRank, travTier4LastPlayerRank, travTier5LastPlayerRank, travTier6LastPlayerRank, travTier7LastPlayerRank, travTier8LastPlayerRank, travTier9LastPlayerRank);
-            // map joeDynoRankings to PlayerRanking interface
-            const joeDynoRankingsMappedPlayerRankings = joeDynoRankings.map((player) => ({
-                Name: sanitizeName(player.Name),
-                Team: player.Team,
-                Position: sanitizeName(player.Position),
-                Tiers: player.Tiers,
-                overallSFRank: undefined, // Initialize with undefined or set it later
-            }));
-            let joeCounter = 1;
-            let joeTier1LastPlayerRank = 0;
-            let joeTier2LastPlayerRank = 0;
-            let joeTier3LastPlayerRank = 0;
-            let joeTier4LastPlayerRank = 0;
-            let joeTier5LastPlayerRank = 0;
-            let joeTier6LastPlayerRank = 0;
-            let joeTier7LastPlayerRank = 0;
-            let joeTier8LastPlayerRank = 0;
-            let joeTier9LastPlayerRank = 0;
-            joeDynoRankingsMappedPlayerRankings.forEach((player) => {
-                player.overallSFRank = joeCounter;
-                // console.log(player, counter);
-                if (joeTier1LastPlayerRank === 0 && player.Tiers === "2") {
-                    joeTier1LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier2LastPlayerRank === 0 && player.Tiers === "3") {
-                    joeTier2LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier3LastPlayerRank === 0 && player.Tiers === "4") {
-                    joeTier3LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier4LastPlayerRank === 0 && player.Tiers === "5") {
-                    joeTier4LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier5LastPlayerRank === 0 && player.Tiers === "6") {
-                    joeTier5LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier6LastPlayerRank === 0 && player.Tiers === "7") {
-                    joeTier6LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier7LastPlayerRank === 0 && player.Tiers === "8") {
-                    joeTier7LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier8LastPlayerRank === 0 && player.Tiers === "9") {
-                    joeTier8LastPlayerRank = joeCounter - 1;
-                }
-                if (joeTier9LastPlayerRank === 0 && player.Tiers === "10") {
-                    joeTier9LastPlayerRank = joeCounter - 1;
-                }
-                joeCounter++;
-            });
-            assignValues(joeDynoRankingsMappedPlayerRankings, joeTier1LastPlayerRank, joeTier2LastPlayerRank, joeTier3LastPlayerRank, joeTier4LastPlayerRank, joeTier5LastPlayerRank, joeTier6LastPlayerRank, joeTier7LastPlayerRank, joeTier8LastPlayerRank, joeTier9LastPlayerRank);
-            //
-            //
-            for (const item of data) {
-                // Access the tradeAnalyzerDataObjectsArray from the item
-                let tradeDataArray = item.tradeAnalyzerDataObjectsArray;
-                // Sort tradeDataArray by myValue in descending order
-                tradeDataArray.sort((a, b) => b.myValue - a.myValue);
-                // Loop through each object in the tradeAnalyzerDataObjectsArray
-                for (const tradeData of tradeDataArray) {
-                    // Ensure that the required fields are populated
-                    if (!tradeData.name) {
-                        console.error("Missing name for trade data:", tradeData);
-                        continue; // Skip this item if name is missing
+function pushDataToPostgreSQL(data) {
+    return __awaiter(this, void 0, void 0, function () {
+        var deleteError, jaxMappedPlayerRankings, jaxCounter_1, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1, travMappedPlayerRankings, travCounter_1, travTier1LastPlayerRank_1, travTier2LastPlayerRank_1, travTier3LastPlayerRank_1, travTier4LastPlayerRank_1, travTier5LastPlayerRank_1, travTier6LastPlayerRank_1, travTier7LastPlayerRank_1, travTier8LastPlayerRank_1, travTier9LastPlayerRank_1, joeDynoRankingsMappedPlayerRankings, joeCounter_1, joeTier1LastPlayerRank_1, joeTier2LastPlayerRank_1, joeTier3LastPlayerRank_1, joeTier4LastPlayerRank_1, joeTier5LastPlayerRank_1, joeTier6LastPlayerRank_1, joeTier7LastPlayerRank_1, joeTier8LastPlayerRank_1, joeTier9LastPlayerRank_1, _i, data_1, item, tradeDataArray, _loop_1, _a, tradeDataArray_1, tradeData, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 8, , 9]);
+                    console.log("Attempting to delete existing records from tradeAnalyzerData...");
+                    return [4 /*yield*/, supabase
+                            .from('tradeAnalyzerData')
+                            .delete()
+                            .neq('id', '')];
+                case 1:
+                    deleteError = (_b.sent()).error;
+                    if (deleteError) {
+                        throw new Error("Delete failed: ".concat(deleteError.message));
                     }
-                    // Sanitize tradeData.name
-                    const sanitizedTradeDataName = sanitizeName(tradeData.name);
-                    // Update overallSFRank based on the jaxMappedPlayerRankings
-                    jaxMappedPlayerRankings.forEach((player) => {
-                        // console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName);
-                        // if(tradeData.name === 'Patrick Mahomes') {
-                        //   console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName)
-                        // }
-                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
-                            // console.log(player);
-                            // console.log(tradeData);
-                            if (player.thierValue) {
-                                tradeData.jaxValue = Math.round(player.thierValue);
-                            }
+                    // Log the result of the deletion
+                    console.log("Delete operation completed successfully");
+                    jaxMappedPlayerRankings = jaxDynoRankings.map(function (player) { return ({
+                        Name: sanitizeName(player.Name),
+                        Team: player.Team,
+                        Position: sanitizeName(player.Position),
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined, // Initialize with undefined or set it later
+                    }); });
+                    jaxCounter_1 = 1;
+                    JaxTier1LastPlayerRank_1 = 0;
+                    JaxTier2LastPlayerRank_1 = 0;
+                    JaxTier3LastPlayerRank_1 = 0;
+                    JaxTier4LastPlayerRank_1 = 0;
+                    JaxTier5LastPlayerRank_1 = 0;
+                    JaxTier6LastPlayerRank_1 = 0;
+                    JaxTier7LastPlayerRank_1 = 0;
+                    JaxTier8LastPlayerRank_1 = 0;
+                    JaxTier9LastPlayerRank_1 = 0;
+                    jaxMappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = jaxCounter_1;
+                        // console.log(player, counter);
+                        if (JaxTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            JaxTier1LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
-                    });
-                    travMappedPlayerRankings.forEach((player) => {
-                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
-                            // console.log(player);
-                            // console.log(tradeData);
-                            if (player.thierValue) {
-                                tradeData.travValue = Math.round(player.thierValue);
-                            }
+                        if (JaxTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            JaxTier2LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
-                    });
-                    joeDynoRankingsMappedPlayerRankings.forEach((player) => {
-                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
-                            // console.log(player);
-                            // console.log(tradeData);
-                            if (player.thierValue) {
-                                tradeData.joeValue = Math.round(player.thierValue);
-                            }
+                        if (JaxTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            JaxTier3LastPlayerRank_1 = jaxCounter_1 - 1;
                         }
+                        if (JaxTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            JaxTier4LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        if (JaxTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            JaxTier5LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        if (JaxTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            JaxTier6LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        if (JaxTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            JaxTier7LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        if (JaxTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            JaxTier8LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        if (JaxTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            JaxTier9LastPlayerRank_1 = jaxCounter_1 - 1;
+                        }
+                        jaxCounter_1++;
                     });
-                    // console.log(tradeData);
-                    if (tradeData.jaxValue && tradeData.travValue && tradeData.joeValue) {
-                        tradeData.consensusValue = Math.round((tradeData.myValue +
-                            tradeData.jaxValue +
-                            tradeData.travValue +
-                            tradeData.joeValue) /
-                            4);
-                        tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
-                    }
-                    else {
-                        tradeData.consensusValue = tradeData.myValue;
-                        tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
-                    }
-                    if (tradeData.consensusValue !== tradeData.myValue) {
-                        tradeData.valueDiffBetweenMyValueAndMarketValue =
-                            tradeData.consensusValue - tradeData.marketValue;
-                    }
-                    // console.log(tradeData);
-                    yield prisma.tradeAnalyzerData.create({
-                        data: {
-                            id: tradeData.id, // Ensure this is populated
-                            name: tradeData.name, // Ensure this is populated
-                            position: tradeData.position,
-                            team: tradeData.team,
-                            marketValue: tradeData.marketValue,
-                            myValue: tradeData.myValue,
-                            valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
-                            PRPScore: tradeData.PRPScore,
-                            projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
-                            valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
-                            PNODVScore: tradeData.PNODVScore,
-                            RVSScore: tradeData.RVSScore,
-                            // overallSFRank: tradeData.overallSFRank,
-                            jaxValue: tradeData.jaxValue,
-                            travValue: tradeData.travValue,
-                            joeValue: tradeData.joeValue,
-                            consensusValue: tradeData.consensusValue,
-                            consensusVsMarketValueDiff: tradeData.consensusVsMarketValueDiff,
-                        },
+                    assignValues(jaxMappedPlayerRankings, JaxTier1LastPlayerRank_1, JaxTier2LastPlayerRank_1, JaxTier3LastPlayerRank_1, JaxTier4LastPlayerRank_1, JaxTier5LastPlayerRank_1, JaxTier6LastPlayerRank_1, JaxTier7LastPlayerRank_1, JaxTier8LastPlayerRank_1, JaxTier9LastPlayerRank_1);
+                    travMappedPlayerRankings = travDynoRankings.map(function (player) { return ({
+                        Name: sanitizeName(player.Name),
+                        Team: player.Team,
+                        Position: sanitizeName(player.Position),
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined, // Initialize with undefined or set it later
+                    }); });
+                    travCounter_1 = 1;
+                    travTier1LastPlayerRank_1 = 0;
+                    travTier2LastPlayerRank_1 = 0;
+                    travTier3LastPlayerRank_1 = 0;
+                    travTier4LastPlayerRank_1 = 0;
+                    travTier5LastPlayerRank_1 = 0;
+                    travTier6LastPlayerRank_1 = 0;
+                    travTier7LastPlayerRank_1 = 0;
+                    travTier8LastPlayerRank_1 = 0;
+                    travTier9LastPlayerRank_1 = 0;
+                    travMappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = travCounter_1;
+                        // console.log(player, counter);
+                        if (travTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            travTier1LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            travTier2LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            travTier3LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            travTier4LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            travTier5LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            travTier6LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            travTier7LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            travTier8LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        if (travTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            travTier9LastPlayerRank_1 = travCounter_1 - 1;
+                        }
+                        travCounter_1++;
                     });
-                }
+                    assignValues(travMappedPlayerRankings, travTier1LastPlayerRank_1, travTier2LastPlayerRank_1, travTier3LastPlayerRank_1, travTier4LastPlayerRank_1, travTier5LastPlayerRank_1, travTier6LastPlayerRank_1, travTier7LastPlayerRank_1, travTier8LastPlayerRank_1, travTier9LastPlayerRank_1);
+                    joeDynoRankingsMappedPlayerRankings = joeDynoRankings.map(function (player) { return ({
+                        Name: sanitizeName(player.Name),
+                        Team: player.Team,
+                        Position: sanitizeName(player.Position),
+                        Tiers: player.Tiers,
+                        overallSFRank: undefined, // Initialize with undefined or set it later
+                    }); });
+                    joeCounter_1 = 1;
+                    joeTier1LastPlayerRank_1 = 0;
+                    joeTier2LastPlayerRank_1 = 0;
+                    joeTier3LastPlayerRank_1 = 0;
+                    joeTier4LastPlayerRank_1 = 0;
+                    joeTier5LastPlayerRank_1 = 0;
+                    joeTier6LastPlayerRank_1 = 0;
+                    joeTier7LastPlayerRank_1 = 0;
+                    joeTier8LastPlayerRank_1 = 0;
+                    joeTier9LastPlayerRank_1 = 0;
+                    joeDynoRankingsMappedPlayerRankings.forEach(function (player) {
+                        player.overallSFRank = joeCounter_1;
+                        // console.log(player, counter);
+                        if (joeTier1LastPlayerRank_1 === 0 && player.Tiers === "2") {
+                            joeTier1LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier2LastPlayerRank_1 === 0 && player.Tiers === "3") {
+                            joeTier2LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier3LastPlayerRank_1 === 0 && player.Tiers === "4") {
+                            joeTier3LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier4LastPlayerRank_1 === 0 && player.Tiers === "5") {
+                            joeTier4LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier5LastPlayerRank_1 === 0 && player.Tiers === "6") {
+                            joeTier5LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier6LastPlayerRank_1 === 0 && player.Tiers === "7") {
+                            joeTier6LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier7LastPlayerRank_1 === 0 && player.Tiers === "8") {
+                            joeTier7LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier8LastPlayerRank_1 === 0 && player.Tiers === "9") {
+                            joeTier8LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        if (joeTier9LastPlayerRank_1 === 0 && player.Tiers === "10") {
+                            joeTier9LastPlayerRank_1 = joeCounter_1 - 1;
+                        }
+                        joeCounter_1++;
+                    });
+                    assignValues(joeDynoRankingsMappedPlayerRankings, joeTier1LastPlayerRank_1, joeTier2LastPlayerRank_1, joeTier3LastPlayerRank_1, joeTier4LastPlayerRank_1, joeTier5LastPlayerRank_1, joeTier6LastPlayerRank_1, joeTier7LastPlayerRank_1, joeTier8LastPlayerRank_1, joeTier9LastPlayerRank_1);
+                    _i = 0, data_1 = data;
+                    _b.label = 2;
+                case 2:
+                    if (!(_i < data_1.length)) return [3 /*break*/, 7];
+                    item = data_1[_i];
+                    tradeDataArray = item.tradeAnalyzerDataObjectsArray;
+                    // Sort tradeDataArray by myValue in descending order
+                    tradeDataArray.sort(function (a, b) { return b.myValue - a.myValue; });
+                    _loop_1 = function (tradeData) {
+                        var sanitizedTradeDataName, insertError;
+                        return __generator(this, function (_c) {
+                            switch (_c.label) {
+                                case 0:
+                                    // Ensure that the required fields are populated
+                                    if (!tradeData.name) {
+                                        console.error("Missing name for trade data:", tradeData);
+                                        return [2 /*return*/, "continue"];
+                                    }
+                                    sanitizedTradeDataName = sanitizeName(tradeData.name);
+                                    // Update overallSFRank based on the jaxMappedPlayerRankings
+                                    jaxMappedPlayerRankings.forEach(function (player) {
+                                        // console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName);
+                                        // if(tradeData.name === 'Patrick Mahomes') {
+                                        //   console.log(sanitizeName(player.Name).slice(1, -1), sanitizedTradeDataName)
+                                        // }
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            if (player.thierValue) {
+                                                tradeData.jaxValue = Math.round(player.thierValue);
+                                            }
+                                        }
+                                    });
+                                    travMappedPlayerRankings.forEach(function (player) {
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            if (player.thierValue) {
+                                                tradeData.travValue = Math.round(player.thierValue);
+                                            }
+                                        }
+                                    });
+                                    joeDynoRankingsMappedPlayerRankings.forEach(function (player) {
+                                        if (sanitizeName(player.Name).slice(1, -1) === sanitizedTradeDataName) {
+                                            // console.log(player);
+                                            // console.log(tradeData);
+                                            if (player.thierValue) {
+                                                tradeData.joeValue = Math.round(player.thierValue);
+                                            }
+                                        }
+                                    });
+                                    // console.log(tradeData);
+                                    if (tradeData.jaxValue && tradeData.travValue && tradeData.joeValue) {
+                                        tradeData.consensusValue = Math.round((tradeData.myValue +
+                                            tradeData.jaxValue +
+                                            tradeData.travValue +
+                                            tradeData.joeValue) /
+                                            4);
+                                        tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
+                                    }
+                                    else {
+                                        tradeData.consensusValue = tradeData.myValue;
+                                        tradeData.consensusVsMarketValueDiff = tradeData.consensusValue - tradeData.marketValue;
+                                    }
+                                    if (tradeData.consensusValue !== tradeData.myValue) {
+                                        tradeData.valueDiffBetweenMyValueAndMarketValue =
+                                            tradeData.consensusValue - tradeData.marketValue;
+                                    }
+                                    return [4 /*yield*/, supabase
+                                            .from('tradeAnalyzerData')
+                                            .insert({
+                                            id: (0, crypto_1.randomUUID)(),
+                                            name: tradeData.name,
+                                            position: tradeData.position,
+                                            team: tradeData.team,
+                                            marketValue: tradeData.marketValue,
+                                            myValue: tradeData.myValue,
+                                            valueDiffBetweenMyValueAndMarketValue: tradeData.valueDiffBetweenMyValueAndMarketValue,
+                                            PRPScore: tradeData.PRPScore,
+                                            projectedNextOffseasonDynastyValue: tradeData.projectedNextOffseasonDynastyValue,
+                                            valueDifferenceBetweenCurrentMarketValueAndPNODV: tradeData.valueDifferenceBetweenCurrentMarketValueAndPNODV,
+                                            PNODVScore: tradeData.PNODVScore,
+                                            RVSScore: tradeData.RVSScore,
+                                            jaxValue: tradeData.jaxValue,
+                                            travValue: tradeData.travValue,
+                                            joeValue: tradeData.joeValue,
+                                            consensusValue: tradeData.consensusValue,
+                                            consensusVsMarketValueDiff: tradeData.consensusVsMarketValueDiff,
+                                        })];
+                                case 1:
+                                    insertError = (_c.sent()).error;
+                                    if (insertError) {
+                                        throw new Error("Insert failed for ".concat(tradeData.name, ": ").concat(insertError.message));
+                                    }
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
+                    _a = 0, tradeDataArray_1 = tradeDataArray;
+                    _b.label = 3;
+                case 3:
+                    if (!(_a < tradeDataArray_1.length)) return [3 /*break*/, 6];
+                    tradeData = tradeDataArray_1[_a];
+                    return [5 /*yield**/, _loop_1(tradeData)];
+                case 4:
+                    _b.sent();
+                    _b.label = 5;
+                case 5:
+                    _a++;
+                    return [3 /*break*/, 3];
+                case 6:
+                    _i++;
+                    return [3 /*break*/, 2];
+                case 7: return [3 /*break*/, 9];
+                case 8:
+                    error_1 = _b.sent();
+                    console.error("Error while pushing data to PostgreSQL:", error_1);
+                    return [3 /*break*/, 9];
+                case 9: return [2 /*return*/];
             }
-        }
-        catch (error) {
-            console.error("Error while pushing data to PostgreSQL:", error);
-        }
+        });
     });
 }
 function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("Main function started");
-        try {
-            // Dynamically import PrismaClient
-            const pkg = yield Promise.resolve().then(() => __importStar(require("../../../src/app/generated/prisma/index.js")));
-            const { PrismaClient } = pkg;
-            const prisma = new PrismaClient();
-            console.log("Prisma Client created");
-            console.log("Attempting to delete existing records from tradeAnalyzerData...");
-            // Delete all existing records in the tradeAnalyzerData table
-            const deleteResult = yield prisma.tradeAnalyzerData.deleteMany({});
-            // Log the result of the deletion
-            console.log("Delete operation completed:", deleteResult);
-            // console.log('Fetching data from MongoDB...');
-            const data = yield fetchDataFromMongoDB();
-            // console.log('Data fetched from MongoDB:', data);
-            console.log("Pushing data to PostgreSQL...");
-            yield pushDataToPostgreSQL(data, prisma);
-            console.log("Data pushed to PostgreSQL successfully!");
-            return prisma; // Return the client so we can disconnect it
-        }
-        catch (error) {
-            console.error("Error in main function:", error);
-        }
+    return __awaiter(this, void 0, void 0, function () {
+        var data, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log("Main function started");
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, 5, 7]);
+                    console.log('Fetching data from MongoDB...');
+                    return [4 /*yield*/, fetchDataFromMongoDB()];
+                case 2:
+                    data = _a.sent();
+                    console.log('Data fetched from MongoDB');
+                    console.log("Pushing data to Supabase...");
+                    return [4 /*yield*/, pushDataToPostgreSQL(data)];
+                case 3:
+                    _a.sent();
+                    console.log("Data pushed to Supabase successfully!");
+                    return [3 /*break*/, 7];
+                case 4:
+                    error_2 = _a.sent();
+                    console.error("Error in main function:", error_2);
+                    return [3 /*break*/, 7];
+                case 5: return [4 /*yield*/, mongoClient.close()];
+                case 6:
+                    _a.sent();
+                    return [7 /*endfinally*/];
+                case 7: return [2 /*return*/];
+            }
+        });
     });
 }
-let prisma = null;
 main()
-    .then((client) => {
-    prisma = client;
-})
-    .catch((e) => console.error("Error in main promise chain:", e))
-    .finally(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield mongoClient.close();
-    if (prisma) {
-        yield prisma.$disconnect();
-    }
-}));
+    .catch(function (e) { return console.error("Error in main promise chain:", e); });
 // commands to run in terminal to run the script:
 // *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
 // *****  ALWAYS ALWAYS ALWAYS RUN npx tsc fetchAndPushData.ts **BEFORE** node fetchAndPushData.js **************
