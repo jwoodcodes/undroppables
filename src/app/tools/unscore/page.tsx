@@ -48,14 +48,14 @@ export default async function unscore(): Promise<React.ReactElement> {
           <div className={styles.rssSectionWrapper}>rss</div>   */}
 
         {/* <div className={styles.mainToolTitle}>UN <span className={styles.scoreToolSpan}>Score Data</span></div> */}
-        <Image 
-          src="/unscoreDataLogo.png" 
-          alt="UN Score Data Logo" 
-          width={800} 
-          height={100} 
+        <Image
+          src="/unscoreDataLogo.png"
+          alt="UN Score Data Logo"
+          width={800}
+          height={100}
           quality={100}
           priority
-          className={styles.mainToolTitle} 
+          className={styles.mainToolTitle}
         />
 
       </div>
