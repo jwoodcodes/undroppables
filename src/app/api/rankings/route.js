@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { getPostgresData } from "../../dbManagement/getPostgresData";
 
+// Force dynamic execution to prevent static generation at build time
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   console.log("API /api/rankings GET called");
   try {
