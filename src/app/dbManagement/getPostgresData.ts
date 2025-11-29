@@ -1,8 +1,9 @@
 export const getPostgresData = async () => {
   try {
     // Use direct REST API to bypass schema cache issues
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    // Use server-side env vars for API routes, fallback to public vars for compatibility
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     console.log("Fetching from Supabase REST API...");
 

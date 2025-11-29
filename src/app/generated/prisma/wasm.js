@@ -136,7 +136,8 @@ exports.Prisma.TradeAnalyzerDataScalarFieldEnum = {
   jaxValue: 'jaxValue',
   travValue: 'travValue',
   joeValue: 'joeValue',
-  consensusValue: 'consensusValue'
+  consensusValue: 'consensusValue',
+  consensusVsMarketValueDiff: 'consensusVsMarketValueDiff'
 };
 
 exports.Prisma.SleeperPlayerScalarFieldEnum = {

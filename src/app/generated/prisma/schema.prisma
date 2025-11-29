@@ -31,6 +31,7 @@ model tradeAnalyzerData {
   travValue                                        Float?
   joeValue                                         Float?
   consensusValue                                   Float?
+  consensusVsMarketValueDiff                       Float?
 }
 
 model SleeperPlayer {
