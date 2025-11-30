@@ -123,7 +123,15 @@ html {
   font-size: 1rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1300px) {
 
   .ag-theme-quartz-dark .ag-header-cell,
   .ag-theme-quartz-dark .ag-cell {
@@ -131,11 +139,27 @@ html {
   }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1200px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1000px) {
 
   .ag-theme-quartz-dark .ag-header-cell,
   .ag-theme-quartz-dark .ag-cell {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 950px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.75rem;
   }
 }
 
@@ -144,5 +168,13 @@ html {
   .ag-theme-quartz-dark .ag-header-cell,
   .ag-theme-quartz-dark .ag-cell {
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .ag-theme-quartz-dark .ag-header-cell,
+  .ag-theme-quartz-dark .ag-cell {
+    font-size: 0.65rem;
   }
 }
