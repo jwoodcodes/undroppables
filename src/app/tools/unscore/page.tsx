@@ -51,7 +51,7 @@ export default async function unscore(): Promise<React.ReactElement> {
         <Image
           src="/unscoreDataLogo.png"
           alt="UN Score Data Logo"
-          width={800}
+          width={400}
           height={100}
           quality={100}
           priority
@@ -59,6 +59,7 @@ export default async function unscore(): Promise<React.ReactElement> {
         />
 
       </div>
+
 
       <DataTableWrapper initialData={data} />
 

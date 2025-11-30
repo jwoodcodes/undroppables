@@ -4,6 +4,7 @@
   align-items: center;
   width: 60%;
   margin: 1rem auto;
+
 }
 
 
@@ -70,6 +71,34 @@
 
 }
 
+.clickToSeeCompsText {
+  text-align: center;
+  font-size: 1.5rem;
+
+  margin: 4rem auto 1rem auto;
+
+
+
+  color: var(--color-red-primary);
+  font-family: 'Courier New', Courier, monospace;
+
+}
+
+.datasetSelect {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+  /* margin-top: 2rem; */
+  border-radius: 5px;
+  padding: .25rem 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 400;
+  max-height: 20rem;
+  cursor: pointer;
+}
+
 @media (max-width: 1200px) {
   .returnToPlayersBtn {
 
@@ -90,6 +119,18 @@
 
     margin-top: 1.25rem;
     margin-left: 0;
+
+  }
+
+  .clickToSeeCompsText {
+
+    font-size: 1.25rem;
+
+    margin: 2rem auto 1rem auto;
+
+
+
+
 
   }
 }
@@ -117,22 +158,35 @@
     width: 80%;
     margin: 1rem auto;
   }
+
+  .clickToSeeCompsText {
+
+    font-size: 1rem;
+
+    margin: 2rem auto 1rem auto;
+
+
+
+
+
+  }
 }
 
-.datasetSelect {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-800);
-  /* margin-top: 2rem; */
-  border-radius: 5px;
-  padding: .25rem 1.5rem;
-  font-size: 1.15rem;
-  font-weight: 400;
-  max-height: 20rem;
-  cursor: pointer;
+@media (max-width: 700px) {
+  .clickToSeeCompsText {
+
+    font-size: 1rem;
+
+    margin: 2rem auto 1rem auto;
+
+
+
+
+
+  }
 }
+
+
 
 
 

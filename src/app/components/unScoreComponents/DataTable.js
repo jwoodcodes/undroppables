@@ -6,6 +6,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import styles from './dataTable.module.css'
 import PlayerDialog from './PlayerDialog';
+import Image from "next/image";
 
 export default function DataTable({ data }) {
   const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
@@ -841,9 +842,11 @@ export default function DataTable({ data }) {
             <option value={2025}>
               2025
             </option>
+
             <option value="all">
               2018-2025
             </option>
+
           </select>
         </form>
 
@@ -1116,6 +1119,7 @@ export default function DataTable({ data }) {
         </form>
 
       </div>
+      <p className={styles.clickToSeeCompsText}>Click player name to filter table to the players model comps</p>
 
 
       <div className="ag-theme-alpine-dark" style={gridStyle}>
