@@ -14,6 +14,7 @@ export default function MainNav() {
 
         <li ><a href="/rankings" className={styles.navLink}>Rankings</a></li>
         <li ><a href="/tools/unscore" className={styles.navLink}>UN Score</a></li>
+        <li ><a href="https://fantasy-nlp.vercel.app/undroppables" className={styles.navLink}>UN Data Suite</a></li>
         <li ><a href="https://www.theundroppables.com/articles/" className={styles.navLink}>Content</a></li>
 
         <li ><a href="/tools" className={styles.navLink}>Tools</a></li>
