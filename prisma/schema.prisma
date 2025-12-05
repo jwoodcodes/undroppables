@@ -65,6 +65,7 @@ datasource db {
     name String
     class String?
     unScore Float?
+    unScorePercentile Float?
     height Float?
     weight Float?
     draftRound Float?

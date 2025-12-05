@@ -81,6 +81,7 @@ export default function DataTable({ data }) {
       p.name = player.name;
       p.class = player.class;
       p.UNScore = player.unScore;
+      p.Percentile = player.unScorePercentile ?? 0;
       p.Height = +player.height;
       p.weight = +player.weight;
       p.weight = +player.weight;
@@ -240,8 +241,15 @@ export default function DataTable({ data }) {
         sortable: true,
         sort: 'desc',
       },
-
-
+      {
+        field: "Percentile",
+        filter: true,
+        floatingFilter: true,
+        flex: 1,
+        cellStyle: { textAlign: 'center', fontSize: width < 768 ? '12px' : '14px' },
+        minWidth: width < 768 ? 75 : 90,
+        sortable: true,
+      },
 
     ];
 
@@ -580,6 +588,15 @@ export default function DataTable({ data }) {
       sort: 'desc',
     },
     {
+      field: "Percentile",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 75 : 90,
+      sortable: true,
+    },
+    {
       field: "Draft Round",
       filter: true,
       floatingFilter: true,
@@ -695,6 +712,7 @@ export default function DataTable({ data }) {
       p.name = player.name;
       p.class = player.class;
       p.UNScore = player.unScore;
+      p.Percentile = player.unScorePercentile ?? 0;
       p.Height = +player.height;
       p.weight = +player.weight;
       p.weight = +player.weight;

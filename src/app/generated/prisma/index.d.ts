@@ -4521,6 +4521,7 @@ export namespace Prisma {
 
   export type UNScorePlayerAvgAggregateOutputType = {
     unScore: number | null
+    unScorePercentile: number | null
     height: number | null
     weight: number | null
     draftRound: number | null
@@ -4532,6 +4533,7 @@ export namespace Prisma {
 
   export type UNScorePlayerSumAggregateOutputType = {
     unScore: number | null
+    unScorePercentile: number | null
     height: number | null
     weight: number | null
     draftRound: number | null
@@ -4546,6 +4548,7 @@ export namespace Prisma {
     name: string | null
     class: string | null
     unScore: number | null
+    unScorePercentile: number | null
     height: number | null
     weight: number | null
     draftRound: number | null
@@ -4560,6 +4563,7 @@ export namespace Prisma {
     name: string | null
     class: string | null
     unScore: number | null
+    unScorePercentile: number | null
     height: number | null
     weight: number | null
     draftRound: number | null
@@ -4574,6 +4578,7 @@ export namespace Prisma {
     name: number
     class: number
     unScore: number
+    unScorePercentile: number
     height: number
     weight: number
     draftRound: number
@@ -4590,6 +4595,7 @@ export namespace Prisma {
 
   export type UNScorePlayerAvgAggregateInputType = {
     unScore?: true
+    unScorePercentile?: true
     height?: true
     weight?: true
     draftRound?: true
@@ -4601,6 +4607,7 @@ export namespace Prisma {
 
   export type UNScorePlayerSumAggregateInputType = {
     unScore?: true
+    unScorePercentile?: true
     height?: true
     weight?: true
     draftRound?: true
@@ -4615,6 +4622,7 @@ export namespace Prisma {
     name?: true
     class?: true
     unScore?: true
+    unScorePercentile?: true
     height?: true
     weight?: true
     draftRound?: true
@@ -4629,6 +4637,7 @@ export namespace Prisma {
     name?: true
     class?: true
     unScore?: true
+    unScorePercentile?: true
     height?: true
     weight?: true
     draftRound?: true
@@ -4643,6 +4652,7 @@ export namespace Prisma {
     name?: true
     class?: true
     unScore?: true
+    unScorePercentile?: true
     height?: true
     weight?: true
     draftRound?: true
@@ -4747,6 +4757,7 @@ export namespace Prisma {
     name: string
     class: string | null
     unScore: number | null
+    unScorePercentile: number | null
     height: number | null
     weight: number | null
     draftRound: number | null
@@ -4783,6 +4794,7 @@ export namespace Prisma {
     name?: boolean
     class?: boolean
     unScore?: boolean
+    unScorePercentile?: boolean
     height?: boolean
     weight?: boolean
     draftRound?: boolean
@@ -4800,6 +4812,7 @@ export namespace Prisma {
     name?: boolean
     class?: boolean
     unScore?: boolean
+    unScorePercentile?: boolean
     height?: boolean
     weight?: boolean
     draftRound?: boolean
@@ -4817,6 +4830,7 @@ export namespace Prisma {
     name?: boolean
     class?: boolean
     unScore?: boolean
+    unScorePercentile?: boolean
     height?: boolean
     weight?: boolean
     draftRound?: boolean
@@ -4834,6 +4848,7 @@ export namespace Prisma {
     name?: boolean
     class?: boolean
     unScore?: boolean
+    unScorePercentile?: boolean
     height?: boolean
     weight?: boolean
     draftRound?: boolean
@@ -4846,7 +4861,7 @@ export namespace Prisma {
     rawData?: boolean
   }
 
-  export type UNScorePlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "class" | "unScore" | "height" | "weight" | "draftRound" | "draftPick" | "careerSlotPercentage" | "careerWidePercentage" | "highestContestedTargetPercent" | "careerAveragedStats" | "topModelComps" | "rawData", ExtArgs["result"]["uNScorePlayer"]>
+  export type UNScorePlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "class" | "unScore" | "unScorePercentile" | "height" | "weight" | "draftRound" | "draftPick" | "careerSlotPercentage" | "careerWidePercentage" | "highestContestedTargetPercent" | "careerAveragedStats" | "topModelComps" | "rawData", ExtArgs["result"]["uNScorePlayer"]>
 
   export type $UNScorePlayerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UNScorePlayer"
@@ -4856,6 +4871,7 @@ export namespace Prisma {
       name: string
       class: string | null
       unScore: number | null
+      unScorePercentile: number | null
       height: number | null
       weight: number | null
       draftRound: number | null
@@ -5293,6 +5309,7 @@ export namespace Prisma {
     readonly name: FieldRef<"UNScorePlayer", 'String'>
     readonly class: FieldRef<"UNScorePlayer", 'String'>
     readonly unScore: FieldRef<"UNScorePlayer", 'Float'>
+    readonly unScorePercentile: FieldRef<"UNScorePlayer", 'Float'>
     readonly height: FieldRef<"UNScorePlayer", 'Float'>
     readonly weight: FieldRef<"UNScorePlayer", 'Float'>
     readonly draftRound: FieldRef<"UNScorePlayer", 'Float'>
@@ -5741,6 +5758,7 @@ export namespace Prisma {
     name: 'name',
     class: 'class',
     unScore: 'unScore',
+    unScorePercentile: 'unScorePercentile',
     height: 'height',
     weight: 'weight',
     draftRound: 'draftRound',
@@ -6129,6 +6147,7 @@ export namespace Prisma {
     name?: StringFilter<"UNScorePlayer"> | string
     class?: StringNullableFilter<"UNScorePlayer"> | string | null
     unScore?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    unScorePercentile?: FloatNullableFilter<"UNScorePlayer"> | number | null
     height?: FloatNullableFilter<"UNScorePlayer"> | number | null
     weight?: FloatNullableFilter<"UNScorePlayer"> | number | null
     draftRound?: FloatNullableFilter<"UNScorePlayer"> | number | null
@@ -6146,6 +6165,7 @@ export namespace Prisma {
     name?: SortOrder
     class?: SortOrderInput | SortOrder
     unScore?: SortOrderInput | SortOrder
+    unScorePercentile?: SortOrderInput | SortOrder
     height?: SortOrderInput | SortOrder
     weight?: SortOrderInput | SortOrder
     draftRound?: SortOrderInput | SortOrder
@@ -6166,6 +6186,7 @@ export namespace Prisma {
     name?: StringFilter<"UNScorePlayer"> | string
     class?: StringNullableFilter<"UNScorePlayer"> | string | null
     unScore?: FloatNullableFilter<"UNScorePlayer"> | number | null
+    unScorePercentile?: FloatNullableFilter<"UNScorePlayer"> | number | null
     height?: FloatNullableFilter<"UNScorePlayer"> | number | null
     weight?: FloatNullableFilter<"UNScorePlayer"> | number | null
     draftRound?: FloatNullableFilter<"UNScorePlayer"> | number | null
@@ -6183,6 +6204,7 @@ export namespace Prisma {
     name?: SortOrder
     class?: SortOrderInput | SortOrder
     unScore?: SortOrderInput | SortOrder
+    unScorePercentile?: SortOrderInput | SortOrder
     height?: SortOrderInput | SortOrder
     weight?: SortOrderInput | SortOrder
     draftRound?: SortOrderInput | SortOrder
@@ -6208,6 +6230,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"UNScorePlayer"> | string
     class?: StringNullableWithAggregatesFilter<"UNScorePlayer"> | string | null
     unScore?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
+    unScorePercentile?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
     height?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
     weight?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
     draftRound?: FloatNullableWithAggregatesFilter<"UNScorePlayer"> | number | null
@@ -6533,6 +6556,7 @@ export namespace Prisma {
     name: string
     class?: string | null
     unScore?: number | null
+    unScorePercentile?: number | null
     height?: number | null
     weight?: number | null
     draftRound?: number | null
@@ -6550,6 +6574,7 @@ export namespace Prisma {
     name: string
     class?: string | null
     unScore?: number | null
+    unScorePercentile?: number | null
     height?: number | null
     weight?: number | null
     draftRound?: number | null
@@ -6567,6 +6592,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     class?: NullableStringFieldUpdateOperationsInput | string | null
     unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    unScorePercentile?: NullableFloatFieldUpdateOperationsInput | number | null
     height?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -6584,6 +6610,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     class?: NullableStringFieldUpdateOperationsInput | string | null
     unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    unScorePercentile?: NullableFloatFieldUpdateOperationsInput | number | null
     height?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -6601,6 +6628,7 @@ export namespace Prisma {
     name: string
     class?: string | null
     unScore?: number | null
+    unScorePercentile?: number | null
     height?: number | null
     weight?: number | null
     draftRound?: number | null
@@ -6618,6 +6646,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     class?: NullableStringFieldUpdateOperationsInput | string | null
     unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    unScorePercentile?: NullableFloatFieldUpdateOperationsInput | number | null
     height?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -6635,6 +6664,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     class?: NullableStringFieldUpdateOperationsInput | string | null
     unScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    unScorePercentile?: NullableFloatFieldUpdateOperationsInput | number | null
     height?: NullableFloatFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     draftRound?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -6973,6 +7003,7 @@ export namespace Prisma {
     name?: SortOrder
     class?: SortOrder
     unScore?: SortOrder
+    unScorePercentile?: SortOrder
     height?: SortOrder
     weight?: SortOrder
     draftRound?: SortOrder
@@ -6987,6 +7018,7 @@ export namespace Prisma {
 
   export type UNScorePlayerAvgOrderByAggregateInput = {
     unScore?: SortOrder
+    unScorePercentile?: SortOrder
     height?: SortOrder
     weight?: SortOrder
     draftRound?: SortOrder
@@ -7001,6 +7033,7 @@ export namespace Prisma {
     name?: SortOrder
     class?: SortOrder
     unScore?: SortOrder
+    unScorePercentile?: SortOrder
     height?: SortOrder
     weight?: SortOrder
     draftRound?: SortOrder
@@ -7015,6 +7048,7 @@ export namespace Prisma {
     name?: SortOrder
     class?: SortOrder
     unScore?: SortOrder
+    unScorePercentile?: SortOrder
     height?: SortOrder
     weight?: SortOrder
     draftRound?: SortOrder
@@ -7026,6 +7060,7 @@ export namespace Prisma {
 
   export type UNScorePlayerSumOrderByAggregateInput = {
     unScore?: SortOrder
+    unScorePercentile?: SortOrder
     height?: SortOrder
     weight?: SortOrder
     draftRound?: SortOrder

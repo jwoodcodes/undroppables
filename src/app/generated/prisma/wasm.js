@@ -169,6 +169,7 @@ exports.Prisma.UNScorePlayerScalarFieldEnum = {
   name: 'name',
   class: 'class',
   unScore: 'unScore',
+  unScorePercentile: 'unScorePercentile',
   height: 'height',
   weight: 'weight',
   draftRound: 'draftRound',
