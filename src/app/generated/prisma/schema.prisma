@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/app/generated/prisma"
@@ -15,7 +9,7 @@ datasource db {
 }
 
 model tradeAnalyzerData {
-  id                                               String  @id @default(cuid()) // Use cuid() for unique string IDs
+  id                                               String  @id @default(cuid())
   name                                             String?
   position                                         String?
   team                                             String?
@@ -56,22 +50,787 @@ model AllPlayerData {
   RVSScore                                         Float?
   tradeAnalyzerDataObjectsArray                    Json?
   rawData                                          Json?
+  consensusVsMarketValueDiff                       Float?
 }
 
 model UNScorePlayer {
-  id                            String  @id @default(cuid())
-  name                          String
-  class                         String?
-  unScore                       Float?
-  unScorePercentile             Float?
-  height                        Float?
-  weight                        Float?
-  draftRound                    Float?
-  draftPick                     Float?
-  careerSlotPercentage          Float?
-  careerWidePercentage          Float?
-  highestContestedTargetPercent Float?
-  careerAveragedStats           Json?
-  topModelComps                 Json?
-  rawData                       Json?
+  id                                                     String  @id @default(cuid())
+  name                                                   String
+  class                                                  String?
+  unScore                                                Float?
+  height                                                 Float?
+  weight                                                 Float?
+  draftRound                                             Float?
+  draftPick                                              Float?
+  careerSlotPercentage                                   Float?
+  careerWidePercentage                                   Float?
+  highestContestedTargetPercent                          Float?
+  careerAveragedStats                                    Json?
+  topModelComps                                          Json?
+  rawData                                                Json?
+  unScorePercentile                                      Float?
+  pprFantasyPointsPerGameSeason1                         Float?
+  pprFantasyPointsPerGameSeason2                         Float?
+  pprFantasyPointsPerGameSeason3                         Float?
+  pprFantasyPointsPerGameSeason4                         Float?
+  pprFantasyPointsPerGameSeason5                         Float?
+  pprFantasyPointsPerGameAvgSeason1To3                   Float?
+  datasetWidePprPerGameAvgFirst3SeasonsBucketOver90      Float?
+  datasetWidePprPerGameAvgFirst3SeasonsBucket80To90      Float?
+  datasetWidePprPerGameAvgFirst3SeasonsBucket72To80      Float?
+  datasetWidePprPerGameAvgFirst3SeasonsBucket65To72      Float?
+  datasetWidePprPerGameAvgFirst3SeasonsBucketBelow62     Float?
+  datasetWideCorrelationUNScorePprPerGameFirst3Seasons   Float?
+  datasetWideCorrelationDraftPickPprPerGameFirst3Seasons Float?
+}
+
+model Feedback {
+  id         String   @id
+  createdAt  DateTime @default(now())
+  query      String
+  sql        String
+  isExpected Boolean
+  reason     String?
+}
+
+model OnePreviousFantasyCalcData {
+  id           Int       @id @default(autoincrement())
+  name         String?
+  overall_rank Int?
+  position     String?
+  value        Decimal?  @db.Decimal
+  raw_data     Json?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model PlayerStat {
+  id                                    String  @id
+  position                              String?
+  season                                Int?
+  week                                  Int?
+  completions                           Int?
+  attempts                              Int?
+  interceptions                         Int?
+  sacks                                 Int?
+  carries                               Int?
+  receptions                            Int?
+  targets                               Int?
+  wopr                                  Float?
+  airYardsShare                         Float?
+  avg_depth_of_target                   Float?
+  explosive_run_rate                    Float?
+  fantasyPoints                         Float?
+  fantasyPointsPpr                      Float?
+  fantasy_points_per_dropback           Float?
+  fantasy_points_per_dropback_pressured Float?
+  green_zone_carries                    Float?
+  hvts                                  Float?
+  opponentTeam                          String?
+  pass_epa_deep_left                    Float?
+  pass_epa_deep_middle                  Float?
+  pass_epa_deep_right                   Float?
+  pass_epa_short_left                   Float?
+  pass_epa_short_middle                 Float?
+  pass_epa_short_right                  Float?
+  passingAirYards                       Float?
+  passingEpa                            Float?
+  passingTds                            Int?
+  passingYards                          Float?
+  playerId                              String?
+  playerName                            String?
+  ppr_fantasy_points_per_hvt            Float?
+  ppr_fantasy_points_per_target         Float?
+  pressure_to_sack_ratio                Float?
+  pressures                             Float?
+  receivingAirYards                     Float?
+  receivingFirstDowns                   Int?
+  receivingTds                          Int?
+  receivingYards                        Float?
+  receivingYardsAfterCatch              Float?
+  recentTeam                            String?
+  rushingEpa                            Float?
+  rushingFumbles                        Int?
+  rushingTds                            Int?
+  rushingYards                          Float?
+  seasonType                            String?
+  targetShare                           Float?
+  third_down_target_pct                 Float?
+  third_down_targets                    Float?
+}
+
+model TeamSeasonStats {
+  team                                      String
+  head_coach                                String?
+  highest_rb_carry_pct_name                 String?
+  highest_scoring_qb_name                   String?
+  highest_scoring_rb_name                   String?
+  highest_scoring_te_name                   String?
+  highest_scoring_wr_name                   String?
+  highest_target_share_player_name          String?
+  offensive_coordinator                     String?
+  player_1_highest_rb_ppr_pct_name          String?
+  player_1_highest_te_ppr_pct_name          String?
+  player_1_highest_wr_ppr_pct_name          String?
+  player_2_highest_rb_ppr_pct_name          String?
+  player_2_highest_te_ppr_pct_name          String?
+  player_2_highest_wr_ppr_pct_name          String?
+  player_3_highest_rb_ppr_pct_name          String?
+  player_3_highest_wr_ppr_pct_name          String?
+  players_name_most_carries_3rd_down        String?
+  players_name_most_receptions_3rd_down     String?
+  players_name_most_targets_3rd_down        String?
+  record                                    String?
+  second_highest_rb_carry_pct_name          String?
+  season                                    Int
+  avg_carries                               Float?
+  avg_carries_qb_only                       Float?
+  avg_carries_tackled_for_loss              Float?
+  avg_depth_of_target                       Float?
+  avg_pass_epa_deep_left                    Float?
+  avg_pass_epa_deep_middle                  Float?
+  avg_pass_epa_deep_right                   Float?
+  avg_pass_epa_short_left                   Float?
+  avg_pass_epa_short_middle                 Float?
+  avg_pass_epa_short_right                  Float?
+  avg_passing_attempts                      Float?
+  avg_passing_attempts_per_game_to_rbs_only Float?
+  avg_passing_completions                   Float?
+  avg_passing_interceptions                 Float?
+  avg_passing_passing_air_yards             Float?
+  avg_passing_passing_epa                   Float?
+  avg_passing_passing_yards_after_catch     Float?
+  avg_passing_sacks                         Float?
+  avg_passing_tds                           Float?
+  avg_passing_yards                         Float?
+  avg_rec_epa_rec_deep_left                 Float?
+  avg_rec_epa_rec_deep_middle               Float?
+  avg_rec_epa_rec_deep_right                Float?
+  avg_rec_epa_rec_short_left                Float?
+  avg_rec_epa_rec_short_middle              Float?
+  avg_rec_epa_rec_short_right               Float?
+  avg_receiving_air_yards_total             Float?
+  avg_rushing_tds                           Float?
+  avg_rushing_yards                         Float?
+  avg_rushing_yards_qb_only                 Float?
+  avg_yards_per_carry_per_game              Float?
+  explosive_run_rate                        Float?
+  favorite_3_to_6_games                     Float?
+  favorite_7_plus_games                     Float?
+  fp_per_play_qb_q1_wp_close                Float?
+  fp_per_play_qb_q1_wp_losing               Float?
+  fp_per_play_qb_q1_wp_winning              Float?
+  fp_per_play_qb_q2_wp_close                Float?
+  fp_per_play_qb_q2_wp_losing               Float?
+  fp_per_play_qb_q2_wp_winning              Float?
+  fp_per_play_qb_q3_wp_close                Float?
+  fp_per_play_qb_q3_wp_losing               Float?
+  fp_per_play_qb_q3_wp_winning              Float?
+  fp_per_play_qb_q4_wp_close                Float?
+  fp_per_play_qb_q4_wp_losing               Float?
+  fp_per_play_qb_q4_wp_winning              Float?
+  fp_per_play_rb_q1_wp_close                Float?
+  fp_per_play_rb_q1_wp_losing               Float?
+  fp_per_play_rb_q1_wp_winning              Float?
+  fp_per_play_rb_q2_wp_close                Float?
+  fp_per_play_rb_q2_wp_losing               Float?
+  fp_per_play_rb_q2_wp_winning              Float?
+  fp_per_play_rb_q3_wp_close                Float?
+  fp_per_play_rb_q3_wp_losing               Float?
+  fp_per_play_rb_q3_wp_winning              Float?
+  fp_per_play_rb_q4_wp_close                Float?
+  fp_per_play_rb_q4_wp_losing               Float?
+  fp_per_play_rb_q4_wp_winning              Float?
+  fp_per_play_te_q1_wp_close                Float?
+  fp_per_play_te_q1_wp_losing               Float?
+  fp_per_play_te_q1_wp_winning              Float?
+  fp_per_play_te_q2_wp_close                Float?
+  fp_per_play_te_q2_wp_losing               Float?
+  fp_per_play_te_q2_wp_winning              Float?
+  fp_per_play_te_q3_wp_close                Float?
+  fp_per_play_te_q3_wp_losing               Float?
+  fp_per_play_te_q3_wp_winning              Float?
+  fp_per_play_te_q4_wp_close                Float?
+  fp_per_play_te_q4_wp_losing               Float?
+  fp_per_play_te_q4_wp_winning              Float?
+  fp_per_play_wr_q1_wp_close                Float?
+  fp_per_play_wr_q1_wp_losing               Float?
+  fp_per_play_wr_q1_wp_winning              Float?
+  fp_per_play_wr_q2_wp_close                Float?
+  fp_per_play_wr_q2_wp_losing               Float?
+  fp_per_play_wr_q2_wp_winning              Float?
+  fp_per_play_wr_q3_wp_close                Float?
+  fp_per_play_wr_q3_wp_losing               Float?
+  fp_per_play_wr_q3_wp_winning              Float?
+  fp_per_play_wr_q4_wp_close                Float?
+  fp_per_play_wr_q4_wp_losing               Float?
+  fp_per_play_wr_q4_wp_winning              Float?
+  fp_per_target_deep_left                   Float?
+  fp_per_target_deep_middle                 Float?
+  fp_per_target_deep_right                  Float?
+  fp_per_target_short_left                  Float?
+  fp_per_target_short_middle                Float?
+  fp_per_target_short_right                 Float?
+  green_zone_carries_per_game               Float?
+  highest_rb_carry_pct_value                Float?
+  highest_scoring_qb_ppr                    Float?
+  highest_scoring_rb_ppr                    Float?
+  highest_scoring_te_ppr                    Float?
+  highest_scoring_wr_ppr                    Float?
+  highest_target_share_percentage           Float?
+  hvts_per_game                             Float?
+  neutral_games_vegas                       Float?
+  pct_targets_rec_deep_left                 Float?
+  pct_targets_rec_deep_middle               Float?
+  pct_targets_rec_deep_right                Float?
+  pct_targets_rec_short_left                Float?
+  pct_targets_rec_short_middle              Float?
+  pct_targets_rec_short_right               Float?
+  percent_of_1st_downs_team_passed          Float?
+  percent_of_1st_downs_team_ran             Float?
+  percent_of_3rd_downs_converted            Float?
+  percent_of_3rd_downs_team_passed          Float?
+  percent_of_3rd_downs_team_ran             Float?
+  percent_of_4th_downs_converted            Float?
+  percent_of_total_carries_tackled_for_loss Float?
+  player_1_highest_rb_ppr_pct_value         Float?
+  player_1_highest_te_ppr_pct_value         Float?
+  player_1_highest_wr_ppr_pct_value         Float?
+  player_2_highest_rb_ppr_pct_value         Float?
+  player_2_highest_te_ppr_pct_value         Float?
+  player_2_highest_wr_ppr_pct_value         Float?
+  player_3_highest_rb_ppr_pct_value         Float?
+  player_3_highest_wr_ppr_pct_value         Float?
+  player_most_carries_3rd_down_total        Float?
+  player_most_receptions_3rd_down_total     Float?
+  player_most_targets_3rd_down_total        Float?
+  plays_per_second                          Float?
+  plays_per_second_losing                   Float?
+  plays_per_second_neutral                  Float?
+  plays_per_second_winning                  Float?
+  plays_q1_wp_close                         Float?
+  plays_q1_wp_losing                        Float?
+  plays_q1_wp_winning                       Float?
+  plays_q2_wp_close                         Float?
+  plays_q2_wp_losing                        Float?
+  plays_q2_wp_winning                       Float?
+  plays_q3_wp_close                         Float?
+  plays_q3_wp_losing                        Float?
+  plays_q3_wp_winning                       Float?
+  plays_q4_wp_close                         Float?
+  plays_q4_wp_losing                        Float?
+  plays_q4_wp_winning                       Float?
+  ppr_fantasy_points_per_carry              Float?
+  ppr_fantasy_points_per_hvt                Float?
+  qb_ppr_fantasy_points_per_dropback        Float?
+  racr_avg                                  Float?
+  receiving_yards_after_catch_avg           Float?
+  second_highest_rb_carry_pct_value         Float?
+  total_3rd_downs                           Float?
+  total_4th_downs                           Float?
+  total_carries                             Float?
+  total_carries_qb_only                     Float?
+  total_carries_tackled_for_loss            Float?
+  total_green_zone_carries                  Float?
+  total_hvts                                Float?
+  total_offensive_plays                     Float?
+  total_passing_attempts                    Float?
+  total_passing_attempts_to_rbs_only        Float?
+  total_passing_completions                 Float?
+  total_passing_interceptions               Float?
+  total_passing_passing_air_yards           Float?
+  total_passing_passing_yards_after_catch   Float?
+  total_passing_sacks                       Float?
+  total_passing_tds                         Float?
+  total_passing_yards                       Float?
+  total_points_scored                       Float?
+  total_ppr_fantasy_points_qb               Float?
+  total_ppr_fantasy_points_rb               Float?
+  total_ppr_fantasy_points_te               Float?
+  total_ppr_fantasy_points_wr               Float?
+  total_receiving_air_yards_total           Float?
+  total_rushing_tds                         Float?
+  total_rushing_yards                       Float?
+  total_rushing_yards_qb_only               Float?
+  total_yards_per_carry                     Float?
+  underdog_3_to_6_games                     Float?
+  underdog_7_plus_games                     Float?
+  cpoe_first_half                           Float?
+  cpoe_second_half                          Float?
+
+  @@id([team, season])
+}
+
+model allProjections {
+  id                                                             Int       @id @default(autoincrement())
+  player_name                                                    String?
+  position                                                       String?
+  team_abv                                                       String?
+  slate                                                          String?
+  vtt                                                            Decimal?  @db.Decimal
+  team_projected_points                                          Decimal?  @db.Decimal
+  team_projected_for_a_half_of_negative_game_script_is_true      Boolean?
+  app_projected_points                                           Decimal?  @db.Decimal
+  app_projected_half_ppr_points                                  Decimal?  @db.Decimal
+  app_projected_full_ppr_points                                  Decimal?  @db.Decimal
+  app_qb_six_point_for_passing_td_projected_points               Decimal?  @db.Decimal
+  projected_pass_attempts                                        String?
+  app_proj_pass_attempts                                         Decimal?  @db.Decimal
+  app_proj_completions                                           Decimal?  @db.Decimal
+  app_proj_passing_yards                                         Decimal?  @db.Decimal
+  app_proj_pass_tds                                              Decimal?  @db.Decimal
+  app_proj_ints                                                  Decimal?  @db.Decimal
+  app_proj_qb_rush_attempts                                      Decimal?  @db.Decimal
+  app_proj_qb_rush_yards                                         Decimal?  @db.Decimal
+  app_proj_qb_rush_tds                                           Decimal?  @db.Decimal
+  prj_rush_attempts                                              String?
+  prj_rush_yards                                                 String?
+  prj_rush_tds                                                   String?
+  astro_qb_projection                                            Decimal?  @db.Decimal
+  astro_six_pt_td_qb_projection                                  Decimal?  @db.Decimal
+  qb_fantasy_points_per_game_last_five_weeks                     Decimal?  @db.Decimal
+  qb_app_projected_points_this_week                              Decimal?  @db.Decimal
+  fantasy_points_from_passing_per_game_last_five_weeks           Decimal?  @db.Decimal
+  fantasy_points_from_rushing_per_game_last_five_weeks           Decimal?  @db.Decimal
+  fantasy_points_per_pass_attempt_last_five_weeks                Decimal?  @db.Decimal
+  percentage_of_fantasy_points_from_passing_last_five_weeks      Decimal?  @db.Decimal
+  percent_of_qb_fantasy_points_from_passing_last_five_weeks      Decimal?  @db.Decimal
+  app_qb_projected_points_from_passing                           Decimal?  @db.Decimal
+  app_projected_carries_this_week                                Decimal?  @db.Decimal
+  app_projected_rush_yards_this_week                             Decimal?  @db.Decimal
+  app_projected_rush_tds_this_week                               Decimal?  @db.Decimal
+  app_projected_rush_first_downs_this_week                       Decimal?  @db.Decimal
+  app_projected_receptions_this_week                             Decimal?  @db.Decimal
+  app_projected_rec_yards_this_week                              Decimal?  @db.Decimal
+  app_projected_rec_tds_this_week                                Decimal?  @db.Decimal
+  app_projected_rec_first_downs_this_week                        Decimal?  @db.Decimal
+  app_projected_rb_total_first_downs_this_week                   Decimal?  @db.Decimal
+  target_share_last_five_weeks                                   Decimal?  @db.Decimal
+  target_share_percentage_last_five_weeks                        Decimal?  @db.Decimal
+  carries_plus_receptions_per_game_last_five_weeks               Decimal?  @db.Decimal
+  projected_carries_plus_receptions_this_week                    Decimal?  @db.Decimal
+  yahoo_salary                                                   Decimal?  @db.Decimal
+  fanduel_salary                                                 Decimal?  @db.Decimal
+  draftkings_salary                                              Decimal?  @db.Decimal
+  percent_of_salary_cap_yahoo                                    Decimal?  @db.Decimal
+  percent_of_salary_cap_fanduel                                  Decimal?  @db.Decimal
+  percent_of_salary_cap_draftkings                               Decimal?  @db.Decimal
+  yahoo_salary_bucket                                            String?
+  draftkings_salary_bucket                                       String?
+  yahoo_app_projected_points_per_dollar                          Decimal?  @db.Decimal
+  fanduel_app_projected_points_per_thousand_dollars              Decimal?  @db.Decimal
+  draftkings_app_projected_points_per_thousand_dollars           Decimal?  @db.Decimal
+  yahoo_app_projected_points_per_percent_of_site_salary_cap      Decimal?  @db.Decimal
+  fanduel_app_projected_points_per_percent_of_site_salary_cap    Decimal?  @db.Decimal
+  draftkings_app_projected_points_per_percent_of_site_salary_cap Decimal?  @db.Decimal
+  opponent_abv                                                   String?
+  opponent_qb_name                                               String?
+  opponent_team_projected_points                                 Decimal?  @db.Decimal
+  opponent_vtt                                                   String?
+  opposing_team_rank_in_def_epa_against_the_run_last_five_weeks  Int?
+  home_or_away                                                   String?
+  bonus_for_high_explosive_pass_vs_bad_explosive_pass_def        Decimal?  @db.Decimal
+  app_tep_projected_points                                       Decimal?  @db.Decimal
+  half_ppr_points_per_game_last_five_weeks                       Decimal?  @db.Decimal
+  created_at                                                     DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model allTradeCalculaterData {
+  id                                     Int       @id @default(autoincrement())
+  name                                   String?
+  position                               String?
+  team                                   String?
+  market_value                           Decimal?  @db.Decimal
+  my_value                               Decimal?  @db.Decimal
+  age                                    Decimal?  @db.Decimal
+  years_experience                       Decimal?  @db.Decimal
+  projected_next_offseason_dynasty_value Decimal?  @db.Decimal
+  raw_data                               Json?
+  created_at                             DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model detailedRecentSeasonsPlayerStats {
+  player_id                                 String
+  player_name                               String?
+  recent_team                               String?
+  season                                    Int
+  week                                      Int
+  completions                               Int?
+  attempts                                  Int?
+  passing_yards                             Float?
+  passing_tds                               Int?
+  interceptions                             Int?
+  sacks                                     Int?
+  sack_fumbles_lost                         Int?
+  passing_air_yards                         Float?
+  passing_yards_after_catch                 Float?
+  passing_first_downs                       Int?
+  passing_epa                               Float?
+  passing_2pt_conversions                   Int?
+  dakota                                    Float?
+  carries                                   Int?
+  rushing_yards                             Float?
+  rushing_tds                               Int?
+  rushing_fumbles_lost                      Int?
+  rushing_first_downs                       Int?
+  rushing_epa                               Float?
+  rushing_2pt_conversions                   Int?
+  receptions                                Int?
+  targets                                   Int?
+  receiving_yards                           Float?
+  receiving_tds                             Int?
+  receiving_fumbles_lost                    Int?
+  receiving_air_yards                       Float?
+  receiving_yards_after_catch               Float?
+  receiving_first_downs                     Int?
+  receiving_epa                             Float?
+  receiving_2pt_conversions                 Int?
+  special_teams_tds                         Int?
+  fantasy_points                            Float?
+  fantasy_points_ppr                        Float?
+  full_name                                 String?
+  position                                  String?
+  week_id                                   String?
+  pacr                                      Float?
+  ypa                                       Float?
+  td_rate                                   Float?
+  pass_adot                                 Float?
+  aya                                       Float?
+  rec_adot                                  Float?
+  comp_pct                                  Float?
+  CPOE_old                                  Float?
+  gz_touch                                  Int?
+  gz_rush                                   Int?
+  rush_att                                  Int?
+  hvt                                       Int?
+  opps                                      Float?
+  mtf                                       Float?
+  mtf_per_att                               Float?
+  yards_after_contact                       Float?
+  yards_after_contact_per_att               Float?
+  yards_before_contact                      Float?
+  yards_before_contact_per_att              Float?
+  rb_team_rushes                            Int?
+  rb_team_rec                               Int?
+  rb_team_touches                           Int?
+  rb_rush_share                             Float?
+  rb_rec_share                              Float?
+  rb_touch_share                            Float?
+  team_dbs                                  Int?
+  yprr                                      Float?
+  routes                                    Int?
+  route_rate                                Float?
+  team_ay                                   Int?
+  team_tgts                                 Int?
+  rec_ay                                    Int?
+  tgts                                      Int?
+  rec_yds                                   Int?
+  ay_share                                  Float?
+  tgt_share                                 Float?
+  RACR                                      Float?
+  WOPR                                      Float?
+  tprr                                      Float?
+  routes_per_db                             Float?
+  WTPRR                                     Float?
+  rz_targets                                Int?
+  ez_targets                                Int?
+  snaps                                     Int?
+  team_snaps                                Int?
+  snap_pct                                  Float?
+  exp_ry                                    Float?
+  ryoe                                      Float?
+  ryoe_per_att                              Float?
+  rush_success_rate                         Float?
+  success_att                               Int?
+  stacked_rate                              Float?
+  stacked_att                               Int?
+  exp_comp                                  Float?
+  cpoe                                      Float?
+  ttt                                       Float?
+  tot_throw_time                            Float?
+  pressure_rate                             Float?
+  tot_pressures                             Int?
+  dropbacks                                 Int?
+  carries_10_plus_yards                     Float?
+  carries_15_plus_yards                     Float?
+  carries_1_plus_yards                      Float?
+  carries_5_plus_yards                      Float?
+  down_1_carries                            Float?
+  down_1_reception_percentage               Float?
+  down_1_receptions                         Float?
+  down_1_targets                            Float?
+  down_3_attempts                           Float?
+  down_3_carries                            Float?
+  down_3_completions                        Float?
+  down_3_passing_yards                      Float?
+  down_3_receiving_yards                    Float?
+  down_3_reception_percentage               Float?
+  down_3_receptions                         Float?
+  down_3_targets                            Float?
+  down_3_team_carries                       Float?
+  down_3_team_receptions_all_games          Float?
+  down_3_team_rush_fd_in_played_games       Float?
+  down_3_team_targets_all_games             Float?
+  dropbacks_losing                          Float?
+  dropbacks_neutral                         Float?
+  dropbacks_winning                         Float?
+  fantasy_points_per_dropback_losing        Float?
+  fantasy_points_per_dropback_neutral       Float?
+  fantasy_points_per_dropback_pressured     Float?
+  fantasy_points_per_dropback_winning       Float?
+  firstDPRR                                 Float?
+  pass_epa_deep_left                        Float?
+  pass_epa_deep_middle                      Float?
+  pass_epa_deep_right                       Float?
+  pass_epa_short_left                       Float?
+  pass_epa_short_middle                     Float?
+  pass_epa_short_right                      Float?
+  pct_carries_tackled_for_loss              Float?
+  pct_of_carries_over_5_yards_15_plus_yards Float?
+  pct_of_positive_carries_10_plus_yards     Float?
+  pct_targets_rec_deep_left                 Float?
+  pct_targets_rec_deep_middle               Float?
+  pct_targets_rec_deep_right                Float?
+  pct_targets_rec_short_left                Float?
+  pct_targets_rec_short_middle              Float?
+  pct_targets_rec_short_right               Float?
+  ppr_fantasy_points_per_route              Float?
+  ppr_rank_in_team                          Float?
+  pressure_to_sack_ratio                    Float?
+  targets_deep_left                         Float?
+  targets_deep_middle                       Float?
+  targets_deep_right                        Float?
+  targets_short_left                        Float?
+  targets_short_middle                      Float?
+  targets_short_right                       Float?
+  total_tackled_for_loss                    Float?
+  dropbacks_pressured                       Float?
+
+  @@id([player_id, season, week])
+}
+
+model dynastyRankingsDataArray {
+  id           Int       @id @default(autoincrement())
+  name         String?
+  position     String?
+  team         String?
+  market_value Decimal?  @db.Decimal
+  my_value     Decimal?  @db.Decimal
+  overall_rank Int?
+  pos_rank     Int?
+  raw_data     Json?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model fantasycalcData {
+  id           Int       @id @default(autoincrement())
+  name         String?
+  overall_rank Int?
+  position     String?
+  value        Decimal?  @db.Decimal
+  raw_data     Json?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model playerSeasons {
+  player_id                                 String
+  player_name                               String?
+  season                                    Int
+  games_played                              Float?
+  completions_total                         Float?
+  attempts_total                            Float?
+  passing_yards_total                       Float?
+  passing_tds_total                         Float?
+  interceptions_total                       Float?
+  carries_total                             Float?
+  rushing_yards_total                       Float?
+  rushing_tds_total                         Float?
+  targets_total                             Float?
+  receiving_yards_total                     Float?
+  receiving_tds_total                       Float?
+  receiving_air_yards_total                 Float?
+  receiving_yards_after_catch_total         Float?
+  receiving_first_downs_total               Float?
+  fantasy_points_total                      Float?
+  completions_avg                           Float?
+  attempts_avg                              Float?
+  passing_yards_avg                         Float?
+  passing_tds_avg                           Float?
+  interceptions_avg                         Float?
+  passing_air_yards_avg                     Float?
+  passing_yards_after_catch_avg             Float?
+  carries_avg                               Float?
+  rushing_yards_avg                         Float?
+  rushing_tds_avg                           Float?
+  rushing_fumbles_avg                       Float?
+  rushing_first_downs_avg                   Float?
+  receptions_avg                            Float?
+  targets_avg                               Float?
+  receiving_yards_avg                       Float?
+  receiving_tds_avg                         Float?
+  receiving_air_yards_avg                   Float?
+  receiving_yards_after_catch_avg           Float?
+  receiving_first_downs_avg                 Float?
+  racr_avg                                  Float?
+  target_share_avg                          Float?
+  air_yards_share_avg                       Float?
+  wopr_avg                                  Float?
+  fantasy_points_avg                        Float?
+  fantasy_points_ppr_avg                    Float?
+  routes                                    Float?
+  routes_per_game                           Float?
+  TPRR                                      Float?
+  firstDPRR                                 Float?
+  position                                  String?
+  receptions_total                          Float?
+  HVTs                                      Float?
+  avg_pass_epa_deep_left                    Float?
+  avg_pass_epa_deep_middle                  Float?
+  avg_pass_epa_deep_right                   Float?
+  avg_pass_epa_short_left                   Float?
+  avg_pass_epa_short_middle                 Float?
+  avg_pass_epa_short_right                  Float?
+  down_1_attempts                           Float?
+  down_1_carries                            Float?
+  down_1_completions                        Float?
+  down_1_completions_per_game               Float?
+  down_1_pass_attempts_per_game             Float?
+  down_1_passing_yards                      Float?
+  down_1_receiving_yards                    Float?
+  down_1_receiving_yards_per_game           Float?
+  down_1_receptions                         Float?
+  down_1_receptions_per_game                Float?
+  down_1_rushing_yards                      Float?
+  down_1_rushing_yards_per_game             Float?
+  down_1_targets                            Float?
+  down_1_targets_per_game                   Float?
+  down_1_team_carries_all_games             Float?
+  down_1_team_carries_in_played_games       Float?
+  down_1_team_receptions_all_games          Float?
+  down_1_team_receptions_in_played_games    Float?
+  down_1_team_targets_all_games             Float?
+  down_1_team_targets_in_played_games       Float?
+  down_1_yards_per_reception                Float?
+  down_1_yards_per_target                   Float?
+  down_3_attempts                           Float?
+  down_3_completions                        Float?
+  down_3_passing_yards                      Float?
+  green_zone_carries                        Float?
+  pct_carries_tackled_for_loss              Float?
+  team                                      String?
+  total_tackled_for_loss                    Float?
+  rushing_epa_avg                           Float?
+  sacks_avg                                 Float?
+  sacks_total                               Float?
+  head_coach                                String?
+  offensive_coordinator                     String?
+  avg_rec_epa_rec_deep_left                 Float?
+  avg_rec_epa_rec_deep_middle               Float?
+  avg_rec_epa_rec_deep_right                Float?
+  avg_rec_epa_rec_short_left                Float?
+  avg_rec_epa_rec_short_middle              Float?
+  avg_rec_epa_rec_short_right               Float?
+  down_1_games_played                       Float?
+  down_1_passing_first_downs                Float?
+  down_1_position                           String?
+  down_1_team                               String?
+  down_1_team_rec_fd_in_played_games        Float?
+  down_1_team_rush_fd_in_played_games       Float?
+  down_3_carries                            Float?
+  down_3_completions_per_game               Float?
+  down_3_games_played                       Float?
+  down_3_pass_attempts_per_game             Float?
+  down_3_passing_first_downs                Float?
+  down_3_position                           String?
+  down_3_receiving_yards                    Float?
+  down_3_receiving_yards_per_game           Float?
+  down_3_receptions                         Float?
+  down_3_receptions_per_game                Float?
+  down_3_rushing_yards                      Float?
+  down_3_rushing_yards_per_game             Float?
+  down_3_targets                            Float?
+  down_3_targets_per_game                   Float?
+  down_3_team                               String?
+  down_3_team_carries_all_games             Float?
+  down_3_team_carries_in_played_games       Float?
+  down_3_team_rec_fd_in_played_games        Float?
+  down_3_team_receptions_all_games          Float?
+  down_3_team_receptions_in_played_games    Float?
+  down_3_team_rush_fd_in_played_games       Float?
+  down_3_team_targets_all_games             Float?
+  down_3_team_targets_in_played_games       Float?
+  down_3_yards_per_reception                Float?
+  down_3_yards_per_target                   Float?
+  fantasy_points_ppr_total                  Float?
+  passing_epa_avg                           Float?
+  pct_targets_rec_deep_left                 Float?
+  pct_targets_rec_deep_middle               Float?
+  pct_targets_rec_deep_right                Float?
+  pct_targets_rec_short_left                Float?
+  pct_targets_rec_short_middle              Float?
+  pct_targets_rec_short_right               Float?
+  rushing_fumbles_total                     Float?
+  yprr                                      Float?
+  carries_10_plus_yards                     Float?
+  carries_15_plus_yards                     Float?
+  carries_1_plus_yards                      Float?
+  carries_5_plus_yards                      Float?
+  down_1_reception_percentage               Float?
+  down_3_reception_percentage               Float?
+  draft_pick                                Float?
+  draft_round                               Float?
+  dropbacks                                 Float?
+  dropbacks_losing                          Float?
+  dropbacks_neutral                         Float?
+  dropbacks_winning                         Float?
+  explosive_run_rate                        Float?
+  fantasy_points_per_dropback               Float?
+  fantasy_points_per_dropback_losing        Float?
+  fantasy_points_per_dropback_neutral       Float?
+  fantasy_points_per_dropback_pressured     Float?
+  fantasy_points_per_dropback_winning       Float?
+  half_ppr_fantasy_points_avg               Float?
+  half_ppr_fantasy_points_total             Float?
+  n_minus_1_ppg                             Float?
+  n_plus_1_ppg                              Float?
+  new_head_coach                            String?
+  new_oc                                    String?
+  passing_air_yards_total                   Float?
+  passing_yards_after_catch_total           Float?
+  pct_of_carries_over_5_yards_15_plus_yards Float?
+  pct_of_positive_carries_10_plus_yards     Float?
+  pff_player_name_rb                        String?
+  pff_team_rb                               String?
+  ppg_diff_n_minus_1                        Float?
+  ppg_diff_n_plus_1                         Float?
+  ppr_fantasy_points_per_route              Float?
+  ppr_rank_in_team                          Float?
+  pressure_to_sack_ratio                    Float?
+  pressures                                 Float?
+  pressures_per_game                        Float?
+  sacks_taken                               Float?
+  targets_deep_left                         Float?
+  targets_deep_middle                       Float?
+  targets_deep_right                        Float?
+  targets_short_left                        Float?
+  targets_short_middle                      Float?
+  targets_short_right                       Float?
+  team_name                                 String?
+  year_in_nfl                               Float?
+  fp_dropback_diff_losing_vs_neutral        Float?
+  fp_dropback_diff_winning_vs_neutral       Float?
+
+  @@id([player_id, season])
+}
+
+model tradeAnalyzerDataObjectsArray {
+  id           Int       @id @default(autoincrement())
+  name         String?
+  position     String?
+  team         String?
+  market_value Decimal?  @db.Decimal
+  my_value     Decimal?  @db.Decimal
+  prp_score    Decimal?  @db.Decimal
+  pnodv_score  Decimal?  @db.Decimal
+  raw_data     Json?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
 }
