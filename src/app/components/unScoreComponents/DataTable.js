@@ -7,6 +7,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import styles from './dataTable.module.css'
 import PlayerDialog from './PlayerDialog';
 import Image from "next/image";
+import UNScoreBucketVisualizer from './UNScoreBucketVisualizer';
 
 export default function DataTable({ data }) {
   const [selectedPlayer, setSelectedPlayer] = useState(null); // State to hold selected player
@@ -102,6 +103,13 @@ export default function DataTable({ data }) {
       if (+player.highestContestedTargetPercent) {
         p['HCT %'] = +player.highestContestedTargetPercent.toFixed(1);
       }
+
+      p['PPR S1'] = player.pprFantasyPointsPerGameSeason1 ?? 0;
+      p['PPR S2'] = player.pprFantasyPointsPerGameSeason2 ?? 0;
+      p['PPR S3'] = player.pprFantasyPointsPerGameSeason3 ?? 0;
+      p['PPR S4'] = player.pprFantasyPointsPerGameSeason4 ?? 0;
+      p['PPR S5'] = player.pprFantasyPointsPerGameSeason5 ?? 0;
+      p['PPR Avg 1-3'] = player.pprFantasyPointsPerGameAvgSeason1To3 ?? 0;
 
       p['AVG PPR'] = +player.careerAveragedStats['PPR Points'];
       p['MTF/REC %'] = +player.careerAveragedStats['MTF/REC %'];
@@ -542,6 +550,60 @@ export default function DataTable({ data }) {
       sortable: true,
 
     },
+    {
+      field: "PPR S1",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 90,
+      sortable: true,
+    },
+    {
+      field: "PPR S2",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 90,
+      sortable: true,
+    },
+    {
+      field: "PPR S3",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 90,
+      sortable: true,
+    },
+    {
+      field: "PPR S4",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 90,
+      sortable: true,
+    },
+    {
+      field: "PPR S5",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 90,
+      sortable: true,
+    },
+    {
+      field: "PPR Avg 1-3",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: 'center' },
+      minWidth: 110,
+      sortable: true,
+    },
 
   ]
 
@@ -595,6 +657,16 @@ export default function DataTable({ data }) {
       cellStyle: { textAlign: 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
       minWidth: windowWidth < 768 ? 75 : 90,
       sortable: true,
+    },
+    {
+      field: "PPR Avg 1-3",
+      filter: true,
+      floatingFilter: true,
+      flex: 1,
+      cellStyle: { textAlign: windowWidth < 768 ? 'center' : 'center', fontSize: windowWidth < 768 ? '12px' : '14px' },
+      minWidth: windowWidth < 768 ? 95 : 100,
+      sortable: true,
+
     },
     {
       field: "Draft Round",
@@ -724,6 +796,13 @@ export default function DataTable({ data }) {
       p['slot %'] = +player.careerSlotPercentage.toFixed(1);
       p['wide %'] = +player.careerWidePercentage.toFixed(1);
       p['HCT %'] = +player.highestContestedTargetPercent;
+
+      p['PPR S1'] = player.pprFantasyPointsPerGameSeason1 ?? 0;
+      p['PPR S2'] = player.pprFantasyPointsPerGameSeason2 ?? 0;
+      p['PPR S3'] = player.pprFantasyPointsPerGameSeason3 ?? 0;
+      p['PPR S4'] = player.pprFantasyPointsPerGameSeason4 ?? 0;
+      p['PPR S5'] = player.pprFantasyPointsPerGameSeason5 ?? 0;
+      p['PPR Avg 1-3'] = player.pprFantasyPointsPerGameAvgSeason1To3 ?? 0;
 
       p['AVG PPR'] = +player.careerAveragedStats['PPR Points'];
       p['MTF/REC %'] = +player.careerAveragedStats['MTF/REC %'];
@@ -1130,6 +1209,60 @@ export default function DataTable({ data }) {
               </option>
             }
 
+            {dataSetToDisplay.includes("PPR S1") ?
+              <option value="PPR S1" style={{ color: "red" }}>
+                PPR S1
+              </option>
+              : <option value="PPR S1" >
+                PPR S1
+              </option>
+            }
+
+            {dataSetToDisplay.includes("PPR S2") ?
+              <option value="PPR S2" style={{ color: "red" }}>
+                PPR S2
+              </option>
+              : <option value="PPR S2" >
+                PPR S2
+              </option>
+            }
+
+            {dataSetToDisplay.includes("PPR S3") ?
+              <option value="PPR S3" style={{ color: "red" }}>
+                PPR S3
+              </option>
+              : <option value="PPR S3" >
+                PPR S3
+              </option>
+            }
+
+            {dataSetToDisplay.includes("PPR S4") ?
+              <option value="PPR S4" style={{ color: "red" }}>
+                PPR S4
+              </option>
+              : <option value="PPR S4" >
+                PPR S4
+              </option>
+            }
+
+            {dataSetToDisplay.includes("PPR S5") ?
+              <option value="PPR S5" style={{ color: "red" }}>
+                PPR S5
+              </option>
+              : <option value="PPR S5" >
+                PPR S5
+              </option>
+            }
+
+            {dataSetToDisplay.includes("PPR Avg 1-3") ?
+              <option value="PPR Avg 1-3" style={{ color: "red" }}>
+                PPR Avg 1-3
+              </option>
+              : <option value="PPR Avg 1-3" >
+                PPR Avg 1-3
+              </option>
+            }
+
 
 
 
@@ -1137,6 +1270,9 @@ export default function DataTable({ data }) {
         </form>
 
       </div>
+
+      <UNScoreBucketVisualizer data={data} />
+
       <p className={styles.clickToSeeCompsText}>Click player name to filter table to the players model comps</p>
 
 

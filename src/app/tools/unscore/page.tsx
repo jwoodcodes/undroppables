@@ -25,6 +25,12 @@ type PlayerData = {
   highestContestedTargetPercent: number | null;
   careerAveragedStats: any; // JsonValue from Prisma
   topModelComps: any; // JsonValue from Prisma
+  pprFantasyPointsPerGameSeason1: number | null;
+  pprFantasyPointsPerGameSeason2: number | null;
+  pprFantasyPointsPerGameSeason3: number | null;
+  pprFantasyPointsPerGameSeason4: number | null;
+  pprFantasyPointsPerGameSeason5: number | null;
+  pprFantasyPointsPerGameAvgSeason1To3: number | null;
 };
 
 type DataType = PlayerData[];
